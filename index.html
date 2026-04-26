@@ -3,15 +3,35 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Buddy the Owl — Grade 3 English Tutor</title>
+<title>Adept Buddy — Imperial Scholarum of Grade III</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --imp-gold: #c97e5a;
+    --imp-gold-bright: #e8967a;
+    --imp-gold-dark: #a05a38;
+    --imp-red: #c97e5a;
+    --imp-red-bright: #e8967a;
+    --imp-bone: #faf9f7;
+    --imp-parchment: #f0ece4;
+    --imp-stone: #4a4540;
+    --imp-stone-light: #6b6560;
+    --imp-stone-dark: #1a1714;
+    --imp-blue: #3a6ea8;
+    --imp-blue-bright: #5a8ec8;
+    --imp-green: #3a7a4a;
+    --imp-green-bright: #5aaa6a;
+    --imp-success: #3a7a4a;
+    --imp-fail: #b05040;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
   body {
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', system-ui, sans-serif;
-    background: linear-gradient(135deg, #ffe9b3 0%, #ffd1dc 50%, #b3e5fc 100%);
-    color: #2c2c54;
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    background: #f0ece8;
+    color: #2a2420;
     overflow: hidden;
+    background-attachment: fixed;
   }
   #app {
     display: flex;
@@ -19,41 +39,85 @@
     height: 100vh;
     max-width: 900px;
     margin: 0 auto;
-    background: #fffdf6;
-    border-left: 4px dashed #ffb347;
-    border-right: 4px dashed #ffb347;
+    background: #faf9f7;
+    border-left: 1px solid #e0d8d0;
+    border-right: 1px solid #e0d8d0;
+    box-shadow: 0 0 24px rgba(0,0,0,0.08);
+    position: relative;
   }
   header {
-    background: linear-gradient(90deg, #6c5ce7, #a29bfe);
-    color: white;
-    padding: 14px 20px;
+    background: #ffffff;
+    color: var(--imp-gold);
+    padding: 12px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-bottom: 2px solid #ede8e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     z-index: 5;
-  }
-  header h1 {
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
+    position: relative;
     gap: 10px;
   }
-  .owl-avatar {
-    font-size: 1.8rem;
-    animation: bob 2s ease-in-out infinite;
-    display: inline-block;
+  header::before, header::after {
+    content: "✦";
+    color: var(--imp-gold);
+    font-size: 1rem;
+    opacity: 0.5;
+    flex-shrink: 0;
   }
-  @keyframes bob {
-    0%, 100% { transform: translateY(0) rotate(-3deg); }
-    50% { transform: translateY(-4px) rotate(3deg); }
+  header h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: none;
+    color: #2a2420;
+    flex: 1;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .owl-avatar {
+    font-size: 1.6rem;
+    animation: float 3s ease-in-out infinite;
+    display: inline-block;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-3px) rotate(2deg); }
+  }
+  #unit-badge {
+    display: none;
+    padding: 4px 10px;
+    border: 1px solid var(--imp-gold);
+    border-radius: 2px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   #scoreboard {
-    background: rgba(255,255,255,0.25);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.95rem;
-    font-weight: bold;
+    background: #fff5f0;
+    color: var(--imp-gold);
+    padding: 5px 12px;
+    border: 1.5px solid var(--imp-gold);
+    border-radius: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    box-shadow: none;
+    transition: transform 0.25s;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   #chat {
     flex: 1;
@@ -61,476 +125,682 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
     scroll-behavior: smooth;
+    background: #f5f2ee;
   }
   .msg {
     display: flex;
     align-items: flex-end;
     gap: 10px;
-    max-width: 85%;
+    max-width: 90%;
     animation: pop 0.3s ease;
   }
   @keyframes pop {
-    from { opacity: 0; transform: translateY(10px) scale(0.95); }
+    from { opacity: 0; transform: translateY(10px) scale(0.96); }
     to { opacity: 1; transform: translateY(0) scale(1); }
   }
   .msg.bot { align-self: flex-start; }
   .msg.user { align-self: flex-end; flex-direction: row-reverse; }
   .bubble {
     padding: 12px 18px;
-    border-radius: 20px;
     font-size: 1.05rem;
-    line-height: 1.5;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    line-height: 1.55;
     word-wrap: break-word;
+    position: relative;
   }
   .msg.bot .bubble {
-    background: #fff;
-    border: 2px solid #a29bfe;
-    border-bottom-left-radius: 4px;
+    background: #ffffff;
+    color: #2a2420;
+    border: 1px solid #e8e2da;
+    border-radius: 10px 10px 10px 2px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-family: 'Cormorant Garamond', serif;
   }
   .msg.user .bubble {
-    background: #6c5ce7;
-    color: white;
-    border-bottom-right-radius: 4px;
+    background: linear-gradient(180deg, var(--imp-gold-bright) 0%, var(--imp-gold) 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px 10px 2px 10px;
+    box-shadow: 0 2px 8px rgba(201,126,90,0.3);
+    font-weight: 500;
   }
   .avatar-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     flex-shrink: 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    border: 1.5px solid #e0d8d0;
+    background: #fff8f5;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transform: rotate(45deg);
+    border-radius: 4px;
   }
-  .avatar-icon.bot { background: #a29bfe; }
-  .avatar-icon.user { background: #ffb347; }
+  .avatar-icon > span { transform: rotate(-45deg); display: inline-block; }
   .options {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 6px;
+    margin-top: 10px;
   }
-  .option-btn, .topic-btn, .action-btn {
-    padding: 10px 18px;
-    border: 2px solid #6c5ce7;
-    background: white;
-    color: #6c5ce7;
-    border-radius: 24px;
-    font-family: inherit;
-    font-size: 1rem;
+  .option-btn, .topic-btn, .action-btn, .unit-btn {
+    padding: 9px 16px;
+    border: 1.5px solid #e0d8d0;
+    background: #ffffff;
+    color: #2a2420;
+    border-radius: 8px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.15s;
-    font-weight: bold;
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
-  .option-btn:hover, .topic-btn:hover, .action-btn:hover {
-    background: #6c5ce7;
-    color: white;
+  .option-btn:hover, .topic-btn:hover, .action-btn:hover, .unit-btn:hover {
+    background: #fff5f0;
+    border-color: var(--imp-gold);
+    color: var(--imp-gold);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(108,92,231,0.3);
+    box-shadow: 0 4px 12px rgba(201,126,90,0.18);
   }
   .option-btn.correct {
-    background: #2ecc71;
-    color: white;
-    border-color: #2ecc71;
+    background: #f0faf0;
+    color: #2a6a3a;
+    border-color: #6abf7a;
   }
   .option-btn.wrong {
-    background: #e74c3c;
-    color: white;
-    border-color: #e74c3c;
+    background: #fff0ee;
+    color: #8a3a2a;
+    border-color: #e07060;
   }
-  .option-btn:disabled {
-    cursor: not-allowed;
-    opacity: 0.7;
+  .option-btn:disabled { cursor: not-allowed; opacity: 0.75; }
+
+  /* Unit selection grid */
+  .unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
   }
+  .unit-btn {
+    padding: 18px 14px;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+  .unit-btn.u4 { border-color: #7aacda; }
+  .unit-btn.u5 { border-color: #e0907a; }
+  .unit-btn.u6 { border-color: #7acf8a; }
+  .unit-btn.u4:hover { box-shadow: 0 4px 14px rgba(90,142,200,0.25); border-color: #5a8ec8; color: #3a6ea8; }
+  .unit-btn.u5:hover { box-shadow: 0 4px 14px rgba(201,126,90,0.25); border-color: var(--imp-gold); color: var(--imp-gold); }
+  .unit-btn.u6:hover { box-shadow: 0 4px 14px rgba(90,175,106,0.25); border-color: #5aaa6a; color: #3a7a4a; }
+  .unit-emoji { font-size: 2rem; display: block; margin-bottom: 6px; }
+  .unit-title { font-size: 0.9rem; display: block; margin-bottom: 3px; }
+  .unit-sub { font-size: 0.68rem; opacity: 0.8; display: block; letter-spacing: 0.05em; }
+
+  /* Topic grid */
   .topic-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
-    margin-top: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+    gap: 8px;
+    margin-top: 10px;
   }
   .topic-btn {
     text-align: center;
-    padding: 14px 10px;
-    font-size: 0.95rem;
+    padding: 12px 8px;
+    font-size: 0.75rem;
+    line-height: 1.3;
   }
-  .topic-emoji { font-size: 1.5rem; display: block; margin-bottom: 4px; }
+  .topic-emoji { font-size: 1.4rem; display: block; margin-bottom: 5px; filter: drop-shadow(0 0 4px rgba(241,210,122,0.4)); }
+
   #input-area {
     display: flex;
     gap: 8px;
     padding: 14px;
-    background: #fff8e7;
-    border-top: 3px dashed #ffb347;
+    background: #ffffff;
+    border-top: 1px solid #ede8e0;
   }
   #user-input {
     flex: 1;
-    padding: 12px 18px;
-    border: 2px solid #ffb347;
-    border-radius: 24px;
-    font-family: inherit;
+    padding: 10px 16px;
+    border: 1.5px solid #e0d8d0;
+    background: #faf9f7;
+    color: #2a2420;
+    border-radius: 8px;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1rem;
     outline: none;
   }
-  #user-input:focus { border-color: #6c5ce7; }
+  #user-input:focus {
+    border-color: var(--imp-gold);
+    box-shadow: 0 0 0 3px rgba(201,126,90,0.12);
+    background: #ffffff;
+  }
+  #user-input::placeholder { color: #b0a898; font-style: italic; }
   #send-btn {
-    padding: 12px 22px;
-    background: #6c5ce7;
-    color: white;
+    padding: 10px 20px;
+    background: var(--imp-gold);
+    color: #ffffff;
     border: none;
-    border-radius: 24px;
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: bold;
+    border-radius: 8px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.15s;
+    transition: all 0.2s;
   }
-  #send-btn:hover { background: #5a4dd0; }
-  .star { color: #f1c40f; }
+  #send-btn:hover {
+    background: var(--imp-gold-bright);
+    box-shadow: 0 4px 12px rgba(201,126,90,0.35);
+    transform: translateY(-1px);
+  }
   .lesson-content {
-    background: #fff8e7;
-    border-left: 4px solid #ffb347;
+    background: #fff8f5;
+    color: #2a2420;
+    border: 1px solid #ede0d8;
+    border-left: 4px solid var(--imp-gold);
     padding: 12px 16px;
-    border-radius: 8px;
+    border-radius: 6px;
     margin-top: 8px;
+    font-family: 'Cormorant Garamond', serif;
   }
-  .lesson-content strong { color: #6c5ce7; }
+  .lesson-content strong { color: var(--imp-gold); font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 0.05em; }
   .example {
-    background: #e8f4fd;
+    background: #f5f2ee;
+    border: 1px solid #e0d8d0;
     padding: 8px 12px;
-    border-radius: 8px;
+    border-radius: 6px;
     margin: 6px 0;
     font-style: italic;
+    color: #4a4540;
   }
   .feedback-correct {
-    background: #d4f5e0;
-    border-left: 4px solid #2ecc71;
+    background: #f0faf2;
+    color: #1a4828;
+    border: 1px solid #a0d8a8;
+    border-left: 4px solid var(--imp-success);
     padding: 10px 14px;
-    border-radius: 8px;
+    border-radius: 6px;
     margin-top: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
   }
   .feedback-wrong {
-    background: #fde2e0;
-    border-left: 4px solid #e74c3c;
+    background: #fff3f0;
+    color: #5a2018;
+    border: 1px solid #f0a898;
+    border-left: 4px solid #c05040;
     padding: 10px 14px;
-    border-radius: 8px;
+    border-radius: 6px;
     margin-top: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
   }
   .reading-passage {
-    background: #fffbe6;
-    border: 2px dashed #f1c40f;
-    padding: 12px 14px;
-    border-radius: 10px;
+    background: #f8f4ee;
+    color: #2a2420;
+    border: 1px solid #e0d8cc;
+    border-left: 4px solid var(--imp-gold-dark);
+    padding: 12px 16px;
+    border-radius: 6px;
     margin: 8px 0;
-    line-height: 1.6;
+    line-height: 1.7;
+    font-style: italic;
   }
-  /* scroll bar pretty */
-  #chat::-webkit-scrollbar { width: 8px; }
-  #chat::-webkit-scrollbar-track { background: transparent; }
-  #chat::-webkit-scrollbar-thumb { background: #a29bfe; border-radius: 4px; }
+  .bubble strong { font-family: 'Cinzel', serif; letter-spacing: 0.03em; color: var(--imp-gold); }
+  #chat::-webkit-scrollbar { width: 6px; }
+  #chat::-webkit-scrollbar-track { background: #f0ece8; }
+  #chat::-webkit-scrollbar-thumb {
+    background: #d8d0c8;
+    border-radius: 3px;
+  }
+  #chat::-webkit-scrollbar-thumb:hover { background: var(--imp-gold); }
+  #app::before {
+    content: none;
+  }
+  #chat, #input-area, header { position: relative; z-index: 1; }
 </style>
 </head>
 <body>
 <div id="app">
   <header>
-    <h1><span class="owl-avatar">🦉</span> Buddy the Owl</h1>
-    <div id="scoreboard">⭐ <span id="score">0</span> stars</div>
+    <h1><span class="owl-avatar">🦉</span> Adept Buddy</h1>
+    <div id="unit-badge"></div>
+    <div id="scoreboard">✠ <span id="score">0</span> Honour</div>
   </header>
   <div id="chat"></div>
   <div id="input-area">
-    <input id="user-input" type="text" placeholder="Type your answer here..." autocomplete="off" />
-    <button id="send-btn">Send</button>
+    <input id="user-input" type="text" placeholder="Speak your answer, scholar..." autocomplete="off" />
+    <button id="send-btn">Dispatch</button>
   </div>
 </div>
 
 <script>
 /* ================================================================
    BUDDY THE OWL — Grade 3 English/Language Arts Tutor
-   Self-contained chatbot. Lessons + quizzes, friendly persona.
+   Units 4, 5, 6 — based on classroom PDF materials
    ================================================================ */
 
 const state = {
   score: 0,
+  currentUnit: null,
   currentTopic: null,
-  mode: null,            // 'menu' | 'lesson' | 'quiz' | 'free'
+  mode: null,
   quizIndex: 0,
   quizCorrect: 0,
-  awaitingTextAnswer: null,  // {answer, onCorrect, onWrong} for free-text Q&A
 };
 
-/* ---------- TOPICS ---------- */
-const TOPICS = {
-  nouns: {
-    title: "Nouns",
-    emoji: "🏠",
-    lesson: [
-      "A <strong>noun</strong> is a word that names a <strong>person, place, thing, or idea</strong>.",
-      "<div class='example'>Person: <b>teacher</b>, <b>Mom</b>, <b>doctor</b><br>Place: <b>school</b>, <b>park</b>, <b>Taipei</b><br>Thing: <b>book</b>, <b>cat</b>, <b>bicycle</b><br>Idea: <b>love</b>, <b>freedom</b>, <b>happiness</b></div>",
-      "There are two kinds of nouns:<br>• <strong>Common nouns</strong> name any person, place, or thing (girl, city, dog).<br>• <strong>Proper nouns</strong> name a specific one and start with a CAPITAL letter (Lily, Tokyo, Buddy)."
-    ],
-    quiz: [
-      { q: "Which word is a noun?", options: ["run", "happy", "dog", "quickly"], answer: 2, explain: "'Dog' is a thing — that makes it a noun!" },
-      { q: "Which is a proper noun?", options: ["city", "Taipei", "park", "river"], answer: 1, explain: "'Taipei' names a specific city, so it's a proper noun and starts with a capital letter." },
-      { q: "Pick the noun in this sentence: 'The boy ran fast.'", options: ["The", "boy", "ran", "fast"], answer: 1, explain: "'Boy' is a person, so it is the noun." },
-      { q: "Which one is NOT a noun?", options: ["apple", "school", "jump", "teacher"], answer: 2, explain: "'Jump' is an action — it's a verb, not a noun." },
-      { q: "Which is an idea (a kind of noun)?", options: ["chair", "love", "car", "tree"], answer: 1, explain: "'Love' is a feeling/idea, not something you can touch — it's still a noun!" }
-    ]
-  },
-  verbs: {
-    title: "Verbs",
-    emoji: "🏃",
-    lesson: [
-      "A <strong>verb</strong> is an <strong>action word</strong> — it tells what someone or something does.",
-      "<div class='example'>Examples: <b>run, jump, eat, sing, write, think</b></div>",
-      "Verbs change to show <strong>when</strong> the action happens:<br>• Past: <b>walked</b> (yesterday)<br>• Present: <b>walk / walks</b> (today)<br>• Future: <b>will walk</b> (tomorrow)"
-    ],
-    quiz: [
-      { q: "Which word is a verb?", options: ["happy", "swim", "blue", "table"], answer: 1, explain: "'Swim' is something you DO — that's a verb!" },
-      { q: "Find the verb: 'The cat sleeps on the mat.'", options: ["cat", "sleeps", "mat", "the"], answer: 1, explain: "'Sleeps' is the action the cat is doing." },
-      { q: "Which is the past tense of 'jump'?", options: ["jumping", "jumps", "jumped", "jump"], answer: 2, explain: "Add '-ed' to many verbs to make the past tense: jump → jumped." },
-      { q: "Which sentence shows the FUTURE?", options: ["I played soccer.", "I play soccer.", "I will play soccer.", "I am playing soccer."], answer: 2, explain: "'Will play' tells us it hasn't happened yet — it's the future." },
-      { q: "Pick the verb: 'Birds fly in the sky.'", options: ["birds", "fly", "in", "sky"], answer: 1, explain: "'Fly' is what the birds DO." }
-    ]
-  },
-  adjectives: {
-    title: "Adjectives",
-    emoji: "🌈",
-    lesson: [
-      "An <strong>adjective</strong> is a word that <strong>describes a noun</strong>. It tells us what something is like.",
-      "<div class='example'>The <b>fluffy</b> cat. The <b>tall</b> tree. A <b>delicious</b> cookie.</div>",
-      "Adjectives can describe size (big, small), color (red, blue), shape (round, square), feeling (happy, sad), or how something feels (soft, hard)."
-    ],
-    quiz: [
-      { q: "Which word is an adjective?", options: ["sing", "tall", "table", "Tom"], answer: 1, explain: "'Tall' describes how something looks — it's an adjective." },
-      { q: "Find the adjective: 'The red apple is sweet.'", options: ["red", "apple", "is", "the"], answer: 0, explain: "'Red' tells us what color the apple is." },
-      { q: "Which adjective describes how something feels?", options: ["loud", "blue", "soft", "fast"], answer: 2, explain: "'Soft' tells how something feels when you touch it." },
-      { q: "Pick the adjective: 'A tiny mouse ran by.'", options: ["mouse", "ran", "tiny", "by"], answer: 2, explain: "'Tiny' describes the size of the mouse." },
-      { q: "Which sentence has TWO adjectives?", options: ["The dog ran fast.", "I see a small, brown puppy.", "She likes apples.", "We played outside."], answer: 1, explain: "'Small' and 'brown' both describe the puppy — two adjectives!" }
-    ]
-  },
-  pronouns: {
-    title: "Pronouns",
-    emoji: "👫",
-    lesson: [
-      "A <strong>pronoun</strong> takes the place of a noun so we don't have to repeat the same word.",
-      "<div class='example'>Without pronoun: <b>Lily</b> got <b>Lily's</b> book and <b>Lily</b> read it.<br>With pronoun: <b>Lily</b> got <b>her</b> book and <b>she</b> read it. ✨</div>",
-      "Common pronouns: <strong>I, you, he, she, it, we, they, me, him, her, us, them, my, your, his, our, their</strong>."
-    ],
-    quiz: [
-      { q: "Which word is a pronoun?", options: ["she", "dog", "run", "happy"], answer: 0, explain: "'She' takes the place of a girl's name — that's a pronoun." },
-      { q: "Which pronoun replaces 'Tom'?", options: ["she", "they", "he", "we"], answer: 2, explain: "Tom is a boy, so we use 'he'." },
-      { q: "Which pronoun replaces 'the cat'?", options: ["he", "she", "it", "they"], answer: 2, explain: "We use 'it' for animals or things." },
-      { q: "Pick the pronoun: 'They went to the park.'", options: ["went", "to", "they", "park"], answer: 2, explain: "'They' is the pronoun — it stands for some people." },
-      { q: "Which pronoun replaces 'Mary and Sam'?", options: ["he", "she", "it", "they"], answer: 3, explain: "Two or more people = 'they'." }
-    ]
-  },
-  sentences: {
-    title: "Sentences",
-    emoji: "📝",
-    lesson: [
-      "A <strong>complete sentence</strong> has two parts:<br>• A <strong>subject</strong> (who or what)<br>• A <strong>predicate</strong> (what they do or are)",
-      "<div class='example'><b>The dog</b> (subject) <b>barked loudly</b> (predicate).</div>",
-      "Every sentence must:<br>• Start with a <strong>capital letter</strong><br>• End with a <strong>. ? or !</strong><br>• Tell a complete thought"
-    ],
-    quiz: [
-      { q: "Which is a complete sentence?", options: ["The big red.", "Running fast.", "Birds sing.", "Under the tree."], answer: 2, explain: "'Birds sing' has a subject (birds) AND a predicate (sing)." },
-      { q: "What is the subject of: 'My sister loves cookies.'?", options: ["loves", "cookies", "My sister", "the"], answer: 2, explain: "'My sister' is who the sentence is about." },
-      { q: "What is wrong with: 'the cat is sleeping'?", options: ["No verb", "No capital letter", "Too long", "Nothing"], answer: 1, explain: "Sentences must START with a capital letter: 'The cat is sleeping.'" },
-      { q: "Which group of words is NOT a sentence?", options: ["Dogs run.", "I am tired.", "The big yellow.", "She smiled."], answer: 2, explain: "'The big yellow' is missing the rest — it's not a complete thought." },
-      { q: "What is the predicate of: 'The boy laughed.'?", options: ["The boy", "laughed", "the", "boy"], answer: 1, explain: "'Laughed' is what the boy did — that's the predicate." }
-    ]
-  },
-  punctuation: {
-    title: "Punctuation",
-    emoji: "❗",
-    lesson: [
-      "<strong>Punctuation marks</strong> are the little symbols that help sentences make sense:",
-      "<div class='example'>• <b>.</b> period — for telling sentences (I like cats.)<br>• <b>?</b> question mark — for questions (Do you like cats?)<br>• <b>!</b> exclamation — for excitement (I love cats!)<br>• <b>,</b> comma — to pause or list (I have apples, oranges, and grapes.)</div>",
-      "Always put a punctuation mark at the END of every sentence!"
-    ],
-    quiz: [
-      { q: "Which mark goes at the end? 'Where is my pencil___'", options: [".", "?", "!", ","], answer: 1, explain: "It's a question, so we use '?'" },
-      { q: "Which mark belongs here? 'Wow, that is amazing___'", options: [".", "?", "!", ","], answer: 2, explain: "It shows excitement, so '!' is best." },
-      { q: "Where do commas belong? 'I bought milk eggs and bread.'", options: ["milk, eggs, and bread", "milk eggs, and bread", "milk, eggs and bread", "no commas needed"], answer: 0, explain: "Use commas between items in a list." },
-      { q: "Which sentence is correctly punctuated?", options: ["i love pizza", "I love pizza", "I love pizza.", "I love pizza?"], answer: 2, explain: "It's a telling sentence with a capital letter and a period." },
-      { q: "Which mark is at the end of a question?", options: ["period", "comma", "question mark", "exclamation"], answer: 2, explain: "Questions end with a question mark!" }
-    ]
-  },
-  capitalization: {
-    title: "Capitalization",
-    emoji: "🔠",
-    lesson: [
-      "We use <strong>CAPITAL letters</strong> in special places:",
-      "<div class='example'>• The <b>first letter</b> of every sentence (The dog ran.)<br>• <b>Names</b> of people (Lily, Mr. Lin)<br>• <b>Names of places</b> (Taiwan, Fuhsing School)<br>• <b>Days & months</b> (Monday, July)<br>• The word <b>I</b> — always!</div>",
-      "Tip: If it names a SPECIFIC person, place, day, or month — capitalize it!"
-    ],
-    quiz: [
-      { q: "Which sentence is written correctly?", options: ["my friend is anna.", "My friend is Anna.", "my friend is Anna.", "My friend is anna."], answer: 1, explain: "Capital 'M' to start, capital 'A' for the name Anna." },
-      { q: "Which word should be capitalized?", options: ["dog", "monday", "happy", "run"], answer: 1, explain: "Days of the week — like Monday — are always capitalized." },
-      { q: "Pick the correctly capitalized sentence:", options: ["i went to japan.", "I went to Japan.", "I went to japan.", "i Went to Japan."], answer: 1, explain: "'I' is always capital, and Japan is a place name." },
-      { q: "Which word is a proper noun (needs a capital)?", options: ["school", "fuhsing", "teacher", "book"], answer: 1, explain: "Fuhsing is the NAME of a specific school — capital F!" },
-      { q: "Which is correct?", options: ["she likes july.", "She likes July.", "She Likes july.", "she Likes July."], answer: 1, explain: "Capital 'S' to start the sentence, capital 'J' for the month." }
-    ]
-  },
-  synonyms: {
-    title: "Synonyms",
-    emoji: "👯",
-    lesson: [
-      "<strong>Synonyms</strong> are words that mean the <strong>same</strong> thing (or almost the same).",
-      "<div class='example'>big = <b>large, huge, giant</b><br>happy = <b>glad, joyful, cheerful</b><br>fast = <b>quick, speedy, swift</b></div>",
-      "Using different synonyms makes your writing more interesting!"
-    ],
-    quiz: [
-      { q: "Which word is a synonym for 'big'?", options: ["small", "large", "tiny", "short"], answer: 1, explain: "'Large' means the same as 'big'." },
-      { q: "Pick a synonym for 'happy':", options: ["sad", "angry", "joyful", "tired"], answer: 2, explain: "'Joyful' means feeling happy." },
-      { q: "What is another word for 'fast'?", options: ["slow", "quick", "loud", "soft"], answer: 1, explain: "'Quick' and 'fast' mean the same thing." },
-      { q: "Which is a synonym for 'pretty'?", options: ["ugly", "mean", "beautiful", "strange"], answer: 2, explain: "'Beautiful' means the same as 'pretty'." },
-      { q: "Which two words are synonyms?", options: ["hot/cold", "begin/start", "up/down", "day/night"], answer: 1, explain: "'Begin' and 'start' both mean to commence — synonyms!" }
-    ]
-  },
-  antonyms: {
-    title: "Antonyms",
-    emoji: "↔️",
-    lesson: [
-      "<strong>Antonyms</strong> are words that mean the <strong>OPPOSITE</strong> of each other.",
-      "<div class='example'>hot ↔ <b>cold</b><br>up ↔ <b>down</b><br>happy ↔ <b>sad</b><br>young ↔ <b>old</b></div>",
-      "Tip: 'Anti-' means against, so <b>antonyms</b> are words that go against each other!"
-    ],
-    quiz: [
-      { q: "What is the opposite of 'hot'?", options: ["warm", "cold", "fire", "sunny"], answer: 1, explain: "'Cold' is the opposite of 'hot'." },
-      { q: "Pick the antonym of 'tall':", options: ["big", "short", "long", "high"], answer: 1, explain: "'Short' means the opposite of 'tall'." },
-      { q: "What is the opposite of 'happy'?", options: ["glad", "joyful", "sad", "smiling"], answer: 2, explain: "'Sad' is the opposite of 'happy'." },
-      { q: "Which is the antonym of 'open'?", options: ["start", "shut", "look", "find"], answer: 1, explain: "'Shut' (or close) is the opposite of 'open'." },
-      { q: "Which pair are antonyms?", options: ["big/large", "fast/quick", "day/night", "happy/glad"], answer: 2, explain: "Day and night are opposites — antonyms!" }
-    ]
-  },
-  compound: {
-    title: "Compound Words",
-    emoji: "🧩",
-    lesson: [
-      "A <strong>compound word</strong> is two smaller words joined together to make a NEW word.",
-      "<div class='example'>sun + shine = <b>sunshine</b> ☀️<br>rain + bow = <b>rainbow</b> 🌈<br>butter + fly = <b>butterfly</b> 🦋<br>basket + ball = <b>basketball</b> 🏀</div>",
-      "Trick: If you can split a word into two real words, it's probably a compound word!"
-    ],
-    quiz: [
-      { q: "Which is a compound word?", options: ["happy", "rainbow", "table", "running"], answer: 1, explain: "Rain + bow = rainbow. Two words make one!" },
-      { q: "What does 'sunflower' break into?", options: ["sun + flower", "sunny + flower", "sun + low", "sunfl + ower"], answer: 0, explain: "Sun + flower = sunflower." },
-      { q: "Which is NOT a compound word?", options: ["football", "snowman", "elephant", "toothbrush"], answer: 2, explain: "'Elephant' is just one word — it can't be split into two real words." },
-      { q: "Make a compound word: butter + ___?", options: ["eat", "fly", "hat", "run"], answer: 1, explain: "Butter + fly = butterfly!" },
-      { q: "Which is a compound word?", options: ["beautiful", "playground", "pencil", "school"], answer: 1, explain: "Play + ground = playground." }
-    ]
-  },
-  prefix: {
-    title: "Prefixes & Suffixes",
-    emoji: "🔧",
-    lesson: [
-      "A <strong>prefix</strong> is a tiny word piece we add to the BEGINNING of a word to change its meaning.",
-      "<div class='example'>• <b>un-</b> means 'not': happy → <b>un</b>happy (not happy)<br>• <b>re-</b> means 'again': read → <b>re</b>read (read again)<br>• <b>pre-</b> means 'before': school → <b>pre</b>school</div>",
-      "A <strong>suffix</strong> is added to the END of a word.<br><div class='example'>• <b>-ed</b> = past: jump → jump<b>ed</b><br>• <b>-ing</b> = happening now: run → runn<b>ing</b><br>• <b>-ful</b> = full of: hope → hope<b>ful</b><br>• <b>-less</b> = without: hope → hope<b>less</b></div>"
-    ],
-    quiz: [
-      { q: "What does 'unhappy' mean?", options: ["very happy", "not happy", "happy again", "happy person"], answer: 1, explain: "'Un-' means NOT, so unhappy = not happy." },
-      { q: "Add 're-' to 'play'. What does it mean?", options: ["not play", "play before", "play again", "play loudly"], answer: 2, explain: "'Re-' means again. Replay = play again." },
-      { q: "What is the suffix in 'helpful'?", options: ["help", "-ful", "-pful", "h-"], answer: 1, explain: "'-ful' is the suffix and means 'full of'." },
-      { q: "Which word means 'without hope'?", options: ["hopeful", "hopeless", "hoping", "rehope"], answer: 1, explain: "'-less' means without — hopeless = without hope." },
-      { q: "Which prefix means 'not'?", options: ["re-", "pre-", "un-", "-ing"], answer: 2, explain: "'Un-' means NOT (unkind = not kind)." }
-    ]
-  },
-  spelling: {
-    title: "Spelling",
-    emoji: "🐝",
-    lesson: [
-      "Some <strong>spelling rules</strong> for Grade 3:",
-      "<div class='example'>• Words ending in <b>-y</b>: change y to <b>i</b> when adding -es or -ed.<br>baby → bab<b>ies</b>, cry → cri<b>ed</b><br>• Words ending in silent <b>e</b>: drop the e before -ing.<br>bake → bak<b>ing</b>, write → writ<b>ing</b><br>• Double the consonant after a short vowel before -ing/-ed:<br>run → ru<b>nn</b>ing, hop → ho<b>pp</b>ed</div>",
-      "Tricky words to know: <b>their / there / they're</b>, <b>its / it's</b>, <b>your / you're</b>"
-    ],
-    quiz: [
-      { q: "What is the plural of 'baby'?", options: ["babys", "babyes", "babies", "babis"], answer: 2, explain: "Words ending in -y: change y to i and add -es. Baby → babies." },
-      { q: "Which is correct?", options: ["runing", "runnning", "running", "runing"], answer: 2, explain: "Double the 'n' before adding -ing: running." },
-      { q: "Which is correct? '___ going to the park.'", options: ["Their", "There", "They're", "They"], answer: 2, explain: "'They're' = 'they are'. They are going to the park." },
-      { q: "Which is the right spelling?", options: ["frend", "freind", "friend", "frined"], answer: 2, explain: "Friend — remember: 'i' before 'e'." },
-      { q: "Which is correct? 'The dog wagged ___ tail.'", options: ["it's", "its", "is", "it is"], answer: 1, explain: "'Its' (no apostrophe) shows ownership. 'It's' means 'it is'." }
-    ]
-  },
-  reading: {
-    title: "Reading",
-    emoji: "📖",
-    lesson: [
-      "When you <strong>read a story</strong>, look for these things:",
-      "<div class='example'>• <b>Characters</b> — who is in the story?<br>• <b>Setting</b> — where and when does it happen?<br>• <b>Problem</b> — what goes wrong?<br>• <b>Solution</b> — how is it fixed?<br>• <b>Main idea</b> — what is the story mostly about?</div>",
-      "Tip: Read each sentence carefully. If you don't know a word, try reading the WHOLE sentence to guess the meaning!"
-    ],
-    quiz: [
-      {
-        passage: "Mia woke up to find her cat, Whiskers, missing! She searched under the bed and behind the sofa. Finally, she heard a soft 'meow' from the kitchen. Whiskers was hiding inside the cookie jar! Mia laughed and gave him a big hug.",
-        q: "Who is the main character?",
-        options: ["Whiskers", "Mia", "the cookie jar", "the sofa"],
-        answer: 1,
-        explain: "The story is mostly about Mia looking for her cat."
+/* ================================================================
+   CURRICULUM DATA
+   ================================================================ */
+
+const UNITS = {
+
+  /* -------- UNIT 4: ADJECTIVES & ADVERBS -------- */
+  u4: {
+    title: "Unit 4",
+    subtitle: "Adjectives & Adverbs",
+    emoji: "✨",
+    cssClass: "u4",
+    topics: {
+      adj_kind: {
+        title: "Adjectives: What Kind",
+        emoji: "🎨",
+        lesson: [
+          "Words that describe nouns are called <strong>adjectives</strong>. Many adjectives tell <strong>what kind</strong>.",
+          "<div class='example'>The <b>bushy</b> trees. &nbsp; A <b>yellow</b> butterfly. &nbsp; A <b>frisky</b> kitten. &nbsp; A <b>squeaky</b> noise.</div>",
+          "Adjectives make sentences more interesting — they give details that make the meaning clearer!<br><br>" +
+          "An adjective usually comes <strong>before</strong> the noun it describes:<br>" +
+          "<div class='example'>The <b>loud</b> sirens woke me up. &nbsp; The <b>old</b> barn was on fire.</div>"
+        ],
+        quiz: [
+          { q: "Which word is an adjective that tells WHAT KIND?", options: ["run", "blue", "table", "quickly"], answer: 1, explain: "'Blue' describes what color something is — that's a what-kind adjective!" },
+          { q: "Find the adjective: 'Loud sirens woke me up.'", options: ["Loud", "sirens", "woke", "up"], answer: 0, explain: "'Loud' tells what kind of sirens they were." },
+          { q: "Which word is the adjective in 'The old barn was on fire'?", options: ["old", "barn", "was", "fire"], answer: 0, explain: "'Old' describes the barn — it tells what kind." },
+          { q: "Which sentence has an adjective telling WHAT KIND?", options: ["Dogs barked.", "She runs fast.", "The frisky kitten ran.", "He goes home."], answer: 2, explain: "'Frisky' is an adjective describing what kind of kitten." },
+          { q: "Find the adjective: 'Then Alonzo heard a squeaky noise.'", options: ["Alonzo", "heard", "squeaky", "noise"], answer: 2, explain: "'Squeaky' tells what kind of noise — it's the adjective!" }
+        ]
       },
-      {
-        passage: "Mia woke up to find her cat, Whiskers, missing! She searched under the bed and behind the sofa. Finally, she heard a soft 'meow' from the kitchen. Whiskers was hiding inside the cookie jar! Mia laughed and gave him a big hug.",
-        q: "Where was Whiskers hiding?",
-        options: ["under the bed", "behind the sofa", "in the cookie jar", "outside"],
-        answer: 2,
-        explain: "The story tells us Whiskers was hiding INSIDE the cookie jar in the kitchen!"
+      adj_many: {
+        title: "Adjectives: How Many",
+        emoji: "🔢",
+        lesson: [
+          "Adjectives can also tell <strong>how many</strong>: one, two, three, four, some, many, several, a few, eight.",
+          "<div class='example'><b>Two</b> bears waded in a pool.<br><b>Some</b> lions were in the cage.<br><b>Four</b> elephants drank water.<br><b>A few</b> monkeys made faces at us.</div>",
+          "A how-many adjective comes <strong>before</strong> the noun it describes. These are also called <strong>number adjectives</strong>!"
+        ],
+        quiz: [
+          { q: "Which is an adjective that tells HOW MANY?", options: ["tall", "several", "purple", "quickly"], answer: 1, explain: "'Several' tells how many — that makes it a how-many adjective!" },
+          { q: "Find the how-many adjective: 'Two bears waded in a pool.'", options: ["Two", "bears", "waded", "pool"], answer: 0, explain: "'Two' tells exactly how many bears there were." },
+          { q: "Which word tells HOW MANY? 'A few monkeys made faces at us.'", options: ["few", "monkeys", "made", "faces"], answer: 0, explain: "'Few' tells how many monkeys — it's the how-many adjective!" },
+          { q: "'They passed many towns along the way.' What does 'many' tell us?", options: ["what kind", "how many", "where", "how"], answer: 1, explain: "'Many' is a how-many adjective. It tells how many towns." },
+          { q: "Which is NOT a how-many adjective?", options: ["three", "several", "bumpy", "eight"], answer: 2, explain: "'Bumpy' tells what kind — it's a what-kind adjective, not a how-many adjective!" }
+        ]
       },
-      {
-        passage: "Tom planted a tiny seed in his garden. Every day he watered it and made sure it had sunlight. After many weeks, a green sprout pushed through the soil. Tom was so proud of his little plant.",
-        q: "What is this story mostly about?",
-        options: ["Tom's school day", "Tom growing a plant", "Tom playing a game", "Tom's favorite food"],
-        answer: 1,
-        explain: "The whole story is about Tom planting and growing a plant — that's the main idea!"
+      adj_compare: {
+        title: "Comparing Adjectives (-er / -est)",
+        emoji: "⚖️",
+        lesson: [
+          "Adjectives can show how things are alike or different. We can <strong>compare</strong> with adjectives!",
+          "Add <strong>-er</strong> to compare <strong>two</strong> persons, places, or things:<br><div class='example'>Mars is a <b>small</b>er planet than Jupiter.</div>",
+          "Add <strong>-est</strong> to compare <strong>more than two</strong> persons, places, or things:<br><div class='example'>Pluto is the <b>small</b>est planet of all three.<br>Mercury is the second <b>small</b>est planet.</div>"
+        ],
+        quiz: [
+          { q: "Use -er or -est: 'A day on Jupiter is ___ than a day on Earth.' (short)", options: ["shorter", "shortest", "more short", "most short"], answer: 0, explain: "We compare TWO things (Jupiter and Earth), so we add -er: shorter." },
+          { q: "Use -er or -est: 'Pluto is the ___ of the three planets.' (small)", options: ["smaller", "smallest", "more small", "smalls"], answer: 1, explain: "We compare THREE things, so we add -est: smallest." },
+          { q: "Mars is a ___ planet than Jupiter. (small)", options: ["smaller", "smallest", "more small", "most small"], answer: 0, explain: "Comparing two planets → add -er: smaller." },
+          { q: "Saturn is the ___ of the three planets. (warm)", options: ["warmer", "warmest", "more warm", "most warm"], answer: 1, explain: "Comparing more than two → add -est: warmest." },
+          { q: "Venus has a ___ year than Neptune. (long)", options: ["longer", "longest", "more long", "most long"], answer: 0, explain: "Comparing two planets → add -er: longer." }
+        ]
       },
-      {
-        passage: "Tom planted a tiny seed in his garden. Every day he watered it and made sure it had sunlight. After many weeks, a green sprout pushed through the soil. Tom was so proud of his little plant.",
-        q: "What did the seed need to grow?",
-        options: ["chocolate and ice", "water and sunlight", "books and pencils", "music and dancing"],
-        answer: 1,
-        explain: "The story says Tom watered it and made sure it had sunlight."
+      articles: {
+        title: "Articles: a, an, the",
+        emoji: "📄",
+        lesson: [
+          "The words <strong>a</strong>, <strong>an</strong>, and <strong>the</strong> are special adjectives called <strong>articles</strong>.",
+          "Use <strong>a</strong> before words that begin with a <strong>consonant sound</strong>:<br><div class='example'>a long line &nbsp; a farm &nbsp; a funny joke &nbsp; a smart dog</div>",
+          "Use <strong>an</strong> before words that begin with a <strong>vowel sound</strong> (a, e, i, o, u):<br><div class='example'>an apple &nbsp; an egg &nbsp; an old farm &nbsp; an hour &nbsp; an owl</div>",
+          "Use <strong>the</strong> before both singular AND plural nouns:<br><div class='example'>the gate &nbsp; the tickets &nbsp; the children</div>"
+        ],
+        quiz: [
+          { q: "Choose the correct article: 'Buddy is ___ unusual dog.'", options: ["a", "an", "the", "no article"], answer: 1, explain: "'Unusual' starts with a vowel sound (uh), so we use 'an'." },
+          { q: "Choose: 'There is ___ apple on the table.'", options: ["a", "an", "the", "no article"], answer: 1, explain: "'Apple' starts with a vowel (a), so we use 'an'." },
+          { q: "Choose: 'I waited for ___ hour.'", options: ["a", "an", "the", "no article"], answer: 1, explain: "'Hour' starts with a vowel sound (the h is silent), so we use 'an'." },
+          { q: "Choose: 'I see ___ old farm.'", options: ["a", "an", "the", "no article"], answer: 1, explain: "'Old' starts with a vowel sound (o), so we use 'an'." },
+          { q: "Choose: 'She has ___ funny joke.'", options: ["a", "an", "the", "no article"], answer: 0, explain: "'Funny' starts with the consonant f, so we use 'a'." }
+        ]
       },
-      {
-        passage: "It was raining, so the kids couldn't play outside. They felt sad. Then Mom suggested they build a big fort with blankets and pillows in the living room. Soon they were laughing and having the best afternoon ever!",
-        q: "How did the kids feel at the END of the story?",
-        options: ["sad", "angry", "happy", "tired"],
-        answer: 2,
-        explain: "They were laughing and having the best afternoon — they felt happy!"
+      adv_how: {
+        title: "Adverbs: How",
+        emoji: "🏃",
+        lesson: [
+          "A word that describes a verb is called an <strong>adverb</strong>. Adverbs can tell <strong>how</strong> an action happens.",
+          "<div class='example'>Kim walked up to the horse <b>bravely</b>. (walked how?)<br>She <b>carefully</b> sat on the horse. (sat how?)<br>The horse stood <b>quietly</b>. (stood how?)</div>",
+          "Tip: Most adverbs that tell <strong>HOW</strong> end in <strong>-ly</strong>!<br><div class='example'>swiftly &nbsp; silently &nbsp; noisily &nbsp; easily &nbsp; slowly &nbsp; carefully &nbsp; happily &nbsp; bravely</div>",
+          "Adverbs can come <strong>before or after</strong> the verb they describe."
+        ],
+        quiz: [
+          { q: "Which word is an adverb telling HOW? 'Kim carefully sat on the horse.'", options: ["Kim", "carefully", "sat", "horse"], answer: 1, explain: "'Carefully' tells HOW Kim sat — it's an adverb!" },
+          { q: "Which word is an adverb? 'The horse galloped suddenly.'", options: ["The", "horse", "galloped", "suddenly"], answer: 3, explain: "'Suddenly' tells HOW the horse galloped — it's an adverb ending in -ly." },
+          { q: "Which word tells HOW? 'She landed safely on its feet.'", options: ["She", "landed", "safely", "feet"], answer: 2, explain: "'Safely' tells how she landed — it's an adverb!" },
+          { q: "Most adverbs that tell HOW end in:", options: ["-ed", "-er", "-ly", "-ing"], answer: 2, explain: "Most how-adverbs end in -ly: quickly, slowly, carefully, happily!" },
+          { q: "Pick the adverb: 'Kim happily patted the horse's neck.'", options: ["Kim", "happily", "patted", "horse's"], answer: 1, explain: "'Happily' tells HOW Kim patted — it's the adverb." }
+        ]
+      },
+      adv_when_where: {
+        title: "Adverbs: When & Where",
+        emoji: "🗺️",
+        lesson: [
+          "Adverbs can also tell <strong>WHEN</strong> and <strong>WHERE</strong> an action happens.",
+          "Adverbs that tell <strong>WHEN</strong>:<br><div class='example'>soon &nbsp; then &nbsp; today &nbsp; tomorrow &nbsp; yesterday &nbsp; always &nbsp; first &nbsp; later &nbsp; next &nbsp; often</div>",
+          "Adverbs that tell <strong>WHERE</strong>:<br><div class='example'>here &nbsp; nearby &nbsp; out &nbsp; there &nbsp; upstairs &nbsp; ahead &nbsp; around &nbsp; away &nbsp; everywhere &nbsp; far</div>",
+          "<div class='example'><b>Yesterday</b> my family drove to Florida. (when)<br>We arrived <b>there</b> at night. (where)<br>Today we will tour the city. (when)</div>"
+        ],
+        quiz: [
+          { q: "Which adverb tells WHEN? 'Yesterday my family drove to Florida.'", options: ["Yesterday", "family", "drove", "Florida"], answer: 0, explain: "'Yesterday' tells WHEN the family drove — it's a when-adverb!" },
+          { q: "Does 'upstairs' tell WHEN or WHERE?", options: ["when", "where", "how", "what"], answer: 1, explain: "'Upstairs' tells WHERE — it describes a place or direction." },
+          { q: "He leaves for his job early. What does 'early' tell?", options: ["when", "where", "how many", "what kind"], answer: 0, explain: "'Early' tells WHEN he leaves — it's a when-adverb!" },
+          { q: "Which word tells WHERE? 'He walked all around.'", options: ["He", "walked", "all", "around"], answer: 3, explain: "'Around' tells WHERE he walked — it's a where-adverb!" },
+          { q: "Which word tells WHEN? 'I stopped often and took pictures.'", options: ["I", "stopped", "often", "pictures"], answer: 2, explain: "'Often' tells WHEN (how frequently) the action happens — it's a when-adverb!" }
+        ]
+      },
+      homophones: {
+        title: "To, Two, Too",
+        emoji: "🔀",
+        lesson: [
+          "The words <strong>to</strong>, <strong>two</strong>, and <strong>too</strong> sound exactly alike but have different meanings!",
+          "<div class='example'><b>to</b> = in the direction of: I went <b>to</b> school.<br><b>two</b> = the number 2: I ate <b>two</b> plums.<br><b>too</b> = also OR more than enough: I ate pears, <b>too</b>. / I ate <b>too</b> much.</div>",
+          "Tip: If you can replace it with the number <strong>2</strong>, use <em>two</em>. If it means <strong>also</strong> or <strong>too much</strong>, use <em>too</em>. Otherwise, use <em>to</em>!"
+        ],
+        quiz: [
+          { q: "Choose: 'We went ___ the park.'", options: ["to", "two", "too"], answer: 0, explain: "'To' means 'in the direction of' — we went in the direction of the park." },
+          { q: "Choose: 'I ate ___ plums.'", options: ["to", "two", "too"], answer: 1, explain: "'Two' is the number 2 — I ate 2 plums." },
+          { q: "Choose: 'She ate ___ much.'", options: ["to", "two", "too"], answer: 2, explain: "'Too' means 'more than enough' — she ate more than enough!" },
+          { q: "Choose: 'I like cats, and I like dogs ___.'", options: ["to", "two", "too"], answer: 2, explain: "'Too' means 'also' — I like dogs also!" },
+          { q: "Choose: 'There were ___ children.'", options: ["to", "two", "too"], answer: 1, explain: "'Two' is the number 2 — there were 2 children." }
+        ]
       }
-    ]
+    }
   },
-  story: {
-    title: "Story Parts",
-    emoji: "🎭",
-    lesson: [
-      "Every good story has these parts:",
-      "<div class='example'>• <b>Beginning</b> — meet the characters and the setting<br>• <b>Middle</b> — a problem happens<br>• <b>End</b> — the problem gets solved</div>",
-      "Stories also have:<br>• <strong>Characters</strong>: the people or animals in the story<br>• <strong>Setting</strong>: where and when it takes place<br>• <strong>Plot</strong>: the events that happen"
-    ],
-    quiz: [
-      { q: "What is the SETTING of a story?", options: ["the people in it", "where and when it happens", "what the problem is", "how it ends"], answer: 1, explain: "Setting = where AND when the story takes place." },
-      { q: "Who are the CHARACTERS?", options: ["the people or animals", "the place", "the time", "the title"], answer: 0, explain: "Characters are the people or animals in the story." },
-      { q: "Which part comes FIRST in a story?", options: ["end", "middle", "beginning", "problem"], answer: 2, explain: "Beginning comes first — it introduces the characters and setting." },
-      { q: "What is the PLOT?", options: ["the title", "the events that happen", "the cover picture", "the author's name"], answer: 1, explain: "Plot is the series of events — what happens in the story." },
-      { q: "Where does the PROBLEM usually happen?", options: ["beginning", "middle", "end", "title"], answer: 1, explain: "The problem usually shows up in the middle of the story." }
-    ]
+
+  /* -------- UNIT 5: CAPITALIZATION & PUNCTUATION -------- */
+  u5: {
+    title: "Unit 5",
+    subtitle: "Capitalization & Punctuation",
+    emoji: "✍️",
+    cssClass: "u5",
+    topics: {
+      sentences: {
+        title: "Correct Sentences",
+        emoji: "📝",
+        lesson: [
+          "Every sentence begins with a <strong>capital letter</strong> and ends with an <strong>end mark</strong>.",
+          "<div class='example'>A statement (telling sentence) ends with a <b>period (.)</b><br>A question ends with a <b>question mark (?)</b><br>An exclamation (strong feeling or command) ends with an <b>exclamation point (!)</b></div>",
+          "<div class='example'>I will do my science report<b>.</b><br>What will you write about<b>?</b><br>The printer works so fast<b>!</b><br>Print the report out now<b>!</b></div>"
+        ],
+        quiz: [
+          { q: "Which end mark belongs at the end? 'What will you write about___'", options: [".", "?", "!", ","], answer: 1, explain: "It's a question, so it ends with a question mark (?)." },
+          { q: "Which end mark belongs? 'The printer works so fast___'", options: [".", "?", "!", ","], answer: 2, explain: "It shows strong excitement, so it ends with an exclamation point (!)." },
+          { q: "Which sentence is written correctly?", options: ["i like computers.", "I like computers", "I like computers.", "i Like computers."], answer: 2, explain: "Starts with a capital 'I' and ends with a period." },
+          { q: "What is wrong with 'the cat is sleeping.'?", options: ["No verb", "No capital letter", "No period", "Nothing wrong"], answer: 1, explain: "Every sentence must begin with a capital letter — 'The cat is sleeping.'" },
+          { q: "Which end mark belongs? 'I will do my science report___'", options: [".", "?", "!", ","], answer: 0, explain: "It's a telling sentence (statement), so it ends with a period (.)" }
+        ]
+      },
+      proper_people: {
+        title: "Capitalizing People's Names",
+        emoji: "👤",
+        lesson: [
+          "<strong>Proper nouns</strong> name a specific person. They always begin with a <strong>capital letter</strong>.",
+          "A person's full name: <strong>Brandon Jones</strong>, <strong>Rosa L. Martinez</strong><br>Family titles used AS someone's name: <strong>Uncle Henry</strong>, <strong>Grandma</strong>, <strong>Aunt Sue</strong>",
+          "<div class='example'>Wrong: I invited <b>grandpa</b> to my party.<br>Right: I invited <b>Grandpa</b> to my party.</div>",
+          "Pets' names are also proper nouns: <strong>Pokey</strong>, <strong>Buster</strong>, <strong>Freckles</strong>"
+        ],
+        quiz: [
+          { q: "Which is written correctly?", options: ["uncle henry", "Uncle henry", "Uncle Henry", "uncle Henry"], answer: 2, explain: "Both 'Uncle' (title used as name) and 'Henry' (name) need capital letters." },
+          { q: "Which word should be capitalized? 'I invited grandpa to my party.'", options: ["invited", "grandpa", "party", "to"], answer: 1, explain: "'Grandpa' is used as a name here — it needs a capital G!" },
+          { q: "Which name needs a capital letter?", options: ["rosa", "city", "park", "table"], answer: 0, explain: "'Rosa' is a person's name — it must start with a capital letter." },
+          { q: "Which sentence is correct?", options: ["My dog is named pokey.", "My dog is named Pokey.", "my Dog is Named Pokey.", "My dog is named POKEY."], answer: 1, explain: "Pet names are proper nouns — 'Pokey' starts with a capital P." },
+          { q: "When should 'grandma' be capitalized?", options: ["Never", "When used as a name", "Always", "Only in stories"], answer: 1, explain: "Capitalize 'Grandma' when it's used as her name (like calling her Grandma). Don't capitalize if you say 'my grandma'." }
+        ]
+      },
+      proper_places: {
+        title: "Capitalizing Places",
+        emoji: "🌍",
+        lesson: [
+          "Names of <strong>specific places</strong> are proper nouns and begin with a <strong>capital letter</strong>.",
+          "<div class='example'>Streets: <b>Park Street</b>, <b>Whitehall Drive</b><br>Cities: <b>New York City</b>, <b>Fort Lauderdale</b><br>States: <b>Texas</b>, <b>Florida</b>, <b>California</b><br>Countries: <b>Canada</b>, <b>Egypt</b>, <b>Korea</b></div>",
+          "<div class='example'>Bodies of water &amp; parks: <b>Red River</b>, <b>Lake Erie</b>, <b>Whitehall Park</b><br>Schools: <b>Clarke Elementary School</b>, <b>Dillard High School</b></div>",
+          "Do NOT capitalize general words: I go to <em>school</em>. We played in the <em>park</em>. But: I go to <strong>Clarke Elementary School</strong>. We played in <strong>Whitehall Park</strong>."
+        ],
+        quiz: [
+          { q: "Which is written correctly?", options: ["new york city", "New york city", "New York City", "New York city"], answer: 2, explain: "All important words in a specific place name get capitals: New York City." },
+          { q: "Which place name needs capital letters?", options: ["river", "lake erie", "park", "street"], answer: 1, explain: "'Lake Erie' is the name of a specific lake — both words need capitals: Lake Erie." },
+          { q: "Choose correctly: 'She swam at ___ beach.'", options: ["hollywood beach", "Hollywood Beach", "Hollywood beach", "hollywood Beach"], answer: 1, explain: "'Hollywood Beach' is a specific place — both words need capital letters." },
+          { q: "Which sentence is correct?", options: ["We live in texas.", "We live in Texas.", "We Live In Texas.", "we live in Texas."], answer: 1, explain: "Only 'Texas' (the proper noun) needs a capital — not the other words." },
+          { q: "Which word does NOT need a capital letter when used alone?", options: ["canada", "nile river", "lake erie", "river"], answer: 3, explain: "'River' by itself is a common noun — it doesn't need a capital. But 'Nile River' does!" }
+        ]
+      },
+      abbreviations: {
+        title: "Abbreviations",
+        emoji: "✂️",
+        lesson: [
+          "An <strong>abbreviation</strong> is a short way to write a word. Most abbreviations begin with a capital letter and end with a <strong>period</strong>.",
+          "Days of the week:<br><div class='example'><b>Sun.</b> Mon. Tues. Wed. Thurs. Fri. Sat.</div>",
+          "Months of the year (May, June, July have NO abbreviation):<br><div class='example'><b>Jan. Feb. Mar. Apr.</b> May June July <b>Aug. Sept. Oct. Nov. Dec.</b></div>",
+          "Titles used with people's names:<br><div class='example'><b>Mr.</b> (Mister) &nbsp; <b>Mrs.</b> (married woman) &nbsp; <b>Ms.</b> (any woman) &nbsp; <b>Dr.</b> (Doctor)</div>"
+        ],
+        quiz: [
+          { q: "What is the correct abbreviation for Thursday?", options: ["Thur", "Thurs.", "Thurs", "TH."], answer: 1, explain: "Thursday abbreviates to Thurs. (capital T, ends with a period)." },
+          { q: "What is the correct abbreviation for August?", options: ["Au.", "Aug.", "Agu.", "Aug"], answer: 1, explain: "August abbreviates to Aug. (ends with a period)." },
+          { q: "Which is written correctly?", options: ["mr Peter Adams", "Mr. Peter Adams", "mr. Peter Adams", "MR. Peter Adams"], answer: 1, explain: "'Mr.' is correct — capital M and a period after the abbreviation." },
+          { q: "Which month does NOT have an abbreviation?", options: ["January", "June", "October", "December"], answer: 1, explain: "June (along with May and July) is short enough that it has no abbreviation!" },
+          { q: "What is the correct abbreviation for Doctor?", options: ["Doc.", "Dr", "Dr.", "D."], answer: 2, explain: "Doctor abbreviates to Dr. (capital D, ends with a period)." }
+        ]
+      },
+      commas_intro: {
+        title: "Commas After Introductory Words",
+        emoji: "⏸️",
+        lesson: [
+          "A <strong>comma</strong> shows a pause in a sentence.",
+          "Use a comma after <strong>yes</strong>, <strong>no</strong>, and <strong>well</strong> at the beginning of a sentence:<br><div class='example'><b>Yes,</b> I love to finger-paint.<br><b>No,</b> it's not painted yet.<br><b>Well,</b> can I help you paint?</div>",
+          "Use a comma after <strong>order words</strong> at the beginning of a sentence: first, second, next, then, finally:<br><div class='example'><b>First,</b> get a brush.<br><b>Then,</b> you dip it.<br><b>Finally,</b> remove the bread carefully.</div>"
+        ],
+        quiz: [
+          { q: "Where does the comma go? 'Yes I like painting.'", options: ["Yes, I like painting.", "Yes I, like painting.", "Yes I like, painting.", "Yes I like painting,"], answer: 0, explain: "Put a comma after 'Yes' at the beginning of the sentence." },
+          { q: "Which sentence has the comma in the right place?", options: ["First, get a brush.", "First get, a brush.", "First get a, brush.", "First get a brush."], answer: 0, explain: "Comma goes after the order word 'First' at the beginning." },
+          { q: "Which sentence needs a comma added?", options: ["I like art.", "Well I enjoy drawing.", "She painted.", "He ran."], answer: 1, explain: "'Well' at the beginning needs a comma: 'Well, I enjoy drawing.'" },
+          { q: "Where does the comma belong? 'No it is not ready yet.'", options: ["No, it is not ready yet.", "No it is, not ready yet.", "No it is not, ready yet.", "No it is not ready, yet."], answer: 0, explain: "Put the comma after 'No' at the beginning of the sentence." },
+          { q: "Which order word would need a comma after it at the start of a sentence?", options: ["Quickly", "First", "Very", "Almost"], answer: 1, explain: "'First' is an order word — it gets a comma: 'First, do your homework.'" }
+        ]
+      },
+      commas_series: {
+        title: "Commas in a Series",
+        emoji: "📋",
+        lesson: [
+          "When you list <strong>three or more</strong> items in a sentence, use commas to separate them. This is called a <strong>series</strong>.",
+          "<div class='example'>Wrong: Lisa Anne and Jason have birthdays in May.<br>Right: <b>Lisa, Anne, and Jason</b> have birthdays in May.</div>",
+          "<div class='example'>Mike asked for <b>sneakers, toys, and a puppy</b>.<br>The room was filled with <b>balloons, streamers, and signs</b>.</div>",
+          "Put a comma before the <strong>and</strong> (or <strong>or</strong>) before the last item in the list!"
+        ],
+        quiz: [
+          { q: "Where do commas belong? 'I have cats dogs and fish.'", options: ["I have cats, dogs, and fish.", "I have cats, dogs and fish.", "I, have, cats, dogs, and fish.", "I have cats dogs, and fish."], answer: 0, explain: "Use commas between all items: cats, dogs, and fish." },
+          { q: "Which sentence uses commas correctly in a series?", options: ["Kim Eric and Carey are on teams.", "Kim, Eric and Carey are on teams.", "Kim, Eric, and Carey are on teams.", "Kim Eric, and Carey are on teams."], answer: 2, explain: "Use commas after each item: Kim, Eric, and Carey." },
+          { q: "How many items do you need before using commas in a series?", options: ["two", "three or more", "four or more", "any number"], answer: 1, explain: "You need THREE or more items to use commas in a series." },
+          { q: "Which sentence correctly punctuates the series?", options: ["I bought milk, eggs, and bread.", "I bought milk eggs, and bread.", "I bought, milk, eggs, and bread.", "I bought milk, eggs and bread."], answer: 0, explain: "Commas go between all items: milk, eggs, and bread." },
+          { q: "Which sentence correctly uses commas in a series?", options: ["She visited her aunts uncles and cousins.", "She visited her aunts, uncles, and cousins.", "She visited her aunts uncles, and cousins.", "She visited, her aunts, uncles, and cousins."], answer: 1, explain: "Use commas between all three items: aunts, uncles, and cousins." }
+        ]
+      },
+      quotation: {
+        title: "Quotation Marks",
+        emoji: "💬",
+        lesson: [
+          "Use <strong>quotation marks (\" \")</strong> to show the <strong>exact words</strong> someone says.",
+          "Rules:<br>• Begin the first word inside the quotes with a <strong>capital letter</strong>.<br>• Put the <strong>end mark before</strong> the closing quotation mark.<br>• Use a <strong>comma</strong> to separate the quotation from the rest of the sentence.",
+          "<div class='example'>Tara said, <b>\"I like to read fables.\"</b><br><b>\"You woke me up!\"</b> Tyler exclaimed.<br>Nick said, <b>\"Look at my terrarium!\"</b></div>"
+        ],
+        quiz: [
+          { q: "Which sentence adds quotation marks correctly?", options: ['Nick said, "Look at my terrarium."', '"Nick said," Look at my terrarium.', 'Nick "said," Look at my terrarium.', 'Nick said, Look "at my terrarium."'], answer: 0, explain: "Quotation marks go around the exact words Nick said." },
+          { q: "Which sentence is punctuated correctly?", options: ['"Tara said, I like fables."', 'Tara said, "I like fables."', 'Tara said, I "like fables."', '"Tara said," I like fables.'], answer: 1, explain: "Comma after 'said', then quotation marks around the exact words." },
+          { q: "In a quotation, where does the end mark go?", options: ["After the closing quotation mark", "Before the closing quotation mark", "Before the comma", "Outside the sentence"], answer: 1, explain: "The end mark goes BEFORE the closing quotation mark: \"I like fables.\"" },
+          { q: "Which word inside quotation marks should be capitalized?", options: ["The last word", "The first word", "Every word", "No words"], answer: 1, explain: "The FIRST word inside the quotation marks gets a capital letter." },
+          { q: "Which sentence is correct?", options: ['She said, "let me help you."', 'She said, "Let me help you."', 'She said "Let me help you."', '"She said, Let me help you."'], answer: 1, explain: "Capital 'L' starts the quotation, comma after 'said', end mark before the closing quote." }
+        ]
+      },
+      book_titles: {
+        title: "Book Titles",
+        emoji: "📚",
+        lesson: [
+          "When you write a book title, <strong>underline</strong> it.",
+          "Begin the <strong>first</strong>, <strong>last</strong>, and each <strong>important word</strong> in the title with a capital letter.",
+          "Small words like <em>a, an, the, and, in, of, to, for</em> are NOT capitalized (unless they are the first word).",
+          "<div class='example'>Robin read <u>Help! I'm a Prisoner in the Library</u>.<br>Tim has the book <u>The Lost and Found</u>.<br>I read <u>Arrow to the Sun</u>.</div>"
+        ],
+        quiz: [
+          { q: "Which book title is written correctly?", options: ["the lost and found", "The Lost And Found", "The Lost and Found", "THE LOST AND FOUND"], answer: 2, explain: "'The', 'Lost', and 'Found' are capitalized, but 'and' (a small word) is not." },
+          { q: "Which word in a book title is NOT capitalized?", options: ["The first word", "The last word", "Small words like 'and', 'in', 'a'", "Names of places"], answer: 2, explain: "Small words (a, an, the, and, in, of) are NOT capitalized in book titles, unless they are the first word." },
+          { q: "Which title is written correctly?", options: ["arrow to the sun", "Arrow to the Sun", "Arrow To The Sun", "Arrow to The Sun"], answer: 1, explain: "'Arrow' (first word) and 'Sun' (last important word) are capitalized. 'to' and 'the' are small words." },
+          { q: "How do you show a book title when you write it by hand?", options: ["Use quotation marks", "Use bold letters", "Underline it", "Use all capitals"], answer: 2, explain: "Underline book titles when writing them by hand." },
+          { q: "Which sentence correctly writes a book title?", options: ["I read charlotte's web.", "I read Charlotte's Web.", "I read CHARLOTTE'S WEB.", "I read \"charlotte's web.\""], answer: 1, explain: "Capitalize the first, last, and important words: Charlotte's Web." }
+        ]
+      }
+    }
+  },
+
+  /* -------- UNIT 6: PRONOUNS -------- */
+  u6: {
+    title: "Unit 6",
+    subtitle: "Pronouns",
+    emoji: "👥",
+    cssClass: "u6",
+    topics: {
+      subject_pronouns: {
+        title: "Subject Pronouns",
+        emoji: "🙋",
+        lesson: [
+          "A <strong>pronoun</strong> takes the place of a noun so we don't repeat the same word over and over.",
+          "<strong>Subject pronouns</strong> are used as the <strong>subject</strong> of a sentence:<br><div class='example'><b>I &nbsp; you &nbsp; he &nbsp; she &nbsp; it &nbsp; we &nbsp; they</b></div>",
+          "<div class='example'>Lily read the book. → <b>She</b> read the book.<br>Tom and Sam played. → <b>They</b> played.<br>The cat slept. → <b>It</b> slept.</div>"
+        ],
+        quiz: [
+          { q: "Which pronoun replaces 'Tom' (a boy)?", options: ["she", "he", "they", "it"], answer: 1, explain: "'He' replaces a boy's name — Tom is a boy, so we use 'he'." },
+          { q: "Which pronoun replaces 'the cat'?", options: ["he", "she", "it", "they"], answer: 2, explain: "We use 'it' for animals or things when the gender isn't specified." },
+          { q: "Which pronoun replaces 'Lily and Sam'?", options: ["he", "she", "it", "they"], answer: 3, explain: "Two or more people = 'they'!" },
+          { q: "Which word is a subject pronoun?", options: ["me", "him", "her", "we"], answer: 3, explain: "'We' is a subject pronoun — it can be the subject of a sentence." },
+          { q: "Choose the correct pronoun: '___ is my favorite book.' (the book)", options: ["He", "She", "It", "They"], answer: 2, explain: "A book is a thing, so we use 'it'." }
+        ]
+      },
+      object_pronouns: {
+        title: "Object Pronouns",
+        emoji: "🎯",
+        lesson: [
+          "<strong>Object pronouns</strong> come after action verbs or prepositions (words like to, for, with, by).",
+          "Object pronouns: <strong>me, you, him, her, it, us, them</strong>",
+          "<div class='example'>Mom helped Tom. → Mom helped <b>him</b>.<br>Give the books to the girls. → Give the books to <b>them</b>.<br>Please help Sam and me. (NOT Sam and I)</div>",
+          "Test: When you say 'Sam and me' or 'Sam and I', remove Sam's name. If 'me' sounds right alone, use 'me'. If 'I' sounds right alone, use 'I'."
+        ],
+        quiz: [
+          { q: "Choose: 'Mom helped ___.' (Tom, a boy)", options: ["he", "she", "him", "they"], answer: 2, explain: "'Him' is the object pronoun — it comes after the verb 'helped'." },
+          { q: "Choose: 'Give it to ___ .' (the girls)", options: ["they", "she", "her", "them"], answer: 3, explain: "'Them' is the object pronoun used after the preposition 'to'." },
+          { q: "Choose the correct pronoun: 'Please call ___.' (me or I)", options: ["I", "me", "we", "us"], answer: 1, explain: "'Me' is the object pronoun — it comes after the verb 'call'." },
+          { q: "Which is an object pronoun?", options: ["I", "we", "they", "him"], answer: 3, explain: "'Him' is an object pronoun — I, we, and they are subject pronouns." },
+          { q: "Choose: 'She gave the book to Sam and ___.'", options: ["I", "me", "we", "us"], answer: 1, explain: "Remove 'Sam and' — 'she gave the book to me' sounds correct. Use 'me'!" }
+        ]
+      },
+      possessive_pronouns: {
+        title: "Possessive Pronouns",
+        emoji: "🏷️",
+        lesson: [
+          "<strong>Possessive pronouns</strong> show ownership. They do NOT use apostrophes.",
+          "Used <strong>before nouns</strong>: <strong>my, your, his, her, its, our, their</strong><br><div class='example'>That is <b>my</b> book. &nbsp; This is <b>her</b> pencil. &nbsp; We washed <b>our</b> car.</div>",
+          "Used <strong>alone</strong> (without a noun after them): <strong>mine, yours, his, hers, its, ours, theirs</strong><br><div class='example'>The book is <b>mine</b>. &nbsp; That pencil is <b>hers</b>. &nbsp; The car is <b>ours</b>.</div>",
+          "Important: <strong>its</strong> (no apostrophe) shows ownership. <strong>it's</strong> (with apostrophe) means <em>it is</em>!"
+        ],
+        quiz: [
+          { q: "Choose: 'The dog wagged ___ tail.'", options: ["it's", "its", "it", "is"], answer: 1, explain: "'Its' (no apostrophe) shows the tail belongs to the dog. 'It's' means 'it is'!" },
+          { q: "Choose the correct possessive pronoun: '___ backpack is red.' (belonging to her)", options: ["She", "Her", "Hers", "Herself"], answer: 1, explain: "'Her' is used before a noun (backpack), so 'Her backpack' is correct." },
+          { q: "Which possessive pronoun stands alone? 'This pencil is ___.' (belonging to you)", options: ["you", "your", "yours", "yourself"], answer: 2, explain: "'Yours' stands alone without a noun after it: 'the pencil is yours'." },
+          { q: "Choose: 'This is ___ book.' (belonging to them)", options: ["they", "them", "their", "theirs"], answer: 2, explain: "'Their' is used before a noun: 'their book'." },
+          { q: "Which sentence uses a possessive pronoun correctly?", options: ["It's tail is fluffy.", "Its tail is fluffy.", "Its' tail is fluffy.", "Its's tail is fluffy."], answer: 1, explain: "'Its' (no apostrophe) shows the tail belongs to it — no apostrophe needed!" }
+        ]
+      },
+      i_and_me: {
+        title: "Using I and Me",
+        emoji: "🧍",
+        lesson: [
+          "Use <strong>I</strong> as the <strong>subject</strong> of a sentence (the one doing the action):<br><div class='example'><b>I</b> went to the park. &nbsp; <b>I</b> like pizza.</div>",
+          "Use <strong>me</strong> as the <strong>object</strong> (receives the action, or follows prepositions):<br><div class='example'>Mom called <b>me</b>. &nbsp; She gave it to <b>me</b>.</div>",
+          "When talking about yourself AND someone else, put <strong>yourself last</strong>:<br><div class='example'>Tom and <b>I</b> went to school. (subject)<br>Mom helped Tom and <b>me</b>. (object)</div>",
+          "Quick test: Remove the other person's name. Does 'I' or 'me' sound right by itself?"
+        ],
+        quiz: [
+          { q: "Choose: '___ went to the store.'", options: ["Me", "I", "My", "Mine"], answer: 1, explain: "'I' is the subject — the one doing the action of going." },
+          { q: "Choose: 'Mom called ___.'", options: ["I", "me", "my", "mine"], answer: 1, explain: "'Me' comes after the verb 'called' — it's the object pronoun." },
+          { q: "Choose: 'Tom and ___ played soccer.'", options: ["me", "I", "my", "mine"], answer: 1, explain: "Remove 'Tom and' → '___ played soccer.' 'I played soccer' sounds correct!" },
+          { q: "Choose: 'She gave the book to Sam and ___.'", options: ["I", "me", "my", "mine"], answer: 1, explain: "Remove 'Sam and' → 'she gave the book to me' sounds correct. Use 'me'!" },
+          { q: "Which sentence is correct?", options: ["Tom and me went to school.", "Tom and I went to school.", "Me and Tom went to school.", "I and Tom went to school."], answer: 1, explain: "Use 'I' as the subject, and put yourself last: 'Tom and I went to school.'" }
+        ]
+      },
+      contractions: {
+        title: "Contractions",
+        emoji: "🔗",
+        lesson: [
+          "A <strong>contraction</strong> joins two words together. An <strong>apostrophe (')</strong> takes the place of the missing letters.",
+          "Pronoun + verb contractions:<br><div class='example'>I am → <b>I'm</b> &nbsp; you are → <b>you're</b> &nbsp; he is → <b>he's</b><br>she is → <b>she's</b> &nbsp; it is → <b>it's</b> &nbsp; we are → <b>we're</b> &nbsp; they are → <b>they're</b></div>",
+          "Verb + not contractions:<br><div class='example'>do not → <b>don't</b> &nbsp; cannot → <b>can't</b> &nbsp; will not → <b>won't</b><br>is not → <b>isn't</b> &nbsp; are not → <b>aren't</b> &nbsp; did not → <b>didn't</b></div>"
+        ],
+        quiz: [
+          { q: "What is the contraction for 'do not'?", options: ["dont'", "don't", "do'nt", "d'ont"], answer: 1, explain: "do not → don't. The apostrophe replaces the 'o' in 'not'." },
+          { q: "What two words make up 'she's'?", options: ["she has", "she is", "she was", "she will"], answer: 1, explain: "she's = she is. The apostrophe replaces the 'i' in 'is'." },
+          { q: "What is the contraction for 'will not'?", options: ["willn't", "won't", "wil'nt", "will'nt"], answer: 1, explain: "will not → won't. This one is special — the spelling changes!" },
+          { q: "Choose: '___ my birthday today!' (It is)", options: ["Its", "It's", "Its'", "Ist"], answer: 1, explain: "It's = it is. The apostrophe replaces the 'i' in 'is'." },
+          { q: "What is the contraction for 'cannot'?", options: ["can'not", "can't", "cant'", "c'ant"], answer: 1, explain: "cannot → can't. The apostrophe replaces the 'no' in 'not'." }
+        ]
+      },
+      negatives: {
+        title: "Negatives",
+        emoji: "🚫",
+        lesson: [
+          "<strong>Negative words</strong> mean 'no' or 'not': <strong>no, not, never, nobody, nothing, nowhere, no one, neither</strong>",
+          "Use only <strong>ONE</strong> negative word in a sentence!<br><div class='example'>Wrong: I don't have <b>no</b> pencil. ✗<br>Right: I <b>don't</b> have a pencil. ✓<br>Right: I have <b>no</b> pencil. ✓</div>",
+          "The word <strong>not</strong> is often hiding inside contractions like don't, won't, can't, isn't!<br><div class='example'>Wrong: She <b>can't</b> find <b>nothing</b>. ✗<br>Right: She <b>can't</b> find anything. ✓</div>"
+        ],
+        quiz: [
+          { q: "Which sentence is correct?", options: ["I don't have no money.", "I don't have any money.", "I don't have none money.", "I don't have nothing."], answer: 1, explain: "'Don't' already has 'not' in it. So use 'any' instead of another negative word." },
+          { q: "Which is a negative word?", options: ["always", "never", "often", "usually"], answer: 1, explain: "'Never' means 'not ever' — it's a negative word!" },
+          { q: "Choose: 'She has ___ seen a whale.' (use a negative)", options: ["ever", "never", "always", "often"], answer: 1, explain: "'Never' is the negative word: 'She has never seen a whale.'" },
+          { q: "Which sentence has an error (double negative)?", options: ["I never go there.", "I don't go anywhere.", "I don't go nowhere.", "I go nowhere."], answer: 2, explain: "'Don't' + 'nowhere' = two negatives! Correct: 'I don't go anywhere.' or 'I go nowhere.'" },
+          { q: "How many negative words should a sentence have?", options: ["none", "one", "two", "as many as you want"], answer: 1, explain: "Use only ONE negative word per sentence. Two negatives cancel each other out!" }
+        ]
+      }
+    }
   }
 };
 
-/* ---------- DOM ---------- */
+/* ================================================================
+   DOM REFERENCES
+   ================================================================ */
 const chatEl = document.getElementById('chat');
 const inputEl = document.getElementById('user-input');
 const sendBtn = document.getElementById('send-btn');
 const scoreEl = document.getElementById('score');
+const unitBadgeEl = document.getElementById('unit-badge');
 
-/* ---------- HELPERS ---------- */
+/* ================================================================
+   HELPERS
+   ================================================================ */
 function botSay(htmlContent, options) {
   const wrap = document.createElement('div');
   wrap.className = 'msg bot';
   const avatar = document.createElement('div');
   avatar.className = 'avatar-icon bot';
-  avatar.textContent = '🦉';
+  avatar.innerHTML = '<span>🦉</span>';
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
   bubble.innerHTML = htmlContent;
@@ -553,12 +823,13 @@ function botSay(htmlContent, options) {
   scrollDown();
   return bubble;
 }
+
 function userSay(text) {
   const wrap = document.createElement('div');
   wrap.className = 'msg user';
   const avatar = document.createElement('div');
   avatar.className = 'avatar-icon user';
-  avatar.textContent = '🧒';
+  avatar.innerHTML = '<span>⚔️</span>';
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
   bubble.textContent = text;
@@ -567,51 +838,76 @@ function userSay(text) {
   chatEl.appendChild(wrap);
   scrollDown();
 }
+
 function scrollDown() {
   setTimeout(() => { chatEl.scrollTop = chatEl.scrollHeight; }, 50);
 }
+
 function addStars(n) {
   state.score += n;
   scoreEl.textContent = state.score;
   scoreEl.style.transform = 'scale(1.4)';
   setTimeout(() => { scoreEl.style.transform = 'scale(1)'; }, 250);
 }
+
 function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-/* ---------- FLOW ---------- */
-function showWelcome() {
-  botSay(
-    "Hi there! 👋 I'm <strong>Buddy the Owl</strong>, your English helper! 🦉<br><br>" +
-    "I can teach you about words, sentences, reading and lots more. " +
-    "What would you like to learn today?"
-  );
-  showTopicMenu();
+function updateUnitBadge() {
+  if (state.currentUnit) {
+    const u = UNITS[state.currentUnit];
+    unitBadgeEl.style.display = 'block';
+    unitBadgeEl.textContent = u.title;
+    unitBadgeEl.style.color = state.currentUnit === 'u4' ? '#4a90d9' :
+                              state.currentUnit === 'u5' ? '#d94a4a' : '#4ad96a';
+    unitBadgeEl.style.borderColor = state.currentUnit === 'u4' ? '#4a90d9' :
+                                    state.currentUnit === 'u5' ? '#d94a4a' : '#4ad96a';
+  } else {
+    unitBadgeEl.style.display = 'none';
+  }
 }
 
-function showTopicMenu() {
-  state.mode = 'menu';
+/* ================================================================
+   FLOW FUNCTIONS
+   ================================================================ */
+
+function showWelcome() {
+  botSay(
+    "<em>Hail, young scholar of the Imperium!</em> ✠<br><br>" +
+    "I am <strong>Adept Buddy</strong>, keeper of the sacred tomes of grammar and lore. " +
+    "Choose thy unit of study — each one holds lessons and trials to sharpen thy mind!<br><br>" +
+    "<em>Which sacred volume shall we open this day?</em>"
+  );
+  showUnitMenu();
+}
+
+function showUnitMenu() {
+  state.mode = 'unit_menu';
+  state.currentUnit = null;
   state.currentTopic = null;
-  const grid = document.createElement('div');
-  grid.className = 'topic-grid';
+  updateUnitBadge();
 
-  Object.keys(TOPICS).forEach(key => {
-    const t = TOPICS[key];
-    const b = document.createElement('button');
-    b.className = 'topic-btn';
-    b.innerHTML = `<span class='topic-emoji'>${t.emoji}</span>${t.title}`;
-    b.onclick = () => { userSay(t.title); chooseTopic(key); };
-    grid.appendChild(b);
-  });
-
-  const last = chatEl.lastChild;
   const wrap = document.createElement('div');
   wrap.className = 'msg bot';
   const avatar = document.createElement('div');
   avatar.className = 'avatar-icon bot';
-  avatar.textContent = '🦉';
+  avatar.innerHTML = '<span>🦉</span>';
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
-  bubble.innerHTML = "Pick a topic to explore: 👇";
+  bubble.innerHTML = "<strong>Choose thy Unit of Study:</strong> ✠";
+
+  const grid = document.createElement('div');
+  grid.className = 'unit-grid';
+  grid.style.marginTop = '12px';
+
+  Object.keys(UNITS).forEach(key => {
+    const u = UNITS[key];
+    const b = document.createElement('button');
+    b.className = `unit-btn ${u.cssClass}`;
+    b.innerHTML = `<span class='unit-emoji'>${u.emoji}</span><span class='unit-title'>${u.title}</span><span class='unit-sub'>${u.subtitle}</span>`;
+    b.onclick = () => { userSay(u.title + ': ' + u.subtitle); chooseUnit(key); };
+    grid.appendChild(b);
+  });
+
   bubble.appendChild(grid);
   wrap.appendChild(avatar);
   wrap.appendChild(bubble);
@@ -619,34 +915,92 @@ function showTopicMenu() {
   scrollDown();
 }
 
-function chooseTopic(key) {
-  state.currentTopic = key;
-  const topic = TOPICS[key];
+function chooseUnit(unitKey) {
+  state.currentUnit = unitKey;
+  state.currentTopic = null;
+  updateUnitBadge();
+  const u = UNITS[unitKey];
   botSay(
-    `Awesome choice! Let's learn about <strong>${topic.title}</strong> ${topic.emoji}<br>` +
-    `What would you like to do?`,
+    `A worthy choice! Thou hast opened the tome of <strong>${u.title}: ${u.subtitle}</strong> ${u.emoji}<br>` +
+    `<em>Which discipline shall we pursue?</em>`
+  );
+  showTopicMenu();
+}
+
+function showTopicMenu() {
+  const u = UNITS[state.currentUnit];
+  state.mode = 'topic_menu';
+  state.currentTopic = null;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'msg bot';
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar-icon bot';
+  avatar.innerHTML = '<span>🦉</span>';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.innerHTML = `<strong>Topics in ${u.title}:</strong>`;
+
+  const grid = document.createElement('div');
+  grid.className = 'topic-grid';
+
+  Object.keys(u.topics).forEach(key => {
+    const t = u.topics[key];
+    const b = document.createElement('button');
+    b.className = 'topic-btn';
+    b.innerHTML = `<span class='topic-emoji'>${t.emoji}</span>${t.title}`;
+    b.onclick = () => { userSay(t.title); chooseTopic(key); };
+    grid.appendChild(b);
+  });
+
+  bubble.appendChild(grid);
+
+  // Back to Unit Selection button
+  const backDiv = document.createElement('div');
+  backDiv.className = 'options';
+  backDiv.style.marginTop = '10px';
+  const backBtn = document.createElement('button');
+  backBtn.className = 'action-btn';
+  backBtn.innerHTML = '✠ Back to Unit Selection';
+  backBtn.onclick = () => { userSay('Back to units'); showUnitMenu(); };
+  backDiv.appendChild(backBtn);
+  bubble.appendChild(backDiv);
+
+  wrap.appendChild(avatar);
+  wrap.appendChild(bubble);
+  chatEl.appendChild(wrap);
+  scrollDown();
+}
+
+function chooseTopic(topicKey) {
+  state.currentTopic = topicKey;
+  const topic = UNITS[state.currentUnit].topics[topicKey];
+  botSay(
+    `A worthy choice! We shall study <strong>${topic.title}</strong> ${topic.emoji}<br><em>How shall we proceed?</em>`,
     [
-      { label: "📚 Learn the lesson", onClick: () => { userSay("Learn the lesson"); startLesson(); } },
-      { label: "🎯 Take a quiz", onClick: () => { userSay("Take a quiz"); startQuiz(); } },
-      { label: "🔙 Pick a different topic", onClick: () => { userSay("Different topic"); showTopicMenu(); } }
+      { label: "📜 Study the Codex", onClick: () => { userSay("Study the Codex"); startLesson(); } },
+      { label: "⚔ Trial of Knowledge", onClick: () => { userSay("Trial of Knowledge"); startQuiz(); } },
+      { label: "📖 Choose Another Topic", onClick: () => { userSay("Choose another topic"); showTopicMenu(); } },
+      { label: "✠ Change Unit", onClick: () => { userSay("Change unit"); showUnitMenu(); } }
     ]
   );
 }
 
 function startLesson() {
   state.mode = 'lesson';
-  const topic = TOPICS[state.currentTopic];
-  let lessonHTML = `<strong>📚 Lesson: ${topic.title}</strong><div class='lesson-content'>`;
-  topic.lesson.forEach(p => { lessonHTML += `<p style='margin-bottom:8px;'>${p}</p>`; });
-  lessonHTML += "</div><br>You earned ⭐ for learning!";
+  const topic = UNITS[state.currentUnit].topics[state.currentTopic];
+  let lessonHTML = `<strong>📜 The Codex: ${topic.title}</strong><div class='lesson-content'>`;
+  topic.lesson.forEach(p => { lessonHTML += `<p style='margin-bottom:10px;'>${p}</p>`; });
+  lessonHTML += "</div><br><em>+1 Honour for thy diligent study!</em> ✠";
   botSay(lessonHTML);
   addStars(1);
   setTimeout(() => {
     botSay(
-      "Ready to test what you learned? 💪",
+      "<em>Art thou prepared to prove thy knowledge in the Trial?</em> ⚔",
       [
-        { label: "🎯 Yes, let's quiz!", onClick: () => { userSay("Quiz me!"); startQuiz(); } },
-        { label: "🔙 Pick a new topic", onClick: () => { userSay("New topic"); showTopicMenu(); } }
+        { label: "⚔ Begin the Trial", onClick: () => { userSay("Begin the Trial"); startQuiz(); } },
+        { label: "📖 Choose Another Topic", onClick: () => { userSay("Choose another topic"); showTopicMenu(); } },
+        { label: "✠ Change Unit", onClick: () => { userSay("Change unit"); showUnitMenu(); } }
       ]
     );
   }, 400);
@@ -656,14 +1010,18 @@ function startQuiz() {
   state.mode = 'quiz';
   state.quizIndex = 0;
   state.quizCorrect = 0;
-  botSay(`<strong>🎯 Quiz time: ${TOPICS[state.currentTopic].title}</strong><br>I'll ask you ${TOPICS[state.currentTopic].quiz.length} questions. Ready? Let's go!`);
+  const topic = UNITS[state.currentUnit].topics[state.currentTopic];
+  botSay(
+    `<strong>⚔ Trial of Knowledge: ${topic.title}</strong><br>` +
+    `<em>${topic.quiz.length} sacred questions await thee. Steel thy mind — the trial begins!</em>`
+  );
   setTimeout(askQuestion, 500);
 }
 
 function askQuestion() {
-  const topic = TOPICS[state.currentTopic];
+  const topic = UNITS[state.currentUnit].topics[state.currentTopic];
   const item = topic.quiz[state.quizIndex];
-  let qHTML = `<strong>Question ${state.quizIndex + 1} of ${topic.quiz.length}</strong><br>`;
+  let qHTML = `<strong>Trial ${state.quizIndex + 1} of ${topic.quiz.length}</strong><br>`;
   if (item.passage) {
     qHTML += `<div class='reading-passage'>${item.passage}</div>`;
   }
@@ -677,8 +1035,7 @@ function askQuestion() {
 }
 
 function handleQuizAnswer(chosen, btn) {
-  const item = TOPICS[state.currentTopic].quiz[state.quizIndex];
-  // disable all sibling buttons
+  const item = UNITS[state.currentUnit].topics[state.currentTopic].quiz[state.quizIndex];
   const allBtns = btn.parentElement.querySelectorAll('button');
   allBtns.forEach(b => b.disabled = true);
 
@@ -688,16 +1045,20 @@ function handleQuizAnswer(chosen, btn) {
     btn.classList.add('correct');
     state.quizCorrect++;
     addStars(1);
-    botSay(`<div class='feedback-correct'>🎉 <strong>Correct!</strong> ${item.explain}<br>+1 ⭐</div>`);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain}<br><em>+1 Honour</em></div>`);
   } else {
     btn.classList.add('wrong');
     allBtns[item.answer].classList.add('correct');
-    botSay(`<div class='feedback-wrong'>Oops! The right answer was <strong>"${item.options[item.answer]}"</strong>.<br>${item.explain}<br>Don't worry — you'll get it next time! 💪</div>`);
+    botSay(
+      `<div class='feedback-wrong'>⚔ <strong>The truth was &ldquo;${item.options[item.answer]}&rdquo;.</strong><br>` +
+      `${item.explain}<br><em>Stand firm, scholar — thou shalt prevail!</em></div>`
+    );
   }
 
   state.quizIndex++;
   setTimeout(() => {
-    if (state.quizIndex < TOPICS[state.currentTopic].quiz.length) {
+    const topic = UNITS[state.currentUnit].topics[state.currentTopic];
+    if (state.quizIndex < topic.quiz.length) {
       askQuestion();
     } else {
       finishQuiz();
@@ -706,76 +1067,96 @@ function handleQuizAnswer(chosen, btn) {
 }
 
 function finishQuiz() {
-  const total = TOPICS[state.currentTopic].quiz.length;
+  const topic = UNITS[state.currentUnit].topics[state.currentTopic];
+  const total = topic.quiz.length;
   const got = state.quizCorrect;
   const bonus = (got === total) ? 3 : (got >= total - 1) ? 2 : (got >= total / 2) ? 1 : 0;
   let msg;
   if (got === total) {
-    msg = `🌟🌟🌟 <strong>WOW! Perfect score!</strong> You got all ${total} right! Bonus +${bonus} ⭐!`;
+    msg = `✠✠✠ <strong>GLORIOUS VICTORY!</strong> All ${total} trials conquered! <em>The Emperor smiles upon thee!</em> Bonus +${bonus} Honour!`;
   } else if (got >= total - 1) {
-    msg = `✨ <strong>Great job!</strong> You got ${got} out of ${total}. Bonus +${bonus} ⭐!`;
+    msg = `⚔ <strong>Most valiant!</strong> Thou hast bested ${got} of ${total} trials. Bonus +${bonus} Honour!`;
   } else if (got >= total / 2) {
-    msg = `👍 <strong>Good work!</strong> You got ${got} out of ${total}. Bonus +${bonus} ⭐. Keep practicing!`;
+    msg = `✠ <strong>A worthy showing!</strong> ${got} of ${total} trials won. Bonus +${bonus} Honour. <em>Train on, scholar!</em>`;
   } else {
-    msg = `You got ${got} out of ${total}. That's ok — let's review the lesson and try again! 💪`;
+    msg = `Thou hast claimed ${got} of ${total} trials. <em>Even great heroes return to the Codex. Let us study anew!</em>`;
   }
   if (bonus) addStars(bonus);
 
   botSay(
     msg,
     [
-      { label: "🔁 Try this quiz again", onClick: () => { userSay("Try again"); startQuiz(); } },
-      { label: "📚 Review the lesson", onClick: () => { userSay("Review"); startLesson(); } },
-      { label: "🌟 Pick a new topic", onClick: () => { userSay("New topic"); showTopicMenu(); } }
+      { label: "⚔ Trial Anew", onClick: () => { userSay("Trial anew"); startQuiz(); } },
+      { label: "📜 Return to the Codex", onClick: () => { userSay("Return to Codex"); startLesson(); } },
+      { label: "📖 Choose Another Topic", onClick: () => { userSay("Choose another topic"); showTopicMenu(); } },
+      { label: "✠ Change Unit", onClick: () => { userSay("Change unit"); showUnitMenu(); } }
     ]
   );
 }
 
-/* ---------- FREE TYPING ---------- */
+/* ================================================================
+   FREE TYPING HANDLER
+   ================================================================ */
 function handleUserInput(text) {
   if (!text.trim()) return;
   userSay(text);
   const lower = text.toLowerCase().trim();
 
-  // Simple keyword recognition for free chat
   if (lower.includes("hello") || lower.includes("hi ") || lower === "hi" || lower.includes("hey")) {
     botSay(pickRandom([
-      "Hello, my friend! 🦉 Ready to learn?",
-      "Hi there! What shall we learn today?",
-      "Hey! 🌟 So happy to see you!"
+      "Hail, scholar! ✠ Ready to study the sacred Codex?",
+      "Greetings! Choose a unit to begin thy training!",
+      "Well met, brave learner! ⚔ Choose thy path!"
     ]));
-    showTopicMenu();
-  } else if (lower.includes("menu") || lower.includes("topic") || lower.includes("home")) {
-    showTopicMenu();
-  } else if (lower.includes("quiz")) {
+    showUnitMenu();
+  } else if (lower.includes("unit") || lower.includes("menu") || lower.includes("home") || lower.includes("back")) {
+    showUnitMenu();
+  } else if (lower.includes("unit 4") || lower.includes("u4") || lower.includes("adjective") || lower.includes("adverb")) {
+    userSay("Unit 4"); chooseUnit('u4');
+  } else if (lower.includes("unit 5") || lower.includes("u5") || lower.includes("capitaliz") || lower.includes("punctuation")) {
+    userSay("Unit 5"); chooseUnit('u5');
+  } else if (lower.includes("unit 6") || lower.includes("u6") || lower.includes("pronoun")) {
+    userSay("Unit 6"); chooseUnit('u6');
+  } else if (lower.includes("quiz") || lower.includes("trial")) {
     if (state.currentTopic) startQuiz();
-    else { botSay("Sure! First, pick a topic:"); showTopicMenu(); }
-  } else if (lower.includes("lesson") || lower.includes("learn") || lower.includes("teach")) {
+    else if (state.currentUnit) { botSay("Which topic shall we test?"); showTopicMenu(); }
+    else { botSay("First, choose a unit:"); showUnitMenu(); }
+  } else if (lower.includes("lesson") || lower.includes("codex") || lower.includes("study") || lower.includes("learn")) {
     if (state.currentTopic) startLesson();
-    else { botSay("What would you like to learn? Pick a topic:"); showTopicMenu(); }
-  } else if (lower.includes("score") || lower.includes("star")) {
-    botSay(`You have <strong>${state.score} ⭐</strong> stars! Amazing work! Keep going!`);
+    else if (state.currentUnit) { botSay("Which topic shall we study?"); showTopicMenu(); }
+    else { botSay("First, choose a unit:"); showUnitMenu(); }
+  } else if (lower.includes("score") || lower.includes("honour") || lower.includes("honor") || lower.includes("star")) {
+    botSay(`Thou hast earned <strong>${state.score} Honour</strong> ✠ — <em>a most distinguished record!</em>`);
   } else if (lower.includes("help")) {
-    botSay("I can teach you English! Just tap a topic above, or type things like:<br>• 'menu' to see topics<br>• 'quiz me' to take a quiz<br>• 'how many stars do I have?'");
+    botSay(
+      "I am thy guide through the sacred lore of grammar! <br><br>" +
+      "• Say <em>'unit 4'</em> — Adjectives &amp; Adverbs<br>" +
+      "• Say <em>'unit 5'</em> — Capitalization &amp; Punctuation<br>" +
+      "• Say <em>'unit 6'</em> — Pronouns<br>" +
+      "• Say <em>'menu'</em> — view all units<br>" +
+      "• Say <em>'trial'</em> — begin a quiz<br>" +
+      "• Say <em>'honour'</em> — check thy score"
+    );
   } else if (lower.includes("thank")) {
-    botSay("You're so welcome! 🦉💛 You're doing great!");
+    botSay("Thou art most welcome, scholar! ✠ <em>Knowledge is thy true armour.</em>");
   } else if (lower.includes("bye")) {
-    botSay("Goodbye, my friend! Come back soon for more learning! 🦉👋");
+    botSay("Fare thee well, brave learner! ⚔ <em>Return swiftly — the Codex awaits!</em>");
   } else {
-    // Try to detect a topic name in the input
-    let matched = null;
-    for (const k of Object.keys(TOPICS)) {
-      if (lower.includes(TOPICS[k].title.toLowerCase()) || lower.includes(k)) { matched = k; break; }
+    // Try to match a topic name in the current unit
+    if (state.currentUnit) {
+      const topics = UNITS[state.currentUnit].topics;
+      let matched = null;
+      for (const k of Object.keys(topics)) {
+        if (lower.includes(topics[k].title.toLowerCase()) || lower.includes(k)) { matched = k; break; }
+      }
+      if (matched) { chooseTopic(matched); return; }
     }
-    if (matched) chooseTopic(matched);
-    else {
-      botSay(pickRandom([
-        "Hmm, I'm a beginner chatbot 🦉 — let's pick a topic from the menu!",
-        "Great message! Tap a topic below to start learning:",
-        "Let's keep learning! Here are the topics again:"
-      ]));
-      showTopicMenu();
-    }
+    botSay(pickRandom([
+      "Hmm, my cogitations are humble — let us choose a unit from the menu!",
+      "A worthy missive! Choose a unit below to begin thy study:",
+      "Onward to learning! The tomes await:"
+    ]));
+    showUnitMenu();
   }
 }
 
@@ -785,12 +1166,10 @@ sendBtn.addEventListener('click', () => {
   handleUserInput(v);
 });
 inputEl.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    sendBtn.click();
-  }
+  if (e.key === 'Enter') sendBtn.click();
 });
 
-/* ---------- START ---------- */
+/* START */
 showWelcome();
 </script>
 </body>
