@@ -239,6 +239,46 @@
   .unit-btn.u4:hover { box-shadow: 0 4px 14px rgba(90,142,200,0.25); border-color: #5a8ec8; color: #3a6ea8; }
   .unit-btn.u5:hover { box-shadow: 0 4px 14px rgba(201,126,90,0.25); border-color: var(--imp-gold); color: var(--imp-gold); }
   .unit-btn.u6:hover { box-shadow: 0 4px 14px rgba(90,175,106,0.25); border-color: #5aaa6a; color: #3a7a4a; }
+  .unit-btn.vw { border-color: #b88ad8; }
+  .unit-btn.vw:hover { box-shadow: 0 4px 14px rgba(150,100,200,0.25); border-color: #9060c0; color: #6a3a9a; }
+  .unit-btn.rd { border-color: #6abfb0; }
+  .unit-btn.rd:hover { box-shadow: 0 4px 14px rgba(60,160,140,0.25); border-color: #3a9a8a; color: #2a7a6a; }
+  .unit-btn.section-grammar { border-color: var(--imp-gold); }
+  .unit-btn.section-grammar:hover { box-shadow: 0 4px 14px rgba(201,126,90,0.3); border-color: var(--imp-gold-dark); color: var(--imp-gold-dark); }
+  .unit-btn.section-vw { border-color: #9060c0; }
+  .unit-btn.section-vw:hover { box-shadow: 0 4px 14px rgba(150,100,200,0.3); border-color: #6a3a9a; color: #6a3a9a; }
+  .unit-btn.section-reading { border-color: #3a9a8a; }
+  .unit-btn.section-reading:hover { box-shadow: 0 4px 14px rgba(60,160,140,0.3); border-color: #2a7a6a; color: #2a7a6a; }
+  .vw-word-card {
+    background: #faf5ff;
+    border: 1px solid #d8c8e8;
+    border-left: 4px solid #9060c0;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 6px 0;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .vw-word-card strong { color: #6a3a9a; font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
+  .vw-word-card .syn { color: #2a6a3a; font-style: italic; }
+  .vw-word-card .ant { color: #8a3a2a; font-style: italic; }
+  .vw-list-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .rd-word-card {
+    background: #f0faf7;
+    border: 1px solid #b8e0d5;
+    border-left: 4px solid #3a9a8a;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 6px 0;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .rd-word-card strong { color: #2a7a6a; font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
+  .rd-word-card .def { color: #2a4a4a; }
+  .rd-word-card .ex { color: #4a4540; font-style: italic; }
   .unit-emoji { font-size: 2rem; display: block; margin-bottom: 6px; }
   .unit-title { font-size: 0.9rem; display: block; margin-bottom: 3px; }
   .unit-sub { font-size: 0.68rem; opacity: 0.8; display: block; letter-spacing: 0.05em; }
@@ -386,10 +426,12 @@
 /* ================================================================
    BUDDY THE OWL — Grade 3 English/Language Arts Tutor
    Units 4, 5, 6 — based on classroom PDF materials
+   Vocabulary Workshop (VW) Units 14–18
    ================================================================ */
 
 const state = {
   score: 0,
+  section: null,        // 'grammar' or 'vw'
   currentUnit: null,
   currentTopic: null,
   mode: null,
@@ -784,6 +826,185 @@ const UNITS = {
 };
 
 /* ================================================================
+   VOCABULARY WORKSHOP (VW) DATA — Units 14–18
+   Each word has: word, synonyms (array), antonyms (array — may be empty)
+   ================================================================ */
+
+const VW_UNITS = {
+  vw14: {
+    title: "VW Unit 14",
+    subtitle: "Vocabulary Workshop",
+    emoji: "📚",
+    cssClass: "vw",
+    words: [
+      { w: "admirable", syn: ["excellent", "superior", "wonderful", "praiseworthy", "first-rate"], ant: ["inferior", "mediocre", "second-rate"], sent: "Helping the lost puppy find its home was an ___ thing to do.", mis: ["admirible", "admerable", "admirabel"] },
+      { w: "automatic", syn: ["involuntary", "instinctive", "unconscious", "mechanical"], ant: ["deliberate", "conscious", "voluntary"], sent: "Blinking when something flies near your eye is an ___ reaction.", mis: ["automatick", "atomatic", "automattic"] },
+      { w: "devotion", syn: ["attachment", "commitment", "dedication", "faith", "allegiance"], ant: ["disloyalty", "faithlessness"], sent: "The dog showed great ___ to its owner by waiting at the door every day.", mis: ["devotian", "devosion", "devoshun"] },
+      { w: "distant", syn: ["remote", "apart", "removed", "separated", "reserved", "cold", "unapproachable", "unfriendly"], ant: ["near", "close", "adjacent", "neighboring", "accessible", "warm"], sent: "We could see a ___ mountain far away on the horizon.", mis: ["distent", "distunt", "distente"] },
+      { w: "dreary", syn: ["depressing", "bleak"], ant: ["cheery", "exciting", "vibrant", "lively", "merry"], sent: "The cloudy, rainy day made the park look gray and ___.", mis: ["dreery", "drery", "drearry"] },
+      { w: "exhaust", syn: ["tire", "fatigue", "weaken", "consume", "deplete", "drain", "empty"], ant: ["refresh", "enliven", "fill", "quicken"], sent: "Running up ten flights of stairs will ___ even a strong athlete.", mis: ["exaust", "exhuast", "exausht"] },
+      { w: "kindle", syn: ["ignite", "burn", "light", "awaken", "excite"], ant: ["extinguish", "discourage", "dampen", "smother", "deaden"], sent: "The campers used dry leaves to ___ the fire.", mis: ["kindel", "kendle", "kinndle"] },
+      { w: "predict", syn: ["forecast", "foretell", "foresee", "anticipate", "expect"], ant: [], sent: "Weather reporters try to ___ if it will rain tomorrow.", mis: ["predickt", "perdict", "predikt"] },
+      { w: "separation", syn: ["disconnection", "detachment", "rift", "break", "division"], ant: ["connection", "attachment", "unification"], sent: "The fence creates a ___ between the two yards.", mis: ["seperation", "separasion", "seperasion"] },
+      { w: "stunt", syn: ["block", "hamper", "suppress", "restrain", "feat", "performance", "achievement"], ant: ["encourage", "promote"], sent: "Lack of sunlight can ___ the growth of a young plant.", mis: ["stuntt", "stant", "stunnt"] }
+    ]
+  },
+  vw15: {
+    title: "VW Unit 15",
+    subtitle: "Vocabulary Workshop",
+    emoji: "📖",
+    cssClass: "vw",
+    words: [
+      { w: "abundant", syn: ["bountiful", "generous"], ant: ["limited", "meager", "sparse", "scarce"], sent: "After a good harvest, the farmers had an ___ supply of corn.", mis: ["abundent", "abondant", "abundunt"] },
+      { w: "barrier", syn: ["wall", "obstacle", "barricade", "roadblock", "obstruction", "restraint"], ant: ["entrance", "passageway"], sent: "The tall fence acted as a ___ to keep the dogs in the yard.", mis: ["barier", "barrer", "barriar"] },
+      { w: "conceive", syn: ["form", "formulate", "develop", "devise", "imagine", "think"], ant: [], sent: "It is hard to ___ of a world without computers.", mis: ["concieve", "conseive", "conceeve"] },
+      { w: "formal", syn: ["official", "conventional", "standard", "proper", "fancy"], ant: ["informal", "unofficial", "casual"], sent: "She wore a ___ dress to the wedding.", mis: ["formel", "formall", "fourmal"] },
+      { w: "inquire", syn: ["investigate", "question", "examine", "explore", "interrogate"], ant: [], sent: "I called the store to ___ about the price of the book.", mis: ["enquire", "inquier", "inquiere"] },
+      { w: "penalize", syn: ["discipline", "chasten"], ant: ["reward"], sent: "The referee will ___ players who break the rules.", mis: ["penilize", "penalise", "panalize"] },
+      { w: "picturesque", syn: ["beautiful", "pretty", "lovely", "striking", "vivid", "scenic", "delightful"], ant: ["ugly", "drab", "dull", "grim", "unpleasant", "distasteful"], sent: "The little village by the lake looked so ___ that we took many photos.", mis: ["pictureesque", "picturesk", "pictureque"] },
+      { w: "predator", syn: ["thief", "bandit"], ant: ["prey", "victim"], sent: "A wolf is a ___ that hunts smaller animals for food.", mis: ["preditor", "predater", "predetor"] },
+      { w: "privilege", syn: ["advantage", "honor"], ant: [], sent: "It was a great ___ to meet the famous author in person.", mis: ["priviledge", "privelege", "privlege"] },
+      { w: "slumber", syn: ["nap", "doze", "rest", "snooze"], ant: ["awake", "arouse", "stir", "awareness"], sent: "The bear will ___ in its cave all winter long.", mis: ["slumbur", "slummer", "slumberr"] }
+    ]
+  },
+  vw16: {
+    title: "VW Unit 16",
+    subtitle: "Vocabulary Workshop",
+    emoji: "📕",
+    cssClass: "vw",
+    words: [
+      { w: "advantage", syn: ["benefit", "gain", "edge", "asset"], ant: ["disadvantage", "drawback"], sent: "Being tall gives a basketball player a real ___ on the court.", mis: ["advantege", "advantadge", "advantige"] },
+      { w: "ambition", syn: ["aim", "aspiration", "goal"], ant: [], sent: "Her ___ is to become a doctor someday.", mis: ["ambision", "ambistion", "embition"] },
+      { w: "defiant", syn: ["rebellious", "disobedient", "uncooperative"], ant: ["submissive", "cooperative", "obedient"], sent: "The ___ child refused to clean his room even after being asked twice.", mis: ["defient", "defyant", "defianct"] },
+      { w: "fearsome", syn: ["scary", "terrifying", "horrifying"], ant: ["reassuring", "comforting", "encouraging"], sent: "The dragon in the story had ___ teeth and fiery breath.", mis: ["feirsome", "fearsom", "fearsume"] },
+      { w: "imply", syn: ["hint", "indicate"], ant: ["declare", "state", "announce"], sent: "Dark clouds in the sky often ___ that a storm is coming.", mis: ["emply", "implie", "ympli"] },
+      { w: "merit", syn: ["value", "virtue", "worth", "excellence", "achievement", "earn", "warrant"], ant: ["inferiority", "fault"], sent: "Her hard work and kindness ___ a special award.", mis: ["merrit", "meritt", "merritt"] },
+      { w: "negotiate", syn: ["debate"], ant: [], sent: "The two friends had to ___ to decide which game to play first.", mis: ["negociate", "negotaite", "negoshiate"] },
+      { w: "purify", syn: ["cleanse", "filter", "freshen", "refine", "sanitize"], ant: ["pollute", "contaminate", "cloud", "dirty", "muddy", "soil"], sent: "Boiling water can ___ it and make it safe to drink.", mis: ["purafy", "puerify", "perify"] },
+      { w: "revoke", syn: ["remove", "repeal", "rescind"], ant: ["give", "offer", "provide", "supply"], sent: "If you break the rules, the coach may ___ your spot on the team.", mis: ["revolk", "revoake", "revoek"] },
+      { w: "wretched", syn: ["depressed", "dejected", "inferior", "dreadful"], ant: ["happy", "pleased", "elated", "great", "superior"], sent: "The puppy felt ___ after being left out in the cold rain.", mis: ["wreched", "retched", "wretchid"] }
+    ]
+  },
+  vw17: {
+    title: "VW Unit 17",
+    subtitle: "Vocabulary Workshop",
+    emoji: "📗",
+    cssClass: "vw",
+    words: [
+      { w: "absorb", syn: ["consume", "devour", "engage", "captivate", "engross"], ant: ["discharge", "emit", "secrete"], sent: "A sponge can ___ a lot of water very quickly.", mis: ["absorbe", "abzorb", "absorv"] },
+      { w: "amateur", syn: ["beginner", "nonprofessional", "layman"], ant: ["expert", "professional", "master"], sent: "Even though she paints as an ___, her artwork looks very impressive.", mis: ["amature", "ameteur", "amatuer"] },
+      { w: "channel", syn: ["passage", "strait", "waterway", "course", "way", "direct", "flow", "cut", "guide"], ant: [], sent: "The boat sailed through a narrow ___ between the two islands.", mis: ["chanel", "chanell", "channell"] },
+      { w: "elegant", syn: ["stylish", "graceful", "exquisite", "charming", "refined", "cultured"], ant: ["coarse", "crude", "inelegant", "unfashionable", "rough"], sent: "She wore an ___ silk gown to the dinner party.", mis: ["elagant", "elegent", "ellegant"] },
+      { w: "grace", syn: ["elegance", "loveliness", "charm", "enhance", "enrich", "adorn"], ant: ["clumsiness", "inelegance", "disgrace"], sent: "The ballerina danced across the stage with great ___.", mis: ["grase", "graic", "grayce"] },
+      { w: "inspect", syn: ["examine", "check", "investigate", "probe", "scan"], ant: [], sent: "The teacher will ___ our homework to make sure it is complete.", mis: ["inspeck", "inspekt", "enspect"] },
+      { w: "lame", syn: ["disabled", "limping", "weak", "feeble", "flimsy", "unconvincing"], ant: ["strong", "healthy"], sent: "The horse became ___ after stepping on a sharp rock.", mis: ["laime", "layme", "lamme"] },
+      { w: "suspend", syn: ["dangle", "postpone", "delay", "halt", "remove", "exclude"], ant: ["continue", "resume", "prolong"], sent: "We had to ___ the game when it began to rain heavily.", mis: ["suspand", "supsend", "suspende"] },
+      { w: "tiresome", syn: ["boring", "annoying", "irritating"], ant: ["interesting", "exciting", "pleasant"], sent: "Cleaning up after a big party can be a ___ job.", mis: ["tiresum", "tirsome", "tiresomme"] },
+      { w: "tranquil", syn: ["calm", "serene", "peaceful", "composed"], ant: ["noisy", "disturbed", "excited"], sent: "The ___ lake was as smooth as a mirror in the early morning.", mis: ["trankuil", "tranquill", "tranqil"] }
+    ]
+  },
+  vw18: {
+    title: "VW Unit 18",
+    subtitle: "Vocabulary Workshop",
+    emoji: "📘",
+    cssClass: "vw",
+    words: [
+      { w: "boast", syn: ["crow", "exaggerate", "flaunt", "overstate", "self-praise"], ant: ["belittle"], sent: "It is rude to ___ about being better than your classmates.", mis: ["bost", "boste", "boest"] },
+      { w: "eloquent", syn: ["expressive", "well-spoken", "persuasive", "forceful", "powerful"], ant: ["awkward", "tongue-tied"], sent: "Her ___ speech moved everyone in the audience to clap loudly.", mis: ["elloquent", "eloquant", "elequent"] },
+      { w: "glisten", syn: ["sparkle", "glimmer", "glitter", "shimmer", "gleam"], ant: [], sent: "The dewdrops on the grass ___ in the morning sun.", mis: ["glissten", "glisen", "glistan"] },
+      { w: "ideal", syn: ["supreme", "flawless", "exemplary", "ultimate", "model", "example"], ant: ["practical", "pragmatic", "real"], sent: "A sunny day with a gentle breeze is ___ for a picnic.", mis: ["ideel", "idael", "iedal"] },
+      { w: "infectious", syn: ["contagious", "catching"], ant: [], sent: "Her ___ laughter made the whole room start giggling.", mis: ["infectous", "infecsious", "infektious"] },
+      { w: "invest", syn: ["spend", "expend", "contribute"], ant: [], sent: "If you ___ time in practicing the piano, you will improve quickly.", mis: ["invvest", "invesst", "envest"] },
+      { w: "locate", syn: ["discover", "identify", "pinpoint", "detect", "uncover", "situate", "build", "establish"], ant: [], sent: "We used a map to ___ the hidden treasure in the park.", mis: ["lokate", "locait", "lacate"] },
+      { w: "ripple", syn: ["vibration", "ruffle", "spread"], ant: [], sent: "When I tossed a pebble into the pond, it made a small ___ on the water.", mis: ["ripel", "rippel", "riple"] },
+      { w: "sufficient", syn: ["adequate", "plenty", "ample"], ant: ["insufficient", "inadequate", "deficient", "lacking", "sparse", "scanty"], sent: "We packed ___ snacks to last the entire field trip.", mis: ["sufficent", "suficient", "sufishent"] },
+      { w: "uproar", syn: ["disorder", "commotion", "disturbance"], ant: ["calmness", "serenity", "tranquility"], sent: "When the surprise puppy ran into class, there was a huge ___.", mis: ["uproer", "upraor", "uppproar"] }
+    ]
+  }
+};
+
+/* ================================================================
+   READING DATA — Units 16–19
+   Each word has: word, definition (kid-friendly), example sentence,
+   sentLine (sentence with target word blanked out as ___).
+   ================================================================ */
+
+const READING_UNITS = {
+  r16: {
+    title: "Reading Unit 16",
+    subtitle: "Reading",
+    emoji: "📰",
+    cssClass: "rd",
+    words: [
+      { w: "recycle", def: "to use something again, often by turning it into something new", sent: "We ___ paper, plastic, and cans to help the earth.", mis: ["recicle", "resycle", "recyckle"] },
+      { w: "project", def: "a planned piece of work or activity", sent: "Our science ___ is to grow a bean plant in class.", mis: ["projekt", "progect", "projact"] },
+      { w: "dripping", def: "falling in small drops, one after another", sent: "Water was ___ from the leaky kitchen faucet.", mis: ["driping", "drippping", "drippig"] },
+      { w: "carton", def: "a box or container made of cardboard or thick paper", sent: "She poured milk from the ___ into her cereal bowl.", mis: ["cartin", "carten", "kartin"] },
+      { w: "complicated", def: "hard to understand or do; not simple", sent: "The puzzle was so ___ that it took us hours to finish.", mis: ["complecated", "complacated", "compilcated"] },
+      { w: "pollution", def: "harmful things like smoke or trash that make the air, water, or land dirty", sent: "Cars and factories can cause air ___.", mis: ["polution", "pollushion", "pollotion"] },
+      { w: "rubbish", def: "things that are thrown away; trash or garbage", sent: "Please put the ___ in the bin instead of on the ground.", mis: ["rubish", "rubbash", "rubbich"] },
+      { w: "hardly", def: "almost not at all; barely", sent: "She whispered so softly that I could ___ hear her.", mis: ["hardley", "hardlee", "hardlie"] },
+      { w: "shade", def: "a place that is dark and cool because the sun is blocked", sent: "We sat in the ___ of a big tree to escape the hot sun.", mis: ["shaid", "shadde", "shaed"] },
+      { w: "global", def: "having to do with the whole world", sent: "Climate change is a ___ problem that affects every country.", mis: ["globel", "glodal", "globle"] }
+    ]
+  },
+  r17: {
+    title: "Reading Unit 17",
+    subtitle: "Reading",
+    emoji: "🦖",
+    cssClass: "rd",
+    words: [
+      { w: "fossils", def: "the hardened remains or prints of plants or animals from long ago", sent: "Scientists found dinosaur ___ buried deep in the rocks.", mis: ["fossles", "fosils", "fossells"] },
+      { w: "clues", def: "pieces of information that help solve a mystery", sent: "The detective looked for ___ to find out who took the cookies.", mis: ["clewes", "cluse", "kloos"] },
+      { w: "remains", def: "what is left of something after the rest is gone", sent: "The ___ of an ancient castle still stand on the hill.", mis: ["remanes", "remaines", "remayns"] },
+      { w: "prove", def: "to show that something is true", sent: "I can ___ I did my homework by showing you my notebook.", mis: ["proove", "pruve", "prooove"] },
+      { w: "evidence", def: "facts or signs that show something is true", sent: "The muddy footprints were ___ that the dog had been outside.", mis: ["evedence", "evidance", "evidense"] },
+      { w: "skeletons", def: "the bones of a body, joined together", sent: "We saw dinosaur ___ standing tall in the museum.", mis: ["skelletons", "skelitons", "sceletons"] },
+      { w: "uncovering", def: "finding or showing something that was hidden", sent: "The workers were ___ old coins as they dug in the field.", mis: ["uncoverring", "uncovring", "unkovering"] },
+      { w: "buried", def: "covered up under the ground or under something else", sent: "The treasure was ___ deep beneath the sand.", mis: ["burried", "beried", "buryed"] },
+      { w: "fierce", def: "very strong, wild, or scary", sent: "The ___ tiger growled and showed its sharp teeth.", mis: ["feirce", "fierse", "feerce"] },
+      { w: "location", def: "the place where something is", sent: "The map showed the exact ___ of the hidden cave.", mis: ["lokation", "locasion", "lacation"] }
+    ]
+  },
+  r18: {
+    title: "Reading Unit 18",
+    subtitle: "Reading",
+    emoji: "🌵",
+    cssClass: "rd",
+    words: [
+      { w: "pollen", def: "a fine yellow powder made by flowers", sent: "Bees carry ___ from one flower to another.", mis: ["polen", "pollin", "pollan"] },
+      { w: "store", def: "to keep something to use later", sent: "Squirrels ___ nuts in trees to eat during winter.", mis: ["stoor", "stoer", "storr"] },
+      { w: "clumps", def: "groups of things stuck close together", sent: "___ of grass grew along the edge of the path.", mis: ["klumps", "clumpps", "clompts"] },
+      { w: "passages", def: "narrow paths or tunnels that lead from one place to another", sent: "The cave had many dark ___ that twisted underground.", mis: ["pasages", "passeges", "passagges"] },
+      { w: "absorb", def: "to soak up a liquid or take something in", sent: "Plant roots ___ water from the soil.", mis: ["absorbe", "abzorb", "absorv"] },
+      { w: "throughout", def: "in every part of; all the way through", sent: "Bright flowers grew ___ the entire garden.", mis: ["throughtout", "throuhout", "thruoughout"] },
+      { w: "coverings", def: "things that are placed over something to protect or hide it", sent: "The ___ on the bushes kept them safe from the cold.", mis: ["coverrings", "covrings", "coveringss"] },
+      { w: "spines", def: "sharp pointed parts on a plant or animal, like on a cactus", sent: "The cactus had long, sharp ___ to protect itself.", mis: ["spynes", "spinns", "speines"] },
+      { w: "tropical", def: "having to do with hot, wet places near the equator", sent: "Bananas and pineapples grow in ___ rainforests.", mis: ["tropikal", "tropicle", "tropicall"] },
+      { w: "dissolve", def: "to mix completely into a liquid until you can't see it anymore", sent: "Sugar will ___ quickly in a glass of warm water.", mis: ["disolve", "dissolv", "disolveve"] }
+    ]
+  },
+  r19: {
+    title: "Reading Unit 19",
+    subtitle: "Reading",
+    emoji: "🦊",
+    cssClass: "rd",
+    words: [
+      { w: "scolding", def: "speaking to someone in an angry way because they did something wrong", sent: "Mom was ___ the puppy for chewing on her shoes.", mis: ["scollding", "scoulding", "skolding"] },
+      { w: "greedily", def: "in a way that shows you want too much of something", sent: "The hungry boy ___ ate all the cookies on the plate.", mis: ["greedyly", "greadily", "greadly"] },
+      { w: "ignores", def: "pays no attention to someone or something on purpose", sent: "My cat ___ me whenever I call her name.", mis: ["ignors", "ignoors", "ingnores"] },
+      { w: "hesitation", def: "a pause before doing something because you are unsure", sent: "Without ___, the brave girl jumped into the cold pool.", mis: ["hesatation", "hesitasion", "hessitation"] },
+      { w: "burden", def: "something heavy or hard that you have to carry or deal with", sent: "Carrying all those bags up the stairs was a real ___.", mis: ["birden", "burdan", "burdun"] },
+      { w: "glancing", def: "looking at something very quickly", sent: "She kept ___ at the clock, hoping class would end soon.", mis: ["glansing", "glanching", "glanceing"] },
+      { w: "base", def: "the bottom or lowest part of something that holds it up", sent: "The ___ of the statue was made of strong stone.", mis: ["bace", "baes", "bayse"] },
+      { w: "console", def: "to comfort someone who is sad or upset", sent: "I tried to ___ my little sister after she lost her toy.", mis: ["consol", "consoel", "consul"] },
+      { w: "drowsy", def: "feeling sleepy or tired", sent: "After lunch, the warm sun made me feel ___.", mis: ["drowzy", "drousy", "drowsey"] },
+      { w: "heroic", def: "very brave; like a hero", sent: "The firefighter made a ___ rescue from the burning building.", mis: ["heroick", "heroec", "heoric"] }
+    ]
+  }
+};
+
+/* ================================================================
    DOM REFERENCES
    ================================================================ */
 const chatEl = document.getElementById('chat');
@@ -854,13 +1075,24 @@ function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 function updateUnitBadge() {
   if (state.currentUnit) {
-    const u = UNITS[state.currentUnit];
+    const u = (state.section === 'vw') ? VW_UNITS[state.currentUnit] :
+              (state.section === 'reading') ? READING_UNITS[state.currentUnit] :
+              UNITS[state.currentUnit];
+    if (!u) { unitBadgeEl.style.display = 'none'; return; }
     unitBadgeEl.style.display = 'block';
     unitBadgeEl.textContent = u.title;
-    unitBadgeEl.style.color = state.currentUnit === 'u4' ? '#4a90d9' :
-                              state.currentUnit === 'u5' ? '#d94a4a' : '#4ad96a';
-    unitBadgeEl.style.borderColor = state.currentUnit === 'u4' ? '#4a90d9' :
-                                    state.currentUnit === 'u5' ? '#d94a4a' : '#4ad96a';
+    if (state.section === 'vw') {
+      unitBadgeEl.style.color = '#9060c0';
+      unitBadgeEl.style.borderColor = '#9060c0';
+    } else if (state.section === 'reading') {
+      unitBadgeEl.style.color = '#2a7a6a';
+      unitBadgeEl.style.borderColor = '#3a9a8a';
+    } else {
+      unitBadgeEl.style.color = state.currentUnit === 'u4' ? '#4a90d9' :
+                                state.currentUnit === 'u5' ? '#d94a4a' : '#4ad96a';
+      unitBadgeEl.style.borderColor = state.currentUnit === 'u4' ? '#4a90d9' :
+                                      state.currentUnit === 'u5' ? '#d94a4a' : '#4ad96a';
+    }
   } else {
     unitBadgeEl.style.display = 'none';
   }
@@ -874,9 +1106,63 @@ function showWelcome() {
   botSay(
     "<em>Hail, young scholar of the Imperium!</em> ✠<br><br>" +
     "I am <strong>Adept Buddy</strong>, keeper of the sacred tomes of grammar and lore. " +
-    "Choose thy unit of study — each one holds lessons and trials to sharpen thy mind!<br><br>" +
-    "<em>Which sacred volume shall we open this day?</em>"
+    "Three great libraries lie before thee — the <strong>Codex of Grammar</strong>, the <strong>Vocabulary Workshop</strong>, and the <strong>Hall of Reading</strong>!<br><br>" +
+    "<em>Which library shall we enter this day?</em>"
   );
+  showSectionMenu();
+}
+
+function showSectionMenu() {
+  state.mode = 'section_menu';
+  state.section = null;
+  state.currentUnit = null;
+  state.currentTopic = null;
+  updateUnitBadge();
+
+  const wrap = document.createElement('div');
+  wrap.className = 'msg bot';
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar-icon bot';
+  avatar.innerHTML = '<span>🦉</span>';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.innerHTML = "<strong>Choose thy Library:</strong> ✠";
+
+  const grid = document.createElement('div');
+  grid.className = 'unit-grid';
+  grid.style.marginTop = '12px';
+
+  const sections = [
+    { key: 'grammar', emoji: '📜', title: 'Grammar Codex', sub: 'Units 4 · 5 · 6', cssClass: 'section-grammar' },
+    { key: 'vw', emoji: '📚', title: 'Vocabulary Workshop', sub: 'VW Units 14 – 18', cssClass: 'section-vw' },
+    { key: 'reading', emoji: '📖', title: 'Reading', sub: 'Reading Units 16 – 19', cssClass: 'section-reading' }
+  ];
+  sections.forEach(s => {
+    const b = document.createElement('button');
+    b.className = `unit-btn ${s.cssClass}`;
+    b.innerHTML = `<span class='unit-emoji'>${s.emoji}</span><span class='unit-title'>${s.title}</span><span class='unit-sub'>${s.sub}</span>`;
+    b.onclick = () => { userSay(s.title); chooseSection(s.key); };
+    grid.appendChild(b);
+  });
+
+  bubble.appendChild(grid);
+  wrap.appendChild(avatar);
+  wrap.appendChild(bubble);
+  chatEl.appendChild(wrap);
+  scrollDown();
+}
+
+function chooseSection(sectionKey) {
+  state.section = sectionKey;
+  state.currentUnit = null;
+  state.currentTopic = null;
+  if (sectionKey === 'vw') {
+    botSay("Most excellent! Thou hast entered the <strong>Vocabulary Workshop</strong> 📚 — wherein lie the words of power. <em>Which unit shall we review?</em>");
+  } else if (sectionKey === 'reading') {
+    botSay("Most excellent! Thou hast entered the <strong>Hall of Reading</strong> 📖 — wherein dwell the tales and their words. <em>Which unit shall we explore?</em>");
+  } else {
+    botSay("Most excellent! Thou hast opened the <strong>Grammar Codex</strong> 📜. <em>Which sacred volume shall we open?</em>");
+  }
   showUnitMenu();
 }
 
@@ -893,14 +1179,21 @@ function showUnitMenu() {
   avatar.innerHTML = '<span>🦉</span>';
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
-  bubble.innerHTML = "<strong>Choose thy Unit of Study:</strong> ✠";
+
+  const sourceUnits = (state.section === 'vw') ? VW_UNITS :
+                      (state.section === 'reading') ? READING_UNITS :
+                      UNITS;
+  const headerLabel = (state.section === 'vw') ? "Choose thy VW Unit:" :
+                      (state.section === 'reading') ? "Choose thy Reading Unit:" :
+                      "Choose thy Unit of Study:";
+  bubble.innerHTML = `<strong>${headerLabel}</strong> ✠`;
 
   const grid = document.createElement('div');
   grid.className = 'unit-grid';
   grid.style.marginTop = '12px';
 
-  Object.keys(UNITS).forEach(key => {
-    const u = UNITS[key];
+  Object.keys(sourceUnits).forEach(key => {
+    const u = sourceUnits[key];
     const b = document.createElement('button');
     b.className = `unit-btn ${u.cssClass}`;
     b.innerHTML = `<span class='unit-emoji'>${u.emoji}</span><span class='unit-title'>${u.title}</span><span class='unit-sub'>${u.subtitle}</span>`;
@@ -909,6 +1202,18 @@ function showUnitMenu() {
   });
 
   bubble.appendChild(grid);
+
+  // Back to Library Selection button
+  const backDiv = document.createElement('div');
+  backDiv.className = 'options';
+  backDiv.style.marginTop = '10px';
+  const backBtn = document.createElement('button');
+  backBtn.className = 'action-btn';
+  backBtn.innerHTML = '🏛 Back to Library Selection';
+  backBtn.onclick = () => { userSay('Back to libraries'); showSectionMenu(); };
+  backDiv.appendChild(backBtn);
+  bubble.appendChild(backDiv);
+
   wrap.appendChild(avatar);
   wrap.appendChild(bubble);
   chatEl.appendChild(wrap);
@@ -919,6 +1224,46 @@ function chooseUnit(unitKey) {
   state.currentUnit = unitKey;
   state.currentTopic = null;
   updateUnitBadge();
+
+  if (state.section === 'vw') {
+    const u = VW_UNITS[unitKey];
+    botSay(
+      `A worthy choice! Thou hast opened <strong>${u.title}</strong> ${u.emoji} — ${u.words.length} words of power await thy study.<br>` +
+      `<em>How shall we proceed?</em>`,
+      [
+        { label: "📜 Study the Word List", onClick: () => { userSay("Study the Word List"); startVwLesson(); } },
+        { label: "⚔ Synonym Trial", onClick: () => { userSay("Synonym Trial"); startVwQuiz('syn'); } },
+        { label: "🛡 Antonym Trial", onClick: () => { userSay("Antonym Trial"); startVwQuiz('ant'); } },
+        { label: "✓✗ True/False Trial", onClick: () => { userSay("True or False Trial"); startVwQuiz('tf'); } },
+        { label: "✍ Fill-in-the-Blank Trial", onClick: () => { userSay("Fill-in-the-Blank Trial"); startVwQuiz('fill'); } },
+        { label: "🔤 Spelling Trial", onClick: () => { userSay("Spelling Trial"); startVwQuiz('spell'); } },
+        { label: "✠ Mixed Trial (Syn + Ant)", onClick: () => { userSay("Mixed Trial"); startVwQuiz('mix'); } },
+        { label: "📖 Choose Another VW Unit", onClick: () => { userSay("Choose another VW unit"); showUnitMenu(); } },
+        { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+      ]
+    );
+    return;
+  }
+
+  if (state.section === 'reading') {
+    const u = READING_UNITS[unitKey];
+    botSay(
+      `A worthy choice! Thou hast opened <strong>${u.title}</strong> ${u.emoji} — ${u.words.length} reading words await thy study.<br>` +
+      `<em>How shall we proceed?</em>`,
+      [
+        { label: "📜 Study the Word List", onClick: () => { userSay("Study the Word List"); startReadingLesson(); } },
+        { label: "📘 Definition Trial", onClick: () => { userSay("Definition Trial"); startReadingQuiz('def'); } },
+        { label: "✓✗ True/False Trial", onClick: () => { userSay("True or False Trial"); startReadingQuiz('tf'); } },
+        { label: "✍ Fill-in-the-Blank Trial", onClick: () => { userSay("Fill-in-the-Blank Trial"); startReadingQuiz('fill'); } },
+        { label: "🔤 Spelling Trial", onClick: () => { userSay("Spelling Trial"); startReadingQuiz('spell'); } },
+        { label: "✠ Mixed Trial", onClick: () => { userSay("Mixed Trial"); startReadingQuiz('mix'); } },
+        { label: "📖 Choose Another Reading Unit", onClick: () => { userSay("Choose another Reading unit"); showUnitMenu(); } },
+        { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+      ]
+    );
+    return;
+  }
+
   const u = UNITS[unitKey];
   botSay(
     `A worthy choice! Thou hast opened the tome of <strong>${u.title}: ${u.subtitle}</strong> ${u.emoji}<br>` +
@@ -981,7 +1326,8 @@ function chooseTopic(topicKey) {
       { label: "📜 Study the Codex", onClick: () => { userSay("Study the Codex"); startLesson(); } },
       { label: "⚔ Trial of Knowledge", onClick: () => { userSay("Trial of Knowledge"); startQuiz(); } },
       { label: "📖 Choose Another Topic", onClick: () => { userSay("Choose another topic"); showTopicMenu(); } },
-      { label: "✠ Change Unit", onClick: () => { userSay("Change unit"); showUnitMenu(); } }
+      { label: "✠ Change Unit", onClick: () => { userSay("Change unit"); showUnitMenu(); } },
+      { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
     ]
   );
 }
@@ -1000,7 +1346,8 @@ function startLesson() {
       [
         { label: "⚔ Begin the Trial", onClick: () => { userSay("Begin the Trial"); startQuiz(); } },
         { label: "📖 Choose Another Topic", onClick: () => { userSay("Choose another topic"); showTopicMenu(); } },
-        { label: "✠ Change Unit", onClick: () => { userSay("Change unit"); showUnitMenu(); } }
+        { label: "✠ Change Unit", onClick: () => { userSay("Change unit"); showUnitMenu(); } },
+        { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
       ]
     );
   }, 400);
@@ -1089,7 +1436,740 @@ function finishQuiz() {
       { label: "⚔ Trial Anew", onClick: () => { userSay("Trial anew"); startQuiz(); } },
       { label: "📜 Return to the Codex", onClick: () => { userSay("Return to Codex"); startLesson(); } },
       { label: "📖 Choose Another Topic", onClick: () => { userSay("Choose another topic"); showTopicMenu(); } },
-      { label: "✠ Change Unit", onClick: () => { userSay("Change unit"); showUnitMenu(); } }
+      { label: "✠ Change Unit", onClick: () => { userSay("Change unit"); showUnitMenu(); } },
+      { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+    ]
+  );
+}
+
+/* ================================================================
+   VOCABULARY WORKSHOP FLOW
+   ================================================================ */
+
+function startVwLesson() {
+  state.mode = 'vw_lesson';
+  const u = VW_UNITS[state.currentUnit];
+  let html = `<strong>📜 Word List: ${u.title}</strong><div class='vw-list-grid'>`;
+  u.words.forEach((wd, i) => {
+    html += `<div class='vw-word-card'>` +
+      `<strong>${i + 1}. ${wd.w}</strong><br>` +
+      `<span class='syn'>✓ Synonyms:</span> ${wd.syn.length ? wd.syn.join(', ') : '<em>—</em>'}<br>` +
+      `<span class='ant'>✗ Antonyms:</span> ${wd.ant.length ? wd.ant.join(', ') : '<em>—</em>'}` +
+      `</div>`;
+  });
+  html += `</div><br><em>+1 Honour for thy diligent study!</em> ✠`;
+  botSay(html);
+  addStars(1);
+  setTimeout(() => {
+    botSay(
+      "<em>Art thou prepared for the trial of words?</em> ⚔",
+      [
+        { label: "⚔ Synonym Trial", onClick: () => { userSay("Synonym Trial"); startVwQuiz('syn'); } },
+        { label: "🛡 Antonym Trial", onClick: () => { userSay("Antonym Trial"); startVwQuiz('ant'); } },
+        { label: "✓✗ True/False Trial", onClick: () => { userSay("True or False Trial"); startVwQuiz('tf'); } },
+        { label: "✍ Fill-in-the-Blank Trial", onClick: () => { userSay("Fill-in-the-Blank Trial"); startVwQuiz('fill'); } },
+        { label: "🔤 Spelling Trial", onClick: () => { userSay("Spelling Trial"); startVwQuiz('spell'); } },
+        { label: "✠ Mixed Trial", onClick: () => { userSay("Mixed Trial"); startVwQuiz('mix'); } },
+        { label: "📖 Choose Another VW Unit", onClick: () => { userSay("Choose another VW unit"); showUnitMenu(); } },
+        { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+      ]
+    );
+  }, 400);
+}
+
+function buildVwFillQuestions() {
+  // Fill-in-the-blank: show the sentence with the target word blanked out;
+  // give 4 options (the target word + 3 distractor words from other units' word lists).
+  const u = VW_UNITS[state.currentUnit];
+  const questions = [];
+  const allWords = [];
+  Object.values(VW_UNITS).forEach(unit => unit.words.forEach(w => allWords.push(w.w)));
+
+  u.words.forEach(wd => {
+    if (!wd.sent) return;
+    const correct = wd.w;
+    // Build distractors from other words across all VW units, avoiding the correct word
+    const pool = allWords.filter(x => x.toLowerCase() !== correct.toLowerCase());
+    // Prefer words from THIS unit first (so distractors feel related to study set), then fall back to all
+    const sameUnit = u.words.map(x => x.w).filter(x => x.toLowerCase() !== correct.toLowerCase());
+    const shuffled = sameUnit.slice().sort(() => Math.random() - 0.5);
+    const distractors = [];
+    const used = new Set([correct.toLowerCase()]);
+    for (const d of shuffled) {
+      if (!used.has(d.toLowerCase())) { distractors.push(d); used.add(d.toLowerCase()); }
+      if (distractors.length === 3) break;
+    }
+    // Top up from all VW words if needed
+    if (distractors.length < 3) {
+      const otherShuffled = pool.slice().sort(() => Math.random() - 0.5);
+      for (const d of otherShuffled) {
+        if (!used.has(d.toLowerCase())) { distractors.push(d); used.add(d.toLowerCase()); }
+        if (distractors.length === 3) break;
+      }
+    }
+    while (distractors.length < 3) distractors.push("—");
+
+    const options = [correct, ...distractors].sort(() => Math.random() - 0.5);
+    const answer = options.indexOf(correct);
+
+    // Display sentence with blank highlighted
+    const blanked = wd.sent;
+    const synList = wd.syn.length ? ` (similar to: ${wd.syn.slice(0, 3).join(', ')})` : '';
+
+    questions.push({
+      q: `Fill in the blank with the best word:<br><div class='reading-passage'>${blanked}</div>`,
+      options: options,
+      answer: answer,
+      explain: `"${correct}" fits best${synList}. Full sentence: <em>${wd.sent.replace('___', '<strong>' + correct + '</strong>')}</em>`,
+      mode: 'fill',
+      word: correct
+    });
+  });
+
+  return questions.sort(() => Math.random() - 0.5);
+}
+
+function buildVwTfQuestions() {
+  // True/False trial: each question presents a claim like
+  //   "'forecast' is a synonym of 'predict'."
+  // and the user picks True or False.
+  // We aim for roughly half true / half false claims.
+  const u = VW_UNITS[state.currentUnit];
+  const questions = [];
+
+  // Build a flat list of all syn/ant terms across THIS unit (for false-claim distractors)
+  const allUnitTerms = [];
+  u.words.forEach(wd => {
+    (wd.syn || []).forEach(t => allUnitTerms.push({ term: t, sourceWord: wd.w, kind: 'syn' }));
+    (wd.ant || []).forEach(t => allUnitTerms.push({ term: t, sourceWord: wd.w, kind: 'ant' }));
+  });
+
+  u.words.forEach(wd => {
+    const synEligible = wd.syn && wd.syn.length > 0;
+    const antEligible = wd.ant && wd.ant.length > 0;
+    if (!synEligible && !antEligible) return;
+
+    // Decide if this question will test a synonym or antonym claim
+    let kind;
+    if (synEligible && antEligible) kind = Math.random() < 0.5 ? 'syn' : 'ant';
+    else if (synEligible) kind = 'syn';
+    else kind = 'ant';
+
+    // Decide if the claim itself will be TRUE (50/50)
+    const makeTrue = Math.random() < 0.5;
+    const kindLabel = kind === 'syn' ? 'synonym' : 'antonym';
+
+    let term;
+    if (makeTrue) {
+      const list = kind === 'syn' ? wd.syn : wd.ant;
+      term = list[Math.floor(Math.random() * list.length)];
+    } else {
+      // Pick a term that is NOT a real syn/ant of wd (preferably from the OPPOSITE category
+      // of another word, since that often reads as a believable distractor).
+      const ownTerms = new Set([
+        ...(wd.syn || []).map(t => t.toLowerCase()),
+        ...(wd.ant || []).map(t => t.toLowerCase()),
+        wd.w.toLowerCase()
+      ]);
+      const oppositeKind = kind === 'syn' ? 'ant' : 'syn';
+      // Prefer terms that are the OPPOSITE meaning relative to wd's definition, so
+      // the false claim has a clear "no, that's actually the opposite" feel.
+      const oppositeOwn = (kind === 'syn' ? wd.ant : wd.syn) || [];
+      let pool = oppositeOwn.filter(t => !ownTerms.has(t.toLowerCase()));
+      if (pool.length === 0) {
+        pool = allUnitTerms
+          .filter(x => x.sourceWord.toLowerCase() !== wd.w.toLowerCase() && !ownTerms.has(x.term.toLowerCase()))
+          .map(x => x.term);
+      }
+      if (pool.length === 0) return;
+      term = pool[Math.floor(Math.random() * pool.length)];
+    }
+
+    const correctAnswer = makeTrue ? 0 : 1; // index 0 = True, 1 = False
+    const realRelation = (() => {
+      const t = term.toLowerCase();
+      if ((wd.syn || []).map(x => x.toLowerCase()).includes(t)) return 'syn';
+      if ((wd.ant || []).map(x => x.toLowerCase()).includes(t)) return 'ant';
+      return null;
+    })();
+
+    let explainTrue = `Yes — <strong>"${term}"</strong> truly is a ${kindLabel} of <strong>"${wd.w}"</strong>.`;
+    let explainFalse;
+    if (realRelation === null) {
+      explainFalse = `<strong>"${term}"</strong> is not really a ${kindLabel} of <strong>"${wd.w}"</strong>.`;
+    } else if (realRelation === kind) {
+      // Shouldn't happen in false branch, but guard anyway
+      explainFalse = `Actually, <strong>"${term}"</strong> IS a ${kindLabel} of <strong>"${wd.w}"</strong>.`;
+    } else {
+      const realLabel = realRelation === 'syn' ? 'synonym' : 'antonym';
+      explainFalse = `No — <strong>"${term}"</strong> is actually a ${realLabel} of <strong>"${wd.w}"</strong>, not a ${kindLabel}.`;
+    }
+    const altList = (() => {
+      const list = kind === 'syn' ? wd.syn : wd.ant;
+      if (!list || list.length === 0) return '';
+      return ` Real ${kindLabel}s of "${wd.w}": ${list.slice(0, 4).join(', ')}.`;
+    })();
+
+    questions.push({
+      q: `<strong>True or False:</strong> &ldquo;${term}&rdquo; is a <strong>${kindLabel}</strong> of <strong>&ldquo;${wd.w}&rdquo;</strong>.`,
+      options: ["✓ True", "✗ False"],
+      answer: correctAnswer,
+      explain: (makeTrue ? explainTrue : explainFalse) + altList,
+      mode: 'tf',
+      word: wd.w
+    });
+  });
+
+  return questions.sort(() => Math.random() - 0.5);
+}
+
+function buildVwSpellQuestions() {
+  // Spelling: 4 options = correct spelling + 3 misspellings
+  const u = VW_UNITS[state.currentUnit];
+  const questions = [];
+  u.words.forEach(wd => {
+    if (!wd.mis || wd.mis.length < 3) return;
+    const options = [wd.w, ...wd.mis.slice(0, 3)].sort(() => Math.random() - 0.5);
+    const answer = options.indexOf(wd.w);
+    const synHint = wd.syn && wd.syn.length ? ` (similar to: ${wd.syn.slice(0, 3).join(', ')})` : '';
+    questions.push({
+      q: `Which is the <strong>correct spelling</strong>?${synHint ? ' <em>Hint: ' + synHint.trim().replace(/^\(|\)$/g,'') + '</em>' : ''}`,
+      options: options,
+      answer: answer,
+      explain: `The correct spelling is <strong>"${wd.w}"</strong>.<br>Example: <em>${wd.sent ? wd.sent.replace('___', '<strong>' + wd.w + '</strong>') : '—'}</em>`,
+      mode: 'spell',
+      word: wd.w
+    });
+  });
+  return questions.sort(() => Math.random() - 0.5);
+}
+
+function buildVwQuestions(quizType) {
+  // quizType: 'syn', 'ant', 'mix', 'fill', 'spell', or 'tf'
+  if (quizType === 'fill') return buildVwFillQuestions();
+  if (quizType === 'spell') return buildVwSpellQuestions();
+  if (quizType === 'tf') return buildVwTfQuestions();
+
+  const u = VW_UNITS[state.currentUnit];
+  const questions = [];
+
+  // Build a pool of all words across all VW units for distractors
+  const allWords = [];
+  Object.values(VW_UNITS).forEach(unit => unit.words.forEach(w => allWords.push(w)));
+
+  u.words.forEach(wd => {
+    const synEligible = wd.syn.length > 0;
+    const antEligible = wd.ant.length > 0;
+    let mode;
+    if (quizType === 'syn') {
+      if (!synEligible) return; // skip
+      mode = 'syn';
+    } else if (quizType === 'ant') {
+      if (!antEligible) return; // skip
+      mode = 'ant';
+    } else {
+      // mixed: prefer to include the word; pick whichever is available, randomize if both
+      if (synEligible && antEligible) mode = Math.random() < 0.5 ? 'syn' : 'ant';
+      else if (synEligible) mode = 'syn';
+      else if (antEligible) mode = 'ant';
+      else return;
+    }
+
+    // FLIPPED: the clue is a synonym/antonym term, the options are vocabulary words.
+    const clueList = mode === 'syn' ? wd.syn : wd.ant;
+    const clueTerm = clueList[Math.floor(Math.random() * clueList.length)];
+    const correctVocab = wd.w;
+
+    // Distractors: pick 3 OTHER vocabulary words from the same unit whose own
+    // syn/ant lists do NOT also contain the clue term (so the answer stays unique).
+    const forbidden = new Set([correctVocab.toLowerCase()]);
+    const clueLc = clueTerm.toLowerCase();
+    const candidatePool = u.words.filter(other => {
+      if (other.w.toLowerCase() === correctVocab.toLowerCase()) return false;
+      // Skip any word whose syn or ant list ALSO contains this clue term — would make 2 valid answers
+      const otherTerms = [...(other.syn || []), ...(other.ant || [])].map(t => t.toLowerCase());
+      if (otherTerms.includes(clueLc)) return false;
+      return true;
+    });
+
+    let distractors = [];
+    const shuffled = candidatePool.slice().sort(() => Math.random() - 0.5);
+    for (const d of shuffled) {
+      if (!forbidden.has(d.w.toLowerCase())) {
+        distractors.push(d.w);
+        forbidden.add(d.w.toLowerCase());
+      }
+      if (distractors.length === 3) break;
+    }
+    // If we couldn't find 3 in this unit, fall back to other VW units
+    if (distractors.length < 3) {
+      const otherUnits = Object.entries(VW_UNITS).filter(([k]) => k !== state.currentUnit);
+      const extraPool = [];
+      otherUnits.forEach(([, ou]) => ou.words.forEach(w2 => {
+        const otherTerms = [...(w2.syn || []), ...(w2.ant || [])].map(t => t.toLowerCase());
+        if (!otherTerms.includes(clueLc)) extraPool.push(w2.w);
+      }));
+      const extraShuffled = extraPool.sort(() => Math.random() - 0.5);
+      for (const w2 of extraShuffled) {
+        if (!forbidden.has(w2.toLowerCase())) {
+          distractors.push(w2);
+          forbidden.add(w2.toLowerCase());
+        }
+        if (distractors.length === 3) break;
+      }
+    }
+    while (distractors.length < 3) distractors.push("—");
+
+    const options = [correctVocab, ...distractors].sort(() => Math.random() - 0.5);
+    const answer = options.indexOf(correctVocab);
+
+    const label = mode === 'syn' ? 'synonym (similar meaning)' : 'antonym (opposite meaning)';
+    const altList = clueList.length > 1
+      ? ` Other ${mode === 'syn' ? 'synonyms' : 'antonyms'} of "${correctVocab}": ${clueList.filter(x => x !== clueTerm).join(', ')}.`
+      : '';
+
+    questions.push({
+      q: `Which vocabulary word has <strong>"${clueTerm}"</strong> as a <strong>${label}</strong>?`,
+      options: options,
+      answer: answer,
+      explain: `"${clueTerm}" is a ${mode === 'syn' ? 'synonym' : 'antonym'} of <strong>"${correctVocab}"</strong>.${altList}`,
+      mode: mode,
+      word: correctVocab
+    });
+  });
+
+  // Shuffle the order of questions
+  return questions.sort(() => Math.random() - 0.5);
+}
+
+function startVwQuiz(quizType) {
+  state.mode = 'vw_quiz';
+  state.quizIndex = 0;
+  state.quizCorrect = 0;
+  state.vwQuestions = buildVwQuestions(quizType);
+  state.vwQuizType = quizType;
+  const u = VW_UNITS[state.currentUnit];
+  if (!state.vwQuestions.length) {
+    botSay("Alas — no questions could be formed for this trial. Choose another path:",
+      [
+        { label: "📖 Choose Another VW Unit", onClick: () => { userSay("Choose another VW unit"); showUnitMenu(); } },
+        { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+      ]
+    );
+    return;
+  }
+  const trialName = quizType === 'syn' ? 'Synonym Trial' :
+                    quizType === 'ant' ? 'Antonym Trial' :
+                    quizType === 'fill' ? 'Fill-in-the-Blank Trial' :
+                    quizType === 'spell' ? 'Spelling Trial' :
+                    quizType === 'tf' ? 'True/False Trial' :
+                    'Mixed Trial';
+  botSay(
+    `<strong>⚔ ${trialName}: ${u.title}</strong><br>` +
+    `<em>${state.vwQuestions.length} sacred questions await thee. Steel thy mind — the trial begins!</em>`
+  );
+  setTimeout(askVwQuestion, 500);
+}
+
+function askVwQuestion() {
+  const item = state.vwQuestions[state.quizIndex];
+  let qHTML = `<strong>Trial ${state.quizIndex + 1} of ${state.vwQuestions.length}</strong><br><br>${item.q}`;
+  const opts = item.options.map((opt, idx) => ({
+    label: opt,
+    onClick: (btn) => handleVwAnswer(idx, btn)
+  }));
+  botSay(qHTML, opts);
+}
+
+function handleVwAnswer(chosen, btn) {
+  const item = state.vwQuestions[state.quizIndex];
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+
+  userSay(item.options[chosen]);
+
+  if (chosen === item.answer) {
+    btn.classList.add('correct');
+    state.quizCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain}<br><em>+1 Honour</em></div>`);
+  } else {
+    btn.classList.add('wrong');
+    allBtns[item.answer].classList.add('correct');
+    botSay(
+      `<div class='feedback-wrong'>⚔ <strong>The truth was &ldquo;${item.options[item.answer]}&rdquo;.</strong><br>` +
+      `${item.explain}<br><em>Stand firm, scholar — thou shalt prevail!</em></div>`
+    );
+  }
+
+  state.quizIndex++;
+  setTimeout(() => {
+    if (state.quizIndex < state.vwQuestions.length) {
+      askVwQuestion();
+    } else {
+      finishVwQuiz();
+    }
+  }, 900);
+}
+
+function finishVwQuiz() {
+  const total = state.vwQuestions.length;
+  const got = state.quizCorrect;
+  const bonus = (got === total) ? 3 : (got >= total - 1) ? 2 : (got >= total / 2) ? 1 : 0;
+  let msg;
+  if (got === total) {
+    msg = `✠✠✠ <strong>GLORIOUS VICTORY!</strong> All ${total} trials conquered! <em>The Emperor smiles upon thy vocabulary!</em> Bonus +${bonus} Honour!`;
+  } else if (got >= total - 1) {
+    msg = `⚔ <strong>Most valiant!</strong> Thou hast bested ${got} of ${total} trials. Bonus +${bonus} Honour!`;
+  } else if (got >= total / 2) {
+    msg = `✠ <strong>A worthy showing!</strong> ${got} of ${total} trials won. Bonus +${bonus} Honour. <em>Train on, scholar!</em>`;
+  } else {
+    msg = `Thou hast claimed ${got} of ${total} trials. <em>Even great heroes return to the Word List. Let us study anew!</em>`;
+  }
+  if (bonus) addStars(bonus);
+
+  botSay(
+    msg,
+    [
+      { label: "⚔ Trial Anew", onClick: () => { userSay("Trial anew"); startVwQuiz(state.vwQuizType); } },
+      { label: "📜 Return to Word List", onClick: () => { userSay("Return to Word List"); startVwLesson(); } },
+      { label: "🛡 Try Antonyms", onClick: () => { userSay("Antonym Trial"); startVwQuiz('ant'); } },
+      { label: "✓✗ True/False Trial", onClick: () => { userSay("True or False Trial"); startVwQuiz('tf'); } },
+      { label: "✍ Fill-in-the-Blank Trial", onClick: () => { userSay("Fill-in-the-Blank Trial"); startVwQuiz('fill'); } },
+      { label: "🔤 Spelling Trial", onClick: () => { userSay("Spelling Trial"); startVwQuiz('spell'); } },
+      { label: "✠ Mixed Trial", onClick: () => { userSay("Mixed Trial"); startVwQuiz('mix'); } },
+      { label: "📖 Choose Another VW Unit", onClick: () => { userSay("Choose another VW unit"); showUnitMenu(); } },
+      { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+    ]
+  );
+}
+
+/* ================================================================
+   READING FLOW
+   ================================================================ */
+
+function startReadingLesson() {
+  state.mode = 'rd_lesson';
+  const u = READING_UNITS[state.currentUnit];
+  let html = `<strong>📜 Word List: ${u.title}</strong><div class='vw-list-grid'>`;
+  u.words.forEach((wd, i) => {
+    html += `<div class='rd-word-card'>` +
+      `<strong>${i + 1}. ${wd.w}</strong><br>` +
+      `<span class='def'>📘 Meaning:</span> ${wd.def}<br>` +
+      `<span class='ex'>📝 Example:</span> ${wd.sent.replace('___', '<strong>' + wd.w + '</strong>')}` +
+      `</div>`;
+  });
+  html += `</div><br><em>+1 Honour for thy diligent study!</em> ✠`;
+  botSay(html);
+  addStars(1);
+  setTimeout(() => {
+    botSay(
+      "<em>Art thou prepared for the trial of words?</em> ⚔",
+      [
+        { label: "📘 Definition Trial", onClick: () => { userSay("Definition Trial"); startReadingQuiz('def'); } },
+        { label: "✓✗ True/False Trial", onClick: () => { userSay("True or False Trial"); startReadingQuiz('tf'); } },
+        { label: "✍ Fill-in-the-Blank Trial", onClick: () => { userSay("Fill-in-the-Blank Trial"); startReadingQuiz('fill'); } },
+        { label: "🔤 Spelling Trial", onClick: () => { userSay("Spelling Trial"); startReadingQuiz('spell'); } },
+        { label: "✠ Mixed Trial", onClick: () => { userSay("Mixed Trial"); startReadingQuiz('mix'); } },
+        { label: "📖 Choose Another Reading Unit", onClick: () => { userSay("Choose another Reading unit"); showUnitMenu(); } },
+        { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+      ]
+    );
+  }, 400);
+}
+
+function buildReadingTfQuestions() {
+  // True/False trial for Reading: test whether a stated definition (or sentence usage)
+  // matches the given word. ~50% true claims, ~50% false (using a different word's def
+  // or a sentence where another word fits the blank).
+  const u = READING_UNITS[state.currentUnit];
+  const questions = [];
+
+  u.words.forEach(wd => {
+    // For each vocab word, randomly pick either a "definition" claim or a "usage" claim,
+    // and randomly make it true or false.
+    const claimType = Math.random() < 0.5 ? 'def' : 'usage';
+    const makeTrue = Math.random() < 0.5;
+
+    if (claimType === 'def') {
+      let claimedDef = wd.def;
+      let realOwnerWord = wd.w;
+      if (!makeTrue) {
+        // Pick another word's definition from this unit
+        const others = u.words.filter(o => o.w.toLowerCase() !== wd.w.toLowerCase());
+        if (others.length === 0) return;
+        const other = others[Math.floor(Math.random() * others.length)];
+        claimedDef = other.def;
+        realOwnerWord = other.w;
+      }
+      const correctAnswer = makeTrue ? 0 : 1; // 0 = True, 1 = False
+      const explainTrue = `Yes — <strong>"${wd.w}"</strong> means: ${wd.def}<br>Example: <em>${wd.sent.replace('___', '<strong>' + wd.w + '</strong>')}</em>`;
+      const explainFalse = `No — that definition belongs to <strong>"${realOwnerWord}"</strong>.<br>The real meaning of <strong>"${wd.w}"</strong> is: ${wd.def}<br>Example: <em>${wd.sent.replace('___', '<strong>' + wd.w + '</strong>')}</em>`;
+      questions.push({
+        q: `<strong>True or False:</strong> &ldquo;${wd.w}&rdquo; means: <em>${claimedDef}</em>`,
+        options: ["✓ True", "✗ False"],
+        answer: correctAnswer,
+        explain: makeTrue ? explainTrue : explainFalse,
+        mode: 'tf',
+        word: wd.w
+      });
+    } else {
+      // Usage claim: present a sentence with the blank filled in and ask if it fits.
+      let chosenWord = wd.w; // word inserted into the sentence
+      if (!makeTrue) {
+        // Pick another word from this unit to wrongly insert
+        const others = u.words.filter(o => o.w.toLowerCase() !== wd.w.toLowerCase());
+        if (others.length === 0) return;
+        chosenWord = others[Math.floor(Math.random() * others.length)].w;
+      }
+      const filledSentence = wd.sent.replace('___', '<strong>' + chosenWord + '</strong>');
+      const correctAnswer = makeTrue ? 0 : 1;
+      const explainTrue = `Yes — <strong>"${chosenWord}"</strong> fits perfectly here.<br>Meaning: ${wd.def}`;
+      const explainFalse = `No — the word that fits this sentence is <strong>"${wd.w}"</strong> (meaning: ${wd.def}), not <strong>"${chosenWord}"</strong>.<br>Correct sentence: <em>${wd.sent.replace('___', '<strong>' + wd.w + '</strong>')}</em>`;
+      questions.push({
+        q: `<strong>True or False:</strong> The bolded word is used correctly.<div class='reading-passage'>${filledSentence}</div>`,
+        options: ["✓ True", "✗ False"],
+        answer: correctAnswer,
+        explain: makeTrue ? explainTrue : explainFalse,
+        mode: 'tf',
+        word: wd.w
+      });
+    }
+  });
+
+  return questions.sort(() => Math.random() - 0.5);
+}
+
+function buildReadingQuestions(quizType) {
+  // quizType: 'def' (clue = definition, options = vocab words),
+  //           'fill' (sentence with blank, options = vocab words),
+  //           'spell' (pick the correctly spelled word from 4 spellings),
+  //           'tf' (True/False on definition or usage),
+  //           'mix' (random of any per word)
+  if (quizType === 'tf') return buildReadingTfQuestions();
+
+  const u = READING_UNITS[state.currentUnit];
+  const questions = [];
+
+  u.words.forEach(wd => {
+    let mode = quizType;
+    if (quizType === 'mix') {
+      const r = Math.random();
+      // mix now spans def, fill, spell, and tf
+      mode = r < 0.25 ? 'def' : (r < 0.50 ? 'fill' : (r < 0.75 ? 'spell' : 'tf'));
+    }
+    if (mode === 'tf') {
+      // For mix mode, build one TF question for this word inline
+      const claimType = Math.random() < 0.5 ? 'def' : 'usage';
+      const makeTrue = Math.random() < 0.5;
+      if (claimType === 'def') {
+        let claimedDef = wd.def;
+        if (!makeTrue) {
+          const others = u.words.filter(o => o.w.toLowerCase() !== wd.w.toLowerCase());
+          if (others.length === 0) return;
+          claimedDef = others[Math.floor(Math.random() * others.length)].def;
+        }
+        questions.push({
+          q: `<strong>True or False:</strong> &ldquo;${wd.w}&rdquo; means: <em>${claimedDef}</em>`,
+          options: ["✓ True", "✗ False"],
+          answer: makeTrue ? 0 : 1,
+          explain: makeTrue
+            ? `Yes — that's the meaning of <strong>"${wd.w}"</strong>.<br>Example: <em>${wd.sent.replace('___', '<strong>' + wd.w + '</strong>')}</em>`
+            : `No — the real meaning of <strong>"${wd.w}"</strong> is: ${wd.def}`,
+          mode: 'tf',
+          word: wd.w
+        });
+      } else {
+        let chosenWord = wd.w;
+        if (!makeTrue) {
+          const others = u.words.filter(o => o.w.toLowerCase() !== wd.w.toLowerCase());
+          if (others.length === 0) return;
+          chosenWord = others[Math.floor(Math.random() * others.length)].w;
+        }
+        const filled = wd.sent.replace('___', '<strong>' + chosenWord + '</strong>');
+        questions.push({
+          q: `<strong>True or False:</strong> The bolded word is used correctly.<div class='reading-passage'>${filled}</div>`,
+          options: ["✓ True", "✗ False"],
+          answer: makeTrue ? 0 : 1,
+          explain: makeTrue
+            ? `Yes — <strong>"${chosenWord}"</strong> fits this sentence.`
+            : `No — the word that fits is <strong>"${wd.w}"</strong>, not <strong>"${chosenWord}"</strong>.<br>Correct: <em>${wd.sent.replace('___', '<strong>' + wd.w + '</strong>')}</em>`,
+          mode: 'tf',
+          word: wd.w
+        });
+      }
+      return;
+    }
+
+    // SPELLING MODE: 4 options are the correct spelling + the word's misspellings
+    if (mode === 'spell') {
+      const mis = (wd.mis && wd.mis.length >= 3) ? wd.mis.slice(0, 3) : (wd.mis || []);
+      // Pad if needed
+      const fillerMis = ['___1', '___2', '___3'];
+      while (mis.length < 3) mis.push(fillerMis[mis.length]);
+      const options = [wd.w, ...mis].sort(() => Math.random() - 0.5);
+      const answer = options.indexOf(wd.w);
+      questions.push({
+        q: `Which is the <strong>correct spelling</strong>? <em>(Hint: ${wd.def})</em>`,
+        options: options,
+        answer: answer,
+        explain: `The correct spelling is <strong>"${wd.w}"</strong>.<br>Meaning: ${wd.def}<br>Example: <em>${wd.sent.replace('___', '<strong>' + wd.w + '</strong>')}</em>`,
+        mode: 'spell',
+        word: wd.w
+      });
+      return;
+    }
+
+    // Distractors: 3 other words from this same Reading unit
+    const correctVocab = wd.w;
+    const used = new Set([correctVocab.toLowerCase()]);
+    const pool = u.words.filter(o => o.w.toLowerCase() !== correctVocab.toLowerCase()).map(o => o.w);
+    const shuffled = pool.slice().sort(() => Math.random() - 0.5);
+    const distractors = [];
+    for (const d of shuffled) {
+      if (!used.has(d.toLowerCase())) { distractors.push(d); used.add(d.toLowerCase()); }
+      if (distractors.length === 3) break;
+    }
+    // Fall back to other reading units if needed
+    if (distractors.length < 3) {
+      const extra = [];
+      Object.entries(READING_UNITS).forEach(([k, ou]) => {
+        if (k === state.currentUnit) return;
+        ou.words.forEach(w2 => extra.push(w2.w));
+      });
+      const extraShuffled = extra.sort(() => Math.random() - 0.5);
+      for (const d of extraShuffled) {
+        if (!used.has(d.toLowerCase())) { distractors.push(d); used.add(d.toLowerCase()); }
+        if (distractors.length === 3) break;
+      }
+    }
+    while (distractors.length < 3) distractors.push("—");
+
+    const options = [correctVocab, ...distractors].sort(() => Math.random() - 0.5);
+    const answer = options.indexOf(correctVocab);
+
+    if (mode === 'def') {
+      questions.push({
+        q: `Which word means: <strong>"${wd.def}"</strong>?`,
+        options: options,
+        answer: answer,
+        explain: `<strong>"${correctVocab}"</strong> means: ${wd.def}<br>Example: <em>${wd.sent.replace('___', '<strong>' + correctVocab + '</strong>')}</em>`,
+        mode: 'def',
+        word: correctVocab
+      });
+    } else {
+      // 'fill'
+      questions.push({
+        q: `Fill in the blank with the best word:<br><div class='reading-passage'>${wd.sent}</div>`,
+        options: options,
+        answer: answer,
+        explain: `<strong>"${correctVocab}"</strong> means: ${wd.def}<br>Full sentence: <em>${wd.sent.replace('___', '<strong>' + correctVocab + '</strong>')}</em>`,
+        mode: 'fill',
+        word: correctVocab
+      });
+    }
+  });
+
+  return questions.sort(() => Math.random() - 0.5);
+}
+
+function startReadingQuiz(quizType) {
+  state.mode = 'rd_quiz';
+  state.quizIndex = 0;
+  state.quizCorrect = 0;
+  state.rdQuestions = buildReadingQuestions(quizType);
+  state.rdQuizType = quizType;
+  const u = READING_UNITS[state.currentUnit];
+  if (!state.rdQuestions.length) {
+    botSay("Alas — no questions could be formed for this trial. Choose another path:",
+      [
+        { label: "📖 Choose Another Reading Unit", onClick: () => { userSay("Choose another Reading unit"); showUnitMenu(); } },
+        { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+      ]
+    );
+    return;
+  }
+  const trialName = quizType === 'def' ? 'Definition Trial' :
+                    quizType === 'fill' ? 'Fill-in-the-Blank Trial' :
+                    quizType === 'spell' ? 'Spelling Trial' :
+                    quizType === 'tf' ? 'True/False Trial' :
+                    'Mixed Trial';
+  botSay(
+    `<strong>⚔ ${trialName}: ${u.title}</strong><br>` +
+    `<em>${state.rdQuestions.length} sacred questions await thee. Steel thy mind — the trial begins!</em>`
+  );
+  setTimeout(askReadingQuestion, 500);
+}
+
+function askReadingQuestion() {
+  const item = state.rdQuestions[state.quizIndex];
+  let qHTML = `<strong>Trial ${state.quizIndex + 1} of ${state.rdQuestions.length}</strong><br><br>${item.q}`;
+  const opts = item.options.map((opt, idx) => ({
+    label: opt,
+    onClick: (btn) => handleReadingAnswer(idx, btn)
+  }));
+  botSay(qHTML, opts);
+}
+
+function handleReadingAnswer(chosen, btn) {
+  const item = state.rdQuestions[state.quizIndex];
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+
+  userSay(item.options[chosen]);
+
+  if (chosen === item.answer) {
+    btn.classList.add('correct');
+    state.quizCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain}<br><em>+1 Honour</em></div>`);
+  } else {
+    btn.classList.add('wrong');
+    allBtns[item.answer].classList.add('correct');
+    botSay(
+      `<div class='feedback-wrong'>⚔ <strong>The truth was &ldquo;${item.options[item.answer]}&rdquo;.</strong><br>` +
+      `${item.explain}<br><em>Stand firm, scholar — thou shalt prevail!</em></div>`
+    );
+  }
+
+  state.quizIndex++;
+  setTimeout(() => {
+    if (state.quizIndex < state.rdQuestions.length) {
+      askReadingQuestion();
+    } else {
+      finishReadingQuiz();
+    }
+  }, 900);
+}
+
+function finishReadingQuiz() {
+  const total = state.rdQuestions.length;
+  const got = state.quizCorrect;
+  const bonus = (got === total) ? 3 : (got >= total - 1) ? 2 : (got >= total / 2) ? 1 : 0;
+  let msg;
+  if (got === total) {
+    msg = `✠✠✠ <strong>GLORIOUS VICTORY!</strong> All ${total} trials conquered! <em>The Emperor smiles upon thy reading!</em> Bonus +${bonus} Honour!`;
+  } else if (got >= total - 1) {
+    msg = `⚔ <strong>Most valiant!</strong> Thou hast bested ${got} of ${total} trials. Bonus +${bonus} Honour!`;
+  } else if (got >= total / 2) {
+    msg = `✠ <strong>A worthy showing!</strong> ${got} of ${total} trials won. Bonus +${bonus} Honour. <em>Train on, scholar!</em>`;
+  } else {
+    msg = `Thou hast claimed ${got} of ${total} trials. <em>Even great heroes return to the Word List. Let us study anew!</em>`;
+  }
+  if (bonus) addStars(bonus);
+
+  botSay(
+    msg,
+    [
+      { label: "⚔ Trial Anew", onClick: () => { userSay("Trial anew"); startReadingQuiz(state.rdQuizType); } },
+      { label: "📜 Return to Word List", onClick: () => { userSay("Return to Word List"); startReadingLesson(); } },
+      { label: "📘 Definition Trial", onClick: () => { userSay("Definition Trial"); startReadingQuiz('def'); } },
+      { label: "✓✗ True/False Trial", onClick: () => { userSay("True or False Trial"); startReadingQuiz('tf'); } },
+      { label: "✍ Fill-in-the-Blank Trial", onClick: () => { userSay("Fill-in-the-Blank Trial"); startReadingQuiz('fill'); } },
+      { label: "🔤 Spelling Trial", onClick: () => { userSay("Spelling Trial"); startReadingQuiz('spell'); } },
+      { label: "✠ Mixed Trial", onClick: () => { userSay("Mixed Trial"); startReadingQuiz('mix'); } },
+      { label: "📖 Choose Another Reading Unit", onClick: () => { userSay("Choose another Reading unit"); showUnitMenu(); } },
+      { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
     ]
   );
 }
@@ -1102,48 +2182,116 @@ function handleUserInput(text) {
   userSay(text);
   const lower = text.toLowerCase().trim();
 
+  // Check Reading unit references first (most specific — "reading 16" beats bare "16")
+  const readingMatch = lower.match(/(?:reading\s*(?:unit\s*)?|rd\s*(?:unit\s*)?|r)(16|17|18|19)\b/);
+  if (readingMatch) {
+    const num = readingMatch[1];
+    const key = 'r' + num;
+    if (READING_UNITS[key]) {
+      state.section = 'reading';
+      userSay('Reading Unit ' + num);
+      chooseUnit(key);
+      return;
+    }
+  }
+
+  // Check VW unit references
+  const vwMatch = lower.match(/(?:vw\s*(?:unit\s*)?|vocabulary\s*(?:unit\s*)?|unit\s*)(14|15|16|17|18)\b/);
+  if (vwMatch) {
+    const num = vwMatch[1];
+    const key = 'vw' + num;
+    if (VW_UNITS[key]) {
+      state.section = 'vw';
+      userSay('VW Unit ' + num);
+      chooseUnit(key);
+      return;
+    }
+  }
+
   if (lower.includes("hello") || lower.includes("hi ") || lower === "hi" || lower.includes("hey")) {
     botSay(pickRandom([
       "Hail, scholar! ✠ Ready to study the sacred Codex?",
-      "Greetings! Choose a unit to begin thy training!",
+      "Greetings! Choose a library to begin thy training!",
       "Well met, brave learner! ⚔ Choose thy path!"
     ]));
-    showUnitMenu();
-  } else if (lower.includes("unit") || lower.includes("menu") || lower.includes("home") || lower.includes("back")) {
-    showUnitMenu();
+    showSectionMenu();
+  } else if (lower.includes("library") || lower.includes("section") || lower.includes("home")) {
+    showSectionMenu();
+  } else if (lower.includes("reading") || lower === "rd" || lower.includes("hall of reading")) {
+    state.section = 'reading'; userSay("Reading"); showUnitMenu();
+  } else if (lower.includes("vocab") || lower === "vw" || lower.includes("vocabulary workshop")) {
+    state.section = 'vw'; userSay("Vocabulary Workshop"); showUnitMenu();
+  } else if (lower.includes("grammar") || lower.includes("codex")) {
+    state.section = 'grammar'; userSay("Grammar Codex"); showUnitMenu();
   } else if (lower.includes("unit 4") || lower.includes("u4") || lower.includes("adjective") || lower.includes("adverb")) {
-    userSay("Unit 4"); chooseUnit('u4');
+    state.section = 'grammar'; userSay("Unit 4"); chooseUnit('u4');
   } else if (lower.includes("unit 5") || lower.includes("u5") || lower.includes("capitaliz") || lower.includes("punctuation")) {
-    userSay("Unit 5"); chooseUnit('u5');
+    state.section = 'grammar'; userSay("Unit 5"); chooseUnit('u5');
   } else if (lower.includes("unit 6") || lower.includes("u6") || lower.includes("pronoun")) {
-    userSay("Unit 6"); chooseUnit('u6');
+    state.section = 'grammar'; userSay("Unit 6"); chooseUnit('u6');
+  } else if (lower.includes("synonym")) {
+    if (state.section === 'vw' && state.currentUnit) startVwQuiz('syn');
+    else { botSay("First, choose a VW unit:"); state.section = 'vw'; showUnitMenu(); }
+  } else if (lower.includes("antonym")) {
+    if (state.section === 'vw' && state.currentUnit) startVwQuiz('ant');
+    else { botSay("First, choose a VW unit:"); state.section = 'vw'; showUnitMenu(); }
+  } else if (lower.includes("definition") || lower.includes("meaning")) {
+    if (state.section === 'reading' && state.currentUnit) startReadingQuiz('def');
+    else { botSay("First, choose a Reading unit:"); state.section = 'reading'; showUnitMenu(); }
+  } else if (lower.includes("spell")) {
+    if (state.section === 'reading' && state.currentUnit) startReadingQuiz('spell');
+    else if (state.section === 'vw' && state.currentUnit) startVwQuiz('spell');
+    else { botSay("First, choose a Reading or VW unit:"); showSectionMenu(); }
+  } else if (lower.includes("true") || lower.includes("false") || lower === "tf" || lower === "t/f") {
+    if (state.section === 'reading' && state.currentUnit) startReadingQuiz('tf');
+    else if (state.section === 'vw' && state.currentUnit) startVwQuiz('tf');
+    else { botSay("First, choose a Reading or VW unit:"); showSectionMenu(); }
+  } else if (lower.includes("fill") || lower.includes("blank")) {
+    if (state.section === 'reading' && state.currentUnit) startReadingQuiz('fill');
+    else if (state.section === 'vw' && state.currentUnit) startVwQuiz('fill');
+    else { botSay("First, choose a unit:"); showSectionMenu(); }
+  } else if (lower.includes("unit") || lower.includes("menu") || lower.includes("back")) {
+    if (state.section) showUnitMenu();
+    else showSectionMenu();
   } else if (lower.includes("quiz") || lower.includes("trial")) {
-    if (state.currentTopic) startQuiz();
+    if (state.section === 'reading' && state.currentUnit) startReadingQuiz('mix');
+    else if (state.section === 'vw' && state.currentUnit) startVwQuiz('mix');
+    else if (state.currentTopic) startQuiz();
     else if (state.currentUnit) { botSay("Which topic shall we test?"); showTopicMenu(); }
-    else { botSay("First, choose a unit:"); showUnitMenu(); }
-  } else if (lower.includes("lesson") || lower.includes("codex") || lower.includes("study") || lower.includes("learn")) {
-    if (state.currentTopic) startLesson();
+    else { botSay("First, choose a unit:"); showSectionMenu(); }
+  } else if (lower.includes("lesson") || lower.includes("study") || lower.includes("learn") || lower.includes("word list")) {
+    if (state.section === 'reading' && state.currentUnit) startReadingLesson();
+    else if (state.section === 'vw' && state.currentUnit) startVwLesson();
+    else if (state.currentTopic) startLesson();
     else if (state.currentUnit) { botSay("Which topic shall we study?"); showTopicMenu(); }
-    else { botSay("First, choose a unit:"); showUnitMenu(); }
+    else { botSay("First, choose a unit:"); showSectionMenu(); }
   } else if (lower.includes("score") || lower.includes("honour") || lower.includes("honor") || lower.includes("star")) {
     botSay(`Thou hast earned <strong>${state.score} Honour</strong> ✠ — <em>a most distinguished record!</em>`);
   } else if (lower.includes("help")) {
     botSay(
-      "I am thy guide through the sacred lore of grammar! <br><br>" +
-      "• Say <em>'unit 4'</em> — Adjectives &amp; Adverbs<br>" +
-      "• Say <em>'unit 5'</em> — Capitalization &amp; Punctuation<br>" +
-      "• Say <em>'unit 6'</em> — Pronouns<br>" +
-      "• Say <em>'menu'</em> — view all units<br>" +
-      "• Say <em>'trial'</em> — begin a quiz<br>" +
-      "• Say <em>'honour'</em> — check thy score"
+      "I am thy guide through grammar, vocabulary, and reading! <br><br>" +
+      "<strong>📜 Grammar Codex:</strong><br>" +
+      "• <em>'unit 4'</em> — Adjectives &amp; Adverbs<br>" +
+      "• <em>'unit 5'</em> — Capitalization &amp; Punctuation<br>" +
+      "• <em>'unit 6'</em> — Pronouns<br><br>" +
+      "<strong>📚 Vocabulary Workshop:</strong><br>" +
+      "• <em>'VW 14'</em> through <em>'VW 18'</em> — vocabulary units<br>" +
+      "• <em>'synonym'</em>, <em>'antonym'</em>, <em>'true or false'</em>, <em>'spelling'</em>, or <em>'fill in the blank'</em> — start a trial<br><br>" +
+      "<strong>📖 Reading:</strong><br>" +
+      "• <em>'reading 16'</em> through <em>'reading 19'</em> — reading units<br>" +
+      "• <em>'definition'</em>, <em>'true or false'</em>, <em>'spelling'</em>, or <em>'fill in the blank'</em> — start a trial<br><br>" +
+      "<strong>Other:</strong><br>" +
+      "• <em>'library'</em> — choose Grammar, Vocabulary, or Reading<br>" +
+      "• <em>'menu'</em> — view current unit menu<br>" +
+      "• <em>'honour'</em> — check thy score"
     );
   } else if (lower.includes("thank")) {
     botSay("Thou art most welcome, scholar! ✠ <em>Knowledge is thy true armour.</em>");
   } else if (lower.includes("bye")) {
-    botSay("Fare thee well, brave learner! ⚔ <em>Return swiftly — the Codex awaits!</em>");
+    botSay("Fare thee well, brave learner! ⚔ <em>Return swiftly — the libraries await!</em>");
   } else {
-    // Try to match a topic name in the current unit
-    if (state.currentUnit) {
+    // Try to match a topic name in the current grammar unit
+    if (state.section !== 'vw' && state.currentUnit && UNITS[state.currentUnit]) {
       const topics = UNITS[state.currentUnit].topics;
       let matched = null;
       for (const k of Object.keys(topics)) {
@@ -1151,12 +2299,34 @@ function handleUserInput(text) {
       }
       if (matched) { chooseTopic(matched); return; }
     }
+    // Try to match a VW word in the current VW unit
+    if (state.section === 'vw' && state.currentUnit && VW_UNITS[state.currentUnit]) {
+      const words = VW_UNITS[state.currentUnit].words;
+      const found = words.find(w => lower.includes(w.w.toLowerCase()));
+      if (found) {
+        botSay(`<div class='vw-word-card'><strong>${found.w}</strong><br>` +
+          `<span class='syn'>✓ Synonyms:</span> ${found.syn.length ? found.syn.join(', ') : '<em>—</em>'}<br>` +
+          `<span class='ant'>✗ Antonyms:</span> ${found.ant.length ? found.ant.join(', ') : '<em>—</em>'}</div>`);
+        return;
+      }
+    }
+    // Try to match a Reading word in the current Reading unit
+    if (state.section === 'reading' && state.currentUnit && READING_UNITS[state.currentUnit]) {
+      const words = READING_UNITS[state.currentUnit].words;
+      const found = words.find(w => lower.includes(w.w.toLowerCase()));
+      if (found) {
+        botSay(`<div class='rd-word-card'><strong>${found.w}</strong><br>` +
+          `<span class='def'>📘 Meaning:</span> ${found.def}<br>` +
+          `<span class='ex'>📝 Example:</span> ${found.sent.replace('___', '<strong>' + found.w + '</strong>')}</div>`);
+        return;
+      }
+    }
     botSay(pickRandom([
-      "Hmm, my cogitations are humble — let us choose a unit from the menu!",
-      "A worthy missive! Choose a unit below to begin thy study:",
+      "Hmm, my cogitations are humble — let us choose a library from the menu!",
+      "A worthy missive! Choose a library below to begin thy study:",
       "Onward to learning! The tomes await:"
     ]));
-    showUnitMenu();
+    showSectionMenu();
   }
 }
 
