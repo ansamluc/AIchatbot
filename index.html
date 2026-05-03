@@ -450,6 +450,52 @@
   .unit-btn.section-ss:hover { box-shadow: 0 4px 14px rgba(192,138,58,0.3); border-color: #8a5a1a; color: #8a5a1a; }
   .unit-btn.ss { border-color: #d8a85a; }
   .unit-btn.ss:hover { box-shadow: 0 4px 14px rgba(216,168,90,0.3); border-color: #c08a3a; color: #8a5a1a; }
+  .unit-btn.section-math { border-color: #3a6ea8; }
+  .unit-btn.section-math:hover { box-shadow: 0 4px 14px rgba(58,110,168,0.3); border-color: #1a4e88; color: #1a4e88; }
+  .unit-btn.math { border-color: #5a8ec8; }
+  .unit-btn.math:hover { box-shadow: 0 4px 14px rgba(90,142,200,0.3); border-color: #3a6ea8; color: #1a4e88; }
+  .math-lesson-content {
+    background: #f3f7fc;
+    color: #2a2420;
+    border: 1px solid #c0d4ea;
+    border-left: 4px solid #3a6ea8;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 8px 0;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.65;
+  }
+  .math-lesson-content strong { color: #1a4e88; font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 0.04em; }
+  .math-lesson-content h4 {
+    font-family: 'Cinzel', serif;
+    color: #1a4e88;
+    font-size: 1.05rem;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  .math-lesson-content p { margin-bottom: 9px; }
+  .math-lesson-content .math-eg {
+    display: inline-block;
+    background: #ffffff;
+    border: 1px dashed #5a8ec8;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin: 4px 4px 4px 0;
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    color: #1a4e88;
+  }
+  .math-vocab-card {
+    background: #eef4fb;
+    border: 1px solid #b8cfe5;
+    border-left: 4px solid #3a6ea8;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin: 6px 0;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .math-vocab-card strong { color: #1a4e88; font-family: 'Cinzel', serif; }
   .ss-lesson-content {
     background: #fdf6e8;
     color: #2a2420;
@@ -1662,6 +1708,319 @@ function finishSSQuiz() {
 }
 
 /* ================================================================
+   MATHEMATICA — UNIT 10: TIME
+   ================================================================ */
+
+const MATH_UNITS = {
+  m10: {
+    title: "Unit 10",
+    subtitle: "Time",
+    emoji: "⏰",
+    cssClass: "math",
+    bigQuestion: "How do you use a timeline to represent the start time, end time, and elapsed time of an activity?",
+    vocab: [
+      { w: "A.M.", def: "the time from midnight (12:00 A.M.) to just before noon" },
+      { w: "P.M.", def: "the time from noon (12:00 P.M.) to just before midnight" },
+      { w: "past", def: "used to tell time AFTER the hour (e.g., '15 minutes past 6' = 6:15)" },
+      { w: "to", def: "used to tell time BEFORE the next hour (e.g., '20 minutes to 6' = 5:40)" },
+      { w: "hour", def: "a unit of time equal to 60 minutes" },
+      { w: "minute", def: "a unit of time; 60 minutes equal 1 hour" },
+      { w: "elapsed time", def: "the amount of time that passes from the start to the end of an activity" },
+      { w: "start time", def: "the time when an activity begins" },
+      { w: "end time", def: "the time when an activity finishes" },
+      { w: "timeline", def: "a line that shows times in order, used to find elapsed time" }
+    ],
+    lesson: [
+      "<h4>The Big Question</h4><p>How do you use a <strong>timeline</strong> to represent the <strong>start time</strong>, <strong>end time</strong>, and <strong>elapsed time</strong> of an activity?</p>",
+      "<h4>Telling Time — Past and To</h4>" +
+      "<p>You can tell the time to the minute using an analog or a digital clock. Use <strong>\"past\"</strong> for time AFTER the hour and <strong>\"to\"</strong> for time BEFORE the next hour.</p>" +
+      "<p><span class='math-eg'>6:15 = 15 minutes past 6</span> <span class='math-eg'>5:40 = 20 minutes to 6</span></p>" +
+      "<p>So <strong>6:15</strong> can be read as \"15 minutes past 6\" or \"quarter past 6\". <strong>5:40</strong> can be read as \"20 minutes to 6\".</p>",
+      "<h4>A.M. and P.M.</h4>" +
+      "<p><strong>A.M.</strong> = midnight to just before noon (00:00 – 11:59).<br>" +
+      "<strong>P.M.</strong> = noon to just before midnight (12:00 – 23:59).</p>" +
+      "<p><span class='math-eg'>3:00 A.M. = early morning</span> <span class='math-eg'>3:00 P.M. = afternoon</span></p>",
+      "<h4>Converting Hours and Minutes</h4>" +
+      "<p>Remember: <strong>1 hour = 60 minutes</strong>.</p>" +
+      "<p>To convert HOURS to MINUTES, multiply by 60.<br>" +
+      "<span class='math-eg'>1 h 10 min = 60 + 10 = 70 min</span></p>" +
+      "<p>To convert MINUTES to HOURS, divide by 60. The remainder is the leftover minutes.<br>" +
+      "<span class='math-eg'>90 min = 60 + 30 = 1 h 30 min</span></p>",
+      "<h4>Elapsed Time — Using a Timeline</h4>" +
+      "<p>Use a <strong>timeline</strong> to find elapsed time, start time, or end time.</p>" +
+      "<p><strong>Adding time:</strong> Add hours and minutes separately. If minutes ≥ 60, regroup as 1 hour.<br>" +
+      "<span class='math-eg'>1 h 40 min + 1 h 27 min = 2 h 67 min = 3 h 7 min</span></p>" +
+      "<p><strong>Subtracting time:</strong> If you can't subtract the minutes, borrow 1 hour (= 60 minutes) from the hours.<br>" +
+      "<span class='math-eg'>2 h 13 min – 1 h 38 min → borrow → 1 h 73 min – 1 h 38 min = 35 min</span></p>",
+      "<h4>Word Problem Strategy</h4>" +
+      "<p>1. Identify the <strong>start time</strong>, <strong>end time</strong>, or <strong>elapsed time</strong> given.<br>" +
+      "2. Draw a timeline if it helps.<br>" +
+      "3. Add or subtract carefully — remember to regroup at 60.</p>" +
+      "<p><span class='math-eg'>Start 5:25 P.M. + Elapsed 1 h 32 min = End 6:57 P.M.</span></p>"
+    ],
+    quiz_mc: [
+      { q: "What is another way to read <strong>6:15</strong>?", options: ["15 minutes to 6", "15 minutes past 6", "6 minutes past 15", "quarter to 6"], answer: 1, explain: "6:15 = 15 minutes PAST 6 (or 'quarter past 6')." },
+      { q: "What is another way to read <strong>8:50</strong>?", options: ["8 minutes to 50", "50 minutes past 8", "10 minutes to 9", "10 minutes past 8"], answer: 2, explain: "8:50 is 10 minutes BEFORE 9 — so '10 minutes to 9'." },
+      { q: "What is another way to read <strong>5:40</strong>?", options: ["20 minutes past 5", "20 minutes to 6", "40 minutes to 5", "20 minutes past 6"], answer: 1, explain: "5:40 is 20 minutes BEFORE 6 — so '20 minutes to 6'." },
+      { q: "Which time means '15 minutes past 11'?", options: ["10:45", "11:15", "11:45", "11:50"], answer: 1, explain: "15 minutes past 11 = 11 + 0:15 = 11:15." },
+      { q: "Which time means '5 minutes to 4'?", options: ["3:55", "4:05", "4:55", "5:55"], answer: 0, explain: "5 minutes BEFORE 4 = 4:00 – 0:05 = 3:55." },
+      { q: "<strong>23 minutes past 11 in the evening</strong> is written as…", options: ["11:23 A.M.", "11:23 P.M.", "23:11 P.M.", "12:23 A.M."], answer: 1, explain: "Evening = P.M. So 11:23 P.M." },
+      { q: "<strong>3 minutes to 3 in the morning</strong> is written as…", options: ["3:03 A.M.", "2:57 A.M.", "3:03 P.M.", "2:57 P.M."], answer: 1, explain: "Morning = A.M. 3 minutes BEFORE 3 = 2:57 A.M." },
+      { q: "Convert <strong>2 h 40 min</strong> to minutes.", options: ["140 min", "150 min", "160 min", "240 min"], answer: 2, explain: "2 × 60 = 120 min; 120 + 40 = 160 min." },
+      { q: "Convert <strong>3 h 6 min</strong> to minutes.", options: ["180 min", "186 min", "306 min", "366 min"], answer: 1, explain: "3 × 60 = 180 min; 180 + 6 = 186 min." },
+      { q: "Convert <strong>4 h 18 min</strong> to minutes.", options: ["240 min", "258 min", "418 min", "278 min"], answer: 1, explain: "4 × 60 = 240 min; 240 + 18 = 258 min." },
+      { q: "Convert <strong>98 min</strong> to hours and minutes.", options: ["1 h 38 min", "1 h 28 min", "9 h 8 min", "1 h 8 min"], answer: 0, explain: "98 ÷ 60 = 1 with remainder 38. So 1 h 38 min." },
+      { q: "Convert <strong>207 min</strong> to hours and minutes.", options: ["2 h 7 min", "3 h 27 min", "2 h 47 min", "3 h 47 min"], answer: 1, explain: "207 ÷ 60 = 3 with remainder 27. So 3 h 27 min." },
+      { q: "Convert <strong>360 min</strong> to hours.", options: ["5 h", "6 h", "60 h", "36 h"], answer: 1, explain: "360 ÷ 60 = 6 exactly. So 6 h." },
+      { q: "How many minutes are in <strong>1 hour 30 minutes</strong>?", options: ["70 min", "80 min", "90 min", "130 min"], answer: 2, explain: "60 + 30 = 90 min." },
+      { q: "How many hours and minutes are in <strong>75 minutes</strong>?", options: ["1 h 5 min", "1 h 15 min", "7 h 5 min", "1 h 25 min"], answer: 1, explain: "75 ÷ 60 = 1 with remainder 15. So 1 h 15 min." },
+      { q: "Add: <strong>1 h 40 min + 1 h 27 min</strong>.", options: ["2 h 7 min", "2 h 67 min", "3 h 7 min", "3 h 17 min"], answer: 2, explain: "1+1 = 2 h, 40+27 = 67 min. 67 min = 1 h 7 min, so 2 h + 1 h 7 min = 3 h 7 min." },
+      { q: "Add: <strong>2 h 35 min + 1 h 50 min</strong>.", options: ["3 h 85 min", "4 h 25 min", "4 h 15 min", "3 h 25 min"], answer: 1, explain: "2+1 = 3 h, 35+50 = 85 min = 1 h 25 min. Total = 4 h 25 min." },
+      { q: "Subtract: <strong>2 h 13 min – 1 h 38 min</strong>.", options: ["35 min", "1 h 25 min", "25 min", "45 min"], answer: 0, explain: "Borrow 1 h: 1 h 73 min – 1 h 38 min = 35 min." },
+      { q: "Subtract: <strong>3 h 10 min – 1 h 45 min</strong>.", options: ["2 h 35 min", "1 h 25 min", "1 h 35 min", "1 h 65 min"], answer: 1, explain: "Borrow 1 h: 2 h 70 min – 1 h 45 min = 1 h 25 min." },
+      { q: "What does <strong>elapsed time</strong> mean?", options: ["the time on the clock right now", "the time that has passed from start to end", "the time you wake up", "the difference between A.M. and P.M."], answer: 1, explain: "Elapsed time is the amount of time that passes from the start to the end of an activity." }
+    ],
+    quiz_tf: [
+      { q: "<strong>1 hour = 60 minutes.</strong>", answer: true, explain: "True! There are 60 minutes in 1 hour." },
+      { q: "<strong>3:00 A.M.</strong> means 3 o'clock in the afternoon.", answer: false, explain: "False! A.M. is morning. 3:00 A.M. is early morning. Afternoon would be 3:00 P.M." },
+      { q: "<strong>6:45</strong> can be read as '15 minutes to 7'.", answer: true, explain: "True! 6:45 is 15 minutes BEFORE 7." },
+      { q: "<strong>120 minutes</strong> is the same as <strong>2 hours</strong>.", answer: true, explain: "True! 120 ÷ 60 = 2, so 120 min = 2 h." },
+      { q: "<strong>'10 minutes past 4'</strong> means 4:10.", answer: true, explain: "True! Past = AFTER the hour, so 4:10." },
+      { q: "<strong>'5 minutes to 9'</strong> means 9:05.", answer: false, explain: "False! '5 minutes to 9' means 5 minutes BEFORE 9, which is 8:55." },
+      { q: "<strong>P.M.</strong> covers the time from noon to just before midnight.", answer: true, explain: "True! P.M. = noon (12:00) to just before midnight." },
+      { q: "When subtracting time, if you can't subtract minutes, you can borrow <strong>60 minutes</strong> from the hours.", answer: true, explain: "True! 1 hour = 60 minutes, so you borrow 60 minutes." },
+      { q: "<strong>1 h 30 min + 0 h 45 min = 2 h 15 min.</strong>", answer: true, explain: "True! 30+45 = 75 min = 1 h 15 min. So 1 h + 1 h 15 min = 2 h 15 min." },
+      { q: "<strong>90 minutes = 9 hours.</strong>", answer: false, explain: "False! 90 ÷ 60 = 1 remainder 30. So 90 min = 1 h 30 min, not 9 h." },
+      { q: "<strong>2 h 20 min – 50 min = 1 h 30 min.</strong>", answer: true, explain: "True! Borrow: 1 h 80 min – 0 h 50 min = 1 h 30 min." },
+      { q: "<strong>240 minutes = 4 hours.</strong>", answer: true, explain: "True! 240 ÷ 60 = 4 exactly." }
+    ],
+    quiz_fill: [
+      { q: "60 minutes = ___ hour.", options: ["1", "2", "10", "60"], answer: 0, explain: "60 minutes = 1 hour." },
+      { q: "1 hour 15 min = ___ minutes.", options: ["75", "115", "65", "85"], answer: 0, explain: "60 + 15 = 75 minutes." },
+      { q: "180 minutes = ___ hours.", options: ["1", "2", "3", "18"], answer: 2, explain: "180 ÷ 60 = 3 hours." },
+      { q: "150 min = ___ h ___ min.", options: ["1 h 50 min", "2 h 30 min", "1 h 30 min", "2 h 50 min"], answer: 1, explain: "150 ÷ 60 = 2 remainder 30 → 2 h 30 min." },
+      { q: "12:00 P.M. is also called ___.", options: ["midnight", "noon", "morning", "evening"], answer: 1, explain: "12:00 P.M. = noon (the middle of the day)." },
+      { q: "12:00 A.M. is also called ___.", options: ["midnight", "noon", "morning", "evening"], answer: 0, explain: "12:00 A.M. = midnight (the very start of the day)." },
+      { q: "7:50 = ___ minutes to 8.", options: ["10", "20", "50", "5"], answer: 0, explain: "7:50 is 10 minutes before 8." },
+      { q: "9:25 = ___ minutes past 9.", options: ["25", "15", "35", "5"], answer: 0, explain: "9:25 is 25 minutes after 9." },
+      { q: "Adding time: 45 min + 30 min = ___ min, which is ___.", options: ["75 min, 1 h 15 min", "75 min, 1 h 30 min", "85 min, 1 h 25 min", "65 min, 1 h 5 min"], answer: 0, explain: "45 + 30 = 75 min = 1 h 15 min." },
+      { q: "5:00 P.M. plus 2 hours = ___ P.M.", options: ["3:00", "7:00", "5:02", "10:00"], answer: 1, explain: "5:00 + 2:00 = 7:00 P.M." },
+      { q: "If a movie starts at 4:15 P.M. and lasts 1 h 30 min, it ends at ___ P.M.", options: ["5:30", "5:45", "6:15", "5:15"], answer: 1, explain: "4:15 + 1 h 30 min = 5:45 P.M." },
+      { q: "___ minutes are in 4 hours.", options: ["40", "60", "240", "400"], answer: 2, explain: "4 × 60 = 240 minutes." }
+    ],
+    // Word problems — modeled after the chapter review story problems
+    quiz_word: [
+      { q: "<strong>Goel</strong> started jogging at <strong>5:57 A.M.</strong> and stopped at <strong>6:14 A.M.</strong> How long did he jog for?", options: ["57 minutes", "53 minutes", "27 minutes", "17 minutes"], answer: 3, explain: "From 5:57 to 6:14: 5:57 → 6:00 is 3 min, then 6:00 → 6:14 is 14 min. Total = 3 + 14 = 17 min." },
+      { q: "<strong>Jessica</strong> swam from <strong>5:25 P.M.</strong> to <strong>6:57 P.M.</strong> on Monday. On Tuesday, she swam <strong>30 minutes longer</strong> than on Monday. How long did she swim for on Tuesday?", options: ["1 h 32 min", "2 h 02 min", "1 h 02 min", "2 h 32 min"], answer: 1, explain: "Monday: 5:25 → 6:57 = 1 h 32 min. Tuesday = 1 h 32 min + 30 min = 2 h 02 min." },
+      { q: "<strong>Madelyn</strong> left her house at <strong>10:27 A.M.</strong>, passed the library 45 minutes later, and reached the mall at noon. How long did she take to travel from the library to the mall?", options: ["48 min", "1 h 12 min", "47 min", "45 min"], answer: 0, explain: "Library time = 10:27 + 0:45 = 11:12 A.M. Library to mall = 12:00 – 11:12 = 48 min." },
+      { q: "<strong>Destiny</strong> finished her project in <strong>2 hours 13 minutes</strong>. <strong>Trevon</strong> finished the same project <strong>38 minutes faster</strong> than Destiny. He finished his project at <strong>4:10 P.M.</strong> At what time did Trevon start doing his project?", options: ["2:35 P.M.", "2:45 P.M.", "3:25 P.M.", "1:35 P.M."], answer: 0, explain: "Trevon's time = 2 h 13 min – 38 min = 1 h 35 min. Start = 4:10 – 1:35 = 2:35 P.M." },
+      { q: "<strong>Jackson</strong> boarded a train at <strong>11:43 A.M.</strong> He got off the train <strong>35 minutes later</strong>. What time did he get off?", options: ["12:08 P.M.", "12:18 P.M.", "11:18 A.M.", "12:28 P.M."], answer: 1, explain: "11:43 + 35 min: 11:43 → 12:00 is 17 min, leaves 18 min. So 12:00 + 18 min = 12:18 P.M." },
+      { q: "A train left Station A and traveled toward Stations B and C. It passed Station B <strong>54 minutes later</strong>. The train then took <strong>47 minutes</strong> from Station B to Station C. It arrived at Station C at <strong>5:08 P.M.</strong> At what time did the train leave Station A?", options: ["3:27 P.M.", "3:17 P.M.", "4:21 P.M.", "3:37 P.M."], answer: 0, explain: "Total trip = 54 + 47 = 101 min = 1 h 41 min. Start = 5:08 – 1:41 = 3:27 P.M." },
+      { q: "A class begins at <strong>8:30 A.M.</strong> and ends at <strong>10:05 A.M.</strong> How long is the class?", options: ["1 h 35 min", "1 h 25 min", "2 h 35 min", "1 h 45 min"], answer: 0, explain: "8:30 → 10:00 is 1 h 30 min, then 10:00 → 10:05 is 5 min. Total = 1 h 35 min." },
+      { q: "Lily started her homework at <strong>4:50 P.M.</strong> She worked for <strong>1 h 20 min</strong>. What time did she finish?", options: ["5:10 P.M.", "6:10 P.M.", "5:20 P.M.", "6:20 P.M."], answer: 1, explain: "4:50 + 1:20: 4:50 + 1:00 = 5:50, then + 20 min = 6:10 P.M." },
+      { q: "A movie starts at <strong>7:15 P.M.</strong> and lasts <strong>2 h 45 min</strong>. What time does it end?", options: ["10:00 P.M.", "9:00 P.M.", "10:15 P.M.", "9:30 P.M."], answer: 0, explain: "7:15 + 2:45: hours 7+2=9, minutes 15+45=60 → +1 h. Total = 10:00 P.M." },
+      { q: "Sam's bus ride took <strong>1 h 10 min</strong>. He arrived at school at <strong>8:05 A.M.</strong> What time did the bus ride start?", options: ["6:55 A.M.", "9:15 A.M.", "7:55 A.M.", "7:05 A.M."], answer: 0, explain: "8:05 – 1:10: borrow 1 h, 7:65 – 1:10 = 6:55 A.M." }
+    ]
+  }
+};
+
+function startMathLesson() {
+  state.mode = 'math_lesson';
+  const u = MATH_UNITS[state.currentUnit];
+  let html = `<strong>📜 ${u.title}: ${u.subtitle}</strong> ${u.emoji}`;
+  html += `<div class='math-lesson-content'><p><em>🔑 The Big Question:</em> <strong>${u.bigQuestion}</strong></p></div>`;
+  u.lesson.forEach(p => {
+    html += `<div class='math-lesson-content'>${p}</div>`;
+  });
+  html += `<br><em>+2 Honour for thy diligent study!</em> ✠`;
+  botSay(html);
+  addStars(2);
+  setTimeout(() => {
+    botSay(
+      "<em>Now that thou hast studied the lesson, art thou prepared to test thy knowledge?</em> ⚔",
+      [
+        { label: "🔑 Key Terms Review", onClick: () => { userSay("Key Terms Review"); startMathVocab(); } },
+        { label: "⚔ Multiple Choice Trial", onClick: () => { userSay("Multiple Choice Trial"); startMathQuiz('mc'); } },
+        { label: "✓✗ True/False Trial", onClick: () => { userSay("True or False Trial"); startMathQuiz('tf'); } },
+        { label: "✍ Fill-in-the-Blank Trial", onClick: () => { userSay("Fill-in-the-Blank Trial"); startMathQuiz('fill'); } },
+        { label: "📖 Word Problem Trial", onClick: () => { userSay("Word Problem Trial"); startMathQuiz('word'); } },
+        { label: "✠ Mixed Trial", onClick: () => { userSay("Mixed Trial"); startMathQuiz('mix'); } },
+        { label: "📖 Choose Another Math Unit", onClick: () => { userSay("Choose another Math unit"); showUnitMenu(); } },
+        { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+      ]
+    );
+  }, 400);
+}
+
+function startMathVocab() {
+  state.mode = 'math_vocab';
+  const u = MATH_UNITS[state.currentUnit];
+  let html = `<strong>🔑 Key Terms: ${u.title} — ${u.subtitle}</strong>`;
+  u.vocab.forEach(v => {
+    html += `<div class='math-vocab-card'><strong>${v.w}</strong> — ${v.def}</div>`;
+  });
+  html += `<br><em>+1 Honour for memorizing thy terms!</em> ✠`;
+  botSay(html);
+  addStars(1);
+  setTimeout(() => {
+    botSay(
+      "<em>Now, shall we put these terms to the test?</em> ⚔",
+      [
+        { label: "📜 Return to the Lesson", onClick: () => { userSay("Return to lesson"); startMathLesson(); } },
+        { label: "⚔ Multiple Choice Trial", onClick: () => { userSay("Multiple Choice Trial"); startMathQuiz('mc'); } },
+        { label: "✓✗ True/False Trial", onClick: () => { userSay("True or False Trial"); startMathQuiz('tf'); } },
+        { label: "✍ Fill-in-the-Blank Trial", onClick: () => { userSay("Fill-in-the-Blank Trial"); startMathQuiz('fill'); } },
+        { label: "📖 Word Problem Trial", onClick: () => { userSay("Word Problem Trial"); startMathQuiz('word'); } },
+        { label: "✠ Mixed Trial", onClick: () => { userSay("Mixed Trial"); startMathQuiz('mix'); } },
+        { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+      ]
+    );
+  }, 400);
+}
+
+function buildMathQuizPool(quizType) {
+  const u = MATH_UNITS[state.currentUnit];
+  let pool = [];
+  if (quizType === 'mc') {
+    pool = u.quiz_mc.map(item => ({ ...item, _kind: 'mc' }));
+  } else if (quizType === 'tf') {
+    pool = u.quiz_tf.map(item => ({ ...item, _kind: 'tf' }));
+  } else if (quizType === 'fill') {
+    pool = u.quiz_fill.map(item => ({ ...item, _kind: 'fill' }));
+  } else if (quizType === 'word') {
+    pool = u.quiz_word.map(item => ({ ...item, _kind: 'word' }));
+  } else if (quizType === 'mix') {
+    pool = [
+      ...u.quiz_mc.map(i => ({ ...i, _kind: 'mc' })),
+      ...u.quiz_tf.map(i => ({ ...i, _kind: 'tf' })),
+      ...u.quiz_fill.map(i => ({ ...i, _kind: 'fill' })),
+      ...u.quiz_word.map(i => ({ ...i, _kind: 'word' }))
+    ];
+  }
+  // Shuffle and take up to 10
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, Math.min(10, pool.length));
+}
+
+function startMathQuiz(quizType) {
+  state.mode = 'math_quiz';
+  state.quizIndex = 0;
+  state.quizCorrect = 0;
+  state.mathQuizType = quizType;
+  state.mathQuizPool = buildMathQuizPool(quizType);
+  const u = MATH_UNITS[state.currentUnit];
+  const labels = { mc: 'Multiple Choice', tf: 'True or False', fill: 'Fill-in-the-Blank', word: 'Word Problems', mix: 'Mixed' };
+  botSay(
+    `<strong>⚔ Trial of Mathematica: ${u.title} — ${labels[quizType]}</strong><br>` +
+    `<em>${state.mathQuizPool.length} sacred problems await thee. Steel thy mind — the trial begins!</em>`
+  );
+  setTimeout(askMathQuestion, 500);
+}
+
+function askMathQuestion() {
+  const item = state.mathQuizPool[state.quizIndex];
+  let qHTML = `<strong>Trial ${state.quizIndex + 1} of ${state.mathQuizPool.length}</strong><br><br>${item.q}`;
+
+  let opts;
+  if (item._kind === 'tf') {
+    opts = [
+      { label: '✓ True', onClick: (btn) => handleMathAnswer(true, btn) },
+      { label: '✗ False', onClick: (btn) => handleMathAnswer(false, btn) }
+    ];
+  } else {
+    opts = item.options.map((opt, idx) => ({
+      label: opt,
+      onClick: (btn) => handleMathAnswer(idx, btn)
+    }));
+  }
+  botSay(qHTML, opts);
+}
+
+function handleMathAnswer(chosen, btn) {
+  const item = state.mathQuizPool[state.quizIndex];
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+
+  let correct;
+  let chosenLabel;
+  let truthLabelForLog;
+  if (item._kind === 'tf') {
+    correct = (chosen === item.answer);
+    chosenLabel = chosen ? 'True' : 'False';
+    truthLabelForLog = item.answer ? 'True' : 'False';
+  } else {
+    correct = (chosen === item.answer);
+    chosenLabel = item.options[chosen];
+    truthLabelForLog = item.options[item.answer];
+  }
+  userSay(chosenLabel);
+
+  if (correct) {
+    btn.classList.add('correct');
+    state.quizCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain}<br><em>+1 Honour</em></div>`);
+  } else {
+    btn.classList.add('wrong');
+    let truthLabel;
+    if (item._kind === 'tf') {
+      truthLabel = item.answer ? 'True' : 'False';
+      const truthIdx = item.answer ? 0 : 1;
+      allBtns[truthIdx].classList.add('correct');
+    } else {
+      truthLabel = item.options[item.answer];
+      allBtns[item.answer].classList.add('correct');
+    }
+    botSay(
+      `<div class='feedback-wrong'>⚔ <strong>The truth was &ldquo;${truthLabel}&rdquo;.</strong><br>` +
+      `${item.explain}<br><em>Stand firm, scholar — thou shalt prevail!</em></div>`
+    );
+  }
+  const mathOpts = item._kind === 'tf' ? ['True', 'False'] : (item.options || null);
+  logAnswer(correct, item.q, chosenLabel, truthLabelForLog, item.explain, mathOpts);
+
+  state.quizIndex++;
+  setTimeout(() => {
+    if (state.quizIndex < state.mathQuizPool.length) {
+      askMathQuestion();
+    } else {
+      finishMathQuiz();
+    }
+  }, 900);
+}
+
+function finishMathQuiz() {
+  const total = state.mathQuizPool.length;
+  const got = state.quizCorrect;
+  const bonus = (got === total) ? 3 : (got >= total - 1) ? 2 : (got >= total / 2) ? 1 : 0;
+  let msg;
+  if (got === total) {
+    msg = `✠✠✠ <strong>GLORIOUS VICTORY!</strong> All ${total} problems conquered! <em>The numbers themselves bow to thee!</em> Bonus +${bonus} Honour!`;
+  } else if (got >= total - 1) {
+    msg = `⚔ <strong>Most valiant!</strong> Thou hast bested ${got} of ${total} problems. Bonus +${bonus} Honour!`;
+  } else if (got >= total / 2) {
+    msg = `✠ <strong>A worthy showing!</strong> ${got} of ${total} problems won. Bonus +${bonus} Honour. <em>Practice makes a master, scholar!</em>`;
+  } else {
+    msg = `Thou hast claimed ${got} of ${total} problems. <em>Even great mathematicians return to the lesson. Let us study anew!</em>`;
+  }
+  if (bonus) addStars(bonus);
+
+  botSay(
+    msg,
+    [
+      { label: "⚔ Trial Anew", onClick: () => { userSay("Trial anew"); startMathQuiz(state.mathQuizType); } },
+      { label: "📜 Return to the Lesson", onClick: () => { userSay("Return to lesson"); startMathLesson(); } },
+      { label: "🔑 Key Terms Review", onClick: () => { userSay("Key Terms review"); startMathVocab(); } },
+      { label: "📖 Choose Another Math Unit", onClick: () => { userSay("Choose another Math unit"); showUnitMenu(); } },
+      { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+    ]
+  );
+}
+
+/* ================================================================
    DOM REFERENCES
    ================================================================ */
 const chatEl = document.getElementById('chat');
@@ -1768,6 +2127,7 @@ function describeContext() {
   let libraryName = sect === 'vw' ? 'Vocabulary Workshop'
                   : sect === 'reading' ? 'Reading'
                   : sect === 'ss' ? 'Social Studies'
+                  : sect === 'math' ? 'Mathematica'
                   : sect === 'grammar' ? 'Grammar Codex'
                   : '';
   let unitName = '';
@@ -1777,6 +2137,7 @@ function describeContext() {
     if (sect === 'vw' && typeof VW_UNITS !== 'undefined') u = VW_UNITS[state.currentUnit];
     else if (sect === 'reading' && typeof READING_UNITS !== 'undefined') u = READING_UNITS[state.currentUnit];
     else if (sect === 'ss' && typeof SS_UNITS !== 'undefined') u = SS_UNITS[state.currentUnit];
+    else if (sect === 'math' && typeof MATH_UNITS !== 'undefined') u = MATH_UNITS[state.currentUnit];
     else if (typeof UNITS !== 'undefined') u = UNITS[state.currentUnit];
     if (u) {
       unitName = u.title + (u.subtitle ? ': ' + u.subtitle : '');
@@ -2086,6 +2447,7 @@ function updateUnitBadge() {
     const u = (state.section === 'vw') ? VW_UNITS[state.currentUnit] :
               (state.section === 'reading') ? READING_UNITS[state.currentUnit] :
               (state.section === 'ss') ? SS_UNITS[state.currentUnit] :
+              (state.section === 'math') ? MATH_UNITS[state.currentUnit] :
               UNITS[state.currentUnit];
     if (!u) { unitBadgeEl.style.display = 'none'; return; }
     unitBadgeEl.style.display = 'block';
@@ -2099,6 +2461,9 @@ function updateUnitBadge() {
     } else if (state.section === 'ss') {
       unitBadgeEl.style.color = '#8a5a1a';
       unitBadgeEl.style.borderColor = '#c08a3a';
+    } else if (state.section === 'math') {
+      unitBadgeEl.style.color = '#1a4e88';
+      unitBadgeEl.style.borderColor = '#3a6ea8';
     } else {
       unitBadgeEl.style.color = state.currentUnit === 'u4' ? '#4a90d9' :
                                 state.currentUnit === 'u5' ? '#d94a4a' : '#4ad96a';
@@ -2118,7 +2483,7 @@ function showWelcome() {
   botSay(
     "<em>Hail, young scholar of the Imperium!</em> ✠<br><br>" +
     "I am <strong>Adept Buddy</strong>, keeper of the sacred tomes of grammar and lore. " +
-    "Four great libraries lie before thee — the <strong>Codex of Grammar</strong>, the <strong>Vocabulary Workshop</strong>, the <strong>Hall of Reading</strong>, and the <strong>Hall of Social Studies</strong>!<br><br>" +
+    "Five great libraries lie before thee — the <strong>Codex of Grammar</strong>, the <strong>Vocabulary Workshop</strong>, the <strong>Hall of Reading</strong>, the <strong>Hall of Social Studies</strong>, and the <strong>Tower of Mathematica</strong>!<br><br>" +
     "<em>Which library shall we enter this day?</em>"
   );
   showSectionMenu();
@@ -2148,7 +2513,8 @@ function showSectionMenu() {
     { key: 'grammar', emoji: '📜', title: 'Grammar Codex', sub: 'Units 4 · 5 · 6', cssClass: 'section-grammar' },
     { key: 'vw', emoji: '📚', title: 'Vocabulary Workshop', sub: 'VW Units 14 – 18', cssClass: 'section-vw' },
     { key: 'reading', emoji: '📖', title: 'Reading', sub: 'Reading Units 16 – 19', cssClass: 'section-reading' },
-    { key: 'ss', emoji: '🏛️', title: 'Social Studies', sub: 'Ch. 5 · Lessons 3 – 4', cssClass: 'section-ss' }
+    { key: 'ss', emoji: '🏛️', title: 'Social Studies', sub: 'Ch. 5 · Lessons 3 – 4', cssClass: 'section-ss' },
+    { key: 'math', emoji: '🧮', title: 'Mathematica', sub: 'Unit 10 · Time', cssClass: 'section-math' }
   ];
   sections.forEach(s => {
     const b = document.createElement('button');
@@ -2175,6 +2541,8 @@ function chooseSection(sectionKey) {
     botSay("Most excellent! Thou hast entered the <strong>Hall of Reading</strong> 📖 — wherein dwell the tales and their words. <em>Which unit shall we explore?</em>");
   } else if (sectionKey === 'ss') {
     botSay("Most excellent! Thou hast entered the <strong>Hall of Social Studies</strong> 🏛️ — wherein the deeds of citizens and heroes are remembered. <em>Which lesson shall we study?</em>");
+  } else if (sectionKey === 'math') {
+    botSay("Most excellent! Thou hast ascended the <strong>Tower of Mathematica</strong> 🧮 — wherein numbers, time, and measure obey thee. <em>Which unit shall we conquer?</em>");
   } else {
     botSay("Most excellent! Thou hast opened the <strong>Grammar Codex</strong> 📜. <em>Which sacred volume shall we open?</em>");
   }
@@ -2198,10 +2566,12 @@ function showUnitMenu() {
   const sourceUnits = (state.section === 'vw') ? VW_UNITS :
                       (state.section === 'reading') ? READING_UNITS :
                       (state.section === 'ss') ? SS_UNITS :
+                      (state.section === 'math') ? MATH_UNITS :
                       UNITS;
   const headerLabel = (state.section === 'vw') ? "Choose thy VW Unit:" :
                       (state.section === 'reading') ? "Choose thy Reading Unit:" :
                       (state.section === 'ss') ? "Choose thy Social Studies Lesson:" :
+                      (state.section === 'math') ? "Choose thy Mathematica Unit:" :
                       "Choose thy Unit of Study:";
   bubble.innerHTML = `<strong>${headerLabel}</strong> ✠`;
 
@@ -2294,6 +2664,26 @@ function chooseUnit(unitKey) {
         { label: "✍ Fill-in-the-Blank Trial", onClick: () => { userSay("Fill-in-the-Blank Trial"); startSSQuiz('fill'); } },
         { label: "✠ Mixed Trial", onClick: () => { userSay("Mixed Trial"); startSSQuiz('mix'); } },
         { label: "📖 Choose Another Lesson", onClick: () => { userSay("Choose another lesson"); showUnitMenu(); } },
+        { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+      ]
+    );
+    return;
+  }
+
+  if (state.section === 'math') {
+    const u = MATH_UNITS[unitKey];
+    botSay(
+      `A worthy choice! Thou hast opened <strong>${u.title}: ${u.subtitle}</strong> ${u.emoji}<br>` +
+      `<em>How shall we proceed?</em>`,
+      [
+        { label: "📜 Study the Lesson", onClick: () => { userSay("Study the Lesson"); startMathLesson(); } },
+        { label: "🔑 Key Terms Review", onClick: () => { userSay("Key Terms Review"); startMathVocab(); } },
+        { label: "⚔ Multiple Choice Trial", onClick: () => { userSay("Multiple Choice Trial"); startMathQuiz('mc'); } },
+        { label: "✓✗ True/False Trial", onClick: () => { userSay("True or False Trial"); startMathQuiz('tf'); } },
+        { label: "✍ Fill-in-the-Blank Trial", onClick: () => { userSay("Fill-in-the-Blank Trial"); startMathQuiz('fill'); } },
+        { label: "📖 Word Problem Trial", onClick: () => { userSay("Word Problem Trial"); startMathQuiz('word'); } },
+        { label: "✠ Mixed Trial", onClick: () => { userSay("Mixed Trial"); startMathQuiz('mix'); } },
+        { label: "📖 Choose Another Math Unit", onClick: () => { userSay("Choose another Math unit"); showUnitMenu(); } },
         { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
       ]
     );
@@ -3259,6 +3649,8 @@ function handleUserInput(text) {
     showSectionMenu();
   } else if (lower.includes("library") || lower.includes("section") || lower.includes("home")) {
     showSectionMenu();
+  } else if (lower.includes("math") || lower.includes("mathematica") || lower.includes("time")) {
+    state.section = 'math'; userSay("Mathematica"); showUnitMenu();
   } else if (lower.includes("reading") || lower === "rd" || lower.includes("hall of reading")) {
     state.section = 'reading'; userSay("Reading"); showUnitMenu();
   } else if (lower.includes("vocab") || lower === "vw" || lower.includes("vocabulary workshop")) {
