@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Adept Buddy — Imperial Scholarum of Grade III</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
   :root {
     --imp-gold: #c97e5a;
@@ -118,6 +119,202 @@
     transition: transform 0.25s;
     white-space: nowrap;
     flex-shrink: 0;
+  }
+  #log-btn {
+    background: #fff5f0;
+    color: var(--imp-gold);
+    padding: 5px 12px;
+    border: 1.5px solid var(--imp-gold);
+    border-radius: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  #log-btn:hover {
+    background: var(--imp-gold);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(201,126,90,0.3);
+  }
+  /* Log overlay */
+  #log-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,23,20,0.55);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  #log-overlay.open { display: flex; }
+  #log-panel {
+    background: #faf9f7;
+    width: 100%;
+    max-width: 760px;
+    max-height: 88vh;
+    border: 2px solid var(--imp-gold);
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  #log-header {
+    background: #ffffff;
+    border-bottom: 2px solid #ede8e0;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  #log-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: var(--imp-gold);
+    letter-spacing: 0.06em;
+    margin: 0;
+  }
+  #log-close {
+    background: transparent;
+    border: 1.5px solid #e0d8d0;
+    border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    color: #2a2420;
+    transition: all 0.2s;
+  }
+  #log-close:hover {
+    background: var(--imp-gold);
+    color: #fff;
+    border-color: var(--imp-gold);
+  }
+  #log-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 14px 18px;
+    background: #f5f2ee;
+    border-bottom: 1px solid #ede8e0;
+    flex-shrink: 0;
+  }
+  .log-stat {
+    background: #ffffff;
+    border: 1.5px solid #e0d8d0;
+    border-radius: 8px;
+    padding: 10px 6px;
+    text-align: center;
+  }
+  .log-stat-num {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--imp-gold);
+    line-height: 1.1;
+  }
+  .log-stat-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--imp-stone-light);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  #log-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 18px;
+    background: #faf9f7;
+  }
+  .log-entry {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    border-left: 3px solid #e0d8d0;
+    background: #ffffff;
+  }
+  .log-entry.bot { border-left-color: var(--imp-blue); background: #f7faff; }
+  .log-entry.user { border-left-color: var(--imp-gold); background: #fff8f3; }
+  .log-entry.correct { border-left-color: var(--imp-success); background: #f1faf2; }
+  .log-entry.wrong { border-left-color: var(--imp-fail); background: #fdf3f1; }
+  .log-entry.system { border-left-color: var(--imp-stone-light); background: #f5f2ee; font-style: italic; }
+  .log-time {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--imp-stone-light);
+    margin-right: 8px;
+    letter-spacing: 0.05em;
+  }
+  .log-tag {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-right: 6px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .log-tag.bot { background: var(--imp-blue); color: #fff; }
+  .log-tag.user { background: var(--imp-gold); color: #fff; }
+  .log-tag.correct { background: var(--imp-success); color: #fff; }
+  .log-tag.wrong { background: var(--imp-fail); color: #fff; }
+  .log-tag.system { background: var(--imp-stone-light); color: #fff; }
+  .log-empty {
+    text-align: center;
+    color: var(--imp-stone-light);
+    padding: 40px 20px;
+    font-style: italic;
+  }
+  #log-footer {
+    padding: 10px 18px;
+    border-top: 1px solid #ede8e0;
+    background: #ffffff;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+  #log-export {
+    background: linear-gradient(180deg, var(--imp-gold-bright) 0%, var(--imp-gold) 100%);
+    color: #ffffff;
+    border-color: var(--imp-gold-dark);
+  }
+  #log-export:hover {
+    background: var(--imp-gold-dark);
+    color: #ffffff;
+    border-color: var(--imp-gold-dark);
+  }
+  #log-export:disabled {
+    background: #d8d2cc;
+    color: #fff;
+    border-color: #c8c2bc;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  @media (max-width: 600px) {
+    #log-stats { grid-template-columns: repeat(2, 1fr); }
+    .log-stat-num { font-size: 1.2rem; }
+    #log-btn { font-size: 0.7rem; padding: 4px 8px; }
   }
   #chat {
     flex: 1;
@@ -449,7 +646,42 @@
     <h1><span class="owl-avatar">🦉</span> Adept Buddy</h1>
     <div id="unit-badge"></div>
     <div id="scoreboard">✠ <span id="score">0</span> Honour</div>
+    <button id="log-btn" title="View Chronicle Log">📜 Log</button>
   </header>
+
+  <!-- Log Overlay -->
+  <div id="log-overlay" aria-hidden="true">
+    <div id="log-panel" role="dialog" aria-modal="true" aria-labelledby="log-title">
+      <div id="log-header">
+        <h2 id="log-title">📜 Chronicle of Thy Trials</h2>
+        <button id="log-close" title="Close">✕</button>
+      </div>
+      <div id="log-stats">
+        <div class="log-stat">
+          <span class="log-stat-num" id="log-stat-correct">0</span>
+          <span class="log-stat-label">Correct</span>
+        </div>
+        <div class="log-stat">
+          <span class="log-stat-num" id="log-stat-total">0</span>
+          <span class="log-stat-label">Answered</span>
+        </div>
+        <div class="log-stat">
+          <span class="log-stat-num" id="log-stat-pct">—</span>
+          <span class="log-stat-label">Accuracy</span>
+        </div>
+        <div class="log-stat">
+          <span class="log-stat-num" id="log-stat-honour">0</span>
+          <span class="log-stat-label">Honour</span>
+        </div>
+      </div>
+      <div id="log-body"></div>
+      <div id="log-footer">
+        <button id="log-export" class="action-btn">📊 Export to Excel</button>
+        <button id="log-clear" class="action-btn">🗑 Clear Chronicle</button>
+        <button id="log-close-2" class="action-btn">Close</button>
+      </div>
+    </div>
+  </div>
   <div id="chat"></div>
   <div id="input-area">
     <input id="user-input" type="text" placeholder="Speak your answer, scholar..." autocomplete="off" />
@@ -472,6 +704,10 @@ const state = {
   mode: null,
   quizIndex: 0,
   quizCorrect: 0,
+  // === Chronicle Log ===
+  log: [],              // array of { time, kind, text }
+  totalAnswered: 0,     // total quiz questions answered (across all sessions)
+  totalCorrect: 0,      // total quiz questions answered correctly
 };
 
 /* ================================================================
@@ -1350,12 +1586,15 @@ function handleSSAnswer(chosen, btn) {
 
   let correct;
   let chosenLabel;
+  let truthLabelForLog;
   if (item._kind === 'tf') {
     correct = (chosen === item.answer);
     chosenLabel = chosen ? 'True' : 'False';
+    truthLabelForLog = item.answer ? 'True' : 'False';
   } else {
     correct = (chosen === item.answer);
     chosenLabel = item.options[chosen];
+    truthLabelForLog = item.options[item.answer];
   }
   userSay(chosenLabel);
 
@@ -1380,6 +1619,8 @@ function handleSSAnswer(chosen, btn) {
       `${item.explain}<br><em>Stand firm, scholar — thou shalt prevail!</em></div>`
     );
   }
+  const ssOpts = item._kind === 'tf' ? ['True', 'False'] : (item.options || null);
+  logAnswer(correct, item.q, chosenLabel, truthLabelForLog, item.explain, ssOpts);
 
   state.quizIndex++;
   setTimeout(() => {
@@ -1458,6 +1699,8 @@ function botSay(htmlContent, options) {
     bubble.appendChild(opts);
   }
   scrollDown();
+  // Record bot message in chronicle
+  logEvent('bot', htmlContent);
   return bubble;
 }
 
@@ -1474,6 +1717,355 @@ function userSay(text) {
   wrap.appendChild(bubble);
   chatEl.appendChild(wrap);
   scrollDown();
+  // Record user message in chronicle
+  logEvent('user', text);
+}
+
+/* ================================================================
+   CHRONICLE LOG
+   ================================================================ */
+function logEvent(kind, content, meta) {
+  // kind: 'bot' | 'user' | 'correct' | 'wrong' | 'system'
+  state.log.push({
+    time: new Date(),
+    kind: kind,
+    text: typeof content === 'string' ? content : String(content),
+    meta: meta || null
+  });
+}
+
+function logAnswer(isCorrect, question, chosen, truth, explain, options) {
+  state.totalAnswered++;
+  if (isCorrect) state.totalCorrect++;
+  const tag = isCorrect ? 'correct' : 'wrong';
+  let html = `<strong>Q:</strong> ${question}<br>` +
+             `<strong>Thy answer:</strong> ${escapeHtml(chosen)}`;
+  if (!isCorrect) {
+    html += `<br><strong>Correct answer:</strong> ${escapeHtml(truth)}`;
+  }
+  if (explain) {
+    html += `<br><em>${explain}</em>`;
+  }
+  // Capture full context for export
+  const ctx = describeContext();
+  logEvent(tag, html, {
+    question,
+    chosen,
+    truth,
+    isCorrect,
+    explain: explain || '',
+    options: Array.isArray(options) ? options.slice() : null,
+    library: ctx.library,
+    unit: ctx.unit,
+    topic: ctx.topic,
+    trialNumber: state.quizIndex + 1
+  });
+}
+
+/* Human-readable context for the current quiz/lesson */
+function describeContext() {
+  const sect = state.section;
+  let libraryName = sect === 'vw' ? 'Vocabulary Workshop'
+                  : sect === 'reading' ? 'Reading'
+                  : sect === 'ss' ? 'Social Studies'
+                  : sect === 'grammar' ? 'Grammar Codex'
+                  : '';
+  let unitName = '';
+  let topicName = '';
+  if (state.currentUnit) {
+    let u = null;
+    if (sect === 'vw' && typeof VW_UNITS !== 'undefined') u = VW_UNITS[state.currentUnit];
+    else if (sect === 'reading' && typeof READING_UNITS !== 'undefined') u = READING_UNITS[state.currentUnit];
+    else if (sect === 'ss' && typeof SS_UNITS !== 'undefined') u = SS_UNITS[state.currentUnit];
+    else if (typeof UNITS !== 'undefined') u = UNITS[state.currentUnit];
+    if (u) {
+      unitName = u.title + (u.subtitle ? ': ' + u.subtitle : '');
+      if (state.currentTopic && u.topics && u.topics[state.currentTopic]) {
+        topicName = u.topics[state.currentTopic].title || '';
+      }
+    }
+  }
+  return { library: libraryName, unit: unitName, topic: topicName };
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function formatTime(d) {
+  const h = String(d.getHours()).padStart(2, '0');
+  const m = String(d.getMinutes()).padStart(2, '0');
+  const s = String(d.getSeconds()).padStart(2, '0');
+  return `${h}:${m}:${s}`;
+}
+
+function renderLog() {
+  const body = document.getElementById('log-body');
+  const total = state.totalAnswered;
+  const got = state.totalCorrect;
+  document.getElementById('log-stat-correct').textContent = got;
+  document.getElementById('log-stat-total').textContent = total;
+  document.getElementById('log-stat-pct').textContent = total > 0
+    ? Math.round((got / total) * 100) + '%'
+    : '—';
+  document.getElementById('log-stat-honour').textContent = state.score;
+
+  if (!state.log.length) {
+    body.innerHTML = "<div class='log-empty'>The chronicle is empty. Begin thy studies, scholar! ✠</div>";
+    return;
+  }
+
+  // Render newest first
+  const items = state.log.slice().reverse();
+  body.innerHTML = items.map(e => {
+    const t = formatTime(e.time);
+    const tagText = e.kind === 'bot' ? 'Buddy'
+                  : e.kind === 'user' ? 'Thee'
+                  : e.kind === 'correct' ? 'Correct'
+                  : e.kind === 'wrong' ? 'Wrong'
+                  : 'System';
+    return `<div class="log-entry ${e.kind}">` +
+             `<span class="log-tag ${e.kind}">${tagText}</span>` +
+             `<span class="log-time">${t}</span>` +
+             `<span class="log-text">${e.text}</span>` +
+           `</div>`;
+  }).join('');
+}
+
+function openLog() {
+  renderLog();
+  const ov = document.getElementById('log-overlay');
+  ov.classList.add('open');
+  ov.setAttribute('aria-hidden', 'false');
+}
+
+function closeLog() {
+  const ov = document.getElementById('log-overlay');
+  ov.classList.remove('open');
+  ov.setAttribute('aria-hidden', 'true');
+}
+
+function clearLog() {
+  if (!confirm('Clear the entire chronicle? This cannot be undone.')) return;
+  state.log = [];
+  state.totalAnswered = 0;
+  state.totalCorrect = 0;
+  renderLog();
+}
+
+/* Strip HTML tags & decode common entities so Excel cells are clean text */
+function stripHtml(html) {
+  if (html == null) return '';
+  const tmp = document.createElement('div');
+  tmp.innerHTML = String(html);
+  // Convert <br> to newlines for readability
+  tmp.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
+  return (tmp.textContent || tmp.innerText || '').replace(/\s+\n/g, '\n').trim();
+}
+
+function formatDateTime(d) {
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mi = String(d.getMinutes()).padStart(2, '0');
+  const ss = String(d.getSeconds()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
+}
+
+function exportLogToExcel() {
+  if (typeof XLSX === 'undefined') {
+    alert('Excel library not loaded. Please check your internet connection and try again.');
+    return;
+  }
+  if (!state.log.length) {
+    alert('The chronicle is empty — nothing to export!');
+    return;
+  }
+
+  // === Sheet 1: Summary ===
+  const total = state.totalAnswered;
+  const got = state.totalCorrect;
+  const wrong = total - got;
+  const pct = total > 0 ? Math.round((got / total) * 100) + '%' : '—';
+  const summaryRows = [
+    ['Adept Buddy — Chronicle of Trials'],
+    ['Exported', formatDateTime(new Date())],
+    [],
+    ['Statistic', 'Value'],
+    ['Questions Answered', total],
+    ['Correct', got],
+    ['Incorrect', wrong],
+    ['Accuracy', pct],
+    ['Honour Earned', state.score],
+    ['Total Log Entries', state.log.length]
+  ];
+  const summaryWS = XLSX.utils.aoa_to_sheet(summaryRows);
+  summaryWS['!cols'] = [{ wch: 24 }, { wch: 28 }];
+  // Merge title row
+  summaryWS['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 1 } }];
+
+  // === Sheet 2: Full Interaction Log ===
+  const logHeader = ['#', 'Time', 'Type', 'Speaker', 'Message'];
+  const logRows = [logHeader];
+  state.log.forEach((e, i) => {
+    const speaker = e.kind === 'bot' ? 'Buddy'
+                  : e.kind === 'user' ? 'Student'
+                  : e.kind === 'correct' ? 'Quiz (Correct)'
+                  : e.kind === 'wrong' ? 'Quiz (Wrong)'
+                  : 'System';
+    const typeLabel = e.kind.charAt(0).toUpperCase() + e.kind.slice(1);
+    logRows.push([
+      i + 1,
+      formatDateTime(e.time),
+      typeLabel,
+      speaker,
+      stripHtml(e.text)
+    ]);
+  });
+  const logWS = XLSX.utils.aoa_to_sheet(logRows);
+  logWS['!cols'] = [
+    { wch: 5 },   // #
+    { wch: 20 },  // Time
+    { wch: 10 },  // Type
+    { wch: 16 },  // Speaker
+    { wch: 80 }   // Message
+  ];
+
+  // === Sheet 3: Quiz Answers Only — full detail ===
+  const quizHeader = [
+    '#',
+    'Time',
+    'Result',
+    'Library',
+    'Unit',
+    'Topic',
+    'Question',
+    'All Options',
+    'Your Answer',
+    'Correct Answer',
+    'Explanation'
+  ];
+  const quizRows = [quizHeader];
+  let qNum = 0;
+  state.log.forEach(e => {
+    if ((e.kind === 'correct' || e.kind === 'wrong') && e.meta) {
+      qNum++;
+      const m = e.meta;
+      const optsText = (m.options && m.options.length)
+        ? m.options.map((o, i) => `${String.fromCharCode(65 + i)}. ${stripHtml(o)}`).join('\n')
+        : '';
+      quizRows.push([
+        qNum,
+        formatDateTime(e.time),
+        e.kind === 'correct' ? '✓ Correct' : '✗ Wrong',
+        m.library || '',
+        m.unit || '',
+        m.topic || '',
+        stripHtml(m.question),
+        optsText,
+        stripHtml(m.chosen),
+        stripHtml(m.truth),
+        stripHtml(m.explain || '')
+      ]);
+    }
+  });
+  const quizWS = XLSX.utils.aoa_to_sheet(quizRows);
+  quizWS['!cols'] = [
+    { wch: 5 },   // #
+    { wch: 20 },  // Time
+    { wch: 11 },  // Result
+    { wch: 18 },  // Library
+    { wch: 22 },  // Unit
+    { wch: 22 },  // Topic
+    { wch: 60 },  // Question
+    { wch: 40 },  // All Options
+    { wch: 24 },  // Your Answer
+    { wch: 24 },  // Correct Answer
+    { wch: 60 }   // Explanation
+  ];
+  // Wrap text in option/question/explanation cells
+  const quizRange = XLSX.utils.decode_range(quizWS['!ref']);
+  for (let R = 1; R <= quizRange.e.r; R++) {
+    [6, 7, 10].forEach(C => {
+      const addr = XLSX.utils.encode_cell({ r: R, c: C });
+      if (quizWS[addr]) {
+        quizWS[addr].s = quizWS[addr].s || {};
+        quizWS[addr].s.alignment = { wrapText: true, vertical: 'top' };
+      }
+    });
+  }
+
+  // === Sheet 4: Correct Answers (Honour Roll) ===
+  const correctHeader = ['#', 'Time', 'Library', 'Unit', 'Topic', 'Question', 'Your Answer'];
+  const correctRows = [correctHeader];
+  let cNum = 0;
+  state.log.forEach(e => {
+    if (e.kind === 'correct' && e.meta) {
+      cNum++;
+      correctRows.push([
+        cNum,
+        formatDateTime(e.time),
+        e.meta.library || '',
+        e.meta.unit || '',
+        e.meta.topic || '',
+        stripHtml(e.meta.question),
+        stripHtml(e.meta.chosen)
+      ]);
+    }
+  });
+  const correctWS = XLSX.utils.aoa_to_sheet(correctRows);
+  correctWS['!cols'] = [
+    { wch: 5 }, { wch: 20 }, { wch: 18 }, { wch: 22 }, { wch: 22 }, { wch: 60 }, { wch: 24 }
+  ];
+
+  // === Sheet 5: Wrong Answers (For Review) ===
+  const wrongHeader = ['#', 'Time', 'Library', 'Unit', 'Topic', 'Question', 'All Options', 'Your Answer', 'Correct Answer', 'Explanation'];
+  const wrongRows = [wrongHeader];
+  let wNum = 0;
+  state.log.forEach(e => {
+    if (e.kind === 'wrong' && e.meta) {
+      wNum++;
+      const m = e.meta;
+      const optsText = (m.options && m.options.length)
+        ? m.options.map((o, i) => `${String.fromCharCode(65 + i)}. ${stripHtml(o)}`).join('\n')
+        : '';
+      wrongRows.push([
+        wNum,
+        formatDateTime(e.time),
+        m.library || '',
+        m.unit || '',
+        m.topic || '',
+        stripHtml(m.question),
+        optsText,
+        stripHtml(m.chosen),
+        stripHtml(m.truth),
+        stripHtml(m.explain || '')
+      ]);
+    }
+  });
+  const wrongWS = XLSX.utils.aoa_to_sheet(wrongRows);
+  wrongWS['!cols'] = [
+    { wch: 5 }, { wch: 20 }, { wch: 18 }, { wch: 22 }, { wch: 22 },
+    { wch: 60 }, { wch: 40 }, { wch: 24 }, { wch: 24 }, { wch: 60 }
+  ];
+
+  // === Build workbook ===
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, summaryWS, 'Summary');
+  XLSX.utils.book_append_sheet(wb, logWS, 'Full Log');
+  XLSX.utils.book_append_sheet(wb, quizWS, 'All Quiz Answers');
+  XLSX.utils.book_append_sheet(wb, correctWS, 'Correct');
+  XLSX.utils.book_append_sheet(wb, wrongWS, 'Wrong (Review)');
+
+  // Filename: AdeptBuddy_Chronicle_YYYY-MM-DD_HHMM.xlsx
+  const now = new Date();
+  const stamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+  XLSX.writeFile(wb, `AdeptBuddy_Chronicle_${stamp}.xlsx`);
 }
 
 function scrollDown() {
@@ -1832,7 +2424,8 @@ function handleQuizAnswer(chosen, btn) {
 
   userSay(item.options[chosen]);
 
-  if (chosen === item.answer) {
+  const isCorrect = (chosen === item.answer);
+  if (isCorrect) {
     btn.classList.add('correct');
     state.quizCorrect++;
     addStars(1);
@@ -1845,6 +2438,7 @@ function handleQuizAnswer(chosen, btn) {
       `${item.explain}<br><em>Stand firm, scholar — thou shalt prevail!</em></div>`
     );
   }
+  logAnswer(isCorrect, item.q, item.options[chosen], item.options[item.answer], item.explain, item.options);
 
   state.quizIndex++;
   setTimeout(() => {
@@ -2232,7 +2826,8 @@ function handleVwAnswer(chosen, btn) {
 
   userSay(item.options[chosen]);
 
-  if (chosen === item.answer) {
+  const isCorrect = (chosen === item.answer);
+  if (isCorrect) {
     btn.classList.add('correct');
     state.quizCorrect++;
     addStars(1);
@@ -2245,6 +2840,7 @@ function handleVwAnswer(chosen, btn) {
       `${item.explain}<br><em>Stand firm, scholar — thou shalt prevail!</em></div>`
     );
   }
+  logAnswer(isCorrect, item.q, item.options[chosen], item.options[item.answer], item.explain, item.options);
 
   state.quizIndex++;
   setTimeout(() => {
@@ -2562,7 +3158,8 @@ function handleReadingAnswer(chosen, btn) {
 
   userSay(item.options[chosen]);
 
-  if (chosen === item.answer) {
+  const isCorrect = (chosen === item.answer);
+  if (isCorrect) {
     btn.classList.add('correct');
     state.quizCorrect++;
     addStars(1);
@@ -2575,6 +3172,7 @@ function handleReadingAnswer(chosen, btn) {
       `${item.explain}<br><em>Stand firm, scholar — thou shalt prevail!</em></div>`
     );
   }
+  logAnswer(isCorrect, item.q, item.options[chosen], item.options[item.answer], item.explain, item.options);
 
   state.quizIndex++;
   setTimeout(() => {
@@ -2781,6 +3379,19 @@ sendBtn.addEventListener('click', () => {
 });
 inputEl.addEventListener('keydown', e => {
   if (e.key === 'Enter') sendBtn.click();
+});
+
+/* === Chronicle Log button wiring === */
+document.getElementById('log-btn').addEventListener('click', openLog);
+document.getElementById('log-close').addEventListener('click', closeLog);
+document.getElementById('log-close-2').addEventListener('click', closeLog);
+document.getElementById('log-clear').addEventListener('click', clearLog);
+document.getElementById('log-export').addEventListener('click', exportLogToExcel);
+document.getElementById('log-overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'log-overlay') closeLog();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLog();
 });
 
 /* START */
