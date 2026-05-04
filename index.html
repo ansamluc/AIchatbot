@@ -141,6 +141,183 @@
     transform: translateY(-1px);
     box-shadow: 0 3px 8px rgba(201,126,90,0.3);
   }
+  #print-btn {
+    background: #f3f7fc;
+    color: #1a4e88;
+    padding: 5px 12px;
+    border: 1.5px solid #3a6ea8;
+    border-radius: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  #print-btn:hover {
+    background: #3a6ea8;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(58,110,168,0.3);
+  }
+  /* Print overlay (shares look with log overlay) */
+  #print-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,23,20,0.55);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  #print-overlay.open { display: flex; }
+  #print-panel {
+    background: #faf9f7;
+    width: 100%;
+    max-width: 720px;
+    max-height: 88vh;
+    border: 2px solid #3a6ea8;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  #print-header {
+    background: #ffffff;
+    border-bottom: 2px solid #ede8e0;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  #print-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #1a4e88;
+    letter-spacing: 0.06em;
+    margin: 0;
+  }
+  #print-close {
+    background: transparent;
+    border: 1.5px solid #e0d8d0;
+    border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    color: #2a2420;
+    transition: all 0.2s;
+  }
+  #print-close:hover {
+    background: #3a6ea8;
+    color: #fff;
+    border-color: #3a6ea8;
+  }
+  #print-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 18px;
+    background: #faf9f7;
+  }
+  .print-intro {
+    font-size: 0.95rem;
+    color: var(--imp-stone);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .print-section-group {
+    margin-bottom: 18px;
+  }
+  .print-section-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    color: var(--imp-gold);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ede8e0;
+  }
+  .print-unit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 12px;
+    margin-bottom: 6px;
+    background: #ffffff;
+    border: 1px solid #e0d8d0;
+    border-left: 4px solid #c0c0c0;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .print-unit-row.grammar { border-left-color: var(--imp-gold); }
+  .print-unit-row.vw { border-left-color: #9060c0; }
+  .print-unit-row.reading { border-left-color: #3a9a8a; }
+  .print-unit-row.ss { border-left-color: #c08a3a; }
+  .print-unit-row.math { border-left-color: #3a6ea8; }
+  .print-unit-row:hover { background: #fff8f3; }
+  .print-unit-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .print-unit-info .pu-title {
+    font-weight: 700;
+    color: #2a2420;
+    font-size: 1rem;
+  }
+  .print-unit-info .pu-sub {
+    font-size: 0.85rem;
+    color: var(--imp-stone-light);
+    font-style: italic;
+  }
+  .print-unit-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .print-action-btn {
+    padding: 5px 10px;
+    background: #ffffff;
+    color: #1a4e88;
+    border: 1.5px solid #3a6ea8;
+    border-radius: 5px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .print-action-btn:hover {
+    background: #3a6ea8;
+    color: #fff;
+  }
+  .print-action-btn.full {
+    background: #3a6ea8;
+    color: #fff;
+  }
+  .print-action-btn.full:hover {
+    background: #1a4e88;
+  }
+  #print-footer {
+    padding: 10px 18px;
+    border-top: 1px solid #ede8e0;
+    background: #ffffff;
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 0;
+  }
   /* Log overlay */
   #log-overlay {
     display: none;
@@ -314,7 +491,7 @@
   @media (max-width: 600px) {
     #log-stats { grid-template-columns: repeat(2, 1fr); }
     .log-stat-num { font-size: 1.2rem; }
-    #log-btn { font-size: 0.7rem; padding: 4px 8px; }
+    #log-btn, #print-btn { font-size: 0.7rem; padding: 4px 8px; }
   }
   #chat {
     flex: 1;
@@ -693,6 +870,7 @@
     <div id="unit-badge"></div>
     <div id="scoreboard">✠ <span id="score">0</span> Honour</div>
     <button id="log-btn" title="View Chronicle Log">📜 Log</button>
+    <button id="print-btn" title="Printable Study Guides &amp; Quizzes">🖨 Print</button>
   </header>
 
   <!-- Log Overlay -->
@@ -728,6 +906,24 @@
       </div>
     </div>
   </div>
+
+  <!-- Printable Picker Overlay -->
+  <div id="print-overlay" aria-hidden="true">
+    <div id="print-panel" role="dialog" aria-modal="true" aria-labelledby="print-title">
+      <div id="print-header">
+        <h2 id="print-title">🖨 Printable Study Guides &amp; Quizzes</h2>
+        <button id="print-close" title="Close">✕</button>
+      </div>
+      <div id="print-body">
+        <p class="print-intro">Choose a unit to open a printer-friendly page with the lesson, key terms, all quiz questions, and an answer key. Click <strong>Print</strong> in the new tab (or use Ctrl/Cmd+P) to print or save as PDF.</p>
+        <div id="print-list"></div>
+      </div>
+      <div id="print-footer">
+        <button id="print-close-2" class="action-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
   <div id="chat"></div>
   <div id="input-area">
     <input id="user-input" type="text" placeholder="Speak your answer, scholar..." autocomplete="off" />
@@ -2216,6 +2412,387 @@ function clearLog() {
   state.totalAnswered = 0;
   state.totalCorrect = 0;
   renderLog();
+}
+
+/* ================================================================
+   PRINTABLE STUDY GUIDES & QUIZZES
+   ================================================================ */
+function openPrintPicker() {
+  buildPrintList();
+  const ov = document.getElementById('print-overlay');
+  ov.classList.add('open');
+  ov.setAttribute('aria-hidden', 'false');
+}
+
+function closePrintPicker() {
+  const ov = document.getElementById('print-overlay');
+  ov.classList.remove('open');
+  ov.setAttribute('aria-hidden', 'true');
+}
+
+function buildPrintList() {
+  const list = document.getElementById('print-list');
+  list.innerHTML = '';
+
+  const sections = [
+    { key: 'grammar', label: 'Grammar Codex', units: (typeof UNITS !== 'undefined') ? UNITS : null, subtype: 'grammar' },
+    { key: 'vw', label: 'Vocabulary Workshop', units: (typeof VW_UNITS !== 'undefined') ? VW_UNITS : null, subtype: 'vw' },
+    { key: 'reading', label: 'Reading', units: (typeof READING_UNITS !== 'undefined') ? READING_UNITS : null, subtype: 'reading' },
+    { key: 'ss', label: 'Social Studies', units: (typeof SS_UNITS !== 'undefined') ? SS_UNITS : null, subtype: 'ss' },
+    { key: 'math', label: 'Mathematica', units: (typeof MATH_UNITS !== 'undefined') ? MATH_UNITS : null, subtype: 'math' }
+  ];
+
+  sections.forEach(sec => {
+    if (!sec.units) return;
+    const group = document.createElement('div');
+    group.className = 'print-section-group';
+    const title = document.createElement('div');
+    title.className = 'print-section-title';
+    title.textContent = sec.label;
+    group.appendChild(title);
+
+    Object.keys(sec.units).forEach(unitKey => {
+      const u = sec.units[unitKey];
+      const row = document.createElement('div');
+      row.className = `print-unit-row ${sec.subtype}`;
+
+      const info = document.createElement('div');
+      info.className = 'print-unit-info';
+      info.innerHTML = `<div class="pu-title">${u.emoji || ''} ${u.title}</div>` +
+                       `<div class="pu-sub">${u.subtitle || ''}</div>`;
+      row.appendChild(info);
+
+      const actions = document.createElement('div');
+      actions.className = 'print-unit-actions';
+
+      const fullBtn = document.createElement('button');
+      fullBtn.className = 'print-action-btn full';
+      fullBtn.textContent = '🖨 Full Packet';
+      fullBtn.title = 'Lesson + Key Terms + Quizzes + Answer Key';
+      fullBtn.onclick = () => openPrintable(sec.key, unitKey, 'full');
+      actions.appendChild(fullBtn);
+
+      const studyBtn = document.createElement('button');
+      studyBtn.className = 'print-action-btn';
+      studyBtn.textContent = '📜 Study Guide';
+      studyBtn.title = 'Lesson + Key Terms only';
+      studyBtn.onclick = () => openPrintable(sec.key, unitKey, 'study');
+      actions.appendChild(studyBtn);
+
+      const quizBtn = document.createElement('button');
+      quizBtn.className = 'print-action-btn';
+      quizBtn.textContent = '⚔ Quiz Pack';
+      quizBtn.title = 'All quizzes + answer key';
+      quizBtn.onclick = () => openPrintable(sec.key, unitKey, 'quiz');
+      actions.appendChild(quizBtn);
+
+      row.appendChild(actions);
+      group.appendChild(row);
+    });
+    list.appendChild(group);
+  });
+}
+
+/* Build printable HTML and open it in a new window. */
+function openPrintable(sectionKey, unitKey, mode) {
+  const html = buildPrintableHTML(sectionKey, unitKey, mode);
+  const w = window.open('', '_blank');
+  if (!w) {
+    alert('Please allow pop-ups so the printable can open in a new tab.');
+    return;
+  }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
+
+/* Resolve a unit object across all section types */
+function resolveUnit(sectionKey, unitKey) {
+  if (sectionKey === 'vw' && typeof VW_UNITS !== 'undefined') return VW_UNITS[unitKey];
+  if (sectionKey === 'reading' && typeof READING_UNITS !== 'undefined') return READING_UNITS[unitKey];
+  if (sectionKey === 'ss' && typeof SS_UNITS !== 'undefined') return SS_UNITS[unitKey];
+  if (sectionKey === 'math' && typeof MATH_UNITS !== 'undefined') return MATH_UNITS[unitKey];
+  if (sectionKey === 'grammar' && typeof UNITS !== 'undefined') return UNITS[unitKey];
+  return null;
+}
+
+function buildPrintableHTML(sectionKey, unitKey, mode) {
+  const u = resolveUnit(sectionKey, unitKey);
+  const libraryLabel = sectionKey === 'vw' ? 'Vocabulary Workshop'
+                     : sectionKey === 'reading' ? 'Reading'
+                     : sectionKey === 'ss' ? 'Social Studies'
+                     : sectionKey === 'math' ? 'Mathematica'
+                     : 'Grammar Codex';
+  const accent = sectionKey === 'vw' ? '#9060c0'
+               : sectionKey === 'reading' ? '#3a9a8a'
+               : sectionKey === 'ss' ? '#c08a3a'
+               : sectionKey === 'math' ? '#3a6ea8'
+               : '#c97e5a';
+  if (!u) {
+    return `<!doctype html><html><body><p>Unit not found.</p></body></html>`;
+  }
+
+  const modeLabel = mode === 'study' ? 'Study Guide'
+                  : mode === 'quiz'  ? 'Quiz Pack'
+                  : 'Study Packet';
+  const docTitle = `${libraryLabel} — ${u.title}: ${u.subtitle || ''} — ${modeLabel}`;
+
+  const showStudy = (mode === 'full' || mode === 'study');
+  const showQuiz  = (mode === 'full' || mode === 'quiz');
+
+  let body = '';
+  body += `<header class="p-header" style="border-bottom:3px solid ${accent};">`;
+  body += `<div class="p-lib">${libraryLabel}</div>`;
+  body += `<h1>${u.emoji || ''} ${u.title}${u.subtitle ? ': ' + u.subtitle : ''}</h1>`;
+  body += `<div class="p-mode">${modeLabel}</div>`;
+  body += `</header>`;
+
+  if (showStudy) body += renderStudySection(sectionKey, u);
+  if (showQuiz)  body += renderQuizSection(sectionKey, u, mode);
+
+  body += `<footer class="p-footer"><em>Adept Buddy — Imperial Scholarum of Grade III</em></footer>`;
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>${escapeHtmlSafe(docTitle)}</title>
+<style>
+  @page { size: letter; margin: 0.6in; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Georgia', 'Cambria', serif;
+    color: #1a1714;
+    line-height: 1.45;
+    margin: 0;
+    padding: 24px 32px;
+    background: #fff;
+    font-size: 11.5pt;
+  }
+  .toolbar {
+    position: sticky; top: 0; background: #fff; padding: 8px 0 14px;
+    border-bottom: 1px dashed #ccc; margin-bottom: 16px; z-index: 10;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .toolbar button {
+    font-family: 'Georgia', serif;
+    background: ${accent}; color: #fff; border: none;
+    padding: 8px 16px; font-size: 11pt; font-weight: 700;
+    border-radius: 5px; cursor: pointer; letter-spacing: 0.04em;
+  }
+  .toolbar button.secondary { background: #eee; color: #333; }
+  .toolbar button:hover { opacity: 0.9; }
+  .p-header { padding-bottom: 10px; margin-bottom: 18px; }
+  .p-lib { font-size: 10pt; letter-spacing: 0.18em; text-transform: uppercase; color: ${accent}; font-weight: 700; }
+  .p-header h1 { font-size: 22pt; margin: 4px 0; color: #111; }
+  .p-mode { font-size: 11pt; color: #555; font-style: italic; }
+  h2 { font-size: 14pt; color: ${accent}; margin: 22px 0 8px; padding-bottom: 4px; border-bottom: 1px solid ${accent}; }
+  h3 { font-size: 12pt; color: #222; margin: 14px 0 6px; }
+  h4 { font-size: 11.5pt; color: ${accent}; margin: 12px 0 4px; }
+  p { margin: 6px 0; }
+  ul, ol { margin: 6px 0 6px 20px; padding: 0; }
+  .vocab-card, .ss-vocab-card, .math-vocab-card {
+    border: 1px solid #ccc; border-left: 3px solid ${accent};
+    padding: 6px 10px; margin: 5px 0; border-radius: 3px; background: #fafafa;
+  }
+  .lesson-block, .ss-lesson-content, .math-lesson-content, .example {
+    border: 1px solid #ddd; border-left: 3px solid ${accent};
+    padding: 8px 12px; margin: 8px 0; border-radius: 3px; background: #fafafa;
+  }
+  .math-eg, .example {
+    display: inline-block; background: #fff; border: 1px dashed ${accent};
+    padding: 2px 6px; margin: 2px; border-radius: 3px; font-family: 'Cambria', serif;
+  }
+  .vw-list-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .vw-word-card {
+    border: 1px solid #ccc; border-left: 3px solid ${accent};
+    padding: 6px 10px; border-radius: 3px; background: #fafafa; font-size: 10.5pt;
+  }
+  .quiz-q {
+    margin: 10px 0; padding: 8px 12px;
+    border: 1px solid #ddd; border-radius: 4px;
+    page-break-inside: avoid;
+  }
+  .quiz-q .qnum { font-weight: 700; color: ${accent}; margin-right: 6px; }
+  .quiz-q .qprompt { display: inline; }
+  .quiz-q .qopts { margin-top: 6px; padding-left: 6px; }
+  .quiz-q .qopt { display: block; padding: 3px 0; font-family: 'Cambria', serif; }
+  .quiz-q.tf .qopts { display: flex; gap: 18px; }
+  .answer-key {
+    margin-top: 28px; padding: 14px;
+    border: 2px solid ${accent}; border-radius: 6px;
+    background: #fafafa; page-break-before: always;
+  }
+  .answer-key h2 { border: none; margin-top: 0; }
+  .answer-key ol { padding-left: 24px; }
+  .answer-key li { margin-bottom: 8px; }
+  .answer-key .ans-label { font-weight: 700; color: ${accent}; }
+  .answer-key .explain { color: #444; font-size: 10.5pt; font-style: italic; display: block; margin-top: 2px; }
+  .quiz-section-title { color: ${accent}; font-weight: 700; font-size: 12.5pt; margin: 18px 0 6px; }
+  .p-footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid #ccc; text-align: center; color: #888; font-size: 9pt; }
+  /* Hide toolbar in print */
+  @media print {
+    body { padding: 0; }
+    .toolbar { display: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <button onclick="window.print()">🖨 Print / Save as PDF</button>
+    <button class="secondary" onclick="window.close()">Close</button>
+  </div>
+  ${body}
+</body>
+</html>`;
+}
+
+/* Build the study-guide portion (lesson + vocab/key terms / topics) */
+function renderStudySection(sectionKey, u) {
+  let html = '<section><h2>📜 Study Guide</h2>';
+
+  // Big question (SS / Math)
+  if (u.bigQuestion) {
+    html += `<div class="lesson-block"><strong>🔑 The Big Question:</strong> ${u.bigQuestion}</div>`;
+  }
+
+  // Vocabulary (SS)
+  if (Array.isArray(u.vocab) && u.vocab.length) {
+    html += '<h3>🔑 Key Terms</h3>';
+    u.vocab.forEach(v => {
+      html += `<div class="vocab-card"><strong>${v.w}</strong> — ${v.def}</div>`;
+    });
+  }
+
+  // VW / Reading word lists (have words: [{w, syn, ant}] or similar)
+  if (Array.isArray(u.words) && u.words.length) {
+    html += '<h3>📚 Word List</h3><div class="vw-list-grid">';
+    u.words.forEach((wd, i) => {
+      const syn = (wd.syn && wd.syn.length) ? wd.syn.join(', ') : '—';
+      const ant = (wd.ant && wd.ant.length) ? wd.ant.join(', ') : '—';
+      const def = wd.def || '';
+      html += `<div class="vw-word-card"><strong>${i + 1}. ${wd.w}</strong>`;
+      if (def) html += `<br>${def}`;
+      if (wd.syn !== undefined) html += `<br><em>Synonyms:</em> ${syn}`;
+      if (wd.ant !== undefined) html += `<br><em>Antonyms:</em> ${ant}`;
+      if (wd.sent) html += `<br><em>Example:</em> ${wd.sent}`;
+      html += `</div>`;
+    });
+    html += '</div>';
+  }
+
+  // Lesson paragraphs (SS / Math)
+  if (Array.isArray(u.lesson) && u.lesson.length) {
+    html += '<h3>📜 Lesson</h3>';
+    u.lesson.forEach(p => {
+      html += `<div class="lesson-block">${p}</div>`;
+    });
+  }
+
+  // Grammar topics (UNITS has topics with lesson + quiz)
+  if (u.topics) {
+    html += '<h3>📖 Topics</h3>';
+    Object.keys(u.topics).forEach(tk => {
+      const t = u.topics[tk];
+      html += `<h4>${t.emoji || ''} ${t.title}</h4>`;
+      if (Array.isArray(t.lesson)) {
+        t.lesson.forEach(p => { html += `<div class="lesson-block">${p}</div>`; });
+      }
+    });
+  }
+
+  html += '</section>';
+  return html;
+}
+
+/* Build the quiz portion: numbered questions + answer key */
+function renderQuizSection(sectionKey, u, mode) {
+  // Collect all quiz items into named buckets
+  const buckets = collectQuizBuckets(sectionKey, u);
+  if (!buckets.length) return '';
+
+  let html = '<section><h2>⚔ Practice Quizzes</h2>';
+  let globalNum = 0;
+  const allItems = []; // for answer key
+
+  buckets.forEach(bucket => {
+    if (!bucket.items.length) return;
+    html += `<div class="quiz-section-title">${bucket.label} (${bucket.items.length} questions)</div>`;
+    bucket.items.forEach(item => {
+      globalNum++;
+      allItems.push({ num: globalNum, item: item, kind: bucket.kind });
+      html += renderQuizQuestion(globalNum, item, bucket.kind);
+    });
+  });
+
+  // Answer key
+  html += '<div class="answer-key"><h2>✠ Answer Key</h2><ol>';
+  allItems.forEach(entry => {
+    const it = entry.item;
+    let answerStr;
+    if (entry.kind === 'tf') {
+      answerStr = it.answer ? 'True' : 'False';
+    } else if (Array.isArray(it.options)) {
+      const letter = String.fromCharCode(65 + it.answer);
+      answerStr = `${letter}. ${stripHtml(it.options[it.answer])}`;
+    } else {
+      answerStr = '—';
+    }
+    html += `<li value="${entry.num}"><span class="ans-label">${answerStr}</span>`;
+    if (it.explain) {
+      html += `<span class="explain">${it.explain}</span>`;
+    }
+    html += `</li>`;
+  });
+  html += '</ol></div>';
+
+  html += '</section>';
+  return html;
+}
+
+function collectQuizBuckets(sectionKey, u) {
+  const out = [];
+  // SS / Math style
+  if (Array.isArray(u.quiz_mc))   out.push({ kind: 'mc',   label: '⚔ Multiple Choice',     items: u.quiz_mc });
+  if (Array.isArray(u.quiz_tf))   out.push({ kind: 'tf',   label: '✓✗ True or False',      items: u.quiz_tf });
+  if (Array.isArray(u.quiz_fill)) out.push({ kind: 'fill', label: '✍ Fill-in-the-Blank',  items: u.quiz_fill });
+  if (Array.isArray(u.quiz_word)) out.push({ kind: 'word', label: '📖 Word Problems',     items: u.quiz_word });
+
+  // Grammar (UNITS): each topic has its own quiz
+  if (u.topics) {
+    Object.keys(u.topics).forEach(tk => {
+      const t = u.topics[tk];
+      if (Array.isArray(t.quiz) && t.quiz.length) {
+        out.push({ kind: 'mc', label: `⚔ ${t.title}`, items: t.quiz });
+      }
+    });
+  }
+  return out;
+}
+
+function renderQuizQuestion(num, item, kind) {
+  let html = `<div class="quiz-q ${kind}"><span class="qnum">${num}.</span> <span class="qprompt">${item.q}</span>`;
+  if (kind === 'tf') {
+    html += `<div class="qopts"><span class="qopt">○ True</span><span class="qopt">○ False</span></div>`;
+  } else if (Array.isArray(item.options)) {
+    html += '<div class="qopts">';
+    item.options.forEach((opt, i) => {
+      const letter = String.fromCharCode(65 + i);
+      html += `<span class="qopt">○ ${letter}. ${opt}</span>`;
+    });
+    html += '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+/* HTML-escape that's safe for use inside <title> / attributes */
+function escapeHtmlSafe(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 /* Strip HTML tags & decode common entities so Excel cells are clean text */
@@ -3782,8 +4359,17 @@ document.getElementById('log-export').addEventListener('click', exportLogToExcel
 document.getElementById('log-overlay').addEventListener('click', (e) => {
   if (e.target.id === 'log-overlay') closeLog();
 });
+
+/* === Printable button wiring === */
+document.getElementById('print-btn').addEventListener('click', openPrintPicker);
+document.getElementById('print-close').addEventListener('click', closePrintPicker);
+document.getElementById('print-close-2').addEventListener('click', closePrintPicker);
+document.getElementById('print-overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'print-overlay') closePrintPicker();
+});
+
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeLog();
+  if (e.key === 'Escape') { closeLog(); closePrintPicker(); }
 });
 
 /* START */
