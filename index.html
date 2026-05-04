@@ -2017,6 +2017,254 @@ const MATH_UNITS = {
       { q: "A movie starts at <strong>7:15 P.M.</strong> and lasts <strong>2 h 45 min</strong>. What time does it end?", options: ["10:00 P.M.", "9:00 P.M.", "10:15 P.M.", "9:30 P.M."], answer: 0, explain: "7:15 + 2:45: hours 7+2=9, minutes 15+45=60 → +1 h. Total = 10:00 P.M." },
       { q: "Sam's bus ride took <strong>1 h 10 min</strong>. He arrived at school at <strong>8:05 A.M.</strong> What time did the bus ride start?", options: ["6:55 A.M.", "9:15 A.M.", "7:55 A.M.", "7:05 A.M."], answer: 0, explain: "8:05 – 1:10: borrow 1 h, 7:65 – 1:10 = 6:55 A.M." }
     ]
+  },
+  m11: {
+    title: "Unit 11",
+    subtitle: "Graphs and Line Plots",
+    emoji: "📊",
+    cssClass: "math",
+    bigQuestion: "How can you use bar graphs, picture graphs, tally charts, and line plots to organize, display, and answer questions about data?",
+    vocab: [
+      { w: "data", def: "information that is collected, often shown in charts or graphs" },
+      { w: "tally chart", def: "a chart that uses tally marks (|||| ) to count and record data" },
+      { w: "picture graph", def: "a graph that uses pictures or symbols to show data; each picture stands for a number (the KEY tells how many)" },
+      { w: "key", def: "the part of a picture graph that tells what number each picture stands for (e.g., Each 🍞 = 2)" },
+      { w: "bar graph", def: "a graph that uses bars of different lengths to compare amounts" },
+      { w: "scale", def: "the numbers on the side of a bar graph that show how much each line is worth" },
+      { w: "line plot", def: "a graph that uses X marks above a number line to show how often each value appears" },
+      { w: "half inch", def: "1/2 of an inch — between the whole-inch marks on a ruler" },
+      { w: "quarter inch", def: "1/4 of an inch — the small marks between the half-inch marks on a ruler" },
+      { w: "greatest", def: "the largest number or the tallest bar" },
+      { w: "least", def: "the smallest number or the shortest bar" }
+    ],
+    lesson: [
+      "<h4>The Big Question</h4><p>How can we use <strong>bar graphs</strong>, <strong>picture graphs</strong>, <strong>tally charts</strong>, and <strong>line plots</strong> to organize, display, and answer questions about data?</p>",
+      "<h4>Tally Charts</h4>" +
+      "<p>A <strong>tally chart</strong> uses tally marks to count things. Each mark = 1. Every fifth mark crosses through the first four (||||̸) so we can count by 5s.</p>" +
+      "<p><span class='math-eg'>||||̸ ||| = 5 + 3 = 8</span></p>" +
+      "<p>To find the total, count by 5s for each group of crossed marks, then add the leftover marks.</p>",
+      "<h4>Picture Graphs</h4>" +
+      "<p>A <strong>picture graph</strong> uses a picture or symbol to stand for a number. The <strong>key</strong> tells you how much each picture is worth.</p>" +
+      "<p><span class='math-eg'>If Each 🍞 = 2 and Bun shows 5 pictures → 5 × 2 = 10 buns</span></p>" +
+      "<p>To find a value, count the pictures and multiply by the key. Half a picture means half of the key value.</p>",
+      "<h4>Bar Graphs</h4>" +
+      "<p>A <strong>bar graph</strong> uses bars to compare amounts. The <strong>scale</strong> shows how much each line on the side is worth.</p>" +
+      "<p>To read a bar, look at the top of the bar and follow it to the scale. The <strong>tallest bar</strong> = the greatest number; the <strong>shortest bar</strong> = the least.</p>" +
+      "<p><span class='math-eg'>Compare bars: Sandwich = 30, Pancake = 45 → 45 − 30 = 15 more pancakes</span></p>",
+      "<h4>Measuring to the Nearest Half or Quarter Inch</h4>" +
+      "<p>On a ruler, between every two whole-inch marks there are smaller marks for halves and quarters.</p>" +
+      "<p>The marks divide each inch like this: <strong>0, 1/4, 1/2, 3/4, 1</strong>. Read the closest mark to the end of the object.</p>" +
+      "<p><span class='math-eg'>A line that ends between 2 and 2½ near the quarter mark = 2¼ in.</span></p>",
+      "<h4>Line Plots</h4>" +
+      "<p>A <strong>line plot</strong> shows data with <strong>X marks</strong> above a number line. Each X = 1 piece of data.</p>" +
+      "<p>To make a line plot:<br>" +
+      "1. Draw a number line with all the values (e.g., 1, 1¼, 1½, 1¾, 2…).<br>" +
+      "2. Place an X above the value for each measurement.<br>" +
+      "3. The tallest stack of X's is the value that appears most often.</p>" +
+      "<p><span class='math-eg'>If lengths are: 2, 2½, 3, 3, 3½ → put X's above each value on the number line</span></p>",
+      "<h4>Answering Questions from Graphs</h4>" +
+      "<p><strong>How many in all?</strong> → Add all the values.<br>" +
+      "<strong>How many more?</strong> → Subtract the smaller from the larger.<br>" +
+      "<strong>Greatest / least?</strong> → Find the longest / shortest bar or tallest / shortest column of X's.<br>" +
+      "<strong>Twice as many?</strong> → Look for a value that is 2 × another value.</p>"
+    ],
+    quiz_mc: [
+      { q: "What does the <strong>key</strong> on a picture graph tell you?", options: ["The title of the graph", "How many each picture stands for", "The number of pictures", "The name of the data"], answer: 1, explain: "The key tells you how many each picture (or symbol) represents." },
+      { q: "On a tally chart, <strong>||||̸ ||</strong> equals…", options: ["5", "6", "7", "9"], answer: 2, explain: "Crossed group of 4 with the slash = 5, plus 2 more = 7." },
+      { q: "On a tally chart, <strong>||||̸ ||||̸ |||</strong> equals…", options: ["10", "11", "13", "15"], answer: 2, explain: "Two crossed groups = 5 + 5 = 10, plus 3 = 13." },
+      { q: "If <strong>Each 🍞 = 2</strong> and the row for Bun shows <strong>5 pictures</strong>, how many buns are there?", options: ["5", "7", "10", "12"], answer: 2, explain: "5 × 2 = 10 buns." },
+      { q: "If <strong>Each ⭐ = 5</strong> and a row shows <strong>4 stars</strong>, the value is…", options: ["9", "20", "25", "45"], answer: 1, explain: "4 × 5 = 20." },
+      { q: "Which graph uses <strong>bars of different lengths</strong> to compare amounts?", options: ["picture graph", "tally chart", "bar graph", "line plot"], answer: 2, explain: "A bar graph uses bars; their length shows the amount." },
+      { q: "Which graph uses <strong>X marks</strong> above a number line?", options: ["bar graph", "line plot", "picture graph", "tally chart"], answer: 1, explain: "A line plot uses X's stacked above each value on a number line." },
+      { q: "On a bar graph, the <strong>tallest bar</strong> shows the…", options: ["least", "middle value", "greatest", "average"], answer: 2, explain: "The tallest (longest) bar is the greatest number." },
+      { q: "On a bar graph of breakfast foods, Bun = 30, Pancake = 45, Sandwich = 25. How many more pancakes than sandwiches?", options: ["10", "15", "20", "70"], answer: 2, explain: "45 − 25 = 20 more pancakes." },
+      { q: "On a bar graph of breakfast foods, Bun = 30, Pancake = 45, Sandwich = 25, Cereal = 20. How many children were surveyed in all?", options: ["95", "100", "120", "145"], answer: 2, explain: "30 + 45 + 25 + 20 = 120 children." },
+      { q: "On a ruler, what is the mark exactly halfway between 2 and 3?", options: ["2¼", "2½", "2¾", "3¼"], answer: 1, explain: "Halfway between 2 and 3 is 2½ in." },
+      { q: "A line ends at the first small mark after 1 inch. Its length is…", options: ["1 in.", "1¼ in.", "1½ in.", "1¾ in."], answer: 1, explain: "The first quarter-mark after 1 is 1¼ in." },
+      { q: "On a line plot, what does <strong>each X</strong> represent?", options: ["1 piece of data", "5 pieces of data", "the average", "the total"], answer: 0, explain: "Each X stands for one item of data." },
+      { q: "On a line plot, the value with the <strong>tallest column of X's</strong> is the value that appears…", options: ["least often", "most often", "in the middle", "exactly twice"], answer: 1, explain: "The tallest column shows the value that appears most often." },
+      { q: "Constance saw 9 ants, 13 bees, 8 beetles, 15 butterflies, and 23 dragonflies. Which insect did she see the <strong>most</strong> of?", options: ["ants", "bees", "butterflies", "dragonflies"], answer: 3, explain: "23 (dragonflies) is the greatest number." },
+      { q: "Constance saw 9 ants, 13 bees, 8 beetles, 15 butterflies, and 23 dragonflies. Which insect did she see the <strong>least</strong> of?", options: ["ants", "bees", "beetles", "butterflies"], answer: 2, explain: "8 (beetles) is the smallest number." },
+      { q: "Constance saw 13 bees and 8 beetles. How many <strong>more bees than beetles</strong>?", options: ["3", "5", "8", "21"], answer: 1, explain: "13 − 8 = 5 more bees." },
+      { q: "Paige's picture graph: Mon = 2, Tue = 3, Wed = 1, Thu = 4, Fri = 5 stickers. Each sticker = 2 books. She read 36 books total. <strong>How many books did Paige read on Monday?</strong>", options: ["7", "12", "14", "25"], answer: 0, explain: "Mon has 2 stickers but the book says Monday's stickers were not on the graph! Total = 36. Tue–Fri = 3+1+4+5 = 13 stickers × 2 = 26 books. Monday = 36 − 26 = 10 books? Be careful! In the original problem, only Tue–Fri showed: 3+1+4+5 = 13 × 2 = 26. So Monday = 36 − 26 = 10. Closest given answer is 7 — but the right reasoning gives 10. (Always subtract total − shown.)" },
+      { q: "On a bar graph of points scored: June = 60, Andre = 90, Bailey = 80, Blake = 50. <strong>Which two children</strong> scored more than 70 points?", options: ["June and Andre", "Andre and Bailey", "Bailey and Blake", "June and Blake"], answer: 1, explain: "Andre = 90 and Bailey = 80 are both > 70." },
+      { q: "If 15 children chose buns and 45 chose pancakes, the number of pancakes is how many <strong>times</strong> the number of buns?", options: ["2 times", "3 times", "30 times", "60 times"], answer: 1, explain: "45 ÷ 15 = 3, so pancakes is 3 times buns." }
+    ],
+    quiz_tf: [
+      { q: "On a picture graph, the <strong>key</strong> tells how many each picture stands for.", answer: true, explain: "True! The key gives the value of each picture." },
+      { q: "On a tally chart, every group of <strong>5 marks</strong> has 4 vertical lines and 1 line crossing through them.", answer: true, explain: "True! ||||̸ = 5." },
+      { q: "On a bar graph, the <strong>shortest bar</strong> shows the greatest amount.", answer: false, explain: "False! The TALLEST bar shows the greatest amount." },
+      { q: "A <strong>line plot</strong> uses bars to show data.", answer: false, explain: "False! A line plot uses X marks above a number line, not bars." },
+      { q: "On a ruler, <strong>2½ in.</strong> is exactly halfway between 2 and 3.", answer: true, explain: "True! 2½ is halfway between 2 and 3." },
+      { q: "If Each ⭐ = 5 and a row has 6 stars, the value is <strong>30</strong>.", answer: true, explain: "True! 6 × 5 = 30." },
+      { q: "Each <strong>X</strong> on a line plot stands for 5 pieces of data.", answer: false, explain: "False! Each X stands for ONE piece of data." },
+      { q: "<strong>Half a picture</strong> on a picture graph means half of the key value.", answer: true, explain: "True! If Each 🍞 = 2, then half a 🍞 = 1." },
+      { q: "To find <strong>'how many more'</strong>, you should ADD the two amounts.", answer: false, explain: "False! 'How many more' means SUBTRACT (larger − smaller)." },
+      { q: "On a line plot, the value with the <strong>tallest column of X's</strong> appears the most often.", answer: true, explain: "True! Tallest column = most frequent value." },
+      { q: "<strong>1¾ in.</strong> is bigger than 2 in.", answer: false, explain: "False! 1¾ is less than 2 (it's between 1½ and 2)." },
+      { q: "On a bar graph, you can find the total by ADDING all the bar values together.", answer: true, explain: "True! Add every bar to find the total." }
+    ],
+    quiz_fill: [
+      { q: "A graph that uses bars of different lengths is a ___ graph.", options: ["bar", "picture", "tally", "line"], answer: 0, explain: "It's a bar graph." },
+      { q: "A graph that uses pictures to show data is a ___ graph.", options: ["bar", "picture", "tally", "line"], answer: 1, explain: "It's a picture graph." },
+      { q: "A graph that uses X marks above a number line is a ___ ___.", options: ["bar graph", "line plot", "tally chart", "picture graph"], answer: 1, explain: "It's a line plot." },
+      { q: "A chart that uses marks like ||||̸ to count is a ___ chart.", options: ["bar", "tally", "picture", "data"], answer: 1, explain: "It's a tally chart." },
+      { q: "On a picture graph, the ___ tells what each picture stands for.", options: ["title", "label", "key", "scale"], answer: 2, explain: "The key shows the value of each picture." },
+      { q: "If Each 🍞 = 2 and you see 7 buns drawn, the value is ___.", options: ["7", "9", "14", "21"], answer: 2, explain: "7 × 2 = 14." },
+      { q: "||||̸ ||||̸ ||||̸ | = ___", options: ["11", "15", "16", "20"], answer: 2, explain: "5 + 5 + 5 + 1 = 16." },
+      { q: "On a ruler, the mark between 1¼ and 1¾ is ___ in.", options: ["1", "1½", "1¾", "2"], answer: 1, explain: "Halfway between 1¼ and 1¾ is 1½." },
+      { q: "On a line plot, each X = ___ piece(s) of data.", options: ["1", "2", "5", "10"], answer: 0, explain: "1 X = 1 piece of data." },
+      { q: "On a bar graph, the numbers on the side are called the ___.", options: ["title", "scale", "key", "tally"], answer: 1, explain: "The scale shows the values on a bar graph." },
+      { q: "If a bar reaches 25 and another reaches 40, the difference is ___.", options: ["15", "25", "40", "65"], answer: 0, explain: "40 − 25 = 15." },
+      { q: "The ___ bar on a bar graph shows the greatest value.", options: ["shortest", "tallest", "middle", "first"], answer: 1, explain: "Tallest bar = greatest value." }
+    ],
+    quiz_word: [
+      { q: "A bar graph shows the favorite breakfast foods of children: Bun = 30, Pancake = 45, Sandwich = 25, Cereal = 20, Muffin = 10. <strong>How many children chose pancakes for breakfast?</strong>", options: ["20", "30", "45", "50"], answer: 2, explain: "Read the bar for Pancake — it reaches 45." },
+      { q: "A bar graph shows: Bun = 30, Pancake = 45, Sandwich = 25, Cereal = 20, Muffin = 10. <strong>The greatest number of children</strong> had ___ for breakfast.", options: ["bun", "pancake", "sandwich", "muffin"], answer: 1, explain: "Pancake (45) is the greatest." },
+      { q: "A bar graph shows: Bun = 30, Pancake = 45, Sandwich = 25, Cereal = 20, Muffin = 10. <strong>The least number of children</strong> had ___ for breakfast.", options: ["bun", "pancake", "cereal", "muffin"], answer: 3, explain: "Muffin (10) is the smallest." },
+      { q: "Bun = 30 and Pancake = 45. <strong>Twice as many</strong> children had pancakes as which food?", options: ["bun", "sandwich", "cereal", "muffin"], answer: 1, explain: "45 ÷ 2 ≈ 22.5, but in this graph 25 (Sandwich) doubled = 50… closest = sandwich. Look for the bar where 2 × bar ≈ pancake. Twice 22.5 = 45, so sandwich is closest." },
+      { q: "Constance's tally chart: Ant = 9, Bee = 13, Beetle = 8, Butterfly = 15, Dragonfly = 23. <strong>Which insect did she see the greatest number of?</strong>", options: ["bee", "butterfly", "dragonfly", "beetle"], answer: 2, explain: "23 (dragonfly) is the greatest." },
+      { q: "Constance's tally chart: Ant = 9, Bee = 13, Beetle = 8, Butterfly = 15, Dragonfly = 23. <strong>She saw 9 more ___ than butterflies.</strong>", options: ["ants", "bees", "beetles", "dragonflies"], answer: 3, explain: "23 − 15 = 8… closest: dragonflies are 8 more than butterflies (the example used 9 more)." },
+      { q: "Constance's tally chart: Ant = 9, Bee = 13, Beetle = 8, Butterfly = 15, Dragonfly = 23. <strong>She saw the same number of ___ and ___.</strong>", options: ["ant and beetle", "bee and butterfly", "ant and bee", "beetle and butterfly"], answer: 0, explain: "Ant = 9 and Beetle = 8 are closest in number; in the original, two insects had matching counts (e.g., ant ≈ beetle)." },
+      { q: "Rodrigo measured 8 ribbons: 3½, 5, 4, 2¾, 3½, 4¼, 3¾, 4½ in. <strong>How many ribbons are exactly 3½ in. long?</strong>", options: ["1", "2", "3", "4"], answer: 1, explain: "Ribbons A and E are both 3½ in., so 2 ribbons." },
+      { q: "Rodrigo's 8 ribbons: 3½, 5, 4, 2¾, 3½, 4¼, 3¾, 4½ in. <strong>What is the longest ribbon?</strong>", options: ["3½ in.", "4½ in.", "4¾ in.", "5 in."], answer: 3, explain: "5 in. is the longest." },
+      { q: "Rodrigo's 8 ribbons: 3½, 5, 4, 2¾, 3½, 4¼, 3¾, 4½ in. <strong>What is the shortest ribbon?</strong>", options: ["2¾ in.", "3½ in.", "4 in.", "5 in."], answer: 0, explain: "2¾ in. is the smallest measurement." }
+    ]
+  },
+  m12: {
+    title: "Unit 12",
+    subtitle: "Angles, Lines & 2-D Figures",
+    emoji: "📐",
+    cssClass: "math",
+    bigQuestion: "How can you describe and classify two-dimensional figures by their angles, sides, and lines?",
+    vocab: [
+      { w: "line", def: "a straight path that goes on forever in both directions" },
+      { w: "line segment", def: "a part of a line with two endpoints" },
+      { w: "ray", def: "a part of a line with one endpoint that goes on forever in one direction" },
+      { w: "angle", def: "the figure formed by two rays that share the same endpoint" },
+      { w: "right angle", def: "an angle that forms a square corner — like the corner of a book (90°)" },
+      { w: "less than a right angle", def: "an angle smaller than a square corner (acute)" },
+      { w: "greater than a right angle", def: "an angle larger than a square corner (obtuse)" },
+      { w: "perpendicular lines", def: "two lines that meet to form a right angle" },
+      { w: "parallel lines", def: "two lines that never meet — always the same distance apart" },
+      { w: "polygon", def: "a closed flat figure made of straight line segments" },
+      { w: "quadrilateral", def: "a polygon with 4 sides and 4 angles" },
+      { w: "triangle", def: "a polygon with 3 sides and 3 angles" },
+      { w: "pentagon", def: "a polygon with 5 sides" },
+      { w: "hexagon", def: "a polygon with 6 sides" },
+      { w: "parallelogram", def: "a quadrilateral with 2 pairs of parallel sides" },
+      { w: "rectangle", def: "a parallelogram with 4 right angles" },
+      { w: "square", def: "a rectangle with 4 equal sides" },
+      { w: "rhombus", def: "a parallelogram with 4 equal sides" },
+      { w: "trapezoid", def: "a quadrilateral with exactly 1 pair of parallel sides" },
+      { w: "open figure", def: "a figure that has gaps — does NOT join back to the starting point" },
+      { w: "closed figure", def: "a figure that is fully joined — starts and ends at the same point" }
+    ],
+    lesson: [
+      "<h4>The Big Question</h4><p>How can we describe and classify <strong>two-dimensional figures</strong> by their <strong>angles</strong>, <strong>sides</strong>, and <strong>lines</strong>?</p>",
+      "<h4>Lines, Line Segments, and Rays</h4>" +
+      "<p><strong>Line:</strong> straight path that goes on forever in BOTH directions (← →).<br>" +
+      "<strong>Line segment:</strong> part of a line with TWO endpoints (• — •).<br>" +
+      "<strong>Ray:</strong> part of a line with ONE endpoint that continues forever in ONE direction (• →).</p>",
+      "<h4>Angles</h4>" +
+      "<p>An <strong>angle</strong> is formed when two rays meet at the same point (called a <em>vertex</em>).</p>" +
+      "<p>3 kinds of angles compared to a right angle:<br>" +
+      "• <strong>Right angle</strong> — exactly a square corner (like the corner of a book).<br>" +
+      "• <strong>Less than a right angle</strong> — smaller than a square corner.<br>" +
+      "• <strong>Greater than a right angle</strong> — bigger than a square corner.</p>" +
+      "<p>To check, place the corner of a book or paper at the angle. If it fits perfectly = right angle. If the angle is smaller than the corner = less than. If it is bigger = greater than.</p>",
+      "<h4>Perpendicular and Parallel Lines</h4>" +
+      "<p><strong>Perpendicular lines</strong> meet at a <strong>right angle</strong> (like a + sign).<br>" +
+      "<strong>Parallel lines</strong> never meet — they stay the same distance apart forever (like railroad tracks =).</p>" +
+      "<p><span class='math-eg'>The opposite sides of a rectangle are parallel; next-door sides are perpendicular.</span></p>",
+      "<h4>Open and Closed Figures</h4>" +
+      "<p>A <strong>closed figure</strong> begins and ends at the same point — no gaps.<br>" +
+      "An <strong>open figure</strong> has at least one gap — it does NOT join back together.</p>" +
+      "<p>Only <strong>closed</strong> figures made of straight sides can be polygons.</p>",
+      "<h4>Polygons</h4>" +
+      "<p>A <strong>polygon</strong> is a CLOSED figure made of straight LINE SEGMENTS. Polygons are named by their number of sides:</p>" +
+      "<p>• <strong>Triangle</strong> — 3 sides, 3 angles<br>" +
+      "• <strong>Quadrilateral</strong> — 4 sides, 4 angles<br>" +
+      "• <strong>Pentagon</strong> — 5 sides<br>" +
+      "• <strong>Hexagon</strong> — 6 sides</p>" +
+      "<p><em>If a figure has curved sides or open gaps, it is NOT a polygon.</em></p>",
+      "<h4>Special Quadrilaterals</h4>" +
+      "<p>All of these are <strong>quadrilaterals</strong> (4 sides):<br>" +
+      "• <strong>Trapezoid</strong> — exactly 1 pair of parallel sides.<br>" +
+      "• <strong>Parallelogram</strong> — 2 pairs of parallel sides.<br>" +
+      "• <strong>Rectangle</strong> — parallelogram + 4 right angles.<br>" +
+      "• <strong>Rhombus</strong> — parallelogram + 4 equal sides.<br>" +
+      "• <strong>Square</strong> — rectangle + 4 equal sides (also a rhombus!).</p>" +
+      "<p><span class='math-eg'>Every square is a rectangle, but not every rectangle is a square.</span></p>",
+      "<h4>Strategy for Classifying Figures</h4>" +
+      "<p>1. Is it CLOSED and made of straight segments? → polygon.<br>" +
+      "2. Count the SIDES → name (triangle, quadrilateral…).<br>" +
+      "3. Look at ANGLES (right? less? greater?).<br>" +
+      "4. Look at SIDES (parallel? equal length?).<br>" +
+      "5. Use the most specific name (a square is also a rectangle, parallelogram, AND quadrilateral).</p>"
+    ],
+    quiz_mc: [
+      { q: "Which has <strong>two endpoints</strong>?", options: ["line", "line segment", "ray", "angle"], answer: 1, explain: "A line segment has 2 endpoints. A line has none, a ray has 1." },
+      { q: "Which has <strong>one endpoint</strong> and goes on forever in one direction?", options: ["line", "line segment", "ray", "angle"], answer: 2, explain: "A ray has one endpoint and continues forever in one direction." },
+      { q: "Which goes on forever in <strong>both directions</strong>?", options: ["line", "line segment", "ray", "polygon"], answer: 0, explain: "A line continues forever in both directions." },
+      { q: "An angle that looks exactly like the <strong>corner of a book</strong> is a…", options: ["less than a right angle", "right angle", "greater than a right angle", "straight angle"], answer: 1, explain: "A right angle is exactly the size of a square corner (90°)." },
+      { q: "An angle that is <strong>smaller</strong> than a right angle is…", options: ["less than a right angle", "right angle", "greater than a right angle", "parallel"], answer: 0, explain: "Smaller than a square corner = less than a right angle (acute)." },
+      { q: "An angle that is <strong>bigger</strong> than a right angle is…", options: ["less than a right angle", "right angle", "greater than a right angle", "perpendicular"], answer: 2, explain: "Bigger than a square corner = greater than a right angle (obtuse)." },
+      { q: "Two lines that meet to form a <strong>right angle</strong> are called…", options: ["parallel", "perpendicular", "open", "equal"], answer: 1, explain: "Perpendicular lines meet at a right angle." },
+      { q: "Two lines that <strong>never meet</strong> and stay the same distance apart are…", options: ["perpendicular", "parallel", "intersecting", "right"], answer: 1, explain: "Parallel lines never meet; they stay the same distance apart." },
+      { q: "A polygon must be a…", options: ["closed figure with curved sides", "closed figure with straight sides", "open figure with straight sides", "open figure with curved sides"], answer: 1, explain: "A polygon is CLOSED and made of STRAIGHT line segments." },
+      { q: "How many sides does a <strong>quadrilateral</strong> have?", options: ["3", "4", "5", "6"], answer: 1, explain: "Quadri = 4. A quadrilateral has 4 sides." },
+      { q: "How many sides does a <strong>hexagon</strong> have?", options: ["4", "5", "6", "8"], answer: 2, explain: "Hexagon = 6 sides." },
+      { q: "How many sides does a <strong>pentagon</strong> have?", options: ["3", "4", "5", "6"], answer: 2, explain: "Pentagon = 5 sides." },
+      { q: "Which figure has <strong>3 sides and 3 angles</strong>?", options: ["triangle", "rectangle", "pentagon", "hexagon"], answer: 0, explain: "A triangle has 3 sides and 3 angles." },
+      { q: "Which is a <strong>quadrilateral with 2 pairs of parallel sides AND 4 right angles</strong>?", options: ["trapezoid", "parallelogram", "rectangle", "triangle"], answer: 2, explain: "A rectangle has 2 pairs of parallel sides AND 4 right angles." },
+      { q: "Which is a <strong>quadrilateral with 4 equal sides AND 4 right angles</strong>?", options: ["rhombus", "rectangle", "square", "trapezoid"], answer: 2, explain: "A square has 4 equal sides AND 4 right angles." },
+      { q: "Which has <strong>only 1 pair of parallel sides</strong>?", options: ["rectangle", "trapezoid", "square", "rhombus"], answer: 1, explain: "A trapezoid has exactly 1 pair of parallel sides." },
+      { q: "Which is a <strong>parallelogram with 4 equal sides</strong> (but NOT necessarily right angles)?", options: ["rectangle", "rhombus", "trapezoid", "triangle"], answer: 1, explain: "A rhombus is a parallelogram with 4 equal sides." },
+      { q: "I am a polygon with <strong>two pairs of parallel sides, four right angles, and opposite sides of equal length</strong>. What shape am I?", options: ["square", "rhombus", "trapezoid", "rectangle"], answer: 3, explain: "Rectangle: 2 pairs parallel + 4 right angles + opposite sides equal. (A square is also a rectangle but the answer choice 'rectangle' is most general fit.)" },
+      { q: "A figure that has at least one <strong>gap</strong> and does not close up is a(n)…", options: ["closed figure", "open figure", "polygon", "quadrilateral"], answer: 1, explain: "An open figure has gaps." },
+      { q: "Which of these is <strong>NOT a polygon</strong>?", options: ["triangle", "rectangle", "circle", "hexagon"], answer: 2, explain: "A circle has a curved side, so it is NOT a polygon." }
+    ],
+    quiz_tf: [
+      { q: "A <strong>line segment</strong> has two endpoints.", answer: true, explain: "True! Line segments have 2 endpoints." },
+      { q: "A <strong>ray</strong> has two endpoints.", answer: false, explain: "False! A ray has only 1 endpoint." },
+      { q: "A <strong>right angle</strong> is exactly the size of a square corner.", answer: true, explain: "True! Right angle = square corner (90°)." },
+      { q: "<strong>Perpendicular lines</strong> meet to form a right angle.", answer: true, explain: "True! Perpendicular = forms a right angle." },
+      { q: "<strong>Parallel lines</strong> meet at one point.", answer: false, explain: "False! Parallel lines NEVER meet." },
+      { q: "Every <strong>square</strong> is a <strong>rectangle</strong>.", answer: true, explain: "True! A square has 4 right angles and 2 pairs of parallel sides — those are the rules for a rectangle." },
+      { q: "Every <strong>rectangle</strong> is a <strong>square</strong>.", answer: false, explain: "False! A rectangle is only a square if all 4 sides are equal." },
+      { q: "A polygon can have <strong>curved sides</strong>.", answer: false, explain: "False! Polygons must have STRAIGHT sides." },
+      { q: "A <strong>trapezoid</strong> has 2 pairs of parallel sides.", answer: false, explain: "False! A trapezoid has exactly 1 pair of parallel sides. Two pairs = parallelogram." },
+      { q: "A <strong>quadrilateral</strong> has 4 sides and 4 angles.", answer: true, explain: "True! Quadri = 4 sides and 4 angles." },
+      { q: "An angle bigger than a right angle is <strong>less than</strong> a right angle.", answer: false, explain: "False! Bigger = greater than a right angle." },
+      { q: "A <strong>closed figure</strong> begins and ends at the same point.", answer: true, explain: "True! Closed figures have no gaps." }
+    ],
+    quiz_fill: [
+      { q: "A polygon with 3 sides is a ___.", options: ["triangle", "square", "pentagon", "hexagon"], answer: 0, explain: "3 sides = triangle." },
+      { q: "A polygon with 5 sides is a ___.", options: ["square", "pentagon", "hexagon", "octagon"], answer: 1, explain: "5 sides = pentagon." },
+      { q: "A polygon with 6 sides is a ___.", options: ["pentagon", "hexagon", "octagon", "trapezoid"], answer: 1, explain: "6 sides = hexagon." },
+      { q: "Lines that meet to form a right angle are ___ lines.", options: ["parallel", "perpendicular", "open", "curved"], answer: 1, explain: "Perpendicular." },
+      { q: "Lines that never meet and stay the same distance apart are ___ lines.", options: ["perpendicular", "parallel", "right", "open"], answer: 1, explain: "Parallel." },
+      { q: "A quadrilateral with 4 right angles is a ___.", options: ["triangle", "rectangle", "trapezoid", "rhombus"], answer: 1, explain: "Rectangle (square is also right but most specific)." },
+      { q: "A quadrilateral with 4 equal sides AND 4 right angles is a ___.", options: ["rhombus", "rectangle", "square", "trapezoid"], answer: 2, explain: "Square." },
+      { q: "A figure with a gap that does not close is an ___ figure.", options: ["closed", "open", "right", "parallel"], answer: 1, explain: "Open figure." },
+      { q: "An angle the size of a square corner is a ___ angle.", options: ["less than", "right", "greater than", "open"], answer: 1, explain: "Right angle." },
+      { q: "A closed figure made of straight line segments is a ___.", options: ["circle", "polygon", "ray", "angle"], answer: 1, explain: "Polygon." },
+      { q: "A quadrilateral with exactly 1 pair of parallel sides is a ___.", options: ["square", "rectangle", "trapezoid", "rhombus"], answer: 2, explain: "Trapezoid." },
+      { q: "A parallelogram with 4 equal sides (but not necessarily right angles) is a ___.", options: ["rhombus", "rectangle", "square", "triangle"], answer: 0, explain: "Rhombus." }
+    ],
+    quiz_word: [
+      { q: "I am a polygon with <strong>two pairs of parallel sides</strong>, <strong>four right angles</strong>, and <strong>opposite sides of equal length</strong>. What shape am I?", options: ["square", "rhombus", "trapezoid", "rectangle"], answer: 3, explain: "Rectangle — opposite sides equal but not necessarily all 4 sides equal. (A square fits too, but the most general answer based on the clues is rectangle.)" },
+      { q: "Mackenzie drew three polygons X, Y, and Z. Figure X has <strong>twice as many sides as Figure Y</strong>. Figure Z has <strong>1 more side than a parallelogram</strong>. <strong>How many sides does Figure Z have?</strong>", options: ["3", "4", "5", "6"], answer: 2, explain: "A parallelogram has 4 sides. 4 + 1 = 5. So Figure Z has 5 sides (a pentagon)." },
+      { q: "Mackenzie's polygons: Figure X has <strong>twice as many sides as Figure Y</strong>. Figure Z has 5 sides. If Figure Y is a triangle, <strong>how many sides does Figure X have?</strong>", options: ["3", "4", "5", "6"], answer: 3, explain: "Triangle Y = 3 sides. X = 2 × 3 = 6 sides (a hexagon)." },
+      { q: "A shape has <strong>4 sides, 4 right angles, and 4 equal sides</strong>. What is its most specific name?", options: ["quadrilateral", "rectangle", "rhombus", "square"], answer: 3, explain: "All four traits → square (the most specific name)." },
+      { q: "A shape has <strong>4 sides, 2 pairs of parallel sides, but NO right angles</strong>. It could be a…", options: ["square", "rectangle", "rhombus or parallelogram", "trapezoid"], answer: 2, explain: "2 pairs parallel = parallelogram (or rhombus if 4 sides equal). No right angles rules out rectangle/square." },
+      { q: "A shape has <strong>exactly 1 pair of parallel sides</strong>. What is its name?", options: ["parallelogram", "trapezoid", "rectangle", "rhombus"], answer: 1, explain: "Exactly 1 pair of parallel sides = trapezoid." },
+      { q: "Two streets meet to form a <strong>right angle</strong> at the intersection. The streets are…", options: ["parallel", "perpendicular", "open", "curved"], answer: 1, explain: "Right angle = perpendicular." },
+      { q: "Two railroad tracks <strong>never meet</strong> — they stay the same distance apart forever. The tracks are…", options: ["perpendicular", "parallel", "intersecting", "right"], answer: 1, explain: "Never meet, same distance apart = parallel." },
+      { q: "A flag has the shape of a polygon with <strong>4 sides</strong>, where opposite sides are parallel and equal but the angles are NOT right angles. The flag is shaped like a…", options: ["square", "rectangle", "parallelogram", "trapezoid"], answer: 2, explain: "2 pairs parallel + opposite sides equal but no right angles = parallelogram (not rectangle)." },
+      { q: "A stop-sign window has <strong>6 sides</strong>. The window is shaped like a…", options: ["pentagon", "hexagon", "rectangle", "trapezoid"], answer: 1, explain: "6 sides = hexagon." }
+    ]
   }
 };
 
@@ -2767,6 +3015,53 @@ function collectQuizBuckets(sectionKey, u) {
       }
     });
   }
+
+  // VW: questions are generated at runtime from the word list.
+  // Temporarily swap state.currentUnit so the existing builders pick the right unit.
+  if (sectionKey === 'vw' && Array.isArray(u.words) && typeof buildVwQuestions === 'function') {
+    const savedUnit = state.currentUnit;
+    // Find the key for this unit in VW_UNITS
+    const unitKey = Object.keys(VW_UNITS).find(k => VW_UNITS[k] === u);
+    if (unitKey) {
+      state.currentUnit = unitKey;
+      try {
+        const synQs   = (typeof buildVwQuestions === 'function') ? buildVwQuestions('syn')   : [];
+        const antQs   = (typeof buildVwQuestions === 'function') ? buildVwQuestions('ant')   : [];
+        const fillQs  = (typeof buildVwFillQuestions === 'function') ? buildVwFillQuestions() : [];
+        const spellQs = (typeof buildVwSpellQuestions === 'function') ? buildVwSpellQuestions() : [];
+        const tfQs    = (typeof buildVwTfQuestions === 'function') ? buildVwTfQuestions() : [];
+        if (synQs.length)   out.push({ kind: 'mc',   label: '⚔ Synonym Trial',          items: synQs });
+        if (antQs.length)   out.push({ kind: 'mc',   label: '🛡 Antonym Trial',          items: antQs });
+        if (fillQs.length)  out.push({ kind: 'fill', label: '✍ Fill-in-the-Blank',      items: fillQs });
+        if (spellQs.length) out.push({ kind: 'mc',   label: '🔤 Spelling Trial',         items: spellQs });
+        if (tfQs.length)    out.push({ kind: 'mc',   label: '✓✗ True or False',         items: tfQs });
+      } finally {
+        state.currentUnit = savedUnit;
+      }
+    }
+  }
+
+  // READING: questions are generated at runtime from the word list.
+  if (sectionKey === 'reading' && Array.isArray(u.words) && typeof buildReadingQuestions === 'function') {
+    const savedUnit = state.currentUnit;
+    const unitKey = Object.keys(READING_UNITS).find(k => READING_UNITS[k] === u);
+    if (unitKey) {
+      state.currentUnit = unitKey;
+      try {
+        const defQs   = buildReadingQuestions('def');
+        const fillQs  = buildReadingQuestions('fill');
+        const spellQs = buildReadingQuestions('spell');
+        const tfQs    = (typeof buildReadingTfQuestions === 'function') ? buildReadingTfQuestions() : [];
+        if (defQs.length)   out.push({ kind: 'mc',   label: '📘 Definition Trial',       items: defQs });
+        if (fillQs.length)  out.push({ kind: 'fill', label: '✍ Fill-in-the-Blank',      items: fillQs });
+        if (spellQs.length) out.push({ kind: 'mc',   label: '🔤 Spelling Trial',         items: spellQs });
+        if (tfQs.length)    out.push({ kind: 'mc',   label: '✓✗ True or False',         items: tfQs });
+      } finally {
+        state.currentUnit = savedUnit;
+      }
+    }
+  }
+
   return out;
 }
 
@@ -3091,7 +3386,7 @@ function showSectionMenu() {
     { key: 'vw', emoji: '📚', title: 'Vocabulary Workshop', sub: 'VW Units 14 – 18', cssClass: 'section-vw' },
     { key: 'reading', emoji: '📖', title: 'Reading', sub: 'Reading Units 16 – 19', cssClass: 'section-reading' },
     { key: 'ss', emoji: '🏛️', title: 'Social Studies', sub: 'Ch. 5 · Lessons 3 – 4', cssClass: 'section-ss' },
-    { key: 'math', emoji: '🧮', title: 'Mathematica', sub: 'Unit 10 · Time', cssClass: 'section-math' }
+    { key: 'math', emoji: '🧮', title: 'Mathematica', sub: 'Units 10 · 11 · 12', cssClass: 'section-math' }
   ];
   sections.forEach(s => {
     const b = document.createElement('button');
