@@ -1961,6 +1961,45 @@ function startSSVocab() {
   }, 400);
 }
 
+// For Hero Matching: randomly flip an item between two directions:
+//   forward  → "What did <Hero> do?" with deed options (original)
+//   reverse  → "Who did this deed? <deed>" with hero-name options
+// This keeps the quiz fresh and tests recall in both directions.
+function mixMatchItem(item, allMatchItems) {
+  // ~50% chance to flip to reverse direction
+  const flip = Math.random() < 0.5;
+  if (!flip || !Array.isArray(allMatchItems) || allMatchItems.length < 2) {
+    return { ...item, _kind: 'mc' };
+  }
+  // Build reverse-direction question
+  const correctDeed = item.options[item.answer];
+  const correctHero = item.hero;
+  // Distractor heroes drawn from other items in this unit
+  const others = allMatchItems
+    .filter(x => x.hero && x.hero !== correctHero)
+    .map(x => x.hero);
+  // Shuffle and pick up to 3 distractors
+  for (let i = others.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [others[i], others[j]] = [others[j], others[i]];
+  }
+  const distractors = others.slice(0, 3);
+  const heroOptions = [correctHero, ...distractors];
+  // Shuffle option order so the answer isn't always first
+  for (let i = heroOptions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [heroOptions[i], heroOptions[j]] = [heroOptions[j], heroOptions[i]];
+  }
+  const answerIdx = heroOptions.indexOf(correctHero);
+  return {
+    _kind: 'mc',
+    q: `<em>Which hero did this?</em><br>&ldquo;${correctDeed}&rdquo;`,
+    options: heroOptions,
+    answer: answerIdx,
+    explain: item.explain
+  };
+}
+
 function buildSSQuizPool(quizType) {
   const u = SS_UNITS[state.currentUnit];
   let pool = [];
@@ -1971,13 +2010,13 @@ function buildSSQuizPool(quizType) {
   } else if (quizType === 'fill') {
     pool = u.quiz_fill.map(item => ({ ...item, _kind: 'fill' }));
   } else if (quizType === 'match') {
-    pool = (u.quiz_match || []).map(item => ({ ...item, _kind: 'mc' }));
+    pool = (u.quiz_match || []).map(item => mixMatchItem(item, u.quiz_match));
   } else if (quizType === 'mix') {
     pool = [
       ...u.quiz_mc.map(i => ({ ...i, _kind: 'mc' })),
       ...u.quiz_tf.map(i => ({ ...i, _kind: 'tf' })),
       ...u.quiz_fill.map(i => ({ ...i, _kind: 'fill' })),
-      ...((u.quiz_match || []).map(i => ({ ...i, _kind: 'mc' })))
+      ...((u.quiz_match || []).map(i => mixMatchItem(i, u.quiz_match)))
     ];
   }
   // Shuffle and take up to 10
