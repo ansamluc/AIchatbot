@@ -3331,7 +3331,9 @@ const SCI_UNITS = {
       { w: "trace fossil", def: "a fossil that shows a sign of an animal — like a footprint, burrow, nest, eggshell, or dung — instead of its body" },
       { w: "amber", def: "honey-colored hardened tree resin that can preserve insects or small plants as fossils" },
       { w: "mold", def: "the empty print left in rock when a dead organism's body decays" },
-      { w: "cast", def: "a fossil formed when minerals fill in a mold and harden" }
+      { w: "cast", def: "a fossil formed when minerals fill in a mold and harden" },
+      { w: "sediment", def: "mud, sand, or tiny pieces of rock that can bury an organism and help make a fossil" },
+      { w: "paleontologist", def: "a scientist who digs up and studies fossils to learn about ancient life" }
     ],
     lesson: [
       "<h4>The Big Question</h4><p>A <strong>fossil</strong> is the <strong>remains or trace</strong> of a living thing that lived very long ago. Some fossils are millions of years old. Scientists study fossils to learn about plants and animals from long ago.</p>",
@@ -3349,7 +3351,27 @@ const SCI_UNITS = {
       "<p><strong>Frozen fossils</strong> form when animals get trapped in ice. Woolly mammoths frozen in ice still have soft parts preserved, so scientists can learn how they moved and what they ate.</p>" +
       "<p><strong>Tar pits</strong> are areas filled with sticky tar that seeps up from inside Earth (like the La Brea tar pits in California). Animals got trapped in the tar, and the tar preserved their skeletons.</p>",
       "<h4>Extinct Organisms</h4>" +
-      "<p>Many of the kinds of organisms that formed fossils are <strong>extinct</strong> — they no longer live on Earth. <strong>Dinosaurs</strong> are extinct. Today scientists find their fossilized bones and learn a lot about them.</p>"
+      "<p>Many of the kinds of organisms that formed fossils are <strong>extinct</strong> — they no longer live on Earth. <strong>Dinosaurs</strong> are extinct. Today scientists find their fossilized bones and learn a lot about them.</p>",
+      "<h4>The Story in the Ground (4 Steps)</h4>" +
+      "<p>The Fossil Explorer's Guide shows us a simpler way to remember how fossils form:</p>" +
+      "<p><strong>1. Die &amp; Sink</strong> — An animal dies in water and sinks to the bottom.<br>" +
+      "<strong>2. Buried Fast</strong> — <strong>Sediment</strong> (mud and sand) covers it quickly.<br>" +
+      "<strong>3. Time &amp; Pressure</strong> — Over millions of years, the mud turns into hard rock. The remains become a fossil.<br>" +
+      "<strong>4. Discovery!</strong> — A scientist called a <strong>paleontologist</strong> digs it up and studies it.</p>",
+      "<h4>The Sticky Tree Story (How Amber Forms)</h4>" +
+      "<p>Amber fossils form in three steps: <strong>1. Tree Sap</strong> — a plant makes sticky juice to heal a cut on its bark. <strong>2. Bug Stuck</strong> — a tiny insect lands on the sap and gets trapped. <strong>3. Hardens</strong> — the sap dries, gets buried, and turns into an amber fossil over millions of years.</p>",
+      "<h4>Why Are Fossils So Hard to Find?</h4>" +
+      "<p>Most animals do <strong>not</strong> become fossils — it takes perfect conditions! After an animal dies, three things usually happen instead:</p>" +
+      "<p><strong>Path 1:</strong> The body gets <strong>eaten or rots away</strong>.<br>" +
+      "<strong>Path 2:</strong> It gets <strong>broken by rain and wind</strong>.<br>" +
+      "<strong>Path 3:</strong> It is <strong>not buried fast enough</strong> before it falls apart.</p>" +
+      "<p>Fossils are rare puzzles — only creatures with perfect luck get preserved!</p>",
+      "<h4>Amazing Fossil Finds!</h4>" +
+      "<p>Scientists are finding new fossils all the time. Some incredible examples:</p>" +
+      "<p>🦖 <strong>T-Rex</strong> — about <strong>65 million years old</strong><br>" +
+      "🌿 <strong>Fern Plant</strong> — about <strong>400 million years old</strong><br>" +
+      "💀 <strong>Early Human</strong> — about <strong>10,000 years old</strong></p>" +
+      "<p>What fossil will scientists find next?</p>"
     ],
     quiz_mc: [
       { q: "What is a <strong>fossil</strong>?", options: ["a kind of dinosaur", "the remains or trace of a living thing that lived very long ago", "a rock with shiny minerals", "a kind of tree resin"], answer: 1, explain: "A fossil is the remains or trace of a living thing that lived very long ago." },
@@ -3361,7 +3383,14 @@ const SCI_UNITS = {
       { q: "Most fossils form from the <strong>___</strong> of living things.", options: ["soft skin and muscles", "blood and feathers", "hard parts like bones, shells, and teeth", "leaves and flowers"], answer: 2, explain: "Most fossils come from hard parts — bones, shells, and teeth — because soft parts decay too quickly." },
       { q: "A <strong>fossil mold</strong> is…", options: ["a fuzzy plant that grows on rocks", "the empty print left when a body decays", "a kind of tar pit", "a mammoth frozen in ice"], answer: 1, explain: "When the body decays inside rock, it leaves an empty print — a mold. If minerals fill it, you get a cast." },
       { q: "Where do fossils <strong>most often</strong> form?", options: ["on mountain tops", "on the bottom of rivers, swamps, lakes, or oceans", "in dry deserts", "in volcanoes"], answer: 1, explain: "Fossils form most often on the bottom of rivers, swamps, lakes, or oceans — where bodies get buried quickly by mud or sand." },
-      { q: "The La Brea <strong>tar pits</strong> in California are famous because…", options: ["they preserve skeletons of animals trapped in tar", "they have the oldest amber fossils", "they are the only place mammoths are found", "they are made of frozen ice"], answer: 0, explain: "Tar from inside Earth seeps up at La Brea. Animals got stuck and the tar preserved their skeletons." }
+      { q: "The La Brea <strong>tar pits</strong> in California are famous because…", options: ["they preserve skeletons of animals trapped in tar", "they have the oldest amber fossils", "they are the only place mammoths are found", "they are made of frozen ice"], answer: 0, explain: "Tar from inside Earth seeps up at La Brea. Animals got stuck and the tar preserved their skeletons." },
+      { q: "What is <strong>sediment</strong>?", options: ["a type of dinosaur", "mud, sand, or tiny pieces of rock that can bury an organism", "hardened tree sap", "a scientist who studies fossils"], answer: 1, explain: "Sediment — mud and sand — covers a dead animal quickly and helps start the fossilization process." },
+      { q: "What is a <strong>paleontologist</strong>?", options: ["a scientist who studies weather", "a scientist who makes fossils", "a scientist who digs up and studies fossils", "a scientist who studies living animals"], answer: 2, explain: "Paleontologists dig up fossils and study them to learn about ancient life on Earth." },
+      { q: "In the 4-step fossil story, what happens in Step 2?", options: ["A paleontologist digs up the fossil", "The animal dies and sinks", "Sediment covers the body quickly", "Mud turns into hard rock"], answer: 2, explain: "Step 2 is 'Buried Fast' — sediment (mud and sand) covers the body quickly so it can be preserved." },
+      { q: "In the <strong>amber story</strong>, why does the tree make sticky sap in the first place?", options: ["To trap insects on purpose", "To make honey for animals to eat", "To heal a cut on its bark", "To attract paleontologists"], answer: 2, explain: "The tree makes sticky sap to heal a cut on its bark — the insect getting trapped is an accident!" },
+      { q: "Which of these is NOT a reason most animals do NOT become fossils?", options: ["They get eaten or rot away", "They get broken by rain and wind", "They are not buried fast enough", "They are too heavy to sink in water"], answer: 3, explain: "The three paths that prevent fossilization are: eaten/rotted, broken by weather, or not buried fast enough. Weight is not the issue." },
+      { q: "About how old is a T-Rex fossil?", options: ["10,000 years old", "400 million years old", "65 million years old", "1 million years old"], answer: 2, explain: "T-Rex fossils are about 65 million years old — from the end of the Mesozoic Era." },
+      { q: "Which fossil find is the <strong>oldest</strong>?", options: ["Early human at 10,000 years old", "T-Rex at 65 million years old", "Fern plant at 400 million years old", "Woolly mammoth frozen in ice"], answer: 2, explain: "The fern plant fossil at 400 million years old is the oldest — even older than dinosaurs!" }
     ],
     quiz_tf: [
       { q: "Most living things become fossils after they die.", answer: false, explain: "False — most organisms decay or are eaten. Fossils form only in special conditions." },
@@ -3373,7 +3402,13 @@ const SCI_UNITS = {
       { q: "When minerals fill in a fossil mold and harden, the result is called a <strong>cast</strong>.", answer: true, explain: "True — minerals enter the mold and form a cast fossil over many years." },
       { q: "Frozen mammoths are useful to scientists because their <strong>soft parts</strong> are preserved.", answer: true, explain: "True — frozen soft parts tell scientists how the animal moved, what it ate, and its body shape." },
       { q: "Tar pits preserve fossils by <strong>freezing</strong> the animals.", answer: false, explain: "False — tar pits trap animals in sticky tar, not ice." },
-      { q: "Fossils most often form at the bottom of <strong>rivers, swamps, lakes, or oceans</strong>.", answer: true, explain: "True — bodies are buried quickly there before they can decay." }
+      { q: "Fossils most often form at the bottom of <strong>rivers, swamps, lakes, or oceans</strong>.", answer: true, explain: "True — bodies are buried quickly there before they can decay." },
+      { q: "<strong>Sediment</strong> is mud or sand that can bury an organism and help make a fossil.", answer: true, explain: "True — sediment covers the body in Step 2 of fossil formation." },
+      { q: "A <strong>paleontologist</strong> is a scientist who digs up and studies fossils.", answer: true, explain: "True — paleontologists are the fossil experts who discover and study ancient remains." },
+      { q: "Most animals that die will eventually become fossils.", answer: false, explain: "False — most bodies get eaten, rot away, or are broken by weather. Only a very lucky few become fossils." },
+      { q: "In the amber story, the tree makes sap on purpose to trap insects.", answer: false, explain: "False — the tree makes sap to heal a cut on its bark. Trapping the insect is an accident!" },
+      { q: "A T-Rex fossil is older than a fern plant fossil.", answer: false, explain: "False — T-Rex fossils are about 65 million years old, but fern plant fossils can be 400 million years old." },
+      { q: "An early human fossil is about 10,000 years old.", answer: true, explain: "True — early human fossils are much younger than dinosaur or plant fossils." }
     ],
     quiz_fill: [
       { q: "A ___ is the remains or trace of a living thing that lived very long ago.", options: ["mineral", "fossil", "rock", "shell"], answer: 1, explain: "Fossil — remains or trace of a long-ago living thing." },
@@ -3384,7 +3419,12 @@ const SCI_UNITS = {
       { q: "When minerals fill a mold and harden, they form a ___.", options: ["cast", "shell", "tar pit", "burrow"], answer: 0, explain: "Cast fossil — the mold gets filled and hardens." },
       { q: "The ___ pits in California preserved skeletons in sticky tar.", options: ["Mammoth", "La Brea", "Amber", "Mojave"], answer: 1, explain: "La Brea tar pits in California." },
       { q: "Most fossils form from the ___ parts of living things.", options: ["soft", "hard", "wet", "warm"], answer: 1, explain: "Hard parts — bones, shells, teeth — fossilize most easily." },
-      { q: "Mammoths frozen in ice still have ___ parts preserved.", options: ["soft", "rocky", "extinct", "amber"], answer: 0, explain: "Frozen soft parts tell scientists about diet, movement, and body shape." }
+      { q: "Mammoths frozen in ice still have ___ parts preserved.", options: ["soft", "rocky", "extinct", "amber"], answer: 0, explain: "Frozen soft parts tell scientists about diet, movement, and body shape." },
+      { q: "Mud, sand, or tiny pieces of rock that help bury organisms are called ___.", options: ["amber", "sediment", "tar", "cast"], answer: 1, explain: "Sediment is the mud and sand that covers a body quickly — key to fossil formation." },
+      { q: "A scientist who digs up and studies fossils is called a ___.", options: ["biologist", "geologist", "paleontologist", "zoologist"], answer: 2, explain: "Paleontologist — the fossil expert!" },
+      { q: "In the 4-step fossil story, Step 3 is 'Time and ___.'", options: ["Pressure", "Water", "Wind", "Sand"], answer: 0, explain: "Time and Pressure — mud gets squashed and hardens into rock over millions of years." },
+      { q: "A T-Rex fossil is about ___ million years old.", options: ["10", "400", "65", "1"], answer: 2, explain: "T-Rex lived about 65 million years ago, at the end of the Mesozoic Era." },
+      { q: "Fossils are rare because most animals get ___ or rot away.", options: ["frozen", "eaten", "buried", "trapped"], answer: 1, explain: "Being eaten or rotting is Path 1 — the most common reason animals don't become fossils." }
     ],
     challenge_questions: [
       { q: "Scientists find SEASHELL fossils in rock at the top of a mountain. What's the MOST LIKELY explanation?", options: ["Hikers carrying shells dropped them on the mountain over many years.", "The mountain area was once underwater before being lifted up.", "Birds carried the shells up to the peak from beaches far below.", "The seashells slowly grew there over time without any ocean involved."], answer: 1, explain: "Marine fossils embedded in rock are evidence that the area was once sea floor. Tectonic forces lifted those rocks over millions of years." },
