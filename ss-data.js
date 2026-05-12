@@ -9,16 +9,21 @@ const SS_UNITS = {
       { w: "convention", def: "a large meeting where people gather to discuss something important" },
       { w: "suffrage", def: "the right to vote" },
       { w: "civil rights", def: "the rights of all citizens to be treated equally under the law" },
-      { w: "segregate", def: "to separate people, often by race" },
-      { w: "delegate", def: "a person chosen to act for others" },
+      { w: "segregate", def: "to separate people, often by race (to keep them apart)" },
+      { w: "delegate", def: "a person chosen to act for others (a representative)" },
       { w: "convince", def: "to cause someone, by use of evidence, to take a course of action or to believe something" },
-      { w: "aware", def: "knowing about something" }
+      { w: "aware", def: "knowing about something" },
+      { w: "unconstitutional", def: "not allowed by the U.S. Constitution; against the rules of the Constitution" },
+      { w: "landmark decision", def: "an important court ruling that changes the law and affects many people for years to come" },
+      { w: "equal protection", def: "the idea (from the 14th Amendment) that the law must treat all people the same" },
+      { w: "Declaration of Sentiments", def: "a document written by Elizabeth Cady Stanton in 1848 asking for equal rights for women" },
+      { w: "champion", def: "a person who fights or speaks up for a cause or group of people" }
     ],
     lesson: [
       "<h4>The Big Question</h4><p>Today, citizens have many rights and freedoms. But these rights and freedoms did not come easily. Throughout history, both famous leaders and ordinary people have worked hard to make sure everyone is treated equally.</p>",
       "<h4>Susan B. Anthony — Fighting for Suffrage</h4>" +
       "<p>Even after the Bill of Rights was added to the U.S. Constitution, women did not have the same rights as men. <strong>Susan B. Anthony</strong> wanted to change that, so she gave speeches about treating people fairly.</p>" +
-      "<p>In <strong>1848</strong>, Elizabeth Cady Stanton, Lucretia Mott, and other women organized a <strong>convention</strong> (a large meeting) in <strong>Seneca Falls, New York</strong>. They wanted to discuss women's rights. One right they wanted was <strong>suffrage</strong> — the right to vote. The Seneca Falls Convention was the start of the suffrage movement.</p>" +
+      "<p>In <strong>1848</strong>, Elizabeth Cady Stanton, Lucretia Mott, and other women organized a <strong>convention</strong> (a large meeting) in <strong>Seneca Falls, New York</strong>. They wanted to discuss women's rights. One right they wanted was <strong>suffrage</strong> — the right to vote. The Seneca Falls Convention was the start of the suffrage movement. At the convention, Stanton wrote the <strong>\"Declaration of Sentiments,\"</strong> a document that asked for <strong>equal rights</strong> for women.</p>" +
       "<p>In <strong>1851</strong>, Susan B. Anthony joined Elizabeth Cady Stanton in the suffrage movement. Together they formed the National American Woman Suffrage Association in <strong>1869</strong>. Anthony served as president for eight years.</p>" +
       "<p>In <strong>1870</strong>, the <strong>Fifteenth Amendment</strong> gave African American men the right to vote. Still, women could not vote. In <strong>1872</strong>, Anthony voted in the presidential election. This was against the law, and she was arrested and fined $100. She refused to pay because she felt it was unfair.</p>" +
       "<p>Anthony died in 1906, but other women continued the fight. Finally, in <strong>1920</strong>, the <strong>Nineteenth Amendment</strong> became law. Women had won the right to vote!</p>",
@@ -26,12 +31,12 @@ const SS_UNITS = {
       "<p><strong>Thurgood Marshall</strong> worked hard for civil rights. <strong>Civil rights</strong> are rights of all citizens to be treated equally under the law. Marshall believed that all citizens, not just some, should have civil rights.</p>" +
       "<p>Marshall grew up in Baltimore, Maryland. He often debated at home with his father and brother. People who have different viewpoints often debate, or argue to <strong>convince</strong> others. Marshall continued debating in college and later became a lawyer who argued in court to change unfair laws.</p>" +
       "<p>At that time, laws <strong>segregated</strong> (separated) African American and white people in many places — theaters, restaurants, and schools. Reverend Oliver Brown wanted his daughter Linda to attend a school for white students close to home, but school leaders would not allow it. Linda's case was brought to the Supreme Court.</p>" +
-      "<p>Marshall argued the case, trying to <strong>convince</strong> the justices that school segregation was wrong. In <strong>1954</strong>, all nine Supreme Court justices voted to end school segregation. This case is known as <strong>Brown v. Board of Education</strong>.</p>" +
-      "<p>In <strong>1967</strong>, Marshall was chosen to be the first African American Supreme Court justice. He served for 24 years.</p>",
+      "<p>Marshall argued the case, trying to <strong>convince</strong> the justices that school segregation was wrong. In <strong>1954</strong>, all nine Supreme Court justices voted to end school segregation. This case is known as <strong>Brown v. Board of Education</strong>. It was a <strong>landmark decision</strong> — an important court ruling that ruled state-sponsored racial segregation in public schools violated the <strong>14th Amendment's Equal Protection Clause</strong>. The Court unanimously declared that <strong>\"separate but equal\" was unconstitutional</strong>. This decision helped end racial segregation in public schools and became a major victory for civil rights in the United States.</p>" +
+      "<p>In <strong>1967</strong>, Marshall was chosen to be the first African American Supreme Court justice. He served for 24 years, working to protect fairness and justice for all people.</p>",
       "<h4>Eleanor Roosevelt — Fighting for Human Rights</h4>" +
       "<p><strong>Eleanor Roosevelt</strong> worked hard to improve people's lives. She was the <strong>First Lady</strong> — wife of the president. Her husband, Franklin D. Roosevelt, was president from 1933 to 1945.</p>" +
       "<p>While she was First Lady, Roosevelt traveled all over the world to visit schoolchildren, sick people, coal miners, and even people in jail. She told her husband everything she learned. She was <strong>aware</strong> that all people need basic human rights.</p>" +
-      "<p>In <strong>1945</strong>, she was chosen to be the American <strong>delegate</strong> (a person chosen to act for others) to the United Nations (U.N.). She led a group that helped create the <strong>Universal Declaration of Human Rights</strong>. It said all people had the right to be treated equally under the law, the right to own property, and the right to leave their country and return.</p>"
+      "<p>After <strong>World War II</strong>, in <strong>1945</strong>, she was chosen to be the American <strong>delegate</strong> (a person chosen to act for others, also called a representative) to the <strong>United Nations</strong> (U.N.). She led a group that helped create the <strong>Universal Declaration of Human Rights</strong>, a document that protects basic human rights for people around the world. It said all people had the right to be treated equally under the law, the right to own property, and the right to leave their country and return. She became known as a <strong>champion</strong> of human rights, equality, and peace.</p>"
     ],
     quiz_mc: [
       { q: "What does 'suffrage' mean?", options: ["the right to own land", "the right to vote", "the right to speak", "the right to read"], answer: 1, explain: "Suffrage means the right to vote — that's what Susan B. Anthony fought for!" },
@@ -45,7 +50,15 @@ const SS_UNITS = {
       { q: "Who was the first African American Supreme Court justice?", options: ["Oliver Brown", "Thurgood Marshall", "George E. C. Hayes", "James Nabrit Jr."], answer: 1, explain: "In 1967, Thurgood Marshall became the first African American Supreme Court justice." },
       { q: "What does 'delegate' mean?", options: ["a kind of judge", "a person chosen to act for others", "a school leader", "a famous lawyer"], answer: 1, explain: "A delegate is a person chosen to act for others. Eleanor Roosevelt was the U.S. delegate to the U.N." },
       { q: "Eleanor Roosevelt helped create what important document?", options: ["The Constitution", "The Bill of Rights", "The Universal Declaration of Human Rights", "The Nineteenth Amendment"], answer: 2, explain: "She led a U.N. group that created the Universal Declaration of Human Rights." },
-      { q: "What does 'convince' mean?", options: ["to forget", "to cause someone to believe something", "to argue loudly", "to vote"], answer: 1, explain: "Convince means to cause someone (with evidence) to believe or do something." }
+      { q: "What does 'convince' mean?", options: ["to forget", "to cause someone to believe something", "to argue loudly", "to vote"], answer: 1, explain: "Convince means to cause someone (with evidence) to believe or do something." },
+      { q: "Which amendment's Equal Protection Clause did the Supreme Court use in Brown v. Board of Education?", options: ["13th Amendment", "14th Amendment", "15th Amendment", "19th Amendment"], answer: 1, explain: "The 14th Amendment's Equal Protection Clause says the law must treat all people equally." },
+      { q: "What did the Supreme Court declare 'unconstitutional' in Brown v. Board of Education?", options: ["voting by women", "'separate but equal'", "the 14th Amendment", "public schools"], answer: 1, explain: "The Court unanimously declared that 'separate but equal' was unconstitutional." },
+      { q: "What is a 'landmark decision'?", options: ["a decision about land or property", "an important court ruling that changes the law for many years", "a vote in Congress", "a presidential order"], answer: 1, explain: "A landmark decision is an important court ruling that changes the law and affects many people for years to come." },
+      { q: "What does 'unconstitutional' mean?", options: ["very popular", "not allowed by the U.S. Constitution", "old-fashioned", "voted on by the people"], answer: 1, explain: "Unconstitutional means against the rules of the U.S. Constitution." },
+      { q: "Who wrote the 'Declaration of Sentiments'?", options: ["Susan B. Anthony", "Elizabeth Cady Stanton", "Eleanor Roosevelt", "Thurgood Marshall"], answer: 1, explain: "Elizabeth Cady Stanton wrote the 'Declaration of Sentiments' at the 1848 Seneca Falls Convention." },
+      { q: "What did the 'Declaration of Sentiments' ask for?", options: ["the end of slavery", "equal rights for women", "free public schools", "the right to own property"], answer: 1, explain: "The Declaration of Sentiments asked for equal rights for women." },
+      { q: "Eleanor Roosevelt became known as a 'champion' of what?", options: ["sports and games", "human rights, equality, and peace", "the U.S. military", "voting rights only"], answer: 1, explain: "Eleanor Roosevelt became known as a champion of human rights, equality, and peace." },
+      { q: "When did Eleanor Roosevelt serve as American delegate to the U.N.?", options: ["before World War I", "during World War II", "after World War II", "during the Civil War"], answer: 2, explain: "After World War II, in 1945, she was chosen to be the American delegate to the U.N." }
     ],
     quiz_tf: [
       { q: "Susan B. Anthony fought for women's right to vote.", answer: true, explain: "True! Anthony was a leader of the suffrage movement." },
@@ -57,7 +70,13 @@ const SS_UNITS = {
       { q: "Marshall served on the Supreme Court for 24 years.", answer: true, explain: "True! He served as a Supreme Court justice for 24 years starting in 1967." },
       { q: "Eleanor Roosevelt was the American delegate to the United Nations.", answer: true, explain: "True! In 1945, she was chosen as the U.S. delegate to the U.N." },
       { q: "Civil rights are only for adults, not children.", answer: false, explain: "False! Civil rights are for ALL citizens, including children." },
-      { q: "Susan B. Anthony was arrested for voting in 1872.", answer: true, explain: "True! She was arrested and fined $100 for voting because women weren't allowed to vote then." }
+      { q: "Susan B. Anthony was arrested for voting in 1872.", answer: true, explain: "True! She was arrested and fined $100 for voting because women weren't allowed to vote then." },
+      { q: "Elizabeth Cady Stanton wrote the 'Declaration of Sentiments' asking for equal rights for women.", answer: true, explain: "True! She wrote it at the 1848 Seneca Falls Convention." },
+      { q: "The Supreme Court ruled that 'separate but equal' was unconstitutional in Brown v. Board of Education.", answer: true, explain: "True! The Court unanimously said 'separate but equal' was unconstitutional in 1954." },
+      { q: "Brown v. Board of Education used the 14th Amendment's Equal Protection Clause.", answer: true, explain: "True! The decision ruled school segregation violated the 14th Amendment's Equal Protection Clause." },
+      { q: "Brown v. Board of Education was a landmark decision.", answer: true, explain: "True! It was a landmark decision — an important ruling that changed the law for many years." },
+      { q: "Eleanor Roosevelt became the American delegate to the U.N. after World War II.", answer: true, explain: "True! In 1945, after WWII, she was chosen as the American delegate to the U.N." },
+      { q: "Eleanor Roosevelt was known as a champion of human rights, equality, and peace.", answer: true, explain: "True! That's how she is remembered today." }
     ],
     quiz_fill: [
       { q: "The right to vote is called ___.", options: ["suffrage", "delegate", "convention", "segregation"], answer: 0, explain: "Suffrage means the right to vote." },
@@ -69,7 +88,12 @@ const SS_UNITS = {
       { q: "If you know about something, you are ___ of it.", options: ["aware", "convinced", "delegated", "segregated"], answer: 0, explain: "Aware means knowing about something." },
       { q: "Susan B. Anthony helped form the National American Woman ___ Association.", options: ["Civil Rights", "Convention", "Suffrage", "Delegate"], answer: 2, explain: "Suffrage Association — they fought for women's right to vote." },
       { q: "The case ___ v. Board of Education ended school segregation.", options: ["Brown", "Anthony", "Roosevelt", "Marshall"], answer: 0, explain: "Brown v. Board of Education (1954)." },
-      { q: "Eleanor Roosevelt helped create the Universal Declaration of ___ Rights.", options: ["Civil", "Voting", "Human", "Citizen"], answer: 2, explain: "The Universal Declaration of Human Rights." }
+      { q: "Eleanor Roosevelt helped create the Universal Declaration of ___ Rights.", options: ["Civil", "Voting", "Human", "Citizen"], answer: 2, explain: "The Universal Declaration of Human Rights." },
+      { q: "The Supreme Court said 'separate but equal' was ___.", options: ["important", "unconstitutional", "fair", "popular"], answer: 1, explain: "Unconstitutional — against the rules of the Constitution." },
+      { q: "Brown v. Board of Education used the ___ Amendment's Equal Protection Clause.", options: ["13th", "14th", "15th", "19th"], answer: 1, explain: "The 14th Amendment's Equal Protection Clause." },
+      { q: "Elizabeth Cady Stanton wrote the 'Declaration of ___' at Seneca Falls.", options: ["Independence", "Sentiments", "Rights", "Suffrage"], answer: 1, explain: "The 'Declaration of Sentiments' asked for equal rights for women." },
+      { q: "Eleanor Roosevelt became known as a ___ of human rights, equality, and peace.", options: ["judge", "champion", "soldier", "writer"], answer: 1, explain: "She became known as a champion of human rights, equality, and peace." },
+      { q: "An important court ruling that changes the law for many years is called a ___ decision.", options: ["small", "landmark", "private", "weekly"], answer: 1, explain: "A landmark decision is an important ruling that changes the law." }
     ],
     quiz_match: [
       {
