@@ -135,6 +135,23 @@ const CN_UNITS = {
       { w: "挺", z: "ㄊㄧㄥˇ" }
     ],
     idioms: ["愁眉不展", "抬頭挺胸", "事半功倍", "紙上談兵", "胸有成竹", "疾言厲色", "不疾不徐"],
+    quiz_write_char: [
+      { full: "秩序", chars: [{blank: "秩", z: "ㄓˋ"}, {show: "序"}] },
+      { full: "展覽", chars: [{blank: "展", z: "ㄓㄢˇ"}, {show: "覽"}] },
+      { full: "角色扮演", chars: [{show: "角"}, {show: "色"}, {blank: "扮", z: "ㄅㄢˋ"}, {show: "演"}] },
+      { full: "勇氣倍增", chars: [{show: "勇"}, {show: "氣"}, {blank: "倍", z: "ㄅㄟˋ"}, {show: "增"}] },
+      { full: "模型", chars: [{show: "模"}, {blank: "型", z: "ㄒㄧㄥˊ"}] },
+      { full: "醫護人員", chars: [{show: "醫"}, {blank: "護", z: "ㄏㄨˋ"}, {show: "人"}, {show: "員"}] },
+      { full: "抬頭挺胸", chars: [{blank: "抬", z: "ㄊㄞˊ"}, {show: "頭"}, {show: "挺"}, {blank: "胸", z: "ㄒㄩㄥ"}] },
+      { full: "或許", chars: [{blank: "或", z: "ㄏㄨㄛˋ"}, {show: "許"}] },
+      { full: "微風徐徐", chars: [{show: "微"}, {show: "風"}, {blank: "徐", z: "ㄒㄩˊ"}, {blank: "徐", z: "ㄒㄩˊ"}] },
+      { full: "活潑", chars: [{show: "活"}, {blank: "潑", z: "ㄆㄛ"}] },
+      { full: "心胸寬大", chars: [{show: "心"}, {blank: "胸", z: "ㄒㄩㄥ"}, {show: "寬"}, {show: "大"}] },
+      { full: "疾病", chars: [{blank: "疾", z: "ㄐㄧˊ"}, {show: "病"}] },
+      { full: "座談會", chars: [{show: "座"}, {blank: "談", z: "ㄊㄢˊ"}, {show: "會"}] },
+      { full: "新聞記者", chars: [{show: "新"}, {show: "聞"}, {show: "記"}, {blank: "者", z: "ㄓㄜˇ"}] },
+      { full: "某些", chars: [{blank: "某", z: "ㄇㄡˇ"}, {show: "些"}] }
+    ],
     quiz_idiom_fill: [
       { sentence: "他____地完成了這幅畫。", answer: "不疾不徐" },
       { sentence: "先做好計畫,做事就能____。", answer: "事半功倍" },
@@ -207,6 +224,24 @@ const CN_UNITS = {
       { w: "廚", z: "ㄔㄨˊ" }
     ],
     idioms: ["赴湯蹈火", "化險為夷", "一舉兩得", "輕而易舉"],
+    quiz_write_char: [
+      { full: "入圍", chars: [{show: "入"}, {blank: "圍", z: "ㄨㄟˊ"}] },
+      { full: "名單", chars: [{show: "名"}, {blank: "單", z: "ㄉㄢ"}] },
+      { full: "變化", chars: [{show: "變"}, {blank: "化", z: "ㄏㄨㄚˋ"}] },
+      { full: "舉辦", chars: [{blank: "舉", z: "ㄐㄩˇ"}, {show: "辦"}] },
+      { full: "餐會", chars: [{blank: "餐", z: "ㄘㄢ"}, {show: "會"}] },
+      { full: "取消", chars: [{blank: "取", z: "ㄑㄩˇ"}, {show: "消"}] },
+      { full: "熱湯", chars: [{show: "熱"}, {blank: "湯", z: "ㄊㄤ"}] },
+      { full: "習慣", chars: [{show: "習"}, {blank: "慣", z: "ㄍㄨㄢˋ"}] },
+      { full: "免洗筷", chars: [{blank: "免", z: "ㄇㄧㄢˇ"}, {show: "洗"}, {blank: "筷", z: "ㄎㄨㄞˋ"}] },
+      { full: "垃圾分類", chars: [{blank: "垃", z: "ㄌㄜˋ"}, {blank: "圾", z: "ㄙㄜˋ"}, {show: "分"}, {blank: "類", z: "ㄌㄟˋ"}] },
+      { full: "姿勢端正", chars: [{show: "姿"}, {show: "勢"}, {blank: "端", z: "ㄉㄨㄢ"}, {show: "正"}] },
+      { full: "舉行", chars: [{blank: "舉", z: "ㄐㄩˇ"}, {show: "行"}] },
+      { full: "免費", chars: [{blank: "免", z: "ㄇㄧㄢˇ"}, {show: "費"}] },
+      { full: "比較", chars: [{show: "比"}, {blank: "較", z: "ㄐㄧㄠˋ"}] },
+      { full: "手套", chars: [{show: "手"}, {blank: "套", z: "ㄊㄠˋ"}] },
+      { full: "煮飯", chars: [{blank: "煮", z: "ㄓㄨˇ"}, {show: "飯"}] }
+    ],
     quiz_idiom_fill: [
       { sentence: "騎腳踏車上學,既運動又環保,真是____。", answer: "一舉兩得" },
       { sentence: "大家互相合作,終於____。", answer: "化險為夷" },
@@ -271,6 +306,23 @@ const CN_UNITS = {
       { w: "拇", z: "ㄇㄨˇ" }
     ],
     idioms: ["既往不咎", "一望無際", "不修邊幅", "按圖索驥"],
+    quiz_write_char: [
+      { full: "圖書館", chars: [{blank: "圖", z: "ㄊㄨˊ"}, {show: "書"}, {show: "館"}] },
+      { full: "無所謂", chars: [{blank: "無", z: "ㄨˊ"}, {show: "所"}, {show: "謂"}] },
+      { full: "發呆", chars: [{show: "發"}, {blank: "呆", z: "ㄉㄞ"}] },
+      { full: "指揮", chars: [{show: "指"}, {blank: "揮", z: "ㄏㄨㄟ"}] },
+      { full: "眼鏡蛇", chars: [{show: "眼"}, {show: "鏡"}, {blank: "蛇", z: "ㄕㄜˊ"}] },
+      { full: "豎笛", chars: [{blank: "豎", z: "ㄕㄨˋ"}, {show: "笛"}] },
+      { full: "電腦螢幕", chars: [{show: "電"}, {show: "腦"}, {show: "螢"}, {blank: "幕", z: "ㄇㄨˋ"}] },
+      { full: "一眼瞧見", chars: [{show: "一"}, {show: "眼"}, {blank: "瞧", z: "ㄑㄧㄠˋ"}, {show: "見"}] },
+      { full: "開胃菜", chars: [{show: "開"}, {blank: "胃", z: "ㄨㄟˋ"}, {show: "菜"}] },
+      { full: "帽子", chars: [{blank: "帽", z: "ㄇㄠˋ"}, {show: "子"}] },
+      { full: "工作人員", chars: [{show: "工"}, {show: "作"}, {show: "人"}, {blank: "員", z: "ㄩㄢˊ"}] },
+      { full: "既然如此", chars: [{blank: "既", z: "ㄐㄧˋ"}, {show: "然"}, {show: "如"}, {show: "此"}] },
+      { full: "瞪大眼睛", chars: [{blank: "瞪", z: "ㄉㄥˋ"}, {show: "大"}, {show: "眼"}, {show: "睛"}] },
+      { full: "不切實際", chars: [{show: "不"}, {show: "切"}, {show: "實"}, {blank: "際", z: "ㄐㄧˋ"}] },
+      { full: "一幅畫", chars: [{show: "一"}, {blank: "幅", z: "ㄈㄨˊ"}, {show: "畫"}] }
+    ],
     quiz_idiom_fill: [
       { sentence: "哥哥平時____,不太注意外表。", answer: "不修邊幅" },
       { sentence: "老師決定____,原諒犯錯的同學。", answer: "既往不咎" },
@@ -336,6 +388,22 @@ const CN_UNITS = {
       { w: "鷹", z: "ㄧㄥ" }
     ],
     idioms: ["烏雲密布", "豁然開朗", "開誠布公", "目瞪口呆", "維妙維肖", "無影無蹤"],
+    quiz_write_char: [
+      { full: "追蹤", chars: [{blank: "追", z: "ㄓㄨㄟ"}, {blank: "蹤", z: "ㄗㄨㄥ"}] },
+      { full: "互相", chars: [{show: "互"}, {blank: "相", z: "ㄒㄧㄤ"}] },
+      { full: "孫女", chars: [{blank: "孫", z: "ㄙㄨㄣ"}, {show: "女"}] },
+      { full: "困擾", chars: [{blank: "困", z: "ㄎㄨㄣˇ"}, {blank: "擾", z: "ㄖㄠˇ"}] },
+      { full: "寺廟", chars: [{blank: "寺", z: "ㄙˋ"}, {show: "廟"}] },
+      { full: "天氣晴朗", chars: [{show: "天"}, {show: "氣"}, {show: "晴"}, {blank: "朗", z: "ㄌㄤˇ"}] },
+      { full: "邀請函", chars: [{blank: "邀", z: "ㄧㄠ"}, {show: "請"}, {show: "函"}] },
+      { full: "公布答案", chars: [{show: "公"}, {blank: "布", z: "ㄅㄨˋ"}, {show: "答"}, {show: "案"}] },
+      { full: "流行時尚", chars: [{show: "流"}, {show: "行"}, {show: "時"}, {blank: "尚", z: "ㄕㄤˋ"}] },
+      { full: "逼迫", chars: [{blank: "逼", z: "ㄅㄧ"}, {show: "迫"}] },
+      { full: "元旦", chars: [{show: "元"}, {blank: "旦", z: "ㄉㄢˋ"}] },
+      { full: "維修", chars: [{blank: "維", z: "ㄨㄟˊ"}, {show: "修"}] },
+      { full: "十二生肖", chars: [{show: "十"}, {show: "二"}, {show: "生"}, {blank: "肖", z: "ㄒㄧㄠˋ"}] },
+      { full: "擾亂秩序", chars: [{blank: "擾", z: "ㄖㄠˇ"}, {show: "亂"}, {show: "秩"}, {show: "序"}] }
+    ],
     quiz_idiom_fill: [
       { sentence: "經過____的談話後,誤會終於解開了。", answer: "開誠布公" },
       { sentence: "下午突然____,大家急忙收衣服。", answer: "烏雲密布" },
@@ -409,6 +477,23 @@ const CN_UNITS = {
       { w: "蝟", z: "ㄨㄟˋ" }
     ],
     idioms: ["朝令夕改", "抱頭鼠竄", "芒刺在背", "民不聊生", "夢寐以求"],
+    quiz_write_char: [
+      { full: "正中央", chars: [{show: "正"}, {show: "中"}, {blank: "央", z: "ㄧㄤ"}] },
+      { full: "命令", chars: [{show: "命"}, {blank: "令", z: "ㄌㄧㄥˋ"}] },
+      { full: "跌倒", chars: [{blank: "跌", z: "ㄉㄧㄝˊ"}, {show: "倒"}] },
+      { full: "刺痛", chars: [{blank: "刺", z: "ㄘˋ"}, {show: "痛"}] },
+      { full: "幻覺", chars: [{blank: "幻", z: "ㄏㄨㄢˋ"}, {show: "覺"}] },
+      { full: "士兵", chars: [{show: "士"}, {blank: "兵", z: "ㄅㄧㄥ"}] },
+      { full: "車牌", chars: [{show: "車"}, {blank: "牌", z: "ㄆㄞˊ"}] },
+      { full: "做惡夢", chars: [{show: "做"}, {show: "惡"}, {blank: "夢", z: "ㄇㄥˋ"}] },
+      { full: "咦！", chars: [{blank: "咦", z: "ㄧˊ"}, {show: "！"}] },
+      { full: "無聊", chars: [{show: "無"}, {blank: "聊", z: "ㄌㄧㄠˊ"}] },
+      { full: "松鼠", chars: [{show: "松"}, {blank: "鼠", z: "ㄕㄨˇ"}] },
+      { full: "炎炎夏日", chars: [{show: "炎"}, {show: "炎"}, {blank: "夏", z: "ㄒㄧㄚˋ"}, {show: "日"}] },
+      { full: "發脾氣", chars: [{show: "發"}, {blank: "脾", z: "ㄆㄧˊ"}, {show: "氣"}] },
+      { full: "皇太后", chars: [{show: "皇"}, {show: "太"}, {blank: "后", z: "ㄏㄡˋ"}] },
+      { full: "蛋糕", chars: [{show: "蛋"}, {blank: "糕", z: "ㄍㄠ"}] }
+    ],
     quiz_idiom_fill: [
       { sentence: "做錯事後,他感到____。", answer: "芒刺在背" },
       { sentence: "做事情不能____,否則容易失敗。", answer: "朝令夕改" },
