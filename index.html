@@ -885,7 +885,7 @@
     line-height: 1;
     padding: 6px 8px;
     position: relative;
-    margin-right: 22px;
+    margin-right: 32px;
   }
   .cn-write-cell.cn-write-show {
     background: #f5fbf5;
@@ -905,21 +905,37 @@
   .cn-write-cell .cn-write-z {
     position: absolute;
     top: 0;
-    right: -20px;
+    right: -30px;
     bottom: 0;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #c95030;
+    justify-content: flex-start;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #802828;
     background: transparent;
-    line-height: 1.1;
-    writing-mode: vertical-rl;
-    text-orientation: upright;
+    line-height: 1.05;
     font-style: normal;
     margin: 0;
     font-family: 'PingFang TC', 'Noto Sans TC', serif;
-    letter-spacing: 1px;
+  }
+  .cn-write-cell .cn-write-z-base {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 2px;
+    display: inline-block;
+    font-weight: 900;
+  }
+  .cn-write-cell .cn-write-z-tone {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-left: 2px;
+    line-height: 1;
+    align-self: center;
+    color: #b03030;
+    text-shadow: 0 0 1px #b03030;
   }
   .cn-write-full {
     margin-left: 12px;

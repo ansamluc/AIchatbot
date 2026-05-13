@@ -667,6 +667,27 @@ function finishCnIdiomQuiz() {
   );
 }
 
+// Renders zhuyin (注音) inside a write-char cell: bopomofo letters stacked
+// vertically, with the tone mark (ˊ ˇ ˋ ˙) on the right side of the column.
+// First tone has no mark.
+function formatZhuyinHtml(z) {
+  if (!z) return '';
+  const toneMarks = ['ˊ', 'ˇ', 'ˋ', '˙'];
+  let base = z;
+  let tone = '';
+  // Tone mark can appear at any position; strip the (single) tone char out.
+  for (const m of toneMarks) {
+    if (base.indexOf(m) !== -1) {
+      tone = m;
+      base = base.replace(m, '');
+      break;
+    }
+  }
+  const baseHtml = `<span class='cn-write-z-base'>${base}</span>`;
+  const toneHtml = tone ? `<span class='cn-write-z-tone'>${tone}</span>` : '';
+  return `<span class='cn-write-z'>${baseHtml}${toneHtml}</span>`;
+}
+
 function startCnWriteChar() {
   state.mode = 'cn_write_char';
   const u = CN_UNITS[state.currentUnit];
@@ -683,7 +704,7 @@ function startCnWriteChar() {
       if (c.show) {
         html += `<span class='cn-write-cell cn-write-show'>${c.show}</span>`;
       } else {
-        html += `<span class='cn-write-cell cn-write-blank'><span class='cn-write-z'>${c.z}</span></span>`;
+        html += `<span class='cn-write-cell cn-write-blank'>${formatZhuyinHtml(c.z)}</span>`;
       }
     });
     html += `</div>`;
@@ -712,7 +733,7 @@ function showCnWriteCharAnswers() {
       if (c.show) {
         html += `<span class='cn-write-cell cn-write-show'>${c.show}</span>`;
       } else {
-        html += `<span class='cn-write-cell cn-write-answer'>${c.blank}<span class='cn-write-z'>${c.z}</span></span>`;
+        html += `<span class='cn-write-cell cn-write-answer'>${c.blank}${formatZhuyinHtml(c.z)}</span>`;
       }
     });
     html += ` <span class='cn-write-full'>= ${item.full}</span></div>`;
