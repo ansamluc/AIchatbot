@@ -97,16 +97,229 @@ const MATH_UNITS = {
     ],
     // Word problems — modeled after the chapter review story problems
     quiz_word: [
-      { q: "<strong>Goel</strong> started jogging at <strong>5:57 A.M.</strong> and stopped at <strong>6:14 A.M.</strong> How long did he jog for?", options: ["57 minutes", "53 minutes", "27 minutes", "17 minutes"], answer: 3, explain: "From 5:57 to 6:14: 5:57 → 6:00 is 3 min, then 6:00 → 6:14 is 14 min. Total = 3 + 14 = 17 min." },
-      { q: "<strong>Jessica</strong> swam from <strong>5:25 P.M.</strong> to <strong>6:57 P.M.</strong> on Monday. On Tuesday, she swam <strong>30 minutes longer</strong> than on Monday. How long did she swim for on Tuesday?", options: ["1 h 32 min", "2 h 02 min", "1 h 02 min", "2 h 32 min"], answer: 1, explain: "Monday: 5:25 → 6:57 = 1 h 32 min. Tuesday = 1 h 32 min + 30 min = 2 h 02 min." },
-      { q: "<strong>Madelyn</strong> left her house at <strong>10:27 A.M.</strong>, passed the library 45 minutes later, and reached the mall at noon. How long did she take to travel from the library to the mall?", options: ["48 min", "1 h 12 min", "47 min", "45 min"], answer: 0, explain: "Library time = 10:27 + 0:45 = 11:12 A.M. Library to mall = 12:00 – 11:12 = 48 min." },
-      { q: "<strong>Destiny</strong> finished her project in <strong>2 hours 13 minutes</strong>. <strong>Trevon</strong> finished the same project <strong>38 minutes faster</strong> than Destiny. He finished his project at <strong>4:10 P.M.</strong> At what time did Trevon start doing his project?", options: ["2:35 P.M.", "2:45 P.M.", "3:25 P.M.", "1:35 P.M."], answer: 0, explain: "Trevon's time = 2 h 13 min – 38 min = 1 h 35 min. Start = 4:10 – 1:35 = 2:35 P.M." },
-      { q: "<strong>Jackson</strong> boarded a train at <strong>11:43 A.M.</strong> He got off the train <strong>35 minutes later</strong>. What time did he get off?", options: ["12:08 P.M.", "12:18 P.M.", "11:18 A.M.", "12:28 P.M."], answer: 1, explain: "11:43 + 35 min: 11:43 → 12:00 is 17 min, leaves 18 min. So 12:00 + 18 min = 12:18 P.M." },
-      { q: "A train left Station A and traveled toward Stations B and C. It passed Station B <strong>54 minutes later</strong>. The train then took <strong>47 minutes</strong> from Station B to Station C. It arrived at Station C at <strong>5:08 P.M.</strong> At what time did the train leave Station A?", options: ["3:27 P.M.", "3:17 P.M.", "4:21 P.M.", "3:37 P.M."], answer: 0, explain: "Total trip = 54 + 47 = 101 min = 1 h 41 min. Start = 5:08 – 1:41 = 3:27 P.M." },
-      { q: "A class begins at <strong>8:30 A.M.</strong> and ends at <strong>10:05 A.M.</strong> How long is the class?", options: ["1 h 35 min", "1 h 25 min", "2 h 35 min", "1 h 45 min"], answer: 0, explain: "8:30 → 10:00 is 1 h 30 min, then 10:00 → 10:05 is 5 min. Total = 1 h 35 min." },
-      { q: "Lily started her homework at <strong>4:50 P.M.</strong> She worked for <strong>1 h 20 min</strong>. What time did she finish?", options: ["5:10 P.M.", "6:10 P.M.", "5:20 P.M.", "6:20 P.M."], answer: 1, explain: "4:50 + 1:20: 4:50 + 1:00 = 5:50, then + 20 min = 6:10 P.M." },
-      { q: "A movie starts at <strong>7:15 P.M.</strong> and lasts <strong>2 h 45 min</strong>. What time does it end?", options: ["10:00 P.M.", "9:00 P.M.", "10:15 P.M.", "9:30 P.M."], answer: 0, explain: "7:15 + 2:45: hours 7+2=9, minutes 15+45=60 → +1 h. Total = 10:00 P.M." },
-      { q: "Sam's bus ride took <strong>1 h 10 min</strong>. He arrived at school at <strong>8:05 A.M.</strong> What time did the bus ride start?", options: ["6:55 A.M.", "9:15 A.M.", "7:55 A.M.", "7:05 A.M."], answer: 0, explain: "8:05 – 1:10: borrow 1 h, 7:65 – 1:10 = 6:55 A.M." }
+      { q: "<strong>Goel</strong> started jogging at <strong>5:57 A.M.</strong> and stopped at <strong>6:14 A.M.</strong> How long did he jog for?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["57 minutes", "53 minutes", "27 minutes", "17 minutes"], answer: 3,
+        explain: "From 5:57 to 6:14: 5:57 → 6:00 is 3 min, then 6:00 → 6:14 is 14 min. Total = 3 + 14 = <strong>17 min</strong>." +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>3 min</span><span class='tl-jump'>14 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>5:57 A.M.</span><span class='tl-label'>6:00 A.M.</span><span class='tl-label'>6:14 A.M.</span></div>" +
+          "</div>" },
+
+      { q: "<strong>Jessica</strong> swam from <strong>5:25 P.M.</strong> to <strong>6:57 P.M.</strong> on Monday. On Tuesday, she swam <strong>30 minutes longer</strong> than on Monday. How long did she swim for on Tuesday?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["1 h 32 min", "2 h 02 min", "1 h 02 min", "2 h 32 min"], answer: 1,
+        explain: "Monday: 5:25 → 6:25 = 1 h, then 6:25 → 6:57 = 32 min. So Monday = 1 h 32 min. Tuesday = 1 h 32 min + 30 min = <strong>2 h 02 min</strong>." +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline (Monday swim):</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>1 h</span><span class='tl-jump'>32 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>5:25 P.M.</span><span class='tl-label'>6:25 P.M.</span><span class='tl-label'>6:57 P.M.</span></div>" +
+          "</div>" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Tuesday = Monday + 30 min:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>1 h 32 min</span><span class='tl-jump'>+ 30 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>0</span><span class='tl-label'>1 h 32 min</span><span class='tl-label'>2 h 02 min</span></div>" +
+          "</div>" },
+
+      { q: "<strong>Madelyn</strong> left her house at <strong>10:27 A.M.</strong>, passed the library 45 minutes later, and reached the mall at noon. How long did she take to travel from the library to the mall?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["48 min", "1 h 12 min", "47 min", "45 min"], answer: 0,
+        explain: "Library time = 10:27 + 45 min = 11:12 A.M. From library to noon: 11:12 → 12:00 = <strong>48 min</strong>." +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>45 min</span><span class='tl-jump'>48 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>10:27 A.M.<br><em>(house)</em></span><span class='tl-label'>11:12 A.M.<br><em>(library)</em></span><span class='tl-label'>12:00 P.M.<br><em>(mall)</em></span></div>" +
+          "</div>" },
+
+      { q: "<strong>Destiny</strong> finished her project in <strong>2 hours 13 minutes</strong>. <strong>Trevon</strong> finished the same project <strong>38 minutes faster</strong> than Destiny. He finished his project at <strong>4:10 P.M.</strong> At what time did Trevon start doing his project?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["2:35 P.M.", "2:45 P.M.", "3:25 P.M.", "1:35 P.M."], answer: 0,
+        explain: "Trevon's time = 2 h 13 min – 38 min = 1 h 35 min. Work backward from 4:10 P.M.: 4:10 – 10 min = 4:00, 4:00 – 1 h = 3:00, 3:00 – 25 min = <strong>2:35 P.M.</strong>" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline (Trevon's project — 1 h 35 min total):</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>25 min</span><span class='tl-jump'>1 h</span><span class='tl-jump'>10 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>2:35 P.M.<br><em>(start)</em></span><span class='tl-label'>3:00 P.M.</span><span class='tl-label'>4:00 P.M.</span><span class='tl-label'>4:10 P.M.<br><em>(end)</em></span></div>" +
+          "</div>" },
+
+      { q: "<strong>Jackson</strong> boarded a train at <strong>11:43 A.M.</strong> He got off the train <strong>35 minutes later</strong>. What time did he get off?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["12:08 P.M.", "12:18 P.M.", "11:18 A.M.", "12:28 P.M."], answer: 1,
+        explain: "Break 35 min into 17 + 18 so you cross noon cleanly. 11:43 + 17 min = 12:00 P.M. 12:00 + 18 min = <strong>12:18 P.M.</strong>" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>17 min</span><span class='tl-jump'>18 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>11:43 A.M.</span><span class='tl-label'>12:00 P.M.</span><span class='tl-label'>12:18 P.M.</span></div>" +
+          "</div>" },
+
+      { q: "A train left Station A and traveled toward Stations B and C. It passed Station B <strong>54 minutes later</strong>. The train then took <strong>47 minutes</strong> from Station B to Station C. It arrived at Station C at <strong>5:08 P.M.</strong> At what time did the train leave Station A?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["3:27 P.M.", "3:17 P.M.", "4:21 P.M.", "3:37 P.M."], answer: 0,
+        explain: "Total trip = 54 + 47 = 101 min = 1 h 41 min. Work backward from 5:08 P.M.: – 47 min = 4:21 P.M. (Station B). – 54 min = <strong>3:27 P.M.</strong> (Station A)." +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>54 min</span><span class='tl-jump'>47 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>3:27 P.M.<br><em>(Station A)</em></span><span class='tl-label'>4:21 P.M.<br><em>(Station B)</em></span><span class='tl-label'>5:08 P.M.<br><em>(Station C)</em></span></div>" +
+          "</div>" },
+
+      { q: "A class begins at <strong>8:30 A.M.</strong> and ends at <strong>10:05 A.M.</strong> How long is the class?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["1 h 35 min", "1 h 25 min", "2 h 35 min", "1 h 45 min"], answer: 0,
+        explain: "8:30 → 10:00 = 1 h 30 min. 10:00 → 10:05 = 5 min. Total = <strong>1 h 35 min</strong>." +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>1 h 30 min</span><span class='tl-jump'>5 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>8:30 A.M.</span><span class='tl-label'>10:00 A.M.</span><span class='tl-label'>10:05 A.M.</span></div>" +
+          "</div>" },
+
+      { q: "Lily started her homework at <strong>4:50 P.M.</strong> She worked for <strong>1 h 20 min</strong>. What time did she finish?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["5:10 P.M.", "6:10 P.M.", "5:20 P.M.", "6:20 P.M."], answer: 1,
+        explain: "Break 1 h 20 min into 10 min + 1 h + 10 min so you cross 5:00 cleanly. 4:50 + 10 min = 5:00, + 1 h = 6:00, + 10 min = <strong>6:10 P.M.</strong>" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>10 min</span><span class='tl-jump'>1 h</span><span class='tl-jump'>10 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>4:50 P.M.</span><span class='tl-label'>5:00 P.M.</span><span class='tl-label'>6:00 P.M.</span><span class='tl-label'>6:10 P.M.</span></div>" +
+          "</div>" },
+
+      { q: "A movie starts at <strong>7:15 P.M.</strong> and lasts <strong>2 h 45 min</strong>. What time does it end?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["10:00 P.M.", "9:00 P.M.", "10:15 P.M.", "9:30 P.M."], answer: 0,
+        explain: "Break 2 h 45 min into 45 min + 2 h so you reach 8:00 first. 7:15 + 45 min = 8:00, + 2 h = <strong>10:00 P.M.</strong>" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>45 min</span><span class='tl-jump'>2 h</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>7:15 P.M.</span><span class='tl-label'>8:00 P.M.</span><span class='tl-label'>10:00 P.M.</span></div>" +
+          "</div>" },
+
+      { q: "Sam's bus ride took <strong>1 h 10 min</strong>. He arrived at school at <strong>8:05 A.M.</strong> What time did the bus ride start?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["6:55 A.M.", "9:15 A.M.", "7:55 A.M.", "7:05 A.M."], answer: 0,
+        explain: "Work backward from 8:05 A.M.: – 5 min = 8:00, – 1 h = 7:00, – 5 min = <strong>6:55 A.M.</strong> Total subtracted = 1 h 10 min ✓" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>5 min</span><span class='tl-jump'>1 h</span><span class='tl-jump'>5 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>6:55 A.M.<br><em>(start)</em></span><span class='tl-label'>7:00 A.M.</span><span class='tl-label'>8:00 A.M.</span><span class='tl-label'>8:05 A.M.<br><em>(arrive)</em></span></div>" +
+          "</div>" },
+
+      // === Timeline Model Word Problems (draw-it-yourself; answer key shows the correct model) ===
+      { q: "<strong>Elijah</strong> arrives at a train station. His watch shows <strong>6:45 A.M.</strong> His watch is <strong>20 minutes slow</strong>. What is the <em>actual</em> time when he arrives?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["6:65 A.M.", "7:05 A.M.", "7:25 A.M.", "6:25 A.M."], answer: 1,
+        explain: "Add 20 min to 6:45. Break the 20 min into 15 min + 5 min so you can pass through 7:00 cleanly: 6:45 + 15 min = 7:00, then 7:00 + 5 min = <strong>7:05 A.M.</strong>" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>15 min</span><span class='tl-jump'>5 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>6:45 A.M.</span><span class='tl-label'>7:00 A.M.</span><span class='tl-label'>7:05 A.M.</span></div>" +
+          "</div>" },
+
+      { q: "<strong>The train arrives 10 minutes later</strong> than Elijah's actual arrival time of <strong>7:05 A.M.</strong> What is the <em>actual</em> time when the train arrives?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["7:10 A.M.", "7:25 A.M.", "7:15 A.M.", "6:55 A.M."], answer: 2,
+        explain: "7:05 + 10 min = <strong>7:15 A.M.</strong> The train arrives at 7:15 A.M." +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>10 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks tl-ticks-2'><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels tl-labels-2'><span class='tl-label'>7:05 A.M.</span><span class='tl-label'>7:15 A.M.</span></div>" +
+          "</div>" },
+
+      { q: "A <strong>documentary</strong> was aired from <strong>7:30 P.M.</strong> It ended after <strong>1 h 45 min</strong>. The <strong>daily news</strong> aired for <strong>55 min</strong> right after the documentary. At what time did the daily news <em>end</em>?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper. Hint: 1 h 45 min + 55 min = 2 h 40 min total.</div>",
+        options: ["10:55 P.M.", "10:10 P.M.", "9:10 P.M.", "11:10 P.M."], answer: 1,
+        explain: "1 h 45 min + 55 min = 2 h 40 min. Break it into easy jumps from 7:30 P.M.: + 30 min = 8:00, + 2 h = 10:00, + 10 min = <strong>10:10 P.M.</strong>" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>30 min</span><span class='tl-jump'>2 h</span><span class='tl-jump'>10 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>7:30 P.M.</span><span class='tl-label'>8:00 P.M.</span><span class='tl-label'>10:00 P.M.</span><span class='tl-label'>10:10 P.M.</span></div>" +
+          "</div>" },
+
+      { q: "<strong>Maya</strong> started her piano practice at <strong>4:35 P.M.</strong> and practiced for <strong>1 h 25 min</strong>. What time did she finish?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["5:25 P.M.", "6:00 P.M.", "5:60 P.M.", "6:25 P.M."], answer: 1,
+        explain: "Break 1 h 25 min into 25 min + 1 h. 4:35 + 25 min = 5:00, then 5:00 + 1 h = <strong>6:00 P.M.</strong>" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>25 min</span><span class='tl-jump'>1 h</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>4:35 P.M.</span><span class='tl-label'>5:00 P.M.</span><span class='tl-label'>6:00 P.M.</span></div>" +
+          "</div>" },
+
+      { q: "A <strong>school bus</strong> leaves the depot at <strong>6:50 A.M.</strong>, picks up students for <strong>40 min</strong>, then drives <strong>20 min</strong> to school. What time does it arrive at school?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["7:40 A.M.", "7:50 A.M.", "8:00 A.M.", "7:20 A.M."], answer: 1,
+        explain: "Total time = 40 + 20 = 60 min = 1 h. 6:50 + 1 h = <strong>7:50 A.M.</strong> The bus arrives at 7:50 A.M." +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>40 min</span><span class='tl-jump'>20 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>6:50 A.M.</span><span class='tl-label'>7:30 A.M.</span><span class='tl-label'>7:50 A.M.</span></div>" +
+          "</div>" },
+
+      { q: "<strong>Ben's soccer game</strong> started at <strong>3:15 P.M.</strong> The first half was <strong>30 min</strong>, then a <strong>15 min</strong> half-time break, then the second half was <strong>30 min</strong>. What time did the game end?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper — there are three jumps!</div>",
+        options: ["4:15 P.M.", "4:30 P.M.", "4:45 P.M.", "5:00 P.M."], answer: 1,
+        explain: "3:15 + 30 min = 3:45 (first half ends). 3:45 + 15 min = 4:00 (break ends). 4:00 + 30 min = <strong>4:30 P.M.</strong>" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>30 min</span><span class='tl-jump'>15 min</span><span class='tl-jump'>30 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>3:15 P.M.</span><span class='tl-label'>3:45 P.M.</span><span class='tl-label'>4:00 P.M.</span><span class='tl-label'>4:30 P.M.</span></div>" +
+          "</div>" },
+
+      { q: "<strong>Anna's birthday party</strong> ended at <strong>5:10 P.M.</strong> It lasted <strong>2 h 25 min</strong>. What time did the party <em>START</em>?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper. Work BACKWARD — subtract to find the start time.</div>",
+        options: ["2:45 P.M.", "3:45 P.M.", "2:30 P.M.", "7:35 P.M."], answer: 0,
+        explain: "Work backward: 5:10 – 10 min = 5:00. 5:00 – 2 h = 3:00. 3:00 – 15 min = <strong>2:45 P.M.</strong> Total subtracted: 10 + 120 + 15 = 145 min = 2 h 25 min ✓" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>15 min</span><span class='tl-jump'>2 h</span><span class='tl-jump'>10 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>2:45 P.M.</span><span class='tl-label'>3:00 P.M.</span><span class='tl-label'>5:00 P.M.</span><span class='tl-label'>5:10 P.M.</span></div>" +
+          "</div>" },
+
+      { q: "<strong>Carlos</strong> arrived at the airport at <strong>11:20 A.M.</strong> He waited <strong>45 min</strong> to board, then his flight took <strong>1 h 50 min</strong>. What time did he land?<br>" +
+        "<div class='tl-instruction'>📝 Draw a timeline on your paper to help solve it.</div>",
+        options: ["1:55 P.M.", "2:55 P.M.", "1:05 P.M.", "1:55 A.M."], answer: 0,
+        explain: "11:20 + 45 min = 12:05 P.M. (boarding done). 12:05 + 1 h 50 min: + 1 h = 1:05, + 50 min = <strong>1:55 P.M.</strong>" +
+          "<div class='tl-model'>" +
+            "<div class='tl-caption'>✓ Answer-key timeline:</div>" +
+            "<div class='tl-jumps'><span class='tl-jump'>45 min</span><span class='tl-jump'>1 h 50 min</span></div>" +
+            "<div class='tl-line'></div>" +
+            "<div class='tl-ticks'><span class='tl-tick'></span><span class='tl-tick'></span><span class='tl-tick'></span></div>" +
+            "<div class='tl-labels'><span class='tl-label'>11:20 A.M.</span><span class='tl-label'>12:05 P.M.</span><span class='tl-label'>1:55 P.M.</span></div>" +
+          "</div>" }
     ],
     challenge_questions: [
       { q: "Lin's flight is at <strong>3:20 P.M.</strong> She must arrive 90 min early and the drive is 35 min. What time should she leave home?", options: ["1:15 P.M.", "1:35 P.M.", "12:55 P.M.", "1:55 P.M."], answer: 0, explain: "Arrive at airport: 3:20 – 1:30 = 1:50 P.M. Leave home: 1:50 – 0:35 = 1:15 P.M. Multi-step problem requires reverse computation." },
