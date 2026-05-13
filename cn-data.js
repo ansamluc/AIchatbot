@@ -134,6 +134,30 @@ const CN_UNITS = {
       { w: "伐", z: "ㄈㄚˊ" },
       { w: "挺", z: "ㄊㄧㄥˇ" }
     ],
+    idioms: ["愁眉不展", "抬頭挺胸", "事半功倍", "紙上談兵", "胸有成竹", "疾言厲色", "不疾不徐"],
+    quiz_idiom_fill: [
+      { sentence: "他____地完成了這幅畫。", answer: "不疾不徐" },
+      { sentence: "先做好計畫,做事就能____。", answer: "事半功倍" },
+      { sentence: "因為平時努力練習,他回答問題時____。", answer: "胸有成竹" },
+      { sentence: "軍人們____地接受檢閱。", answer: "抬頭挺胸" },
+      { sentence: "小華考試失敗後,一整天都____。", answer: "愁眉不展" },
+      { sentence: "面對問題,他看起來____。", answer: "胸有成竹" },
+      { sentence: "只會____,卻沒有真正行動,是不行的。", answer: "紙上談兵" },
+      { sentence: "爸爸看到我說謊時,立刻____。", answer: "疾言厲色" },
+      { sentence: "爸爸工作遇到困難,最近總是____。", answer: "愁眉不展" },
+      { sentence: "老師____地批評不守規矩的同學。", answer: "疾言厲色" },
+      { sentence: "她因為擔心比賽結果而____。", answer: "愁眉不展" },
+      { sentence: "用對方法學習,可以____。", answer: "事半功倍" },
+      { sentence: "他____地提醒大家注意安全。", answer: "疾言厲色" },
+      { sentence: "我們要____,做個有自信的人。", answer: "抬頭挺胸" },
+      { sentence: "小美準備充分,所以比賽時____。", answer: "胸有成竹" },
+      { sentence: "他講得頭頭是道,其實只是____。", answer: "紙上談兵" },
+      { sentence: "主持人____地介紹活動內容。", answer: "不疾不徐" },
+      { sentence: "得獎後,他____地走上台。", answer: "抬頭挺胸" },
+      { sentence: "做實驗不能只是____。", answer: "紙上談兵" },
+      { sentence: "爺爺____地走在公園裡。", answer: "不疾不徐" },
+      { sentence: "老師教我們整理重點,讓大家____。", answer: "事半功倍" }
+    ],
     quiz_fill_char: [
       { q: "<strong>___序</strong> <span class='cn-zhuyin'>(ㄓˋ)</span>", options: ["秩", "至", "致", "智"], answer: 0, full: "秩序", explain: "「秩序」 ㄓˋ ㄒㄩˋ — 整齊有規律。" },
       { q: "<strong>___覽</strong> <span class='cn-zhuyin'>(ㄓㄢˇ)</span>", options: ["展", "戰", "占", "斬"], answer: 0, full: "展覽", explain: "「展覽」 ㄓㄢˇ ㄌㄢˇ — 擺出物品給人看。" },
@@ -152,9 +176,7 @@ const CN_UNITS = {
       { q: "<strong>___病</strong> <span class='cn-zhuyin'>(ㄐㄧˊ)</span>", options: ["疾", "及", "急", "級"], answer: 0, full: "疾病", explain: "「疾病」 ㄐㄧˊ ㄅㄧㄥˋ — 生病。" },
       { q: "<strong>座___會</strong> <span class='cn-zhuyin'>(ㄊㄢˊ)</span>", options: ["談", "彈", "潭", "壇"], answer: 0, full: "座談會", explain: "「座談會」 ㄗㄨㄛˋ ㄊㄢˊ ㄏㄨㄟˋ。" },
       { q: "<strong>___些</strong> <span class='cn-zhuyin'>(ㄇㄡˇ)</span>", options: ["某", "謀", "牡", "畝"], answer: 0, full: "某些", explain: "「某些」 ㄇㄡˇ ㄒㄧㄝ — 不特定的一部分。" },
-      { q: "<strong>光___</strong> <span class='cn-zhuyin'>(ㄇㄤˊ)</span>", options: ["芒", "忙", "茫", "盲"], answer: 0, full: "光芒", explain: "「光芒」 — 物體散發出的光。" },
-      { q: "<strong>___開步伐</strong> <span class='cn-zhuyin'>(ㄇㄞˋ)</span>", options: ["邁", "賣", "麥", "脈"], answer: 0, full: "邁開步伐", explain: "「邁開步伐」 — 跨出步伐前進。" },
-      { q: "<strong>邁開步___</strong> <span class='cn-zhuyin'>(ㄈㄚˊ)</span>", options: ["伐", "罰", "閥", "乏"], answer: 0, full: "邁開步伐", explain: "「步伐」 — 走路的步子。" }
+      { q: "<strong>某___</strong> <span class='cn-zhuyin'>(ㄒㄧㄝ)</span>", options: ["些", "歇", "邪", "謝"], answer: 0, full: "某些", explain: "「某些」 ㄇㄡˇ ㄒㄧㄝ — 不特定的一部分。" }
     ]
   },
 
@@ -183,6 +205,21 @@ const CN_UNITS = {
       { w: "舉", z: "ㄐㄩˇ" },
       { w: "扁", z: "ㄅㄧㄢˇ" },
       { w: "廚", z: "ㄔㄨˊ" }
+    ],
+    idioms: ["赴湯蹈火", "化險為夷", "一舉兩得", "輕而易舉"],
+    quiz_idiom_fill: [
+      { sentence: "騎腳踏車上學,既運動又環保,真是____。", answer: "一舉兩得" },
+      { sentence: "大家互相合作,終於____。", answer: "化險為夷" },
+      { sentence: "幫媽媽買東西還能順便散步,真是____。", answer: "一舉兩得" },
+      { sentence: "幸好警察及時趕到,才讓大家____。", answer: "化險為夷" },
+      { sentence: "他一下子就完成作業,真是____。", answer: "輕而易舉" },
+      { sentence: "這個方法能節省時間,又能提高效率,可說是____。", answer: "一舉兩得" },
+      { sentence: "爸媽為了孩子,再辛苦也願意____。", answer: "赴湯蹈火" },
+      { sentence: "小明跑得很快,贏得比賽對他來說____。", answer: "輕而易舉" },
+      { sentence: "對哥哥來說,搬這張桌子是____的事。", answer: "輕而易舉" },
+      { sentence: "經過醫生急救後,病人終於____。", answer: "化險為夷" },
+      { sentence: "為了朋友,他願意____。", answer: "赴湯蹈火" },
+      { sentence: "消防員為了救人,常常____。", answer: "赴湯蹈火" }
     ],
     quiz_fill_char: [
       { q: "<strong>入___</strong> <span class='cn-zhuyin'>(ㄨㄟˊ)</span>", options: ["圍", "違", "微", "為"], answer: 0, full: "入圍", explain: "「入圍」 ㄖㄨˋ ㄨㄟˊ — 進入決選範圍。" },
@@ -233,6 +270,21 @@ const CN_UNITS = {
       { w: "寵", z: "ㄔㄨㄥˇ" },
       { w: "拇", z: "ㄇㄨˇ" }
     ],
+    idioms: ["既往不咎", "一望無際", "不修邊幅", "按圖索驥"],
+    quiz_idiom_fill: [
+      { sentence: "哥哥平時____,不太注意外表。", answer: "不修邊幅" },
+      { sentence: "老師決定____,原諒犯錯的同學。", answer: "既往不咎" },
+      { sentence: "爸爸希望大家____,重新開始。", answer: "既往不咎" },
+      { sentence: "站在海邊,可以看到____的大海。", answer: "一望無際" },
+      { sentence: "他總是頭髮亂亂的,看起來很____。", answer: "不修邊幅" },
+      { sentence: "那位畫家雖然____,但很有才華。", answer: "不修邊幅" },
+      { sentence: "依照說明書操作,就像____一樣簡單。", answer: "按圖索驥" },
+      { sentence: "我們____,終於找到目的地。", answer: "按圖索驥" },
+      { sentence: "我們看到____的天空。", answer: "一望無際" },
+      { sentence: "小偵探____地找到了線索。", answer: "按圖索驥" },
+      { sentence: "草原____,非常美麗。", answer: "一望無際" },
+      { sentence: "只要你願意改過,我們就____。", answer: "既往不咎" }
+    ],
     quiz_fill_char: [
       { q: "<strong>___書館</strong> <span class='cn-zhuyin'>(ㄊㄨˊ)</span>", options: ["圖", "途", "塗", "禿"], answer: 0, full: "圖書館", explain: "「圖書館」 ㄊㄨˊ ㄕㄨ ㄍㄨㄢˇ。" },
       { q: "<strong>工作人___</strong> <span class='cn-zhuyin'>(ㄩㄢˊ)</span>", options: ["員", "圓", "原", "源"], answer: 0, full: "工作人員", explain: "「工作人員」 — 工作的人。" },
@@ -282,6 +334,27 @@ const CN_UNITS = {
       { w: "梁", z: "ㄌㄧㄤˊ" },
       { w: "糞", z: "ㄈㄣˋ" },
       { w: "鷹", z: "ㄧㄥ" }
+    ],
+    idioms: ["烏雲密布", "豁然開朗", "開誠布公", "目瞪口呆", "維妙維肖", "無影無蹤"],
+    quiz_idiom_fill: [
+      { sentence: "經過____的談話後,誤會終於解開了。", answer: "開誠布公" },
+      { sentence: "下午突然____,大家急忙收衣服。", answer: "烏雲密布" },
+      { sentence: "大家看到魔術表演後,全都____。", answer: "目瞪口呆" },
+      { sentence: "畫中的小貓看起來____。", answer: "維妙維肖" },
+      { sentence: "小鳥一下子飛得____。", answer: "無影無蹤" },
+      { sentence: "她演戲演得____,大家都拍手叫好。", answer: "維妙維肖" },
+      { sentence: "經過討論後,大家終於____。", answer: "豁然開朗" },
+      { sentence: "我們應該____地討論問題。", answer: "開誠布公" },
+      { sentence: "聽了老師的解釋後,我頓時____。", answer: "豁然開朗" },
+      { sentence: "小明不小心打破花瓶,媽媽氣得讓他____。", answer: "目瞪口呆" },
+      { sentence: "朋友之間要____,不要隱瞞。", answer: "開誠布公" },
+      { sentence: "走出山洞後,眼前景色令人____。", answer: "豁然開朗" },
+      { sentence: "我的鉛筆突然____,怎麼找都找不到。", answer: "無影無蹤" },
+      { sentence: "天空____,看起來快下雨了。", answer: "烏雲密布" },
+      { sentence: "弟弟模仿老師的樣子,真是____。", answer: "維妙維肖" },
+      { sentence: "魔術師一揮手,兔子就____了。", answer: "無影無蹤" },
+      { sentence: "他心情不好,臉上像____一樣。", answer: "烏雲密布" },
+      { sentence: "他聽到這個消息時,立刻____。", answer: "目瞪口呆" }
     ],
     quiz_fill_char: [
       { q: "<strong>___修</strong> <span class='cn-zhuyin'>(ㄨㄟˊ)</span>", options: ["維", "圍", "違", "微"], answer: 0, full: "維修", explain: "「維修」 ㄨㄟˊ ㄒㄧㄡ — 保養修理。" },
@@ -334,6 +407,24 @@ const CN_UNITS = {
       { w: "賽", z: "ㄙㄞˋ" },
       { w: "鶴", z: "ㄏㄜˋ" },
       { w: "蝟", z: "ㄨㄟˋ" }
+    ],
+    idioms: ["朝令夕改", "抱頭鼠竄", "芒刺在背", "民不聊生", "夢寐以求"],
+    quiz_idiom_fill: [
+      { sentence: "做錯事後,他感到____。", answer: "芒刺在背" },
+      { sentence: "做事情不能____,否則容易失敗。", answer: "朝令夕改" },
+      { sentence: "如果政策____,大家會很困擾。", answer: "朝令夕改" },
+      { sentence: "老師一直盯著我,我覺得____。", answer: "芒刺在背" },
+      { sentence: "古代遇到災荒時,百姓生活____。", answer: "民不聊生" },
+      { sentence: "被大家批評後,她整天____。", answer: "芒刺在背" },
+      { sentence: "能到國外旅行,是她____的願望。", answer: "夢寐以求" },
+      { sentence: "老鼠被貓追得____。", answer: "抱頭鼠竄" },
+      { sentence: "這台腳踏車是我____的禮物。", answer: "夢寐以求" },
+      { sentence: "戰爭時期常常讓百姓____。", answer: "民不聊生" },
+      { sentence: "小偷看到警察後,立刻____。", answer: "抱頭鼠竄" },
+      { sentence: "敵人被打敗後,只好____地逃走。", answer: "抱頭鼠竄" },
+      { sentence: "他終於得到____的冠軍獎盃。", answer: "夢寐以求" },
+      { sentence: "如果物價一直上漲,人民可能____。", answer: "民不聊生" },
+      { sentence: "老闆____,讓員工不知道該怎麼做。", answer: "朝令夕改" }
     ],
     quiz_fill_char: [
       { q: "<strong>炎炎___日</strong> <span class='cn-zhuyin'>(ㄒㄧㄚˋ)</span>", options: ["夏", "下", "嚇", "廈"], answer: 0, full: "炎炎夏日", explain: "「炎炎夏日」 ㄧㄢˊ ㄧㄢˊ ㄒㄧㄚˋ ㄖˋ — 很熱的夏天。" },
