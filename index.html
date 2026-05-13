@@ -628,6 +628,10 @@
   .unit-btn.section-ss:hover { box-shadow: 0 4px 14px rgba(192,138,58,0.3); border-color: #8a5a1a; color: #8a5a1a; }
   .unit-btn.ss { border-color: #d8a85a; }
   .unit-btn.ss:hover { box-shadow: 0 4px 14px rgba(216,168,90,0.3); border-color: #c08a3a; color: #8a5a1a; }
+  .unit-btn.section-cn { border-color: #b04848; }
+  .unit-btn.section-cn:hover { box-shadow: 0 4px 14px rgba(176,72,72,0.3); border-color: #802828; color: #802828; }
+  .unit-btn.cn { border-color: #d06868; }
+  .unit-btn.cn:hover { box-shadow: 0 4px 14px rgba(208,104,104,0.3); border-color: #b04848; color: #802828; }
   .unit-btn.section-math { border-color: #3a6ea8; }
   .unit-btn.section-math:hover { box-shadow: 0 4px 14px rgba(58,110,168,0.3); border-color: #1a4e88; color: #1a4e88; }
   .unit-btn.math { border-color: #5a8ec8; }
@@ -785,6 +789,193 @@
     font-family: 'Cormorant Garamond', serif;
   }
   .ss-vocab-card strong { color: #8a5a1a; font-family: 'Cinzel', serif; }
+
+  /* === 中文 (Chinese) Section === */
+  .cn-lesson-content {
+    background: #fff5f5;
+    color: #2a2420;
+    border: 1px solid #f0c8c8;
+    border-left: 4px solid #b04848;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 8px 0;
+    font-family: 'Cormorant Garamond', 'PingFang TC', 'Noto Sans TC', serif;
+    line-height: 1.75;
+    font-size: 1.05rem;
+  }
+  .cn-lesson-content strong { color: #802828; font-weight: 700; letter-spacing: 0.02em; }
+  .cn-lesson-content h4 {
+    font-family: 'Cinzel', 'PingFang TC', 'Noto Sans TC', serif;
+    color: #802828;
+    font-size: 1.1rem;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  .cn-lesson-content p { margin-bottom: 9px; }
+  .cn-vocab-card {
+    background: #fff0f0;
+    border: 1px solid #e8a8a8;
+    border-left: 4px solid #b04848;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin: 6px 0;
+    font-family: 'PingFang TC', 'Noto Sans TC', 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .cn-vocab-card strong { color: #802828; font-size: 1.15rem; }
+  .cn-zhuyin {
+    color: #6a3838;
+    font-size: 0.95rem;
+    font-style: italic;
+    margin-left: 4px;
+  }
+  .cn-write-instruction {
+    background: #fffbe8;
+    border: 1px solid #e8d098;
+    border-left: 4px solid #d8a85a;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 10px 0;
+    font-family: 'PingFang TC', 'Noto Sans TC', serif;
+    color: #6a3838;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .cn-write-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 12px 0;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #f0c8c8;
+    border-radius: 6px;
+  }
+  .cn-write-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 4px;
+    border-bottom: 1px dashed #f0d8d8;
+    font-family: 'PingFang TC', 'Noto Sans TC', serif;
+  }
+  .cn-write-row:last-child { border-bottom: none; }
+  .cn-write-num {
+    color: #802828;
+    font-weight: 700;
+    min-width: 28px;
+    font-size: 1rem;
+  }
+  .cn-write-cell {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    height: 76px;
+    border: 2px solid #6aaa6a;
+    border-radius: 4px;
+    background: #ffffff;
+    font-size: 2rem;
+    font-family: 'PingFang TC', 'Noto Sans TC', 'Cinzel', serif;
+    color: #2a2420;
+    line-height: 1;
+    padding: 6px 8px;
+    position: relative;
+    margin-right: 22px;
+  }
+  .cn-write-cell.cn-write-show {
+    background: #f5fbf5;
+    color: #2a2420;
+    font-weight: 500;
+  }
+  .cn-write-cell.cn-write-blank {
+    background: #ffffff;
+    color: transparent;
+  }
+  .cn-write-cell.cn-write-answer {
+    background: #fff5e8;
+    color: #c95030;
+    font-weight: 700;
+    border-color: #c95030;
+  }
+  .cn-write-cell .cn-write-z {
+    position: absolute;
+    top: 0;
+    right: -20px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #c95030;
+    background: transparent;
+    line-height: 1.1;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-style: normal;
+    margin: 0;
+    font-family: 'PingFang TC', 'Noto Sans TC', serif;
+    letter-spacing: 1px;
+  }
+  .cn-write-full {
+    margin-left: 12px;
+    color: #802828;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  /* 成語 idiom quiz styles */
+  .cn-idiom-bank {
+    background: #fff5e8;
+    border: 2px solid #d8a85a;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 12px 0;
+    font-family: 'PingFang TC', 'Noto Sans TC', serif;
+  }
+  .cn-idiom-bank-title {
+    font-weight: 700;
+    color: #8a5a1a;
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+  .cn-idiom-chip {
+    display: inline-block;
+    background: #fffbe8;
+    border: 1.5px solid #c08a3a;
+    border-radius: 18px;
+    padding: 6px 14px;
+    margin: 4px 6px 4px 0;
+    color: #6a4a1a;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+  .cn-idiom-sentence {
+    background: #ffffff;
+    border: 1px solid #f0c8c8;
+    border-left: 4px solid #b04848;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-family: 'PingFang TC', 'Noto Sans TC', serif;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: #2a2420;
+  }
+  .cn-idiom-blank {
+    display: inline-block;
+    color: #c95030;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #c95030;
+    padding: 0 6px;
+    margin: 0 2px;
+  }
+
   .unit-btn.section-sci { border-color: #4a8a4a; }
   .unit-btn.section-sci:hover { box-shadow: 0 4px 14px rgba(74,138,74,0.3); border-color: #2a6a2a; color: #2a6a2a; }
   .unit-btn.sci { border-color: #6aaa6a; }
@@ -1051,6 +1242,7 @@
 <script src="vw-data.js"></script>
 <script src="reading-data.js"></script>
 <script src="ss-data.js"></script>
+<script src="cn-data.js"></script>
 <script src="math-data.js"></script>
 <script src="sci-data.js"></script>
 
@@ -1396,6 +1588,7 @@ function describeContext() {
     else if (sect === 'ss' && typeof SS_UNITS !== 'undefined') u = SS_UNITS[state.currentUnit];
     else if (sect === 'math' && typeof MATH_UNITS !== 'undefined') u = MATH_UNITS[state.currentUnit];
     else if (sect === 'sci' && typeof SCI_UNITS !== 'undefined') u = SCI_UNITS[state.currentUnit];
+    else if (sect === 'cn' && typeof CN_UNITS !== 'undefined') u = CN_UNITS[state.currentUnit];
     else if (typeof UNITS !== 'undefined') u = UNITS[state.currentUnit];
     if (u) {
       unitName = u.title + (u.subtitle ? ': ' + u.subtitle : '');
@@ -1502,7 +1695,8 @@ function buildPrintList() {
     { key: 'reading', label: 'Reading', units: (typeof READING_UNITS !== 'undefined') ? READING_UNITS : null, subtype: 'reading' },
     { key: 'ss', label: 'Social Studies', units: (typeof SS_UNITS !== 'undefined') ? SS_UNITS : null, subtype: 'ss' },
     { key: 'math', label: 'Mathematica', units: (typeof MATH_UNITS !== 'undefined') ? MATH_UNITS : null, subtype: 'math' },
-    { key: 'sci', label: 'Science', units: (typeof SCI_UNITS !== 'undefined') ? SCI_UNITS : null, subtype: 'sci' }
+    { key: 'sci', label: 'Science', units: (typeof SCI_UNITS !== 'undefined') ? SCI_UNITS : null, subtype: 'sci' },
+    { key: 'cn', label: '中文 Chinese', units: (typeof CN_UNITS !== 'undefined') ? CN_UNITS : null, subtype: 'cn' }
   ];
 
   sections.forEach(sec => {
@@ -1576,6 +1770,7 @@ function resolveUnit(sectionKey, unitKey) {
   if (sectionKey === 'ss' && typeof SS_UNITS !== 'undefined') return SS_UNITS[unitKey];
   if (sectionKey === 'math' && typeof MATH_UNITS !== 'undefined') return MATH_UNITS[unitKey];
   if (sectionKey === 'sci' && typeof SCI_UNITS !== 'undefined') return SCI_UNITS[unitKey];
+  if (sectionKey === 'cn' && typeof CN_UNITS !== 'undefined') return CN_UNITS[unitKey];
   if (sectionKey === 'grammar' && typeof UNITS !== 'undefined') return UNITS[unitKey];
   return null;
 }
@@ -1587,12 +1782,14 @@ function buildPrintableHTML(sectionKey, unitKey, mode) {
                      : sectionKey === 'ss' ? 'Social Studies'
                      : sectionKey === 'math' ? 'Mathematica'
                      : sectionKey === 'sci' ? 'Science'
+                     : sectionKey === 'cn' ? '中文 Chinese'
                      : 'Grammar Codex';
   const accent = sectionKey === 'vw' ? '#9060c0'
                : sectionKey === 'reading' ? '#3a9a8a'
                : sectionKey === 'ss' ? '#c08a3a'
                : sectionKey === 'math' ? '#3a6ea8'
                : sectionKey === 'sci' ? '#4a8a4a'
+               : sectionKey === 'cn' ? '#b04848'
                : '#c97e5a';
   if (!u) {
     return `<!doctype html><html><body><p>Unit not found.</p></body></html>`;
@@ -1657,11 +1854,11 @@ function buildPrintableHTML(sectionKey, unitKey, mode) {
   h4 { font-size: 11.5pt; color: ${accent}; margin: 12px 0 4px; }
   p { margin: 6px 0; }
   ul, ol { margin: 6px 0 6px 20px; padding: 0; }
-  .vocab-card, .ss-vocab-card, .math-vocab-card, .sci-vocab-card {
+  .vocab-card, .ss-vocab-card, .math-vocab-card, .sci-vocab-card, .cn-vocab-card {
     border: 1px solid #ccc; border-left: 3px solid ${accent};
     padding: 6px 10px; margin: 5px 0; border-radius: 3px; background: #fafafa;
   }
-  .lesson-block, .ss-lesson-content, .math-lesson-content, .sci-lesson-content, .example {
+  .lesson-block, .ss-lesson-content, .math-lesson-content, .sci-lesson-content, .cn-lesson-content, .example {
     border: 1px solid #ddd; border-left: 3px solid ${accent};
     padding: 8px 12px; margin: 8px 0; border-radius: 3px; background: #fafafa;
   }
@@ -1824,6 +2021,9 @@ function collectQuizBuckets(sectionKey, u) {
   if (Array.isArray(u.quiz_fill)) out.push({ kind: 'fill', label: '✍ Fill-in-the-Blank',  items: u.quiz_fill });
   if (Array.isArray(u.quiz_match)) out.push({ kind: 'mc', label: '🎯 Hero Matching — what did each hero do?', items: u.quiz_match });
   if (Array.isArray(u.quiz_word)) out.push({ kind: 'word', label: '📖 Word Problems',     items: u.quiz_word });
+  // Chinese-specific quizzes
+  if (Array.isArray(u.quiz_zhuyin2word)) out.push({ kind: 'mc', label: '📖 注音→詞語 Zhuyin → Word', items: u.quiz_zhuyin2word });
+  if (Array.isArray(u.quiz_word2zhuyin)) out.push({ kind: 'mc', label: '📝 詞語→注音 Word → Zhuyin', items: u.quiz_word2zhuyin });
 
   // Grammar (UNITS): each topic has its own quiz
   if (u.topics) {
@@ -2142,6 +2342,7 @@ function updateUnitBadge() {
               (state.section === 'ss') ? SS_UNITS[state.currentUnit] :
               (state.section === 'math') ? MATH_UNITS[state.currentUnit] :
               (state.section === 'sci') ? SCI_UNITS[state.currentUnit] :
+              (state.section === 'cn') ? CN_UNITS[state.currentUnit] :
               UNITS[state.currentUnit];
     if (!u) { unitBadgeEl.style.display = 'none'; return; }
     unitBadgeEl.style.display = 'block';
@@ -2212,7 +2413,8 @@ function showSectionMenu() {
     { key: 'reading', emoji: '📖', title: 'Reading', sub: 'Reading Units 16 – 19', cssClass: 'section-reading' },
     { key: 'ss', emoji: '🏛️', title: 'Social Studies', sub: 'Ch. 5 · Lessons 3 – 4', cssClass: 'section-ss' },
     { key: 'math', emoji: '🧮', title: 'Mathematica', sub: 'Units 10 · 11 · 12', cssClass: 'section-math' },
-    { key: 'sci', emoji: '🔬', title: 'Science', sub: 'Topic 7 · Lessons 7.1 – 7.3', cssClass: 'section-sci' }
+    { key: 'sci', emoji: '🔬', title: 'Science', sub: 'Topic 7 · Lessons 7.1 – 7.3', cssClass: 'section-sci' },
+    { key: 'cn', emoji: '📜', title: '中文 Chinese', sub: '第七課 – 第十二課', cssClass: 'section-cn' }
   ];
   sections.forEach(s => {
     const b = document.createElement('button');
@@ -2243,6 +2445,8 @@ function chooseSection(sectionKey) {
     botSay("Most excellent! Thou hast ascended the <strong>Tower of Mathematica</strong> 🧮 — wherein numbers, time, and measure obey thee. <em>Which unit shall we conquer?</em>");
   } else if (sectionKey === 'sci') {
     botSay("Most excellent! Thou hast entered the <strong>Conservatory of Science</strong> 🔬 — wherein fossils, rocks, and ancient creatures whisper their secrets. <em>Which lesson shall we investigate?</em>");
+  } else if (sectionKey === 'cn') {
+    botSay("歡迎來到 <strong>中文殿堂</strong> 📜 — 一起學習生字、注音和語詞吧! <em>請選擇要學習的課文。</em>");
   } else {
     botSay("Most excellent! Thou hast opened the <strong>Grammar Codex</strong> 📜. <em>Which sacred volume shall we open?</em>");
   }
@@ -2268,12 +2472,14 @@ function showUnitMenu() {
                       (state.section === 'ss') ? SS_UNITS :
                       (state.section === 'math') ? MATH_UNITS :
                       (state.section === 'sci') ? SCI_UNITS :
+                      (state.section === 'cn') ? CN_UNITS :
                       UNITS;
   const headerLabel = (state.section === 'vw') ? "Choose thy VW Unit:" :
                       (state.section === 'reading') ? "Choose thy Reading Unit:" :
                       (state.section === 'ss') ? "Choose thy Social Studies Lesson:" :
                       (state.section === 'math') ? "Choose thy Mathematica Unit:" :
                       (state.section === 'sci') ? "Choose thy Science Lesson:" :
+                      (state.section === 'cn') ? "請選擇課文:" :
                       "Choose thy Unit of Study:";
   bubble.innerHTML = `<strong>${headerLabel}</strong> ✠`;
 
@@ -2412,6 +2618,21 @@ function chooseUnit(unitKey) {
         { label: "✠ Mixed Trial", onClick: () => { userSay("Mixed Trial"); startSciQuiz('mix'); } },
         { label: "📖 Choose Another Lesson", onClick: () => { userSay("Choose another lesson"); showUnitMenu(); } },
         { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+      ]
+    );
+    return;
+  }
+
+  if (state.section === 'cn') {
+    const u = CN_UNITS[unitKey];
+    botSay(
+      `好選擇!你已開啟 <strong>${u.title}: ${u.subtitle}</strong> ${u.emoji}`,
+      [
+        { label: "🔑 查看生字 View Vocabulary", onClick: () => { userSay("查看生字"); startCnVocab(); } },
+        { label: "✍ 國字填寫 Write Characters", onClick: () => { userSay("國字填寫"); startCnWriteChar(); } },
+        { label: "📜 成語練習 Idiom Practice", onClick: () => { userSay("成語練習"); startCnIdiomQuiz(); } },
+        { label: "📖 選擇另一課", onClick: () => { userSay("選擇另一課"); showUnitMenu(); } },
+        { label: "🏛 回到主選單", onClick: () => { userSay("回到主選單"); showSectionMenu(); } }
       ]
     );
     return;
@@ -2621,6 +2842,7 @@ function getChallengeUnit() {
   if (sec === 'ss' && typeof SS_UNITS !== 'undefined') return SS_UNITS[key];
   if (sec === 'math' && typeof MATH_UNITS !== 'undefined') return MATH_UNITS[key];
   if (sec === 'sci' && typeof SCI_UNITS !== 'undefined') return SCI_UNITS[key];
+  if (sec === 'cn' && typeof CN_UNITS !== 'undefined') return CN_UNITS[key];
   return null;
 }
 
@@ -3541,6 +3763,7 @@ function handleUserInput(text) {
     else if (state.section === 'ss' && state.currentUnit) startSSQuiz('tf');
     else if (state.section === 'math' && state.currentUnit) startMathQuiz('tf');
     else if (state.section === 'sci' && state.currentUnit) startSciQuiz('tf');
+    else if (state.section === 'cn' && state.currentUnit) startCnQuiz('tf');
     else { botSay("First, choose a unit:"); showSectionMenu(); }
   } else if (lower.includes("fill") || lower.includes("blank")) {
     if (state.section === 'reading' && state.currentUnit) startReadingQuiz('fill');
@@ -3548,6 +3771,7 @@ function handleUserInput(text) {
     else if (state.section === 'ss' && state.currentUnit) startSSQuiz('fill');
     else if (state.section === 'math' && state.currentUnit) startMathQuiz('fill');
     else if (state.section === 'sci' && state.currentUnit) startSciQuiz('fill');
+    else if (state.section === 'cn' && state.currentUnit) startCnQuiz('fill');
     else { botSay("First, choose a unit:"); showSectionMenu(); }
   } else if (lower.includes("unit") || lower.includes("menu") || lower.includes("back")) {
     if (state.section) showUnitMenu();
@@ -3558,15 +3782,17 @@ function handleUserInput(text) {
     else if (state.section === 'ss' && state.currentUnit) startSSQuiz('mix');
     else if (state.section === 'math' && state.currentUnit) startMathQuiz('mix');
     else if (state.section === 'sci' && state.currentUnit) startSciQuiz('mix');
+    else if (state.section === 'cn' && state.currentUnit) startCnQuiz('mix');
     else if (state.currentTopic) startQuiz();
     else if (state.currentUnit) { botSay("Which topic shall we test?"); showTopicMenu(); }
     else { botSay("First, choose a unit:"); showSectionMenu(); }
-  } else if (lower.includes("lesson") || lower.includes("study") || lower.includes("learn") || lower.includes("word list")) {
+  } else if (lower.includes("lesson") || lower.includes("study") || lower.includes("learn") || lower.includes("word list") || lower.includes("課文")) {
     if (state.section === 'reading' && state.currentUnit) startReadingLesson();
     else if (state.section === 'vw' && state.currentUnit) startVwLesson();
     else if (state.section === 'ss' && state.currentUnit) startSSLesson();
     else if (state.section === 'math' && state.currentUnit) startMathLesson();
     else if (state.section === 'sci' && state.currentUnit) startSciLesson();
+    else if (state.section === 'cn' && state.currentUnit) startCnLesson();
     else if (state.currentTopic) startLesson();
     else if (state.currentUnit) { botSay("Which topic shall we study?"); showTopicMenu(); }
     else { botSay("First, choose a unit:"); showSectionMenu(); }
