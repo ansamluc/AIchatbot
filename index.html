@@ -2196,6 +2196,7 @@ function collectQuizBuckets(sectionKey, u) {
   if (Array.isArray(u.quiz_fill_char))   out.push({ kind: 'mc',  label: '✍ 國字填寫 Fill-in Character', items: u.quiz_fill_char });
   if (Array.isArray(u.quiz_idiom_fill))  out.push({ kind: 'idiom', label: '📜 成語填空 Idiom Fill-in', items: u.quiz_idiom_fill });
   if (Array.isArray(u.quiz_write_char))  out.push({ kind: 'write_char', label: '✏ 國字練習 Write Characters', items: u.quiz_write_char });
+  if (Array.isArray(u.quiz_text))        out.push({ kind: 'mc',  label: '📖 課文練習 Lesson Comprehension', items: u.quiz_text });
 
   // Grammar (UNITS): each topic has its own quiz
   if (u.topics) {
@@ -2821,6 +2822,19 @@ function chooseUnit(unitKey) {
 
   if (state.section === 'cn') {
     const u = CN_UNITS[unitKey];
+    if (u.isReview) {
+      botSay(
+        `好選擇!你已開啟 <strong>${u.title}: ${u.subtitle}</strong> ${u.emoji}<br><em>一次複習七到十二課所有內容!</em>`,
+        [
+          { label: "✍ 國字練習 Write Characters", onClick: () => { userSay("國字練習"); startCnReviewWriteChar(); } },
+          { label: "📜 成語練習 Idiom Practice", onClick: () => { userSay("成語練習"); startCnReviewIdiomQuiz(); } },
+          { label: "📖 課文練習 Lesson Comprehension", onClick: () => { userSay("課文練習"); startCnReviewLessons(); } },
+          { label: "📖 選擇另一課", onClick: () => { userSay("選擇另一課"); showUnitMenu(); } },
+          { label: "🏛 回到主選單", onClick: () => { userSay("回到主選單"); showSectionMenu(); } }
+        ]
+      );
+      return;
+    }
     botSay(
       `好選擇!你已開啟 <strong>${u.title}: ${u.subtitle}</strong> ${u.emoji}`,
       [

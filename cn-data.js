@@ -371,7 +371,7 @@ const CN_UNITS = {
       { w: "肖", z: "ㄒㄧㄠˋ" },
       { w: "寺", z: "ㄙˋ" },
       { w: "尚", z: "ㄕㄤˋ" },
-      { w: "困", z: "ㄎㄨㄣˇ" },
+      { w: "困", z: "ㄎㄨㄣˋ" },
       { w: "擾", z: "ㄖㄠˇ" },
       { w: "邀", z: "ㄧㄠ" },
       { w: "逼", z: "ㄅㄧ" },
@@ -392,7 +392,7 @@ const CN_UNITS = {
       { full: "追蹤", chars: [{blank: "追", z: "ㄓㄨㄟ"}, {blank: "蹤", z: "ㄗㄨㄥ"}] },
       { full: "互相", chars: [{show: "互"}, {blank: "相", z: "ㄒㄧㄤ"}] },
       { full: "孫女", chars: [{blank: "孫", z: "ㄙㄨㄣ"}, {show: "女"}] },
-      { full: "困擾", chars: [{blank: "困", z: "ㄎㄨㄣˇ"}, {blank: "擾", z: "ㄖㄠˇ"}] },
+      { full: "困擾", chars: [{blank: "困", z: "ㄎㄨㄣˋ"}, {blank: "擾", z: "ㄖㄠˇ"}] },
       { full: "寺廟", chars: [{blank: "寺", z: "ㄙˋ"}, {show: "廟"}] },
       { full: "天氣晴朗", chars: [{show: "天"}, {show: "氣"}, {show: "晴"}, {blank: "朗", z: "ㄌㄤˇ"}] },
       { full: "邀請函", chars: [{blank: "邀", z: "ㄧㄠ"}, {show: "請"}, {show: "函"}] },
@@ -429,7 +429,7 @@ const CN_UNITS = {
       { q: "<strong>十二生___</strong> <span class='cn-zhuyin'>(ㄒㄧㄠˋ)</span>", options: ["肖", "笑", "孝", "校"], answer: 0, full: "十二生肖", explain: "「十二生肖」 — 十二種動物。" },
       { q: "<strong>___廟</strong> <span class='cn-zhuyin'>(ㄙˋ)</span>", options: ["寺", "四", "似", "肆"], answer: 0, full: "寺廟", explain: "「寺廟」 ㄙˋ ㄇㄧㄠˋ — 拜神的地方。" },
       { q: "<strong>流行時___</strong> <span class='cn-zhuyin'>(ㄕㄤˋ)</span>", options: ["尚", "上", "賞", "晌"], answer: 0, full: "流行時尚", explain: "「流行時尚」 — 流行的風格。" },
-      { q: "<strong>___擾</strong> <span class='cn-zhuyin'>(ㄎㄨㄣˇ)</span>", options: ["困", "捆", "綑", "坤"], answer: 0, full: "困擾", explain: "「困擾」 ㄎㄨㄣˇ ㄖㄠˇ — 受打擾。" },
+      { q: "<strong>___擾</strong> <span class='cn-zhuyin'>(ㄎㄨㄣˋ)</span>", options: ["困", "捆", "綑", "坤"], answer: 0, full: "困擾", explain: "「困擾」 ㄎㄨㄣˋ ㄖㄠˇ — 受打擾。" },
       { q: "<strong>困___</strong> <span class='cn-zhuyin'>(ㄖㄠˇ)</span>", options: ["擾", "繞", "撓", "嬈"], answer: 0, full: "困擾", explain: "「困擾」 — 受打擾。" },
       { q: "<strong>___請函</strong> <span class='cn-zhuyin'>(ㄧㄠ)</span>", options: ["邀", "搖", "瑤", "腰"], answer: 0, full: "邀請函", explain: "「邀請函」 ㄧㄠ ㄑㄧㄥˇ ㄏㄢˊ。" },
       { q: "<strong>___迫</strong> <span class='cn-zhuyin'>(ㄅㄧˋ)</span>", options: ["逼", "畢", "壁", "幣"], answer: 0, full: "逼迫", explain: "「逼迫」 ㄅㄧˋ ㄆㄛˋ — 強迫。" },
@@ -533,6 +533,227 @@ const CN_UNITS = {
       { q: "<strong>白___</strong> <span class='cn-zhuyin'>(ㄏㄜˋ)</span>", options: ["鶴", "賀", "喝", "和"], answer: 0, full: "白鶴", explain: "「白鶴」 — 白色的大鳥。" },
       { q: "<strong>刺___</strong> <span class='cn-zhuyin'>(ㄨㄟˋ)</span>", options: ["蝟", "胃", "謂", "未"], answer: 0, full: "刺蝟", explain: "「刺蝟」 — 身上長刺的小動物。" }
     ]
+  },
+
+  // 總複習 — content from G3-2 中文 L7-L12 review worksheets.
+  // - quiz_write_char: from PDF "G3-2 中文L7-12.pdf" (國字練習)
+  // - quiz_idiom_fill: from "G3-2 L7-12 綜合成語填空練習卷.docx" (成語練習, 31 sentences)
+  // - quiz_text: from "中文課文練習.pdf" (課文練習, multiple choice)
+  review: {
+    title: "總複習",
+    subtitle: "第七課～第十二課",
+    emoji: "📚",
+    cssClass: "cn",
+    bigQuestion: "綜合複習 — 把七到十二課的生字、成語、課文一次練個夠!",
+    isReview: true,
+    // === 國字練習 — 看注音寫國字 (from PDF) ===
+    quiz_write_char: [
+      { full: "困擾", chars: [{blank: "困", z: "ㄎㄨㄣˋ"}, {blank: "擾", z: "ㄖㄠˇ"}] },
+      { full: "垃圾桶", chars: [{blank: "垃", z: "ㄌㄜˋ"}, {blank: "圾", z: "ㄙㄜˋ"}, {show: "桶"}] },
+      { full: "舒適", chars: [{show: "舒"}, {blank: "適", z: "ㄕˋ"}] },
+      { full: "微風徐徐", chars: [{show: "微"}, {show: "風"}, {blank: "徐", z: "ㄒㄩˊ"}, {blank: "徐", z: "ㄒㄩˊ"}] },
+      { full: "疾病", chars: [{blank: "疾", z: "ㄐㄧˊ"}, {show: "病"}] },
+      { full: "貪心", chars: [{blank: "貪", z: "ㄊㄢ"}, {show: "心"}] },
+      { full: "豎琴", chars: [{blank: "豎", z: "ㄕㄨˋ"}, {show: "琴"}] },
+      { full: "追蹤", chars: [{blank: "追", z: "ㄓㄨㄟ"}, {blank: "蹤", z: "ㄗㄨㄥ"}] },
+      { full: "習慣", chars: [{show: "習"}, {blank: "慣", z: "ㄍㄨㄢˋ"}] },
+      { full: "追求", chars: [{blank: "追", z: "ㄓㄨㄟ"}, {show: "求"}] },
+      { full: "無聊", chars: [{show: "無"}, {blank: "聊", z: "ㄌㄧㄠˊ"}] },
+      { full: "秩序", chars: [{blank: "秩", z: "ㄓˋ"}, {show: "序"}] },
+      { full: "姿勢端正", chars: [{show: "姿"}, {show: "勢"}, {blank: "端", z: "ㄉㄨㄢ"}, {show: "正"}] },
+      { full: "舉辦", chars: [{blank: "舉", z: "ㄐㄩˇ"}, {show: "辦"}] },
+      { full: "雜誌封面", chars: [{show: "雜"}, {show: "誌"}, {blank: "封", z: "ㄈㄥ"}, {show: "面"}] },
+      { full: "產品型號", chars: [{show: "產"}, {show: "品"}, {blank: "型", z: "ㄒㄧㄥˊ"}, {show: "號"}] },
+      { full: "老鼠", chars: [{show: "老"}, {blank: "鼠", z: "ㄕㄨˇ"}] },
+      { full: "無形之中", chars: [{show: "無"}, {blank: "形", z: "ㄒㄧㄥˊ"}, {show: "之"}, {show: "中"}] },
+      { full: "互相", chars: [{show: "互"}, {blank: "相", z: "ㄒㄧㄤ"}] },
+      { full: "懷疑", chars: [{show: "懷"}, {blank: "疑", z: "ㄧˊ"}] },
+      { full: "避免", chars: [{show: "避"}, {blank: "免", z: "ㄇㄧㄢˇ"}] },
+      { full: "性格爽朗", chars: [{show: "性"}, {show: "格"}, {show: "爽"}, {blank: "朗", z: "ㄌㄤˇ"}] },
+      { full: "一旦", chars: [{show: "一"}, {blank: "旦", z: "ㄉㄢˋ"}] },
+      { full: "皇后", chars: [{show: "皇"}, {blank: "后", z: "ㄏㄡˋ"}] },
+      { full: "說謊騙人", chars: [{show: "說"}, {show: "謊"}, {blank: "騙", z: "ㄆㄧㄢˋ"}, {show: "人"}] },
+      { full: "挺起胸膛", chars: [{blank: "挺", z: "ㄊㄧㄥˇ"}, {show: "起"}, {blank: "胸", z: "ㄒㄩㄥ"}, {show: "膛"}] },
+      { full: "加倍奉還", chars: [{show: "加"}, {blank: "倍", z: "ㄅㄟˋ"}, {show: "奉"}, {show: "還"}] },
+      { full: "厲害", chars: [{blank: "厲", z: "ㄌㄧˋ"}, {show: "害"}] },
+      { full: "好脾氣", chars: [{show: "好"}, {blank: "脾", z: "ㄆㄧˊ"}, {show: "氣"}] },
+      { full: "夏令營", chars: [{blank: "夏", z: "ㄒㄧㄚˋ"}, {blank: "令", z: "ㄌㄧㄥˋ"}, {show: "營"}] },
+      { full: "逼迫", chars: [{blank: "逼", z: "ㄅㄧ"}, {show: "迫"}] },
+      { full: "烤香腸", chars: [{show: "烤"}, {show: "香"}, {blank: "腸", z: "ㄔㄤˊ"}] },
+      { full: "大幅上升", chars: [{show: "大"}, {blank: "幅", z: "ㄈㄨˊ"}, {show: "上"}, {show: "升"}] },
+      { full: "人際關係", chars: [{show: "人"}, {blank: "際", z: "ㄐㄧˋ"}, {show: "關"}, {show: "係"}] },
+      { full: "奧運金牌", chars: [{show: "奧"}, {show: "運"}, {show: "金"}, {blank: "牌", z: "ㄆㄞˊ"}] },
+      { full: "跌落谷底", chars: [{blank: "跌", z: "ㄉㄧㄝˊ"}, {show: "落"}, {show: "谷"}, {show: "底"}] },
+      { full: "蟒蛇", chars: [{show: "蟒"}, {blank: "蛇", z: "ㄕㄜˊ"}] },
+      { full: "行程", chars: [{show: "行"}, {blank: "程", z: "ㄔㄥˊ"}] },
+      { full: "傳承經驗", chars: [{show: "傳"}, {blank: "承", z: "ㄔㄥˊ"}, {show: "經"}, {show: "驗"}] },
+      { full: "團隊成員", chars: [{show: "團"}, {show: "隊"}, {show: "成"}, {blank: "員", z: "ㄩㄢˊ"}] },
+      { full: "指揮", chars: [{show: "指"}, {blank: "揮", z: "ㄏㄨㄟ"}] },
+      { full: "年糕", chars: [{show: "年"}, {blank: "糕", z: "ㄍㄠ"}] },
+      { full: "安全帽", chars: [{show: "安"}, {show: "全"}, {blank: "帽", z: "ㄇㄠˋ"}] },
+      { full: "進展順利", chars: [{show: "進"}, {blank: "展", z: "ㄓㄢˇ"}, {show: "順"}, {show: "利"}] },
+      { full: "去除汙漬", chars: [{show: "去"}, {show: "除"}, {show: "汙"}, {blank: "漬", z: "ㄗˋ"}] },
+      { full: "布置房間", chars: [{blank: "布", z: "ㄅㄨˋ"}, {show: "置"}, {show: "房"}, {show: "間"}] },
+      { full: "發呆", chars: [{show: "發"}, {blank: "呆", z: "ㄉㄞ"}] },
+      { full: "收益良多", chars: [{show: "收"}, {blank: "益", z: "ㄧˋ"}, {show: "良"}, {show: "多"}] },
+      { full: "既定行程", chars: [{blank: "既", z: "ㄐㄧˋ"}, {show: "定"}, {show: "行"}, {show: "程"}] },
+      { full: "爭取權益", chars: [{show: "爭"}, {blank: "取", z: "ㄑㄩˇ"}, {show: "權"}, {show: "益"}] },
+      { full: "或者", chars: [{blank: "或", z: "ㄏㄨㄛˋ"}, {blank: "者", z: "˙ㄓㄜ"}] },
+      { full: "免洗筷", chars: [{blank: "免", z: "ㄇㄧㄢˇ"}, {show: "洗"}, {blank: "筷", z: "ㄎㄨㄞˋ"}] },
+      { full: "梳妝打扮", chars: [{show: "梳"}, {show: "妝"}, {show: "打"}, {blank: "扮", z: "ㄅㄢˋ"}] },
+      { full: "士兵", chars: [{show: "士"}, {blank: "兵", z: "ㄅㄧㄥ"}] },
+      { full: "煮開水", chars: [{blank: "煮", z: "ㄓㄨˇ"}, {show: "開"}, {show: "水"}] },
+      { full: "湯圓", chars: [{blank: "湯", z: "ㄊㄤ"}, {show: "圓"}] },
+      { full: "家庭聚餐", chars: [{show: "家"}, {show: "庭"}, {show: "聚"}, {blank: "餐", z: "ㄘㄢ"}] },
+      { full: "活潑", chars: [{show: "活"}, {blank: "潑", z: "ㄆㄛ"}] },
+      { full: "抬起左手", chars: [{blank: "抬", z: "ㄊㄞˊ"}, {show: "起"}, {show: "左"}, {show: "手"}] },
+      { full: "和尚", chars: [{show: "和"}, {blank: "尚", z: "ㄕㄤˋ"}] },
+      { full: "座談會", chars: [{show: "座"}, {blank: "談", z: "ㄊㄢˊ"}, {show: "會"}] },
+      { full: "身體健朗", chars: [{show: "身"}, {show: "體"}, {show: "健"}, {blank: "朗", z: "ㄌㄤˇ"}] },
+      { full: "驚險刺激", chars: [{show: "驚"}, {show: "險"}, {blank: "刺", z: "ㄘˋ"}, {show: "激"}] },
+      { full: "疑惑", chars: [{blank: "疑", z: "ㄧˊ"}, {blank: "惑", z: "ㄏㄨㄛˋ"}] },
+      { full: "或許", chars: [{blank: "或", z: "ㄏㄨㄛˋ"}, {show: "許"}] },
+      { full: "命令", chars: [{show: "命"}, {blank: "令", z: "ㄌㄧㄥˋ"}] },
+      { full: "受邀參加", chars: [{show: "受"}, {blank: "邀", z: "ㄧㄠ"}, {show: "參"}, {show: "加"}] },
+      { full: "康樂股長", chars: [{blank: "康", z: "ㄎㄤ"}, {show: "樂"}, {show: "股"}, {show: "長"}] },
+      { full: "腸胃範圍", chars: [{blank: "腸", z: "ㄔㄤˊ"}, {show: "胃"}, {show: "範"}, {blank: "圍", z: "ㄨㄟˊ"}] },
+      { full: "書套", chars: [{show: "書"}, {blank: "套", z: "ㄊㄠˋ"}] },
+      { full: "不計較", chars: [{show: "不"}, {show: "計"}, {blank: "較", z: "ㄐㄧㄠˋ"}] },
+      { full: "震央", chars: [{show: "震"}, {blank: "央", z: "ㄧㄤ"}] },
+      { full: "咦！", chars: [{blank: "咦", z: "ㄧˊ"}, {show: "！"}] },
+      { full: "後代子孫", chars: [{show: "後"}, {show: "代"}, {show: "子"}, {blank: "孫", z: "ㄙㄨㄣ"}] },
+      { full: "人物肖像", chars: [{show: "人"}, {show: "物"}, {blank: "肖", z: "ㄒㄧㄠˋ"}, {show: "像"}] },
+      { full: "憑空幻想", chars: [{show: "憑"}, {show: "空"}, {blank: "幻", z: "ㄏㄨㄢˋ"}, {show: "想"}] },
+      { full: "變化", chars: [{show: "變"}, {blank: "化", z: "ㄏㄨㄚˋ"}] },
+      { full: "保護", chars: [{show: "保"}, {blank: "護", z: "ㄏㄨˋ"}] },
+      { full: "或許", chars: [{blank: "或", z: "ㄏㄨㄛˋ"}, {show: "許"}] },
+      { full: "寺廟", chars: [{blank: "寺", z: "ㄙˋ"}, {show: "廟"}] },
+      { full: "腸胃不適", chars: [{blank: "腸", z: "ㄔㄤˊ"}, {show: "胃"}, {show: "不"}, {blank: "適", z: "ㄕˋ"}] },
+      { full: "擾亂秩序", chars: [{blank: "擾", z: "ㄖㄠˇ"}, {show: "亂"}, {show: "秩"}, {show: "序"}] },
+      { full: "當地特產", chars: [{show: "當"}, {show: "地"}, {show: "特"}, {show: "產"}] },
+      { full: "做夢", chars: [{show: "做"}, {blank: "夢", z: "ㄇㄥˋ"}] },
+      { full: "瞪大眼睛", chars: [{blank: "瞪", z: "ㄉㄥˋ"}, {show: "大"}, {show: "眼"}, {show: "睛"}] },
+      { full: "清除垃圾", chars: [{show: "清"}, {show: "除"}, {blank: "垃", z: "ㄌㄜˋ"}, {blank: "圾", z: "ㄙㄜˋ"}] },
+      { full: "瓶裝水", chars: [{show: "瓶"}, {blank: "裝", z: "ㄓㄨㄤ"}, {show: "水"}] },
+      { full: "維護", chars: [{blank: "維", z: "ㄨㄟˊ"}, {blank: "護", z: "ㄏㄨˋ"}] },
+      { full: "某些", chars: [{blank: "某", z: "ㄇㄡˇ"}, {show: "些"}] },
+      { full: "試圖逃跑", chars: [{show: "試"}, {blank: "圖", z: "ㄊㄨˊ"}, {show: "逃"}, {show: "跑"}] },
+      { full: "內幕消息", chars: [{show: "內"}, {blank: "幕", z: "ㄇㄨˋ"}, {show: "消"}, {show: "息"}] }
+    ],
+    // === 成語練習 — 31 sentences (from docx) ===
+    // The full L7-L12 idiom bank is shown as multiple-choice options for each question.
+    idioms: [
+      "適可而止", "將信將疑", "康莊大道", "故步自封", "鐵石心腸",
+      "愁眉不展", "抬頭挺胸", "事半功倍", "紙上談兵", "胸有成竹", "疾言厲色", "不疾不徐",
+      "赴湯蹈火", "化險為夷", "一舉兩得", "輕而易舉",
+      "既往不咎", "一望無際", "不修邊幅", "按圖索驥",
+      "烏雲密布", "豁然開朗", "開誠布公", "目瞪口呆", "維妙維肖", "無影無蹤",
+      "朝令夕改", "抱頭鼠竄", "芒刺在背", "民不聊生", "夢寐以求"
+    ],
+    quiz_idiom_fill: [
+      { sentence: "天空____,眼看就要下雨了。", answer: "烏雲密布" },
+      { sentence: "他平常____,不太注重穿著。", answer: "不修邊幅" },
+      { sentence: "爺爺____地在公園散步。", answer: "不疾不徐" },
+      { sentence: "戰亂時代常常讓百姓____。", answer: "民不聊生" },
+      { sentence: "努力讀書是通往成功的____。", answer: "康莊大道" },
+      { sentence: "看到流浪狗受傷,他還是不理不睬,真是____。", answer: "鐵石心腸" },
+      { sentence: "聽完老師的說明後,我頓時____。", answer: "豁然開朗" },
+      { sentence: "老師____地責備不守秩序的學生。", answer: "疾言厲色" },
+      { sentence: "他模仿老師說話的樣子,真是____。", answer: "維妙維肖" },
+      { sentence: "我們____,終於找到目的地。", answer: "按圖索驥" },
+      { sentence: "得獎後,他____地走上舞台。", answer: "抬頭挺胸" },
+      { sentence: "玩遊戲要____,不能影響功課。", answer: "適可而止" },
+      { sentence: "如果一直____,就不會進步。", answer: "故步自封" },
+      { sentence: "他準備充分,因此回答問題時____。", answer: "胸有成竹" },
+      { sentence: "只要你願意改過,我們就____。", answer: "既往不咎" },
+      { sentence: "小偷看到警察後,立刻____。", answer: "抱頭鼠竄" },
+      { sentence: "這道題目對他來說簡直____。", answer: "輕而易舉" },
+      { sentence: "做事不能____,否則大家會很困擾。", answer: "朝令夕改" },
+      { sentence: "大家互相合作,終於____。", answer: "化險為夷" },
+      { sentence: "先做好計畫,才能____。", answer: "事半功倍" },
+      { sentence: "小貓一下子跑得____。", answer: "無影無蹤" },
+      { sentence: "做事情不能只會____。", answer: "紙上談兵" },
+      { sentence: "朋友之間應該____地溝通。", answer: "開誠布公" },
+      { sentence: "大家看到魔術表演後,全都____。", answer: "目瞪口呆" },
+      { sentence: "每天走路上學,既運動又環保,真是____。", answer: "一舉兩得" },
+      { sentence: "被老師一直盯著,我感到____。", answer: "芒刺在背" },
+      { sentence: "聽完他的解釋後,我還是____。", answer: "將信將疑" },
+      { sentence: "站在海邊,可以看到____的大海。", answer: "一望無際" },
+      { sentence: "為了救人,消防員願意____。", answer: "赴湯蹈火" },
+      { sentence: "他考試失利後,整天____。", answer: "愁眉不展" },
+      { sentence: "這份禮物是我____的東西。", answer: "夢寐以求" }
+    ],
+    // === 課文練習 — multiple choice (from PDF) ===
+    quiz_text: [
+      // Section 1 (L7 — 做泡菜)
+      { q: "「哪個語詞的意思是『模仿得精細巧妙,逼真傳神』?」", options: ["目瞪口呆", "雷電交加", "維妙維肖", "烏雲密布"], answer: 2 },
+      { q: "下面哪個情況適合使用「貪吃」來描述?", options: ["吃多少拿多少", "大口大口的吃,完全就飽了", "只吃一些就吃飽了", "用餐時定時定量"], answer: 1 },
+      { q: "誰說對「承認」的意思?", options: ["恩恩:供認", "誠誠:認識", "杰杰:接受", "彤彤:一種客氣的說法。"], answer: 0 },
+      // Section 2
+      { q: "下面哪個情況可以用「大胃王」來形容?", options: ["妹妹吃了半碗飯", "哥哥寫完五樣功課", "弟弟一口氣吃下五碗飯", "姐姐一下子讀完十本書。"], answer: 2 },
+      { q: "「多運動★可以減重,★能舉兩得。」 ★中不適合填入?", options: ["一方面/一方面", "不但/還", "不管/都", "一方面/還"], answer: 1 },
+      // Section 3 (L11 — 畫龍點睛)
+      { q: "張僧繇一開始為什麼不幫龍畫上眼珠?對的打 V:", options: ["這些龍都是假的。", "畫上眼珠龍會飛走。", "想吸引大家的注意。"], answer: 1 },
+      // Section 4
+      { q: "「弟弟□鬼臉,逗得我呵呵笑。」 □中應填入?", options: ["粉", "扮", "紛", "盼"], answer: 3 },
+      { q: "「不疾不徐」指速度如何?", options: ["適當", "很慢", "飛快", "悠快/悠慢。"], answer: 0 },
+      { q: "有關「破折號」的敘述,哪個錯誤?", options: ["占一個格", "可以補充說明", "一條長直線", "有時代表聲音拉長。"], answer: 0 },
+      { q: "課文中,小綠人的自我介紹不包含下面哪一個?", options: ["外貌描寫", "工作地點", "同伴介紹", "誕生原因。"], answer: 3 },
+      { q: "下面哪一個語詞結構和「平平安安的回家」一樣?", options: ["輕輕柔柔的音樂", "匆匆忙忙地離開", "高高低低的樓房", "一方方花花綠綠的鈔票。"], answer: 1 },
+      // Section 5 (L10 — 飛行員和小王子)
+      { q: "飛行員最後畫了什麼東西,讓小王子很滿意?", options: ["帽子", "箱子", "袋子", "褲子。"], answer: 1 },
+      { q: "飛行員說小王子能用「心」看畫,是因為小王子?", options: ["變成畫家", "運用想像力看畫", "看畫很細心", "有繪畫天分。"], answer: 1 },
+      { q: "小王子想像中的羊正在做什麼事?", options: ["開心的吃草", "不停的打嗝", "對著小王子咩咩叫", "睡著還打呼。"], answer: 3 },
+      { q: "小王子對於飛行員畫的羊有什麼要求?", options: ["希望是健康又活潑的羊", "希望羊的食量大", "希望是老公羊", "希望多畫一些羊毛。"], answer: 0 },
+      // Section 6
+      { q: "下面哪一個「倒」的注音和其他三個不同?", options: ["倒數", "倒貼", "倒閉", "倒退。"], answer: 2 },
+      { q: "哪組語詞的意思相近?", options: ["集合/會合", "適量/過量", "心願/心情", "有益/無益。"], answer: 0 },
+      { q: "「承認錯誤」中的「承」是什麼意思?", options: ["接續,繼續", "擔當,負責", "辨識,分別", "供認。"], answer: 3 },
+      { q: "下面哪個不是環保的行為?", options: ["奶奶自備購物袋", "哥哥多買瓶裝水", "爸爸提高冷氣的溫度", "媽媽用空罐子澆花。"], answer: 1 },
+      // Section 7
+      { q: "哪個情況可用「溫柔」來描述?", options: ["氣急敗壞的爸爸", "笑容可掬的奶奶", "個性急的姐姐", "傷心難過的哥哥。"], answer: 1 },
+      { q: "下面哪個「量」的讀音和其他三個不同?", options: ["數量", "商量", "測量", "考量。"], answer: 0 },
+      { q: "課文中「我們家的小貓真厲害,會開罐子偷吃呢!」 指?", options: ["家中的寵物貓", "路上的野貓", "小斯的爸爸", "小斯。"], answer: 3 },
+      { q: "「我□老師說明事情的經過。」 □中不適合填入?", options: ["被", "跟", "向", "對。"], answer: 0 },
+      { q: "「承認」的相似詞是?", options: ["否認", "招認", "公認", "相認。"], answer: 1 },
+
+      // === Section 8: 「心」字四字語詞 (IMG_5050) ===
+      // Bank shown in each prompt so student knows the choices.
+      { q: "「他上課時一直發呆,看起來_____。」 哪個成語最適合?<br><em>選項:ㄅ.心不在焉 ㄆ.心平氣和 ㄇ.心急如焚 ㄈ.心甘情願 ㄉ.心裡有數 ㄊ.心心相印</em>",
+        options: ["心不在焉", "心平氣和", "心急如焚", "心心相印"], answer: 0 },
+      { q: "「在外地工作的他看到家鄉發生嚴重土石流的新聞時,_____地聯絡家人。」 哪個成語最適合?<br><em>選項:ㄅ.心不在焉 ㄆ.心平氣和 ㄇ.心急如焚 ㄈ.心甘情願 ㄉ.心裡有數 ㄊ.心心相印</em>",
+        options: ["心平氣和", "心急如焚", "心不在焉", "心裡有數"], answer: 1 },
+      { q: "「他倆交往多年,_____,最近決定共結連理,一起組成家庭。」 哪個成語最適合?<br><em>選項:ㄅ.心不在焉 ㄆ.心平氣和 ㄇ.心急如焚 ㄈ.心甘情願 ㄉ.心裡有數 ㄊ.心心相印</em>",
+        options: ["心甘情願", "心平氣和", "心心相印", "心裡有數"], answer: 2 },
+      { q: "「過了兩個小時,弟弟終於放下手邊的玩具,_____地去寫功課。」 哪個成語最適合?<br><em>選項:ㄅ.心不在焉 ㄆ.心平氣和 ㄇ.心急如焚 ㄈ.心甘情願 ㄉ.心裡有數 ㄊ.心心相印</em>",
+        options: ["心不在焉", "心心相印", "心急如焚", "心甘情願"], answer: 3 },
+      { q: "「詳細比對線索後,警方對這件事情的真相已經_____。」 哪個成語最適合?<br><em>選項:ㄅ.心不在焉 ㄆ.心平氣和 ㄇ.心急如焚 ㄈ.心甘情願 ㄉ.心裡有數 ㄊ.心心相印</em>",
+        options: ["心心相印", "心甘情願", "心裡有數", "心平氣和"], answer: 2 },
+      { q: "「他的修養很好,即便被人冒犯,依然能夠_____地和對方溝通。」 哪個成語最適合?<br><em>選項:ㄅ.心不在焉 ㄆ.心平氣和 ㄇ.心急如焚 ㄈ.心甘情願 ㄉ.心裡有數 ㄊ.心心相印</em>",
+        options: ["心平氣和", "心心相印", "心不在焉", "心急如焚"], answer: 0 },
+
+      // === Section 9: 量詞填空 (IMG_5052) ===
+      // Short passage about a 大胃王比賽.
+      { q: "「這一_____大胃王比賽競爭激烈。」 量詞應填入?",
+        options: ["場", "隻", "位", "分"], answer: 0 },
+      { q: "「每一_____選手必須在十分鐘內吃完。」 量詞應填入?",
+        options: ["場", "隻", "位", "分"], answer: 2 },
+      { q: "「選手必須在十_____鐘內吃完一隻烤雞。」 量詞應填入?",
+        options: ["場", "隻", "位", "分"], answer: 3 },
+      { q: "「吃完一_____烤雞、三十根熱狗。」 量詞應填入?",
+        options: ["場", "隻", "位", "分"], answer: 1 },
+
+      // === Section 10: 動作詞代替閱讀短文 (IMG_5051) ===
+      // Bank: ㄅ.抓了抓頭 ㄆ.瞧了又瞧 ㄇ.豎起大拇指 ㄉ.打量
+      { q: "短文:「我在路上撿到錢包,打開裡面確認、_____。」 畫線處的動作是?<br><em>選項:ㄅ.抓了抓頭 ㄆ.瞧了又瞧 ㄇ.豎起大拇指 ㄉ.打量</em>",
+        options: ["抓了抓頭", "瞧了又瞧", "豎起大拇指", "打量"], answer: 3 },
+      { q: "短文:「打開裡面確認、打量,_____。」 接下來的動作是?<br><em>選項:ㄅ.抓了抓頭 ㄆ.瞧了又瞧 ㄇ.豎起大拇指 ㄉ.打量</em>",
+        options: ["瞧了又瞧", "抓了抓頭", "打量", "豎起大拇指"], answer: 0 },
+      { q: "短文:「都找不到主人的資料,只好將錢包拿去警局,警察稱讚_____表揚我。」 畫線處的動作是?<br><em>選項:ㄅ.抓了抓頭 ㄆ.瞧了又瞧 ㄇ.豎起大拇指 ㄉ.打量</em>",
+        options: ["打量", "豎起大拇指", "抓了抓頭", "瞧了又瞧"], answer: 1 },
+      { q: "短文:「我不好意思地_____道謝,臉都紅了。」 畫線處的動作是?<br><em>選項:ㄅ.抓了抓頭 ㄆ.瞧了又瞧 ㄇ.豎起大拇指 ㄉ.打量</em>",
+        options: ["瞧了又瞧", "豎起大拇指", "打量", "抓了抓頭"], answer: 3 }
+    ]
   }
 };
 
@@ -596,7 +817,20 @@ function askCnIdiomQuestion() {
   // Replace ____ with a visible blank
   const sentenceHTML = item.sentence.replace(/_{2,}/, "<span class='cn-idiom-blank'>＿＿＿＿</span>");
   qHTML += `<div class='cn-idiom-sentence'>${sentenceHTML}</div>`;
-  const opts = u.idioms.map(idiom => ({
+
+  // Build the option list. When the idiom bank is small (per-lesson, 4-7 items)
+  // show them all. When it's large (e.g. 總複習 has 31), show only 4 choices:
+  // the correct answer + 3 random distractors, shuffled.
+  let optionIdioms;
+  const MAX_OPTIONS = 4;
+  if (u.idioms.length <= MAX_OPTIONS) {
+    optionIdioms = u.idioms.slice();
+  } else {
+    const distractors = u.idioms.filter(i => i !== item.answer).sort(() => Math.random() - 0.5).slice(0, MAX_OPTIONS - 1);
+    optionIdioms = [item.answer, ...distractors].sort(() => Math.random() - 0.5);
+  }
+
+  const opts = optionIdioms.map(idiom => ({
     label: idiom,
     onClick: (btn) => handleCnIdiomAnswer(idiom, btn)
   }));
@@ -686,6 +920,109 @@ function formatZhuyinHtml(z) {
   const baseHtml = `<span class='cn-write-z-base'>${base}</span>`;
   const toneHtml = tone ? `<span class='cn-write-z-tone'>${tone}</span>` : '';
   return `<span class='cn-write-z'>${baseHtml}${toneHtml}</span>`;
+}
+
+// === 總複習 (Review) — content comes directly from the review unit ===
+
+function startCnReviewWriteChar() {
+  // Just delegate to the regular write-char flow; the review unit already
+  // has its own quiz_write_char from the L7-L12 worksheet.
+  startCnWriteChar();
+}
+
+function startCnReviewIdiomQuiz() {
+  // The review unit has quiz_idiom_fill (31 sentences) + idioms bank (31).
+  startCnIdiomQuiz();
+}
+
+// 課文練習 — multiple-choice over key passages/usage from L7-L12.
+// Reuses the cn-idiom-quiz UI: question + 4 option buttons, immediate feedback.
+function startCnReviewLessons() {
+  state.mode = 'cn_text_quiz';
+  const u = CN_UNITS[state.currentUnit];
+  if (!u || !Array.isArray(u.quiz_text) || !u.quiz_text.length) {
+    botSay("⚠ 課文練習尚未準備好。");
+    return;
+  }
+  state.cnTextIndex = 0;
+  state.cnTextCorrect = 0;
+  state.cnTextPool = u.quiz_text.slice().sort(() => Math.random() - 0.5);
+
+  let html = `<strong>📖 ${u.title}: ${u.subtitle} — 課文練習</strong>`;
+  html += `<div class='cn-write-instruction'>📝 共 ${state.cnTextPool.length} 題。讀題目,選出最合適的答案。</div>`;
+  botSay(html);
+  setTimeout(askCnTextQuestion, 500);
+}
+
+function askCnTextQuestion() {
+  const item = state.cnTextPool[state.cnTextIndex];
+  const total = state.cnTextPool.length;
+  const num = state.cnTextIndex + 1;
+
+  const opts = item.options.map((opt, i) => ({
+    label: `${String.fromCharCode(65 + i)}. ${opt}`,
+    onClick: (btn) => handleCnTextAnswer(i, item, btn)
+  }));
+
+  let html = `<strong>第 ${num} / ${total} 題</strong><br>${item.q}`;
+  botSay(html, opts);
+}
+
+function handleCnTextAnswer(chosen, item, btn) {
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+
+  const correct = (chosen === item.answer);
+  userSay(item.options[chosen]);
+
+  if (correct) {
+    btn.classList.add('correct');
+    state.cnTextCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>答對了!</strong> 正確答案是「${item.options[item.answer]}」。<br><em>+1 Honour</em></div>`);
+  } else {
+    btn.classList.add('wrong');
+    allBtns.forEach(b => {
+      // mark correct button
+      const text = b.textContent.trim();
+      if (text.endsWith('. ' + item.options[item.answer]) || text === item.options[item.answer]) {
+        b.classList.add('correct');
+      }
+    });
+    botSay(`<div class='feedback-wrong'>⚔ <strong>正確答案是「${item.options[item.answer]}」。</strong><br><em>別氣餒,繼續努力!</em></div>`);
+  }
+  logAnswer(correct, item.q, item.options[chosen], item.options[item.answer], "");
+
+  state.cnTextIndex++;
+  setTimeout(() => {
+    if (state.cnTextIndex < state.cnTextPool.length) {
+      askCnTextQuestion();
+    } else {
+      finishCnTextQuiz();
+    }
+  }, 1000);
+}
+
+function finishCnTextQuiz() {
+  const total = state.cnTextPool.length;
+  const got = state.cnTextCorrect;
+  const bonus = (got === total) ? 3 : (got >= total - 1) ? 2 : (got >= total / 2) ? 1 : 0;
+  let msg;
+  if (got === total) {
+    msg = `✠✠✠ <strong>滿分太棒了!</strong> ${total} 題全部答對! 額外 +${bonus} Honour!`;
+  } else if (got >= total / 2) {
+    msg = `⚔ <strong>不錯喔!</strong> 答對了 ${got} / ${total} 題。額外 +${bonus} Honour!`;
+  } else {
+    msg = `你答對 ${got} / ${total} 題。 <em>再多複習課文,一定可以進步!</em>`;
+  }
+  if (bonus) addStars(bonus);
+  botSay(msg, [
+    { label: "📖 再做一次 課文練習", onClick: () => { userSay("再做一次"); startCnReviewLessons(); } },
+    { label: "✍ 國字練習 (L7-L12)", onClick: () => { userSay("國字練習"); startCnReviewWriteChar(); } },
+    { label: "📜 成語練習 (L7-L12)", onClick: () => { userSay("成語練習"); startCnReviewIdiomQuiz(); } },
+    { label: "📖 選擇另一課", onClick: () => { userSay("選擇另一課"); showUnitMenu(); } },
+    { label: "🏛 回到主選單", onClick: () => { userSay("回到主選單"); showSectionMenu(); } }
+  ]);
 }
 
 function startCnWriteChar() {
