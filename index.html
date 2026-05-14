@@ -1961,6 +1961,91 @@ function buildPrintableHTML(sectionKey, unitKey, mode) {
   .answer-key .ans-label { font-weight: 700; color: ${accent}; }
   .answer-key .explain { color: #444; font-size: 10.5pt; font-style: italic; display: block; margin-top: 2px; }
   .quiz-section-title { color: ${accent}; font-weight: 700; font-size: 12.5pt; margin: 18px 0 6px; }
+
+  /* Math timeline answer-key models (used in math word problem explanations) */
+  .tl-model {
+    background: #ffffff;
+    border: 1px dashed #3a6ea8;
+    border-radius: 6px;
+    padding: 12px 10px 10px;
+    margin: 10px 0;
+    color: #1a4e88;
+    font-style: normal;
+    page-break-inside: avoid;
+  }
+  .tl-instruction {
+    display: block;
+    color: #b05040;
+    font-style: italic;
+    font-size: 10pt;
+    margin: 4px 0 8px;
+  }
+  .tl-caption {
+    display: block;
+    font-size: 10pt;
+    color: #3a7a4a;
+    margin-bottom: 6px;
+    font-weight: 700;
+    font-style: normal;
+  }
+  .tl-jumps {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-bottom: 2px;
+    font-size: 10pt;
+    font-weight: 700;
+    font-style: normal;
+  }
+  .tl-jump {
+    flex: 1;
+    text-align: center;
+    color: #c95030;
+    padding: 0 4px;
+    position: relative;
+  }
+  .tl-jump::after {
+    content: "↷";
+    display: block;
+    color: #c95030;
+    font-size: 1.3rem;
+    line-height: 0.8;
+    margin-top: -2px;
+  }
+  .tl-line {
+    border-top: 2px solid #2a2420;
+    position: relative;
+    margin: 0 4px;
+    height: 0;
+  }
+  .tl-ticks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -7px;
+    margin-bottom: 4px;
+  }
+  .tl-tick {
+    width: 2px;
+    height: 12px;
+    background: #2a2420;
+  }
+  .tl-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1a4e88;
+    font-style: normal;
+  }
+  .tl-label {
+    text-align: center;
+    min-width: 60px;
+  }
+  /* Ensure the timeline rules don't inherit the answer-key italic */
+  .answer-key .explain .tl-model,
+  .answer-key .explain .tl-model * {
+    font-style: normal;
+  }
   .p-footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid #ccc; text-align: center; color: #888; font-size: 9pt; }
   /* Hide toolbar in print */
   @media print {
