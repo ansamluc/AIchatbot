@@ -937,6 +937,17 @@
     color: #b03030;
     text-shadow: 0 0 1px #b03030;
   }
+  /* Empty zhuyin slot — student writes the 注音 here */
+  .cn-write-cell .cn-write-z-empty {
+    width: 20px;
+    border: 1px dashed #c95030;
+    border-radius: 3px;
+    background: #fffaf5;
+  }
+  /* Cell that shows a 國字 and asks for its 注音 */
+  .cn-write-cell.cn-write-askz {
+    margin-right: 36px;
+  }
   .cn-write-full {
     margin-left: 12px;
     color: #802828;
@@ -1961,6 +1972,7 @@ function buildPrintableHTML(sectionKey, unitKey, mode) {
   .answer-key .ans-label { font-weight: 700; color: ${accent}; }
   .answer-key .explain { color: #444; font-size: 10.5pt; font-style: italic; display: block; margin-top: 2px; }
   .quiz-section-title { color: ${accent}; font-weight: 700; font-size: 12.5pt; margin: 18px 0 6px; }
+  .quiz-instruction { font-size: 10pt; color: #555; font-style: italic; margin: 0 0 8px; }
 
   /* Math timeline answer-key models (used in math word problem explanations) */
   .tl-model {
@@ -2146,6 +2158,10 @@ function renderQuizSection(sectionKey, u, mode) {
   buckets.forEach(bucket => {
     if (!bucket.items.length) return;
     html += `<div class="quiz-section-title">${bucket.label} (${bucket.items.length} questions)</div>`;
+    if (bucket.kind === 'write_char') {
+      html += `<div class="quiz-instruction">📝 看到<strong>注音</strong>(虛線格)時,寫出<strong>國字</strong>;`
+            + `看到<strong>國字</strong>後有空白小格時,寫出<strong>注音</strong>。</div>`;
+    }
     bucket.items.forEach(item => {
       globalNum++;
       allItems.push({ num: globalNum, item: item, kind: bucket.kind });
@@ -2163,7 +2179,16 @@ function renderQuizSection(sectionKey, u, mode) {
     } else if (entry.kind === 'idiom') {
       answerStr = it.answer || '—';
     } else if (entry.kind === 'write_char') {
-      answerStr = it.full || '—';
+      // Show the full word, then spell out what each blank/askZhuyin answer is.
+      const parts = [];
+      (it.chars || []).forEach(c => {
+        if (c.askZhuyin) {
+          parts.push(`${c.askZhuyin}→${c.z || ''}`);   // student wrote the 注音
+        } else if (!c.show) {
+          parts.push(`${c.blank || ''}（${c.z || ''}）`); // student wrote the 國字
+        }
+      });
+      answerStr = (it.full || '—') + (parts.length ? `　【${parts.join('、')}】` : '');
     } else if (Array.isArray(it.options)) {
       const letter = String.fromCharCode(65 + it.answer);
       answerStr = `${letter}. ${stripHtml(it.options[it.answer])}`;
@@ -2195,7 +2220,7 @@ function collectQuizBuckets(sectionKey, u) {
   if (Array.isArray(u.quiz_word2zhuyin)) out.push({ kind: 'mc', label: '📝 詞語→注音 Word → Zhuyin', items: u.quiz_word2zhuyin });
   if (Array.isArray(u.quiz_fill_char))   out.push({ kind: 'mc',  label: '✍ 國字填寫 Fill-in Character', items: u.quiz_fill_char });
   if (Array.isArray(u.quiz_idiom_fill))  out.push({ kind: 'idiom', label: '📜 成語填空 Idiom Fill-in', items: u.quiz_idiom_fill });
-  if (Array.isArray(u.quiz_write_char))  out.push({ kind: 'write_char', label: '✏ 國字練習 Write Characters', items: u.quiz_write_char });
+  if (Array.isArray(u.quiz_write_char))  out.push({ kind: 'write_char', label: '✏ 國字/注音練習 Write Characters', items: u.quiz_write_char });
   if (Array.isArray(u.quiz_text))        out.push({ kind: 'mc',  label: '📖 課文練習 Lesson Comprehension', items: u.quiz_text });
 
   // Grammar (UNITS): each topic has its own quiz
@@ -2272,14 +2297,25 @@ function renderQuizQuestion(num, item, kind) {
   if (kind === 'idiom') {
     return `<div class="quiz-q ${kind}"><span class="qnum">${num}.</span> <span class="qprompt">${item.sentence || ''}</span></div>`;
   }
-  // Write-character (國字練習): item shape is { full, chars: [{show|blank, z}] }
+  // Write-character (國字/注音練習): item shape is { full, chars: [...] }
+  // Each char is one of:
+  //   { show: "字" }            — character is given (printed normally)
+  //   { blank: "字", z: "ㄗ" }  — zhuyin given, student writes the 國字
+  //   { askZhuyin: "字", z:"ㄗ"}— 國字 given, student writes the 注音
   if (kind === 'write_char') {
+    const cellBase = 'display:inline-block;min-width:1.6em;padding:2px 6px;margin:0 2px;text-align:center;vertical-align:middle;';
     let cells = '';
     (item.chars || []).forEach(c => {
-      if (c.show) {
-        cells += `<span style="display:inline-block;min-width:1.6em;padding:2px 6px;margin:0 2px;border:1px solid #999;text-align:center;font-size:1.3em;">${c.show}</span>`;
+      if (c.askZhuyin) {
+        // Show the 國字, with an empty box below/beside for the student's 注音.
+        cells += `<span style="${cellBase}border:1px solid #999;font-size:1.3em;">${c.askZhuyin}`
+               + `<span style="display:inline-block;width:1.4em;min-height:1.4em;margin-left:3px;border:1px dashed #c95030;background:#fffaf5;vertical-align:middle;"></span>`
+               + `</span>`;
+      } else if (c.show) {
+        cells += `<span style="${cellBase}border:1px solid #999;font-size:1.3em;">${c.show}</span>`;
       } else {
-        cells += `<span style="display:inline-block;min-width:1.6em;padding:2px 6px;margin:0 2px;border:1px dashed #999;text-align:center;font-size:0.8em;color:#888;background:#fafafa;">${c.z || ''}</span>`;
+        // Blank: zhuyin given, student writes the 國字.
+        cells += `<span style="${cellBase}border:1px dashed #999;font-size:0.8em;color:#888;background:#fafafa;">${c.z || ''}</span>`;
       }
     });
     return `<div class="quiz-q ${kind}"><span class="qnum">${num}.</span> <span class="qprompt">${cells}</span></div>`;
@@ -2826,7 +2862,7 @@ function chooseUnit(unitKey) {
       botSay(
         `好選擇!你已開啟 <strong>${u.title}: ${u.subtitle}</strong> ${u.emoji}<br><em>一次複習七到十二課所有內容!</em>`,
         [
-          { label: "✍ 國字練習 Write Characters", onClick: () => { userSay("國字練習"); startCnReviewWriteChar(); } },
+          { label: "✍ 國字/注音練習 Write Characters", onClick: () => { userSay("國字/注音練習"); startCnReviewWriteChar(); } },
           { label: "📜 成語練習 Idiom Practice", onClick: () => { userSay("成語練習"); startCnReviewIdiomQuiz(); } },
           { label: "📖 課文練習 Lesson Comprehension", onClick: () => { userSay("課文練習"); startCnReviewLessons(); } },
           { label: "📖 選擇另一課", onClick: () => { userSay("選擇另一課"); showUnitMenu(); } },
@@ -2839,7 +2875,7 @@ function chooseUnit(unitKey) {
       `好選擇!你已開啟 <strong>${u.title}: ${u.subtitle}</strong> ${u.emoji}`,
       [
         { label: "🔑 查看生字 View Vocabulary", onClick: () => { userSay("查看生字"); startCnVocab(); } },
-        { label: "✍ 國字填寫 Write Characters", onClick: () => { userSay("國字填寫"); startCnWriteChar(); } },
+        { label: "✍ 國字/注音練習 Write Characters", onClick: () => { userSay("國字/注音練習"); startCnWriteChar(); } },
         { label: "📜 成語練習 Idiom Practice", onClick: () => { userSay("成語練習"); startCnIdiomQuiz(); } },
         { label: "📖 選擇另一課", onClick: () => { userSay("選擇另一課"); showUnitMenu(); } },
         { label: "🏛 回到主選單", onClick: () => { userSay("回到主選單"); showSectionMenu(); } }

@@ -80,7 +80,16 @@ const CN_UNITS = {
       { full: "信封", chars: [{show: "信"}, {blank: "封", z: "ㄈㄥ"}] },
       { full: "腸胃不適", chars: [{blank: "腸", z: "ㄔㄤˊ"}, {show: "胃"}, {show: "不"}, {blank: "適", z: "ㄕˋ"}] },
       { full: "懷疑", chars: [{show: "懷"}, {blank: "疑", z: "ㄧˊ"}] },
-      { full: "去除汙漬", chars: [{show: "去"}, {show: "除"}, {show: "汙"}, {blank: "漬", z: "ㄗˋ"}] }
+      { full: "去除汙漬", chars: [{show: "去"}, {show: "除"}, {show: "汙"}, {blank: "漬", z: "ㄗˋ"}] },
+      // 生字注音填空練習 (from G3-2_第7-12課_生字注音填空練習.docx)
+      { full: "玻璃罐子", chars: [{show: "玻"}, {show: "璃"}, {blank: "罐", z: "ㄍㄨㄢˋ"}, {show: "子"}] },
+      { full: "益生菌種", chars: [{show: "益"}, {show: "生"}, {askZhuyin: "菌", z: "ㄐㄩㄣˋ"}, {show: "種"}] },
+      { full: "勇敢承認", chars: [{show: "勇"}, {show: "敢"}, {blank: "承", z: "ㄔㄥˊ"}, {show: "認"}] },
+      { full: "態度嚴厲", chars: [{show: "態"}, {show: "度"}, {show: "嚴"}, {askZhuyin: "厲", z: "ㄌㄧˋ"}] },
+      { full: "身體健康", chars: [{show: "身"}, {show: "體"}, {blank: "健", z: "ㄐㄧㄢˋ"}, {blank: "康", z: "ㄎㄤ"}] },
+      { full: "服裝整齊", chars: [{show: "服"}, {blank: "裝", z: "ㄓㄨㄤ"}, {show: "整"}, {show: "齊"}] },
+      { full: "心中疑惑", chars: [{show: "心"}, {show: "中"}, {show: "疑"}, {blank: "惑", z: "ㄏㄨㄛˋ"}] },
+      { full: "打開信封", chars: [{show: "打"}, {show: "開"}, {show: "信"}, {blank: "封", z: "ㄈㄥ"}] }
     ],
 
     // Each quiz blank IS a target textbook 生字 (e.g. 產, 適, 益, etc.)
@@ -136,21 +145,28 @@ const CN_UNITS = {
     ],
     idioms: ["愁眉不展", "抬頭挺胸", "事半功倍", "紙上談兵", "胸有成竹", "疾言厲色", "不疾不徐"],
     quiz_write_char: [
-      { full: "秩序", chars: [{blank: "秩", z: "ㄓˋ"}, {show: "序"}] },
       { full: "展覽", chars: [{blank: "展", z: "ㄓㄢˇ"}, {show: "覽"}] },
       { full: "角色扮演", chars: [{show: "角"}, {show: "色"}, {blank: "扮", z: "ㄅㄢˋ"}, {show: "演"}] },
-      { full: "勇氣倍增", chars: [{show: "勇"}, {show: "氣"}, {blank: "倍", z: "ㄅㄟˋ"}, {show: "增"}] },
-      { full: "模型", chars: [{show: "模"}, {blank: "型", z: "ㄒㄧㄥˊ"}] },
       { full: "醫護人員", chars: [{show: "醫"}, {blank: "護", z: "ㄏㄨˋ"}, {show: "人"}, {show: "員"}] },
       { full: "抬頭挺胸", chars: [{blank: "抬", z: "ㄊㄞˊ"}, {show: "頭"}, {show: "挺"}, {blank: "胸", z: "ㄒㄩㄥ"}] },
-      { full: "或許", chars: [{blank: "或", z: "ㄏㄨㄛˋ"}, {show: "許"}] },
       { full: "微風徐徐", chars: [{show: "微"}, {show: "風"}, {blank: "徐", z: "ㄒㄩˊ"}, {blank: "徐", z: "ㄒㄩˊ"}] },
-      { full: "活潑", chars: [{show: "活"}, {blank: "潑", z: "ㄆㄛ"}] },
       { full: "心胸寬大", chars: [{show: "心"}, {blank: "胸", z: "ㄒㄩㄥ"}, {show: "寬"}, {show: "大"}] },
-      { full: "疾病", chars: [{blank: "疾", z: "ㄐㄧˊ"}, {show: "病"}] },
-      { full: "座談會", chars: [{show: "座"}, {blank: "談", z: "ㄊㄢˊ"}, {show: "會"}] },
       { full: "新聞記者", chars: [{show: "新"}, {show: "聞"}, {show: "記"}, {blank: "者", z: "ㄓㄜˇ"}] },
-      { full: "某些", chars: [{blank: "某", z: "ㄇㄡˇ"}, {show: "些"}] }
+      // 生字注音填空練習 (from G3-2_第7-12課_生字注音填空練習.docx)
+      { full: "模型飛機", chars: [{show: "模"}, {blank: "型", z: "ㄒㄧㄥˊ"}, {show: "飛"}, {show: "機"}] },
+      { full: "保護動物", chars: [{show: "保"}, {blank: "護", z: "ㄏㄨˋ"}, {show: "動"}, {show: "物"}] },
+      { full: "維持秩序", chars: [{show: "維"}, {show: "持"}, {blank: "秩", z: "ㄓˋ"}, {show: "序"}] },
+      { full: "一位作者", chars: [{show: "一"}, {show: "位"}, {show: "作"}, {blank: "者", z: "ㄓㄜˇ"}] },
+      { full: "扮演角色", chars: [{blank: "扮", z: "ㄅㄢˋ"}, {show: "演"}, {show: "角"}, {show: "色"}] },
+      { full: "胸有成竹", chars: [{blank: "胸", z: "ㄒㄩㄥ"}, {show: "有"}, {show: "成"}, {show: "竹"}] },
+      { full: "或許可以", chars: [{blank: "或", z: "ㄏㄨㄛˋ"}, {show: "許"}, {show: "可"}, {show: "以"}] },
+      { full: "某些同學", chars: [{blank: "某", z: "ㄇㄡˇ"}, {show: "些"}, {show: "同"}, {show: "學"}] },
+      { full: "座談會場", chars: [{show: "座"}, {blank: "談", z: "ㄊㄢˊ"}, {show: "會"}, {show: "場"}] },
+      { full: "展開笑容", chars: [{blank: "展", z: "ㄓㄢˇ"}, {show: "開"}, {show: "笑"}, {show: "容"}] },
+      { full: "信心倍增", chars: [{show: "信"}, {show: "心"}, {blank: "倍", z: "ㄅㄟˋ"}, {show: "增"}] },
+      { full: "挺直身體", chars: [{blank: "挺", z: "ㄊㄧㄥˇ"}, {show: "直"}, {show: "身"}, {show: "體"}] },
+      { full: "預防疾病", chars: [{show: "預"}, {show: "防"}, {blank: "疾", z: "ㄐㄧˊ"}, {show: "病"}] },
+      { full: "活潑可愛", chars: [{show: "活"}, {blank: "潑", z: "ㄆㄛ"}, {show: "可"}, {show: "愛"}] }
     ],
     quiz_idiom_fill: [
       { sentence: "他____地完成了這幅畫。", answer: "不疾不徐" },
@@ -226,21 +242,29 @@ const CN_UNITS = {
     idioms: ["赴湯蹈火", "化險為夷", "一舉兩得", "輕而易舉"],
     quiz_write_char: [
       { full: "入圍", chars: [{show: "入"}, {blank: "圍", z: "ㄨㄟˊ"}] },
-      { full: "名單", chars: [{show: "名"}, {blank: "單", z: "ㄉㄢ"}] },
       { full: "變化", chars: [{show: "變"}, {blank: "化", z: "ㄏㄨㄚˋ"}] },
       { full: "舉辦", chars: [{blank: "舉", z: "ㄐㄩˇ"}, {show: "辦"}] },
-      { full: "餐會", chars: [{blank: "餐", z: "ㄘㄢ"}, {show: "會"}] },
-      { full: "取消", chars: [{blank: "取", z: "ㄑㄩˇ"}, {show: "消"}] },
-      { full: "熱湯", chars: [{show: "熱"}, {blank: "湯", z: "ㄊㄤ"}] },
-      { full: "習慣", chars: [{show: "習"}, {blank: "慣", z: "ㄍㄨㄢˋ"}] },
       { full: "免洗筷", chars: [{blank: "免", z: "ㄇㄧㄢˇ"}, {show: "洗"}, {blank: "筷", z: "ㄎㄨㄞˋ"}] },
       { full: "垃圾分類", chars: [{blank: "垃", z: "ㄌㄜˋ"}, {blank: "圾", z: "ㄙㄜˋ"}, {show: "分"}, {blank: "類", z: "ㄌㄟˋ"}] },
       { full: "姿勢端正", chars: [{show: "姿"}, {show: "勢"}, {blank: "端", z: "ㄉㄨㄢ"}, {show: "正"}] },
       { full: "舉行", chars: [{blank: "舉", z: "ㄐㄩˇ"}, {show: "行"}] },
-      { full: "免費", chars: [{blank: "免", z: "ㄇㄧㄢˇ"}, {show: "費"}] },
-      { full: "比較", chars: [{show: "比"}, {blank: "較", z: "ㄐㄧㄠˋ"}] },
       { full: "手套", chars: [{show: "手"}, {blank: "套", z: "ㄊㄠˋ"}] },
-      { full: "煮飯", chars: [{blank: "煮", z: "ㄓㄨˇ"}, {show: "飯"}] }
+      // 生字注音填空練習 (from G3-2_第7-12課_生字注音填空練習.docx)
+      { full: "拉開窗簾", chars: [{blank: "拉", z: "ㄌㄚ"}, {show: "開"}, {show: "窗"}, {show: "簾"}] },
+      { full: "廚房打掃", chars: [{askZhuyin: "廚", z: "ㄔㄨˊ"}, {show: "房"}, {show: "打"}, {show: "掃"}] },
+      { full: "喝熱湯", chars: [{show: "喝"}, {show: "熱"}, {blank: "湯", z: "ㄊㄤ"}] },
+      { full: "比較高低", chars: [{show: "比"}, {blank: "較", z: "ㄐㄧㄠˋ"}, {show: "高"}, {show: "低"}] },
+      { full: "化學實驗", chars: [{blank: "化", z: "ㄏㄨㄚˋ"}, {show: "學"}, {show: "實"}, {show: "驗"}] },
+      { full: "餐具用品", chars: [{blank: "餐", z: "ㄘㄢ"}, {show: "具"}, {show: "用"}, {show: "品"}] },
+      { full: "養成習慣", chars: [{show: "養"}, {show: "成"}, {show: "習"}, {blank: "慣", z: "ㄍㄨㄢˋ"}] },
+      { full: "包圍起來", chars: [{show: "包"}, {blank: "圍", z: "ㄨㄟˊ"}, {show: "起"}, {show: "來"}] },
+      { full: "媽媽煮飯", chars: [{show: "媽"}, {show: "媽"}, {blank: "煮", z: "ㄓㄨˇ"}, {show: "飯"}] },
+      { full: "扁平盒子", chars: [{askZhuyin: "扁", z: "ㄅㄧㄢˇ"}, {show: "平"}, {show: "盒"}, {show: "子"}] },
+      { full: "舉手發言", chars: [{blank: "舉", z: "ㄐㄩˇ"}, {show: "手"}, {show: "發"}, {show: "言"}] },
+      { full: "免洗筷子", chars: [{show: "免"}, {show: "洗"}, {blank: "筷", z: "ㄎㄨㄞˋ"}, {show: "子"}] },
+      { full: "一套餐具", chars: [{show: "一"}, {blank: "套", z: "ㄊㄠˋ"}, {show: "餐"}, {show: "具"}] },
+      { full: "取消活動", chars: [{blank: "取", z: "ㄑㄩˇ"}, {show: "消"}, {show: "活"}, {show: "動"}] },
+      { full: "免費入場", chars: [{blank: "免", z: "ㄇㄧㄢˇ"}, {show: "費"}, {show: "入"}, {show: "場"}] }
     ],
     quiz_idiom_fill: [
       { sentence: "騎腳踏車上學,既運動又環保,真是____。", answer: "一舉兩得" },
@@ -309,19 +333,25 @@ const CN_UNITS = {
     quiz_write_char: [
       { full: "圖書館", chars: [{blank: "圖", z: "ㄊㄨˊ"}, {show: "書"}, {show: "館"}] },
       { full: "無所謂", chars: [{blank: "無", z: "ㄨˊ"}, {show: "所"}, {show: "謂"}] },
-      { full: "發呆", chars: [{show: "發"}, {blank: "呆", z: "ㄉㄞ"}] },
-      { full: "指揮", chars: [{show: "指"}, {blank: "揮", z: "ㄏㄨㄟ"}] },
-      { full: "眼鏡蛇", chars: [{show: "眼"}, {show: "鏡"}, {blank: "蛇", z: "ㄕㄜˊ"}] },
       { full: "豎笛", chars: [{blank: "豎", z: "ㄕㄨˋ"}, {show: "笛"}] },
       { full: "電腦螢幕", chars: [{show: "電"}, {show: "腦"}, {show: "螢"}, {blank: "幕", z: "ㄇㄨˋ"}] },
-      { full: "一眼瞧見", chars: [{show: "一"}, {show: "眼"}, {blank: "瞧", z: "ㄑㄧㄠˋ"}, {show: "見"}] },
-      { full: "開胃菜", chars: [{show: "開"}, {blank: "胃", z: "ㄨㄟˋ"}, {show: "菜"}] },
-      { full: "帽子", chars: [{blank: "帽", z: "ㄇㄠˋ"}, {show: "子"}] },
       { full: "工作人員", chars: [{show: "工"}, {show: "作"}, {show: "人"}, {blank: "員", z: "ㄩㄢˊ"}] },
-      { full: "既然如此", chars: [{blank: "既", z: "ㄐㄧˋ"}, {show: "然"}, {show: "如"}, {show: "此"}] },
-      { full: "瞪大眼睛", chars: [{blank: "瞪", z: "ㄉㄥˋ"}, {show: "大"}, {show: "眼"}, {show: "睛"}] },
       { full: "不切實際", chars: [{show: "不"}, {show: "切"}, {show: "實"}, {blank: "際", z: "ㄐㄧˋ"}] },
-      { full: "一幅畫", chars: [{show: "一"}, {blank: "幅", z: "ㄈㄨˊ"}, {show: "畫"}] }
+      // 生字注音填空練習 (from G3-2_第7-12課_生字注音填空練習.docx)
+      { full: "無邊無際", chars: [{blank: "無", z: "ㄨˊ"}, {show: "邊"}, {show: "無"}, {show: "際"}] },
+      { full: "豎起耳朵", chars: [{blank: "豎", z: "ㄕㄨˋ"}, {show: "起"}, {show: "耳"}, {show: "朵"}] },
+      { full: "戴上帽子", chars: [{show: "戴"}, {show: "上"}, {blank: "帽", z: "ㄇㄠˋ"}, {show: "子"}] },
+      { full: "眼鏡蛇", chars: [{show: "眼"}, {show: "鏡"}, {blank: "蛇", z: "ㄕㄜˊ"}] },
+      { full: "瞪大眼睛", chars: [{blank: "瞪", z: "ㄉㄥˋ"}, {show: "大"}, {show: "眼"}, {show: "睛"}] },
+      { full: "一幅圖畫", chars: [{show: "一"}, {blank: "幅", z: "ㄈㄨˊ"}, {show: "圖"}, {show: "畫"}] },
+      { full: "指揮交通", chars: [{show: "指"}, {blank: "揮", z: "ㄏㄨㄟ"}, {show: "交"}, {show: "通"}] },
+      { full: "發呆片刻", chars: [{show: "發"}, {blank: "呆", z: "ㄉㄞ"}, {show: "片"}, {show: "刻"}] },
+      { full: "鯨魚很大", chars: [{askZhuyin: "鯨", z: "ㄐㄧㄥ"}, {show: "魚"}, {show: "很"}, {show: "大"}] },
+      { full: "圖畫美麗", chars: [{blank: "圖", z: "ㄊㄨˊ"}, {show: "畫"}, {show: "美"}, {show: "麗"}] },
+      { full: "一眼瞧見", chars: [{show: "一"}, {show: "眼"}, {askZhuyin: "瞧", z: "ㄑㄧㄠˊ"}, {show: "見"}] },
+      { full: "既然如此", chars: [{blank: "既", z: "ㄐㄧˋ"}, {show: "然"}, {show: "如"}, {show: "此"}] },
+      { full: "開胃小菜", chars: [{show: "開"}, {blank: "胃", z: "ㄨㄟˋ"}, {show: "小"}, {show: "菜"}] },
+      { full: "寵物可愛", chars: [{askZhuyin: "寵", z: "ㄔㄨㄥˇ"}, {show: "物"}, {show: "可"}, {show: "愛"}] }
     ],
     quiz_idiom_fill: [
       { sentence: "哥哥平時____,不太注意外表。", answer: "不修邊幅" },
@@ -389,20 +419,29 @@ const CN_UNITS = {
     ],
     idioms: ["烏雲密布", "豁然開朗", "開誠布公", "目瞪口呆", "維妙維肖", "無影無蹤"],
     quiz_write_char: [
-      { full: "追蹤", chars: [{blank: "追", z: "ㄓㄨㄟ"}, {blank: "蹤", z: "ㄗㄨㄥ"}] },
-      { full: "互相", chars: [{show: "互"}, {blank: "相", z: "ㄒㄧㄤ"}] },
-      { full: "孫女", chars: [{blank: "孫", z: "ㄙㄨㄣ"}, {show: "女"}] },
-      { full: "困擾", chars: [{blank: "困", z: "ㄎㄨㄣˋ"}, {blank: "擾", z: "ㄖㄠˇ"}] },
-      { full: "寺廟", chars: [{blank: "寺", z: "ㄙˋ"}, {show: "廟"}] },
-      { full: "天氣晴朗", chars: [{show: "天"}, {show: "氣"}, {show: "晴"}, {blank: "朗", z: "ㄌㄤˇ"}] },
-      { full: "邀請函", chars: [{blank: "邀", z: "ㄧㄠ"}, {show: "請"}, {show: "函"}] },
-      { full: "公布答案", chars: [{show: "公"}, {blank: "布", z: "ㄅㄨˋ"}, {show: "答"}, {show: "案"}] },
-      { full: "流行時尚", chars: [{show: "流"}, {show: "行"}, {show: "時"}, {blank: "尚", z: "ㄕㄤˋ"}] },
       { full: "逼迫", chars: [{blank: "逼", z: "ㄅㄧ"}, {show: "迫"}] },
       { full: "元旦", chars: [{show: "元"}, {blank: "旦", z: "ㄉㄢˋ"}] },
       { full: "維修", chars: [{blank: "維", z: "ㄨㄟˊ"}, {show: "修"}] },
       { full: "十二生肖", chars: [{show: "十"}, {show: "二"}, {show: "生"}, {blank: "肖", z: "ㄒㄧㄠˋ"}] },
-      { full: "擾亂秩序", chars: [{blank: "擾", z: "ㄖㄠˇ"}, {show: "亂"}, {show: "秩"}, {show: "序"}] }
+      { full: "擾亂秩序", chars: [{blank: "擾", z: "ㄖㄠˇ"}, {show: "亂"}, {show: "秩"}, {show: "序"}] },
+      // 生字注音填空練習 (from G3-2_第7-12課_生字注音填空練習.docx)
+      { full: "通過考驗", chars: [{blank: "通", z: "ㄊㄨㄥ"}, {show: "過"}, {show: "考"}, {show: "驗"}] },
+      { full: "困在房中", chars: [{blank: "困", z: "ㄎㄨㄣˋ"}, {show: "在"}, {show: "房"}, {show: "中"}] },
+      { full: "佛像莊嚴", chars: [{askZhuyin: "佛", z: "ㄈㄛˊ"}, {show: "像"}, {show: "莊"}, {show: "嚴"}] },
+      { full: "邀請朋友", chars: [{blank: "邀", z: "ㄧㄠ"}, {show: "請"}, {show: "朋"}, {show: "友"}] },
+      { full: "互相幫忙", chars: [{show: "互"}, {blank: "相", z: "ㄒㄧㄤ"}, {show: "幫"}, {show: "忙"}] },
+      { full: "公布答案", chars: [{show: "公"}, {blank: "布", z: "ㄅㄨˋ"}, {show: "答"}, {show: "案"}] },
+      { full: "無影無蹤", chars: [{show: "無"}, {show: "影"}, {show: "無"}, {blank: "蹤", z: "ㄗㄨㄥ"}] },
+      { full: "寺廟參拜", chars: [{blank: "寺", z: "ㄙˋ"}, {show: "廟"}, {show: "參"}, {show: "拜"}] },
+      { full: "維妙維肖", chars: [{show: "維"}, {show: "妙"}, {show: "維"}, {blank: "肖", z: "ㄒㄧㄠˋ"}] },
+      { full: "受到困擾", chars: [{show: "受"}, {show: "到"}, {show: "困"}, {blank: "擾", z: "ㄖㄠˇ"}] },
+      { full: "橋梁穩固", chars: [{show: "橋"}, {askZhuyin: "梁", z: "ㄌㄧㄤˊ"}, {show: "穩"}, {show: "固"}] },
+      { full: "晴朗天氣", chars: [{show: "晴"}, {blank: "朗", z: "ㄌㄤˇ"}, {show: "天"}, {show: "氣"}] },
+      { full: "流行時尚", chars: [{show: "流"}, {show: "行"}, {show: "時"}, {blank: "尚", z: "ㄕㄤˋ"}] },
+      { full: "追蹤消息", chars: [{blank: "追", z: "ㄓㄨㄟ"}, {show: "蹤"}, {show: "消"}, {show: "息"}] },
+      { full: "維妙維肖", chars: [{blank: "維", z: "ㄨㄟˊ"}, {show: "妙"}, {show: "維"}, {show: "肖"}] },
+      { full: "子孫滿堂", chars: [{show: "子"}, {blank: "孫", z: "ㄙㄨㄣ"}, {show: "滿"}, {show: "堂"}] },
+      { full: "老鷹飛翔", chars: [{show: "老"}, {askZhuyin: "鷹", z: "ㄧㄥ"}, {show: "飛"}, {show: "翔"}] }
     ],
     quiz_idiom_fill: [
       { sentence: "經過____的談話後,誤會終於解開了。", answer: "開誠布公" },
@@ -478,21 +517,26 @@ const CN_UNITS = {
     ],
     idioms: ["朝令夕改", "抱頭鼠竄", "芒刺在背", "民不聊生", "夢寐以求"],
     quiz_write_char: [
-      { full: "正中央", chars: [{show: "正"}, {show: "中"}, {blank: "央", z: "ㄧㄤ"}] },
-      { full: "命令", chars: [{show: "命"}, {blank: "令", z: "ㄌㄧㄥˋ"}] },
-      { full: "跌倒", chars: [{blank: "跌", z: "ㄉㄧㄝˊ"}, {show: "倒"}] },
-      { full: "刺痛", chars: [{blank: "刺", z: "ㄘˋ"}, {show: "痛"}] },
-      { full: "幻覺", chars: [{blank: "幻", z: "ㄏㄨㄢˋ"}, {show: "覺"}] },
-      { full: "士兵", chars: [{show: "士"}, {blank: "兵", z: "ㄅㄧㄥ"}] },
-      { full: "車牌", chars: [{show: "車"}, {blank: "牌", z: "ㄆㄞˊ"}] },
-      { full: "做惡夢", chars: [{show: "做"}, {show: "惡"}, {blank: "夢", z: "ㄇㄥˋ"}] },
-      { full: "咦！", chars: [{blank: "咦", z: "ㄧˊ"}, {show: "！"}] },
       { full: "無聊", chars: [{show: "無"}, {blank: "聊", z: "ㄌㄧㄠˊ"}] },
-      { full: "松鼠", chars: [{show: "松"}, {blank: "鼠", z: "ㄕㄨˇ"}] },
+      // 生字注音填空練習 (from G3-2_第7-12課_生字注音填空練習.docx)
+      { full: "蛋糕香甜", chars: [{show: "蛋"}, {blank: "糕", z: "ㄍㄠ"}, {show: "香"}, {show: "甜"}] },
+      { full: "跌倒受傷", chars: [{blank: "跌", z: "ㄉㄧㄝˊ"}, {show: "倒"}, {show: "受"}, {show: "傷"}] },
+      { full: "士兵集合", chars: [{show: "士"}, {blank: "兵", z: "ㄅㄧㄥ"}, {show: "集"}, {show: "合"}] },
+      { full: "刺痛傷口", chars: [{blank: "刺", z: "ㄘˋ"}, {show: "痛"}, {show: "傷"}, {show: "口"}] },
       { full: "炎炎夏日", chars: [{show: "炎"}, {show: "炎"}, {blank: "夏", z: "ㄒㄧㄚˋ"}, {show: "日"}] },
-      { full: "發脾氣", chars: [{show: "發"}, {blank: "脾", z: "ㄆㄧˊ"}, {show: "氣"}] },
+      { full: "咦了一聲", chars: [{blank: "咦", z: "ㄧˊ"}, {show: "了"}, {show: "一"}, {show: "聲"}] },
+      { full: "木槌敲打", chars: [{show: "木"}, {askZhuyin: "槌", z: "ㄔㄨㄟˊ"}, {show: "敲"}, {show: "打"}] },
+      { full: "發脾氣了", chars: [{show: "發"}, {blank: "脾", z: "ㄆㄧˊ"}, {show: "氣"}, {show: "了"}] },
+      { full: "車牌號碼", chars: [{show: "車"}, {blank: "牌", z: "ㄆㄞˊ"}, {show: "號"}, {show: "碼"}] },
+      { full: "聊天時間", chars: [{blank: "聊", z: "ㄌㄧㄠˊ"}, {show: "天"}, {show: "時"}, {show: "間"}] },
+      { full: "松鼠跳躍", chars: [{show: "松"}, {blank: "鼠", z: "ㄕㄨˇ"}, {show: "跳"}, {show: "躍"}] },
+      { full: "正中央", chars: [{show: "正"}, {show: "中"}, {blank: "央", z: "ㄧㄤ"}] },
+      { full: "幻想世界", chars: [{blank: "幻", z: "ㄏㄨㄢˋ"}, {show: "想"}, {show: "世"}, {show: "界"}] },
+      { full: "比賽開始", chars: [{show: "比"}, {blank: "賽", z: "ㄙㄞˋ"}, {show: "開"}, {show: "始"}] },
       { full: "皇太后", chars: [{show: "皇"}, {show: "太"}, {blank: "后", z: "ㄏㄡˋ"}] },
-      { full: "蛋糕", chars: [{show: "蛋"}, {blank: "糕", z: "ㄍㄠ"}] }
+      { full: "做惡夢了", chars: [{show: "做"}, {show: "惡"}, {blank: "夢", z: "ㄇㄥˋ"}, {show: "了"}] },
+      { full: "命令大家", chars: [{show: "命"}, {blank: "令", z: "ㄌㄧㄥˋ"}, {show: "大"}, {show: "家"}] },
+      { full: "白鶴飛舞", chars: [{show: "白"}, {askZhuyin: "鶴", z: "ㄏㄜˋ"}, {show: "飛"}, {show: "舞"}] }
     ],
     quiz_idiom_fill: [
       { sentence: "做錯事後,他感到____。", answer: "芒刺在背" },
@@ -894,7 +938,7 @@ function finishCnIdiomQuiz() {
     [
       { label: "🎲 再考一次", onClick: () => { userSay("再考一次"); startCnIdiomQuiz(); } },
       { label: "🔑 查看生字", onClick: () => { userSay("查看生字"); startCnVocab(); } },
-      { label: "✍ 國字填寫", onClick: () => { userSay("國字填寫"); startCnWriteChar(); } },
+      { label: "✍ 國字/注音練習", onClick: () => { userSay("國字/注音練習"); startCnWriteChar(); } },
       { label: "📖 選擇另一課", onClick: () => { userSay("選擇另一課"); showUnitMenu(); } },
       { label: "🏛 回到主選單", onClick: () => { userSay("回到主選單"); showSectionMenu(); } }
     ]
@@ -1018,7 +1062,7 @@ function finishCnTextQuiz() {
   if (bonus) addStars(bonus);
   botSay(msg, [
     { label: "📖 再做一次 課文練習", onClick: () => { userSay("再做一次"); startCnReviewLessons(); } },
-    { label: "✍ 國字練習 (L7-L12)", onClick: () => { userSay("國字練習"); startCnReviewWriteChar(); } },
+    { label: "✍ 國字/注音練習 (L7-L12)", onClick: () => { userSay("國字/注音練習"); startCnReviewWriteChar(); } },
     { label: "📜 成語練習 (L7-L12)", onClick: () => { userSay("成語練習"); startCnReviewIdiomQuiz(); } },
     { label: "📖 選擇另一課", onClick: () => { userSay("選擇另一課"); showUnitMenu(); } },
     { label: "🏛 回到主選單", onClick: () => { userSay("回到主選單"); showSectionMenu(); } }
@@ -1033,12 +1077,15 @@ function startCnWriteChar() {
     return;
   }
   let html = `<strong>✍ ${u.title}: ${u.subtitle} — 國字填寫練習</strong>`;
-  html += `<div class='cn-write-instruction'>📝 請在紙上寫出空格中的<strong>國字</strong>。注音是提示。完成後按下「查看答案」對照。</div>`;
+  html += `<div class='cn-write-instruction'>📝 看到<strong>注音</strong>時,在空格寫出<strong>國字</strong>;看到<strong>國字</strong>且注音格空白時,寫出<strong>注音</strong>。完成後按下「查看答案」對照。</div>`;
   html += `<div class='cn-write-grid'>`;
   u.quiz_write_char.forEach((item, idx) => {
     html += `<div class='cn-write-row'><span class='cn-write-num'>${idx + 1}.</span>`;
     item.chars.forEach(c => {
-      if (c.show) {
+      if (c.askZhuyin) {
+        // Show the 國字, leave the zhuyin slot blank for the student to fill.
+        html += `<span class='cn-write-cell cn-write-show cn-write-askz'>${c.askZhuyin}<span class='cn-write-z cn-write-z-empty'></span></span>`;
+      } else if (c.show) {
         html += `<span class='cn-write-cell cn-write-show'>${c.show}</span>`;
       } else {
         html += `<span class='cn-write-cell cn-write-blank'>${formatZhuyinHtml(c.z)}</span>`;
@@ -1067,7 +1114,10 @@ function showCnWriteCharAnswers() {
   u.quiz_write_char.forEach((item, idx) => {
     html += `<div class='cn-write-row'><span class='cn-write-num'>${idx + 1}.</span>`;
     item.chars.forEach(c => {
-      if (c.show) {
+      if (c.askZhuyin) {
+        // Answer: show the 國字 with its zhuyin filled in (highlighted as the answer).
+        html += `<span class='cn-write-cell cn-write-answer cn-write-askz'>${c.askZhuyin}${formatZhuyinHtml(c.z)}</span>`;
+      } else if (c.show) {
         html += `<span class='cn-write-cell cn-write-show'>${c.show}</span>`;
       } else {
         html += `<span class='cn-write-cell cn-write-answer'>${c.blank}${formatZhuyinHtml(c.z)}</span>`;
