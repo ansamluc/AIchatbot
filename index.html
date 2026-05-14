@@ -2119,7 +2119,15 @@ function collectQuizBuckets(sectionKey, u) {
       if (Array.isArray(t.quiz) && t.quiz.length) {
         out.push({ kind: 'mc', label: `⚔ ${t.title}`, items: t.quiz });
       }
+      if (Array.isArray(t.challenge_questions) && t.challenge_questions.length) {
+        out.push({ kind: 'mc', label: `🔥 ${t.title} — Challenge`, items: t.challenge_questions });
+      }
     });
+  }
+
+  // Unit-level challenge questions (sci, math, vw, reading, grammar)
+  if (Array.isArray(u.challenge_questions) && u.challenge_questions.length) {
+    out.push({ kind: 'mc', label: '🔥 Challenge Trial (Grade 4-5)', items: u.challenge_questions });
   }
 
   // VW: questions are generated at runtime from the word list.
