@@ -83,7 +83,6 @@ const CN_UNITS = {
       { full: "去除汙漬", chars: [{show: "去"}, {show: "除"}, {show: "汙"}, {blank: "漬", z: "ㄗˋ"}] },
       // 生字注音填空練習 (from G3-2_第7-12課_生字注音填空練習.docx)
       { full: "玻璃罐子", chars: [{show: "玻"}, {show: "璃"}, {blank: "罐", z: "ㄍㄨㄢˋ"}, {show: "子"}] },
-      { full: "益生菌種", chars: [{show: "益"}, {show: "生"}, {askZhuyin: "菌", z: "ㄐㄩㄣˋ"}, {show: "種"}] },
       { full: "勇敢承認", chars: [{show: "勇"}, {show: "敢"}, {blank: "承", z: "ㄔㄥˊ"}, {show: "認"}] },
       { full: "態度嚴厲", chars: [{show: "態"}, {show: "度"}, {show: "嚴"}, {askZhuyin: "厲", z: "ㄌㄧˋ"}] },
       { full: "身體健康", chars: [{show: "身"}, {show: "體"}, {blank: "健", z: "ㄐㄧㄢˋ"}, {blank: "康", z: "ㄎㄤ"}] },
