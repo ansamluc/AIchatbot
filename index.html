@@ -2059,19 +2059,136 @@ function buildPrintableHTML(sectionKey, unitKey, mode) {
     font-style: normal;
   }
   .p-footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid #ccc; text-align: center; color: #888; font-size: 9pt; }
-  /* Hide toolbar in print */
+
+  /* Question-include checkboxes (screen only). */
+  .q-include-wrap {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .q-include {
+    width: 16px;
+    height: 16px;
+    accent-color: ${accent};
+    cursor: pointer;
+    margin: 0;
+  }
+  .quiz-q.q-excluded { opacity: 0.42; background: #f5f3f0; }
+  .answer-key li.q-excluded { opacity: 0.42; }
+  .sel-count {
+    font-size: 10pt; color: #555; font-style: italic;
+    align-self: center; padding: 0 4px;
+  }
+
+  /* Hide on-screen UI when printing. The actual filtering of questions
+     is done by mutating the DOM (see printSelected in script), which is
+     more reliable across browsers than CSS-only @media print rules. */
   @media print {
     body { padding: 0; }
     .toolbar { display: none !important; }
+    .q-include-wrap { display: none !important; }
   }
 </style>
 </head>
 <body>
   <div class="toolbar">
-    <button onclick="window.print()">🖨 Print / Save as PDF</button>
-    <button class="secondary" onclick="window.close()">Close</button>
+    <button onclick="printAll()">🖨 Print All</button>
+    <button onclick="printSelected()">✓ Print Selected Only</button>
+    <button class="secondary" onclick="selectAllQs(true)">☑ Select All</button>
+    <button class="secondary" onclick="selectAllQs(false)">☐ Clear All</button>
+    <span class="sel-count" id="sel-count"></span>
+    <button class="secondary" onclick="window.close()" style="margin-left:auto;">Close</button>
   </div>
   ${body}
+  <script>
+    function getQs() { return Array.from(document.querySelectorAll('.quiz-q')); }
+    function getAnsItems() { return Array.from(document.querySelectorAll('.answer-key li[data-qnum]')); }
+    function updateCount() {
+      const all = getQs();
+      const sel = all.filter(q => { const cb = q.querySelector('.q-include'); return cb && cb.checked; });
+      const el = document.getElementById('sel-count');
+      if (el) el.textContent = sel.length + ' of ' + all.length + ' selected';
+    }
+    function selectAllQs(on) {
+      getQs().forEach(q => { const cb = q.querySelector('.q-include'); if (cb) cb.checked = !!on; });
+      updateCount();
+    }
+    function printAll() {
+      window.print();
+    }
+    function printSelected() {
+      // Figure out which questions ARE checked.
+      const allQs = getQs();
+      const keep = new Set();
+      allQs.forEach(q => {
+        const cb = q.querySelector('.q-include');
+        if (cb && cb.checked) keep.add(q.dataset.qnum);
+      });
+      if (keep.size === 0) {
+        alert('No questions selected. Tick at least one question, or use "Print All".');
+        return;
+      }
+      if (keep.size === allQs.length) {
+        // Nothing excluded — just print this page directly.
+        window.print();
+        return;
+      }
+      // Build a fresh document containing only the selected questions so we
+      // never mutate (and possibly break) the live printable. This sidesteps
+      // browser quirks around window.print() + DOM mutation timing.
+      const clone = document.documentElement.cloneNode(true);
+      // Strip the on-screen toolbar and the include-checkboxes from the clone.
+      clone.querySelectorAll('.toolbar, .q-include-wrap, script').forEach(el => el.remove());
+      // Remove unchecked questions.
+      let qn = 0;
+      clone.querySelectorAll('.quiz-q').forEach(q => {
+        const dq = q.getAttribute('data-qnum');
+        if (!keep.has(dq)) { q.remove(); return; }
+        qn++;
+        const span = q.querySelector('.qnum');
+        if (span) span.textContent = qn + '.';
+      });
+      // Remove matching answer-key items and renumber.
+      let an = 0;
+      clone.querySelectorAll('.answer-key li[data-qnum]').forEach(li => {
+        const dq = li.getAttribute('data-qnum');
+        if (!keep.has(dq)) { li.remove(); return; }
+        an++;
+        li.setAttribute('value', String(an));
+      });
+      // Remove buckets that ended up empty.
+      clone.querySelectorAll('.quiz-bucket').forEach(b => {
+        if (!b.querySelector('.quiz-q')) b.remove();
+      });
+      // Remove the answer-key entirely if nothing left in it.
+      const ak = clone.querySelector('.answer-key');
+      if (ak && !ak.querySelector('li')) ak.remove();
+
+      // Open a new window with just the cleaned printable + auto-print.
+      const w = window.open('', '_blank');
+      if (!w) {
+        alert('Please allow pop-ups so the selection can open for printing.');
+        return;
+      }
+      const head = clone.querySelector('head');
+      const body = clone.querySelector('body');
+      const headHtml = head ? head.innerHTML : '';
+      const bodyHtml = body ? body.innerHTML : '';
+      const autoPrint = '<scr' + 'ipt>window.addEventListener("load", function(){ setTimeout(function(){ try { window.print(); } catch(e){} }, 250); });<\/scr' + 'ipt>';
+      const doc = '<!doctype html><html><head>' + headHtml + '</head><body>' + bodyHtml + autoPrint + '</body></html>';
+      w.document.open();
+      w.document.write(doc);
+      w.document.close();
+    }
+    document.addEventListener('change', e => {
+      if (e.target && e.target.classList && e.target.classList.contains('q-include')) {
+        updateCount();
+      }
+    });
+    document.addEventListener('DOMContentLoaded', updateCount);
+    updateCount();
+  <\/script>
 </body>
 </html>`;
 }
@@ -2157,6 +2274,7 @@ function renderQuizSection(sectionKey, u, mode) {
 
   buckets.forEach(bucket => {
     if (!bucket.items.length) return;
+    html += `<div class="quiz-bucket">`;
     html += `<div class="quiz-section-title">${bucket.label} (${bucket.items.length} questions)</div>`;
     if (bucket.kind === 'write_char') {
       html += `<div class="quiz-instruction">📝 看到<strong>注音</strong>(虛線格)時,寫出<strong>國字</strong>;`
@@ -2167,6 +2285,7 @@ function renderQuizSection(sectionKey, u, mode) {
       allItems.push({ num: globalNum, item: item, kind: bucket.kind });
       html += renderQuizQuestion(globalNum, item, bucket.kind);
     });
+    html += `</div>`;
   });
 
   // Answer key
@@ -2195,7 +2314,7 @@ function renderQuizSection(sectionKey, u, mode) {
     } else {
       answerStr = '—';
     }
-    html += `<li value="${entry.num}"><span class="ans-label">${answerStr}</span>`;
+    html += `<li value="${entry.num}" data-qnum="${entry.num}"><span class="ans-label">${answerStr}</span>`;
     if (it.explain) {
       html += `<span class="explain">${it.explain}</span>`;
     }
@@ -2293,9 +2412,10 @@ function collectQuizBuckets(sectionKey, u) {
 }
 
 function renderQuizQuestion(num, item, kind) {
+  const cb = `<label class="q-include-wrap" title="Include in printout"><input type="checkbox" class="q-include" checked data-qnum="${num}"></label>`;
   // Idiom fill-in-the-blank: item shape is { sentence, answer }
   if (kind === 'idiom') {
-    return `<div class="quiz-q ${kind}"><span class="qnum">${num}.</span> <span class="qprompt">${item.sentence || ''}</span></div>`;
+    return `<div class="quiz-q ${kind}" data-qnum="${num}">${cb}<span class="qnum">${num}.</span> <span class="qprompt">${item.sentence || ''}</span></div>`;
   }
   // Write-character (國字/注音練習): item shape is { full, chars: [...] }
   // Each char is one of:
@@ -2318,9 +2438,9 @@ function renderQuizQuestion(num, item, kind) {
         cells += `<span style="${cellBase}border:1px dashed #999;font-size:0.8em;color:#888;background:#fafafa;">${c.z || ''}</span>`;
       }
     });
-    return `<div class="quiz-q ${kind}"><span class="qnum">${num}.</span> <span class="qprompt">${cells}</span></div>`;
+    return `<div class="quiz-q ${kind}" data-qnum="${num}">${cb}<span class="qnum">${num}.</span> <span class="qprompt">${cells}</span></div>`;
   }
-  let html = `<div class="quiz-q ${kind}"><span class="qnum">${num}.</span> <span class="qprompt">${item.q}</span>`;
+  let html = `<div class="quiz-q ${kind}" data-qnum="${num}">${cb}<span class="qnum">${num}.</span> <span class="qprompt">${item.q}</span>`;
   if (kind === 'tf') {
     html += `<div class="qopts"><span class="qopt">○ True</span><span class="qopt">○ False</span></div>`;
   } else if (Array.isArray(item.options)) {
