@@ -1319,7 +1319,9 @@
 </div>
 
 <script src="grammar-data.js"></script>
+<script src="grammar-quizzes.js"></script>
 <script src="vw-data.js"></script>
+<script src="vw-final-review.js"></script>
 <script src="reading-data.js"></script>
 <script src="ss-data.js"></script>
 <script src="cn-data.js"></script>
@@ -2851,6 +2853,70 @@ function showUnitMenu() {
 
   bubble.appendChild(grid);
 
+  // Extra VW-only buttons: Final Review 1 and 2 (mix review, online or print)
+  if (state.section === 'vw' && typeof VW_FINAL_REVIEWS !== 'undefined') {
+    const vwQuizHeader = document.createElement('div');
+    vwQuizHeader.style.marginTop = '14px';
+    vwQuizHeader.style.fontFamily = "'Cinzel', serif";
+    vwQuizHeader.style.fontSize = '0.85rem';
+    vwQuizHeader.style.color = '#6a3a9a';
+    vwQuizHeader.innerHTML = '✦ Vocabulary Final Review ✦';
+    bubble.appendChild(vwQuizHeader);
+
+    const vwQuizOpts = document.createElement('div');
+    vwQuizOpts.className = 'options';
+    vwQuizOpts.style.marginTop = '6px';
+
+    Object.keys(VW_FINAL_REVIEWS).forEach(qKey => {
+      const qz = VW_FINAL_REVIEWS[qKey];
+      const onlineBtn = document.createElement('button');
+      onlineBtn.className = 'option-btn';
+      onlineBtn.innerHTML = `📝 ${qz.title} — Take Online`;
+      onlineBtn.onclick = () => { userSay(`${qz.title} (online)`); startVwFinalReview(qKey); };
+      vwQuizOpts.appendChild(onlineBtn);
+
+      const printBtn = document.createElement('button');
+      printBtn.className = 'option-btn';
+      printBtn.innerHTML = `🖨 ${qz.title} — Print`;
+      printBtn.onclick = () => { userSay(`${qz.title} (print)`); openVwFinalReviewPrintable(qKey); };
+      vwQuizOpts.appendChild(printBtn);
+    });
+
+    bubble.appendChild(vwQuizOpts);
+  }
+
+  // Extra Grammar-only buttons: Quiz 1 and Quiz 2 (mix review, online or print)
+  if (state.section === 'grammar' && typeof GRAMMAR_QUIZZES !== 'undefined') {
+    const quizHeader = document.createElement('div');
+    quizHeader.style.marginTop = '14px';
+    quizHeader.style.fontFamily = "'Cinzel', serif";
+    quizHeader.style.fontSize = '0.85rem';
+    quizHeader.style.color = 'var(--imp-gold-dark)';
+    quizHeader.innerHTML = '✦ Grammar Quizzes (Mix Review) ✦';
+    bubble.appendChild(quizHeader);
+
+    const quizOpts = document.createElement('div');
+    quizOpts.className = 'options';
+    quizOpts.style.marginTop = '6px';
+
+    Object.keys(GRAMMAR_QUIZZES).forEach(qKey => {
+      const qz = GRAMMAR_QUIZZES[qKey];
+      const onlineBtn = document.createElement('button');
+      onlineBtn.className = 'option-btn';
+      onlineBtn.innerHTML = `📝 ${qz.title} — Take Online`;
+      onlineBtn.onclick = () => { userSay(`${qz.title} (online)`); startGrammarQuiz(qKey); };
+      quizOpts.appendChild(onlineBtn);
+
+      const printBtn = document.createElement('button');
+      printBtn.className = 'option-btn';
+      printBtn.innerHTML = `🖨 ${qz.title} — Print`;
+      printBtn.onclick = () => { userSay(`${qz.title} (print)`); openGrammarQuizPrintable(qKey); };
+      quizOpts.appendChild(printBtn);
+    });
+
+    bubble.appendChild(quizOpts);
+  }
+
   // Back to Library Selection button
   const backDiv = document.createElement('div');
   backDiv.className = 'options';
@@ -3298,6 +3364,555 @@ function finishChallengeQuiz() {
       { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
     ]
   );
+}
+
+/* ================================================================
+   GRAMMAR QUIZZES (Mix Review) — online runner + printable
+   ================================================================ */
+
+function startGrammarQuiz(qKey) {
+  if (typeof GRAMMAR_QUIZZES === 'undefined' || !GRAMMAR_QUIZZES[qKey]) {
+    botSay("⚠ That quiz is not available.");
+    return;
+  }
+  const quiz = GRAMMAR_QUIZZES[qKey];
+  state.mode = 'grammar_quiz';
+  state.section = 'grammar';
+  state.gqKey = qKey;
+  state.gqIndex = 0;
+  state.gqCorrect = 0;
+  botSay(
+    `<strong>📝 ${quiz.title}</strong> — ${quiz.subtitle}<br>` +
+    `<em>${quiz.mc.length} mix-review questions, then a paragraph to correct. Steel thy mind!</em>`
+  );
+  setTimeout(askGrammarQuizQuestion, 500);
+}
+
+function askGrammarQuizQuestion() {
+  const quiz = GRAMMAR_QUIZZES[state.gqKey];
+  const item = quiz.mc[state.gqIndex];
+  let qHTML = `<strong>Question ${state.gqIndex + 1} of ${quiz.mc.length}</strong>` +
+              (item.topic ? ` <span style='color:#888;font-size:0.85em;'>(${item.topic})</span>` : '') +
+              `<br><br>${item.q}`;
+  const opts = item.options.map((opt, idx) => ({
+    label: opt,
+    onClick: (btn) => handleGrammarQuizAnswer(idx, btn)
+  }));
+  botSay(qHTML, opts);
+}
+
+function handleGrammarQuizAnswer(chosen, btn) {
+  const quiz = GRAMMAR_QUIZZES[state.gqKey];
+  const item = quiz.mc[state.gqIndex];
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+  userSay(item.options[chosen]);
+  const isCorrect = (chosen === item.answer);
+  if (isCorrect) {
+    btn.classList.add('correct');
+    state.gqCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain}<br><em>+1 Honour</em></div>`);
+  } else {
+    btn.classList.add('wrong');
+    if (allBtns[item.answer]) allBtns[item.answer].classList.add('correct');
+    botSay(
+      `<div class='feedback-wrong'>⚔ <strong>The truth was &ldquo;${item.options[item.answer]}&rdquo;.</strong><br>` +
+      `${item.explain}<br><em>Stand firm, scholar!</em></div>`
+    );
+  }
+  if (typeof logAnswer === 'function') {
+    logAnswer(isCorrect, item.q, item.options[chosen], item.options[item.answer], item.explain, item.options);
+  }
+  state.gqIndex++;
+  setTimeout(() => {
+    if (state.gqIndex < quiz.mc.length) {
+      askGrammarQuizQuestion();
+    } else {
+      startGrammarParagraphTask();
+    }
+  }, 900);
+}
+
+function startGrammarParagraphTask() {
+  const quiz = GRAMMAR_QUIZZES[state.gqKey];
+  const total = quiz.mc.length;
+  const got = state.gqCorrect;
+  botSay(
+    `<strong>✠ Multiple Choice Complete!</strong> Thou hast won ${got} of ${total}.<br><br>` +
+    `<strong>📜 Paragraph Correction Challenge</strong><br>` +
+    quiz.paragraph.intro +
+    `<div class='reading-passage' style='margin-top:10px; padding:12px; background:#f8f4ec; border-left:3px solid var(--imp-gold); white-space:pre-wrap;'>${quiz.paragraph.original}</div>`,
+    [
+      { label: "👀 Reveal Corrected Paragraph", onClick: () => { userSay("Reveal corrected paragraph"); revealGrammarParagraph(); } },
+      { label: "🖨 Print this Quiz", onClick: () => { userSay("Print this quiz"); openGrammarQuizPrintable(state.gqKey); } },
+      { label: "↩ Skip — Finish Quiz", onClick: () => { userSay("Skip paragraph"); finishGrammarQuiz(); } }
+    ]
+  );
+}
+
+function revealGrammarParagraph() {
+  const quiz = GRAMMAR_QUIZZES[state.gqKey];
+  let notesHTML = '';
+  if (Array.isArray(quiz.paragraph.notes) && quiz.paragraph.notes.length) {
+    notesHTML = '<ol style="margin-top:8px; padding-left:20px;">' +
+      quiz.paragraph.notes.map(n => `<li style='margin-bottom:4px;'>${n}</li>`).join('') +
+      '</ol>';
+  }
+  botSay(
+    `<strong>✠ Corrected Paragraph</strong>` +
+    `<div class='reading-passage' style='margin-top:10px; padding:12px; background:#eef6ee; border-left:3px solid var(--imp-green); white-space:pre-wrap;'>${quiz.paragraph.corrected}</div>` +
+    `<div style='margin-top:10px;'><strong>What changed:</strong>${notesHTML}</div>`,
+    [
+      { label: "🏁 Finish Quiz", onClick: () => { userSay("Finish quiz"); finishGrammarQuiz(); } }
+    ]
+  );
+}
+
+function finishGrammarQuiz() {
+  const quiz = GRAMMAR_QUIZZES[state.gqKey];
+  const total = quiz.mc.length;
+  const got = state.gqCorrect;
+  const bonus = (got === total) ? 3 : (got >= total - 1) ? 2 : (got >= total / 2) ? 1 : 0;
+  let msg;
+  if (got === total) {
+    msg = `✠✠✠ <strong>GLORIOUS VICTORY!</strong> All ${total} questions conquered! Bonus +${bonus} Honour!`;
+  } else if (got >= total - 1) {
+    msg = `⚔ <strong>Most valiant!</strong> ${got} of ${total} questions won. Bonus +${bonus} Honour!`;
+  } else if (got >= total / 2) {
+    msg = `✠ <strong>A worthy showing!</strong> ${got} of ${total} won. Bonus +${bonus} Honour.`;
+  } else {
+    msg = `Thou hast claimed ${got} of ${total}. <em>Review the Codex and try again!</em>`;
+  }
+  if (bonus) addStars(bonus);
+  botSay(
+    msg,
+    [
+      { label: "🔁 Retake this Quiz", onClick: () => { userSay("Retake quiz"); startGrammarQuiz(state.gqKey); } },
+      { label: "🖨 Print this Quiz", onClick: () => { userSay("Print quiz"); openGrammarQuizPrintable(state.gqKey); } },
+      { label: "📝 Try the Other Quiz", onClick: () => {
+          const other = (state.gqKey === 'q1') ? 'q2' : 'q1';
+          userSay("Try the other quiz");
+          startGrammarQuiz(other);
+        } },
+      { label: "✠ Back to Grammar Units", onClick: () => { userSay("Back to grammar units"); showUnitMenu(); } },
+      { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+    ]
+  );
+}
+
+/* Build & open a printable version of a grammar quiz */
+function openGrammarQuizPrintable(qKey) {
+  if (typeof GRAMMAR_QUIZZES === 'undefined' || !GRAMMAR_QUIZZES[qKey]) {
+    alert("That quiz isn't available.");
+    return;
+  }
+  const html = buildGrammarQuizPrintableHTML(qKey);
+  const w = window.open('', '_blank');
+  if (!w) {
+    alert('Please allow pop-ups so the printable can open in a new tab.');
+    return;
+  }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
+
+function buildGrammarQuizPrintableHTML(qKey) {
+  const quiz = GRAMMAR_QUIZZES[qKey];
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+  let qsHTML = '';
+  quiz.mc.forEach((item, i) => {
+    qsHTML += `<div class="q"><div class="q-head"><span class="q-num">${i + 1}.</span> ${item.q}` +
+              (item.topic ? ` <span class="topic">(${item.topic})</span>` : '') + `</div>`;
+    qsHTML += `<ol class="opts">`;
+    item.options.forEach((opt, idx) => {
+      qsHTML += `<li><span class="opt-letter">${letters[idx]}.</span> ${opt}</li>`;
+    });
+    qsHTML += `</ol></div>`;
+  });
+
+  let keyHTML = '';
+  quiz.mc.forEach((item, i) => {
+    keyHTML += `<div class="ak-row"><strong>${i + 1}.</strong> ${letters[item.answer]} — ${item.options[item.answer]}<br>` +
+               `<span class="ak-explain">${item.explain}</span></div>`;
+  });
+
+  let notesHTML = '';
+  if (Array.isArray(quiz.paragraph.notes) && quiz.paragraph.notes.length) {
+    notesHTML = '<ol class="notes">' +
+      quiz.paragraph.notes.map(n => `<li>${n}</li>`).join('') +
+      '</ol>';
+  }
+
+  return `<!doctype html>
+<html><head>
+<meta charset="UTF-8">
+<title>${quiz.title} — Printable</title>
+<style>
+  @page { size: letter; margin: 0.7in; }
+  body { font-family: 'Georgia', 'Times New Roman', serif; color: #1a1714; line-height: 1.4; max-width: 7.1in; margin: 0 auto; padding: 12px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px 0; color: #c97e5a; border-bottom: 2px solid #c97e5a; padding-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin: 18px 0 8px 0; color: #a05a38; border-bottom: 1px solid #e0d8d0; padding-bottom: 3px; }
+  .subtitle { color: #6b6560; font-style: italic; margin-bottom: 14px; }
+  .name-line { margin: 10px 0 16px 0; font-size: 0.95rem; }
+  .name-line span { display: inline-block; min-width: 180px; border-bottom: 1px solid #888; margin-right: 18px; }
+  .q { margin-bottom: 10px; page-break-inside: avoid; }
+  .q-head { font-weight: bold; margin-bottom: 4px; }
+  .q-num { color: #c97e5a; margin-right: 4px; }
+  .topic { font-weight: normal; color: #888; font-size: 0.85em; font-style: italic; }
+  .opts { margin: 4px 0 6px 22px; padding: 0; list-style: none; }
+  .opts li { margin: 2px 0; }
+  .opt-letter { font-weight: bold; color: #6b6560; margin-right: 4px; }
+  .paragraph-box { border: 1.5px solid #c97e5a; padding: 12px; background: #fdfaf5; line-height: 1.6; white-space: pre-wrap; }
+  .rewrite-lines { margin-top: 10px; }
+  .rewrite-lines .line { border-bottom: 1px solid #aaa; height: 22px; margin-bottom: 6px; }
+  .answer-key { page-break-before: always; }
+  .ak-row { margin-bottom: 8px; }
+  .ak-explain { color: #555; font-size: 0.9em; font-style: italic; }
+  .notes { padding-left: 22px; }
+  .notes li { margin-bottom: 4px; }
+  .corrected-box { border: 1.5px solid #3a7a4a; padding: 12px; background: #f4faf4; white-space: pre-wrap; line-height: 1.6; }
+  .footer { margin-top: 28px; text-align: center; color: #888; font-size: 0.8em; }
+  @media print { .no-print { display: none; } }
+  .no-print { text-align: center; margin: 10px 0 20px 0; }
+  .no-print button { background: #c97e5a; color: white; border: 0; padding: 8px 16px; font-size: 1rem; cursor: pointer; border-radius: 3px; }
+</style>
+</head><body>
+  <div class="no-print"><button onclick="window.print()">🖨 Print this page</button></div>
+  <h1>${quiz.title}</h1>
+  <div class="subtitle">${quiz.subtitle}</div>
+  <div class="name-line">Name: <span></span> Date: <span></span></div>
+
+  <h2>Part 1 · Multiple Choice (Circle the best answer)</h2>
+  ${qsHTML}
+
+  <h2>Part 2 · Paragraph Correction</h2>
+  <p>${quiz.paragraph.intro}</p>
+  <div class="paragraph-box">${quiz.paragraph.original}</div>
+  <p style="margin-top:10px;"><strong>Rewrite the paragraph correctly:</strong></p>
+  <div class="rewrite-lines">
+    ${Array.from({length: 10}).map(() => '<div class="line"></div>').join('')}
+  </div>
+
+  <div class="answer-key">
+    <h2>✠ Answer Key</h2>
+    <h3 style="margin:10px 0 4px 0;">Part 1 — Multiple Choice</h3>
+    ${keyHTML}
+    <h3 style="margin:14px 0 4px 0;">Part 2 — Corrected Paragraph</h3>
+    <div class="corrected-box">${quiz.paragraph.corrected}</div>
+    <p style="margin-top:8px;"><strong>What changed:</strong></p>
+    ${notesHTML}
+  </div>
+
+  <div class="footer">Adept Buddy · Imperial Scholarum of Grade III</div>
+</body></html>`;
+}
+
+/* ================================================================
+   VOCABULARY FINAL REVIEW — online runner + printable
+   Four-section flow: fill → syn → ant → cloze paragraph.
+   ================================================================ */
+
+function startVwFinalReview(qKey) {
+  if (typeof VW_FINAL_REVIEWS === 'undefined' || !VW_FINAL_REVIEWS[qKey]) {
+    botSay("⚠ That review is not available.");
+    return;
+  }
+  const quiz = VW_FINAL_REVIEWS[qKey];
+  state.mode = 'vw_final_review';
+  state.section = 'vw';
+  state.vwfrKey = qKey;
+  state.vwfrSection = 'fill';
+  state.vwfrIndex = 0;
+  state.vwfrCorrect = 0;
+  state.vwfrTotal = quiz.fill.length + quiz.syn.length + quiz.ant.length + quiz.paragraph.blanks.length;
+  botSay(
+    `<strong>📝 ${quiz.title}</strong> — ${quiz.subtitle}<br>` +
+    `<em>Four sections await thee:<br>` +
+    `① ${quiz.fill.length} fill-in-the-blank sentences<br>` +
+    `② ${quiz.syn.length} synonyms<br>` +
+    `③ ${quiz.ant.length} antonyms<br>` +
+    `④ a cloze paragraph with ${quiz.paragraph.blanks.length} blanks.<br>` +
+    `Steel thy mind!</em>`
+  );
+  setTimeout(askVwFinalReviewQuestion, 500);
+}
+
+function getVwFinalReviewItems() {
+  const quiz = VW_FINAL_REVIEWS[state.vwfrKey];
+  if (state.vwfrSection === 'fill') return quiz.fill;
+  if (state.vwfrSection === 'syn')  return quiz.syn;
+  if (state.vwfrSection === 'ant')  return quiz.ant;
+  if (state.vwfrSection === 'para') return quiz.paragraph.blanks;
+  return [];
+}
+
+function vwFinalReviewSectionLabel() {
+  if (state.vwfrSection === 'fill') return '① Fill in the Blank';
+  if (state.vwfrSection === 'syn')  return '② Synonyms';
+  if (state.vwfrSection === 'ant')  return '③ Antonyms';
+  if (state.vwfrSection === 'para') return '④ Cloze Paragraph';
+  return '';
+}
+
+function askVwFinalReviewQuestion() {
+  const quiz = VW_FINAL_REVIEWS[state.vwfrKey];
+  // For the paragraph section, show the passage with current blank highlighted on the FIRST blank
+  if (state.vwfrSection === 'para' && state.vwfrIndex === 0) {
+    let text = quiz.paragraph.text;
+    // Make blanks look like blanks in the rendered passage; the current one highlighted
+    text = text.replace(/\[\[(\d+)\]\]/g, (m, n) => {
+      const num = parseInt(n, 10);
+      if (num === 1) return `<span style="background:#fff3b0;padding:0 4px;border-bottom:2px solid #c97e5a;"><strong>(${num})</strong> ____</span>`;
+      return `<span style="opacity:0.7;"><strong>(${num})</strong> ____</span>`;
+    });
+    botSay(
+      `<strong>${vwFinalReviewSectionLabel()}</strong><br>${quiz.paragraph.intro}` +
+      `<div class='reading-passage' style='margin-top:10px;padding:12px;background:#f8f4ec;border-left:3px solid #9060c0;line-height:1.7;'>${text}</div>`
+    );
+    setTimeout(askVwFinalReviewQuestionInner, 400);
+    return;
+  }
+  askVwFinalReviewQuestionInner();
+}
+
+function askVwFinalReviewQuestionInner() {
+  const items = getVwFinalReviewItems();
+  const item = items[state.vwfrIndex];
+  let qHTML;
+  if (state.vwfrSection === 'para') {
+    qHTML = `<strong>${vwFinalReviewSectionLabel()} — Blank ${state.vwfrIndex + 1} of ${items.length}</strong><br><br>` +
+            `Which word best fits blank <strong>(${state.vwfrIndex + 1})</strong>?`;
+  } else {
+    qHTML = `<strong>${vwFinalReviewSectionLabel()} — ${state.vwfrIndex + 1} of ${items.length}</strong><br><br>${item.q}`;
+  }
+  const opts = item.options.map((opt, idx) => ({
+    label: opt,
+    onClick: (btn) => handleVwFinalReviewAnswer(idx, btn)
+  }));
+  botSay(qHTML, opts);
+}
+
+function handleVwFinalReviewAnswer(chosen, btn) {
+  const items = getVwFinalReviewItems();
+  const item = items[state.vwfrIndex];
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+  userSay(item.options[chosen]);
+  const isCorrect = (chosen === item.answer);
+  if (isCorrect) {
+    btn.classList.add('correct');
+    state.vwfrCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain || ''}<br><em>+1 Honour</em></div>`);
+  } else {
+    btn.classList.add('wrong');
+    if (allBtns[item.answer]) allBtns[item.answer].classList.add('correct');
+    botSay(
+      `<div class='feedback-wrong'>⚔ <strong>The truth was &ldquo;${item.options[item.answer]}&rdquo;.</strong><br>` +
+      `${item.explain || ''}<br><em>Stand firm, scholar!</em></div>`
+    );
+  }
+  if (typeof logAnswer === 'function') {
+    logAnswer(isCorrect, item.q || ('Paragraph blank ' + (state.vwfrIndex + 1)), item.options[chosen], item.options[item.answer], item.explain || '', item.options);
+  }
+
+  state.vwfrIndex++;
+  setTimeout(() => {
+    if (state.vwfrIndex < items.length) {
+      askVwFinalReviewQuestion();
+    } else {
+      // Move to next section, or finish
+      if (state.vwfrSection === 'fill') {
+        state.vwfrSection = 'syn'; state.vwfrIndex = 0;
+        botSay(`<strong>Section ① complete!</strong> Now: <em>${vwFinalReviewSectionLabel().replace('②','②')}</em>`);
+        setTimeout(askVwFinalReviewQuestion, 500);
+      } else if (state.vwfrSection === 'syn') {
+        state.vwfrSection = 'ant'; state.vwfrIndex = 0;
+        botSay(`<strong>Section ② complete!</strong> Now: <em>${vwFinalReviewSectionLabel()}</em>`);
+        setTimeout(askVwFinalReviewQuestion, 500);
+      } else if (state.vwfrSection === 'ant') {
+        state.vwfrSection = 'para'; state.vwfrIndex = 0;
+        botSay(`<strong>Section ③ complete!</strong> Now: <em>${vwFinalReviewSectionLabel()}</em>`);
+        setTimeout(askVwFinalReviewQuestion, 500);
+      } else {
+        finishVwFinalReview();
+      }
+    }
+  }, 900);
+}
+
+function finishVwFinalReview() {
+  const quiz = VW_FINAL_REVIEWS[state.vwfrKey];
+  const total = state.vwfrTotal;
+  const got = state.vwfrCorrect;
+  const bonus = (got === total) ? 5 : (got >= total - 2) ? 4 : (got >= total * 0.8) ? 3 : (got >= total * 0.6) ? 2 : (got >= total / 2) ? 1 : 0;
+  let msg;
+  if (got === total) {
+    msg = `✠✠✠ <strong>GLORIOUS VICTORY!</strong> All ${total} trials conquered! Bonus +${bonus} Honour!`;
+  } else if (got >= total - 2) {
+    msg = `⚔ <strong>Magnificent!</strong> ${got} of ${total} trials won. Bonus +${bonus} Honour!`;
+  } else if (got >= total * 0.8) {
+    msg = `✠ <strong>Most valiant!</strong> ${got} of ${total}. Bonus +${bonus} Honour.`;
+  } else if (got >= total / 2) {
+    msg = `✠ <strong>A worthy attempt!</strong> ${got} of ${total}. Bonus +${bonus} Honour.`;
+  } else {
+    msg = `Thou hast claimed ${got} of ${total}. <em>Return to the Word List and try anew!</em>`;
+  }
+  if (bonus) addStars(bonus);
+  botSay(
+    msg,
+    [
+      { label: "🔁 Retake this Review", onClick: () => { userSay("Retake review"); startVwFinalReview(state.vwfrKey); } },
+      { label: "🖨 Print this Review", onClick: () => { userSay("Print review"); openVwFinalReviewPrintable(state.vwfrKey); } },
+      { label: "📝 Try the Other Review", onClick: () => {
+          const other = (state.vwfrKey === 'q1') ? 'q2' : 'q1';
+          userSay("Try the other review");
+          startVwFinalReview(other);
+        } },
+      { label: "✠ Back to VW Units", onClick: () => { userSay("Back to VW units"); showUnitMenu(); } },
+      { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+    ]
+  );
+}
+
+/* Build & open a printable version of a VW final review */
+function openVwFinalReviewPrintable(qKey) {
+  if (typeof VW_FINAL_REVIEWS === 'undefined' || !VW_FINAL_REVIEWS[qKey]) {
+    alert("That review isn't available.");
+    return;
+  }
+  const html = buildVwFinalReviewPrintableHTML(qKey);
+  const w = window.open('', '_blank');
+  if (!w) {
+    alert('Please allow pop-ups so the printable can open in a new tab.');
+    return;
+  }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
+
+function buildVwFinalReviewPrintableHTML(qKey) {
+  const quiz = VW_FINAL_REVIEWS[qKey];
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+  function renderSection(heading, items, startNum) {
+    let html = `<h2>${heading}</h2>`;
+    items.forEach((item, i) => {
+      const n = startNum + i;
+      html += `<div class="q"><div class="q-head"><span class="q-num">${n}.</span> ${item.q}</div>`;
+      html += `<ol class="opts">`;
+      item.options.forEach((opt, idx) => {
+        html += `<li><span class="opt-letter">${letters[idx]}.</span> ${opt}</li>`;
+      });
+      html += `</ol></div>`;
+    });
+    return html;
+  }
+
+  let body = '';
+  let num = 1;
+  body += renderSection('Part 1 · Fill in the Blank (Circle the word that best completes each sentence)', quiz.fill, num);
+  num += quiz.fill.length;
+  body += renderSection('Part 2 · Synonyms (Circle the word that means about the SAME)', quiz.syn, num);
+  num += quiz.syn.length;
+  body += renderSection('Part 3 · Antonyms (Circle the word that means the OPPOSITE)', quiz.ant, num);
+  num += quiz.ant.length;
+
+  // Cloze paragraph: render with blanks as numbered slots
+  let paragraphText = quiz.paragraph.text.replace(/\[\[(\d+)\]\]/g, (m, n) => `<u>&nbsp;(${n})&nbsp;_______________&nbsp;</u>`);
+  body += `<h2>Part 4 · Cloze Paragraph</h2>`;
+  body += `<p>${quiz.paragraph.intro}</p>`;
+  body += `<div class="paragraph-box">${paragraphText}</div>`;
+  body += `<p style="margin-top:10px;"><strong>Choose the best word for each blank:</strong></p>`;
+  quiz.paragraph.blanks.forEach((b, i) => {
+    body += `<div class="q"><div class="q-head"><span class="q-num">(${i + 1}).</span></div>`;
+    body += `<ol class="opts">`;
+    b.options.forEach((opt, idx) => {
+      body += `<li><span class="opt-letter">${letters[idx]}.</span> ${opt}</li>`;
+    });
+    body += `</ol></div>`;
+  });
+
+  // Answer key
+  let keyHTML = '<h3 style="margin:10px 0 4px 0;">Part 1 — Fill in the Blank</h3>';
+  let kn = 1;
+  quiz.fill.forEach(item => {
+    keyHTML += `<div class="ak-row"><strong>${kn}.</strong> ${letters[item.answer]} — ${item.options[item.answer]}` +
+               (item.explain ? `<br><span class="ak-explain">${item.explain}</span>` : '') + `</div>`;
+    kn++;
+  });
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 2 — Synonyms</h3>';
+  quiz.syn.forEach(item => {
+    keyHTML += `<div class="ak-row"><strong>${kn}.</strong> ${letters[item.answer]} — ${item.options[item.answer]}` +
+               (item.explain ? `<br><span class="ak-explain">${item.explain}</span>` : '') + `</div>`;
+    kn++;
+  });
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 3 — Antonyms</h3>';
+  quiz.ant.forEach(item => {
+    keyHTML += `<div class="ak-row"><strong>${kn}.</strong> ${letters[item.answer]} — ${item.options[item.answer]}` +
+               (item.explain ? `<br><span class="ak-explain">${item.explain}</span>` : '') + `</div>`;
+    kn++;
+  });
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 4 — Cloze Paragraph</h3>';
+  let correctedText = quiz.paragraph.text;
+  quiz.paragraph.blanks.forEach((b, i) => {
+    correctedText = correctedText.replace(`[[${i + 1}]]`, `<strong>${b.options[b.answer]}</strong>`);
+  });
+  keyHTML += `<div class="corrected-box">${correctedText}</div>`;
+  keyHTML += '<p style="margin-top:8px;"><strong>By blank:</strong></p>';
+  keyHTML += '<ol style="padding-left:22px;">';
+  quiz.paragraph.blanks.forEach((b, i) => {
+    keyHTML += `<li>(${i + 1}) <strong>${b.options[b.answer]}</strong>${b.explain ? ' — <em>' + b.explain + '</em>' : ''}</li>`;
+  });
+  keyHTML += '</ol>';
+
+  return `<!doctype html>
+<html><head>
+<meta charset="UTF-8">
+<title>${quiz.title} — Printable</title>
+<style>
+  @page { size: letter; margin: 0.7in; }
+  body { font-family: 'Georgia', 'Times New Roman', serif; color: #1a1714; line-height: 1.4; max-width: 7.1in; margin: 0 auto; padding: 12px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px 0; color: #6a3a9a; border-bottom: 2px solid #9060c0; padding-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin: 18px 0 8px 0; color: #6a3a9a; border-bottom: 1px solid #e0d8d0; padding-bottom: 3px; }
+  h3 { font-size: 1rem; color: #6a3a9a; }
+  .subtitle { color: #6b6560; font-style: italic; margin-bottom: 14px; }
+  .name-line { margin: 10px 0 16px 0; font-size: 0.95rem; }
+  .name-line span { display: inline-block; min-width: 180px; border-bottom: 1px solid #888; margin-right: 18px; }
+  .q { margin-bottom: 8px; page-break-inside: avoid; }
+  .q-head { font-weight: bold; margin-bottom: 2px; }
+  .q-num { color: #9060c0; margin-right: 4px; }
+  .opts { margin: 2px 0 4px 22px; padding: 0; list-style: none; }
+  .opts li { margin: 1px 0; }
+  .opt-letter { font-weight: bold; color: #6b6560; margin-right: 4px; }
+  .paragraph-box { border: 1.5px solid #9060c0; padding: 12px; background: #faf6ff; line-height: 1.9; }
+  .answer-key { page-break-before: always; }
+  .ak-row { margin-bottom: 6px; }
+  .ak-explain { color: #555; font-size: 0.9em; font-style: italic; }
+  .corrected-box { border: 1.5px solid #3a7a4a; padding: 12px; background: #f4faf4; line-height: 1.7; }
+  .footer { margin-top: 28px; text-align: center; color: #888; font-size: 0.8em; }
+  @media print { .no-print { display: none; } }
+  .no-print { text-align: center; margin: 10px 0 20px 0; }
+  .no-print button { background: #9060c0; color: white; border: 0; padding: 8px 16px; font-size: 1rem; cursor: pointer; border-radius: 3px; }
+</style>
+</head><body>
+  <div class="no-print"><button onclick="window.print()">🖨 Print this page</button></div>
+  <h1>${quiz.title}</h1>
+  <div class="subtitle">${quiz.subtitle}</div>
+  <div class="name-line">Name: <span></span> Date: <span></span></div>
+  ${body}
+
+  <div class="answer-key">
+    <h2>✠ Answer Key</h2>
+    ${keyHTML}
+  </div>
+
+  <div class="footer">Adept Buddy · Imperial Scholarum of Grade III</div>
+</body></html>`;
 }
 
 /* ================================================================
