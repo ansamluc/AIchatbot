@@ -1324,6 +1324,7 @@
 <script src="vw-final-review.js"></script>
 <script src="reading-data.js"></script>
 <script src="ss-data.js"></script>
+<script src="ss-final-review.js"></script>
 <script src="cn-data.js"></script>
 <script src="math-data.js"></script>
 <script src="sci-data.js"></script>
@@ -2883,6 +2884,38 @@ function showUnitMenu() {
     });
 
     bubble.appendChild(vwQuizOpts);
+  }
+
+  // Extra SS-only buttons: Final Review 1 and 2 (Lessons 3 + 4 mix)
+  if (state.section === 'ss' && typeof SS_FINAL_REVIEWS !== 'undefined') {
+    const ssQuizHeader = document.createElement('div');
+    ssQuizHeader.style.marginTop = '14px';
+    ssQuizHeader.style.fontFamily = "'Cinzel', serif";
+    ssQuizHeader.style.fontSize = '0.85rem';
+    ssQuizHeader.style.color = '#6a3a9a';
+    ssQuizHeader.innerHTML = '✦ Social Studies Final Review (Lessons 3 + 4) ✦';
+    bubble.appendChild(ssQuizHeader);
+
+    const ssQuizOpts = document.createElement('div');
+    ssQuizOpts.className = 'options';
+    ssQuizOpts.style.marginTop = '6px';
+
+    Object.keys(SS_FINAL_REVIEWS).forEach(qKey => {
+      const qz = SS_FINAL_REVIEWS[qKey];
+      const onlineBtn = document.createElement('button');
+      onlineBtn.className = 'option-btn';
+      onlineBtn.innerHTML = `📜 ${qz.title} — Take Online`;
+      onlineBtn.onclick = () => { userSay(`${qz.title} (online)`); startSSFinalReview(qKey); };
+      ssQuizOpts.appendChild(onlineBtn);
+
+      const printBtn = document.createElement('button');
+      printBtn.className = 'option-btn';
+      printBtn.innerHTML = `🖨 ${qz.title} — Print`;
+      printBtn.onclick = () => { userSay(`${qz.title} (print)`); openSSFinalReviewPrintable(qKey); };
+      ssQuizOpts.appendChild(printBtn);
+    });
+
+    bubble.appendChild(ssQuizOpts);
   }
 
   // Extra Grammar-only buttons: Quiz 1 and Quiz 2 (mix review, online or print)
@@ -4860,6 +4893,414 @@ document.getElementById('log-export').addEventListener('click', exportLogToExcel
 document.getElementById('log-overlay').addEventListener('click', (e) => {
   if (e.target.id === 'log-overlay') closeLog();
 });
+
+/* ================================================================
+   SOCIAL STUDIES — FINAL REVIEW RUNNER (Lessons 3 + 4)
+   ================================================================ */
+function startSSFinalReview(qKey) {
+  if (typeof SS_FINAL_REVIEWS === 'undefined' || !SS_FINAL_REVIEWS[qKey]) {
+    botSay("⚠ That review is not available.");
+    return;
+  }
+  const quiz = SS_FINAL_REVIEWS[qKey];
+  state.mode = 'ss_final_review';
+  state.section = 'ss';
+  state.ssfrKey = qKey;
+  state.ssfrSection = 'mix';   // 'mix' (the 40 mixed questions) then 'short'
+  state.ssfrIndex = 0;
+  state.ssfrCorrect = 0;
+
+  // Shuffle the mixed-question pool so each attempt feels fresh
+  const shuffled = [...quiz.questions];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  // Cap at 40 mixed questions
+  state.ssfrPool = shuffled.slice(0, Math.min(40, shuffled.length));
+  state.ssfrTotal = state.ssfrPool.length + quiz.short.length;
+
+  botSay(
+    `<strong>📜 ${quiz.title}</strong> — ${quiz.subtitle}<br>` +
+    `<em>Two sections await thee:<br>` +
+    `① ${state.ssfrPool.length} mixed questions (multiple choice, true/false, fill, hero matching)<br>` +
+    `② ${quiz.short.length} short-answer questions<br>` +
+    `Steel thy mind!</em>`
+  );
+  setTimeout(askSSFinalReviewQuestion, 500);
+}
+
+function askSSFinalReviewQuestion() {
+  const quiz = SS_FINAL_REVIEWS[state.ssfrKey];
+  if (state.ssfrSection === 'mix') {
+    const item = state.ssfrPool[state.ssfrIndex];
+    let qHTML = `<strong>① Mixed Trial — ${state.ssfrIndex + 1} of ${state.ssfrPool.length}</strong><br><br>${item.q}`;
+    let opts;
+    if (item._kind === 'tf') {
+      opts = [
+        { label: '✓ True',  onClick: (btn) => handleSSFinalReviewAnswer(true, btn) },
+        { label: '✗ False', onClick: (btn) => handleSSFinalReviewAnswer(false, btn) }
+      ];
+    } else {
+      opts = item.options.map((opt, idx) => ({
+        label: opt,
+        onClick: (btn) => handleSSFinalReviewAnswer(idx, btn)
+      }));
+    }
+    botSay(qHTML, opts);
+  } else if (state.ssfrSection === 'short') {
+    const item = quiz.short[state.ssfrIndex];
+    let qHTML = `<strong>② Short-Answer Trial — ${state.ssfrIndex + 1} of ${quiz.short.length}</strong><br><br>${item.q}` +
+                `<br><em>Type thine answer in the box below (a few sentences).</em>`;
+    botSay(qHTML);
+    showSSFinalReviewShortInput();
+  }
+}
+
+function showSSFinalReviewShortInput() {
+  // Create an inline answer box at the end of the chat
+  const wrap = document.createElement('div');
+  wrap.className = 'msg bot ss-fr-short-input';
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar-icon bot';
+  avatar.innerHTML = '<span>📝</span>';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.innerHTML =
+    '<textarea id="ssfr-short-text" rows="4" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #c0a060;border-radius:6px;font-family:inherit;font-size:0.95rem;" placeholder="Write your answer here..."></textarea>' +
+    '<div class="options" style="margin-top:8px;">' +
+      '<button class="option-btn" id="ssfr-short-submit">✠ Submit Answer</button>' +
+      '<button class="option-btn" id="ssfr-short-skip">↷ Skip</button>' +
+    '</div>';
+  wrap.appendChild(avatar);
+  wrap.appendChild(bubble);
+  chatEl.appendChild(wrap);
+  scrollDown();
+
+  const ta = document.getElementById('ssfr-short-text');
+  ta.focus();
+  document.getElementById('ssfr-short-submit').onclick = () => {
+    const text = (ta.value || '').trim();
+    if (!text) { ta.focus(); return; }
+    // disable inputs
+    ta.disabled = true;
+    document.getElementById('ssfr-short-submit').disabled = true;
+    document.getElementById('ssfr-short-skip').disabled = true;
+    handleSSFinalReviewShortAnswer(text);
+  };
+  document.getElementById('ssfr-short-skip').onclick = () => {
+    ta.disabled = true;
+    document.getElementById('ssfr-short-submit').disabled = true;
+    document.getElementById('ssfr-short-skip').disabled = true;
+    handleSSFinalReviewShortAnswer('');
+  };
+}
+
+function handleSSFinalReviewAnswer(chosen, btn) {
+  const item = state.ssfrPool[state.ssfrIndex];
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+
+  let correct;
+  let chosenLabel;
+  let truthLabel;
+  if (item._kind === 'tf') {
+    correct = (chosen === item.answer);
+    chosenLabel = chosen ? 'True' : 'False';
+    truthLabel = item.answer ? 'True' : 'False';
+  } else {
+    correct = (chosen === item.answer);
+    chosenLabel = item.options[chosen];
+    truthLabel = item.options[item.answer];
+    if (correct) btn.classList.add('correct');
+    else {
+      btn.classList.add('wrong');
+      if (allBtns[item.answer]) allBtns[item.answer].classList.add('correct');
+    }
+  }
+  if (item._kind === 'tf') {
+    if (correct) btn.classList.add('correct');
+    else {
+      btn.classList.add('wrong');
+      const truthBtn = Array.from(allBtns).find(b => b.textContent.includes(truthLabel));
+      if (truthBtn) truthBtn.classList.add('correct');
+    }
+  }
+  userSay(chosenLabel);
+
+  if (correct) {
+    state.ssfrCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain || ''}<br><em>+1 Honour</em></div>`);
+  } else {
+    botSay(
+      `<div class='feedback-wrong'>⚔ <strong>The truth was &ldquo;${truthLabel}&rdquo;.</strong><br>` +
+      `${item.explain || ''}<br><em>Stand firm, scholar!</em></div>`
+    );
+  }
+  if (typeof logAnswer === 'function') {
+    const optionsForLog = (item._kind === 'tf') ? ['True','False'] : item.options;
+    logAnswer(correct, item.q, chosenLabel, truthLabel, item.explain || '', optionsForLog);
+  }
+  advanceSSFinalReview();
+}
+
+function handleSSFinalReviewShortAnswer(text) {
+  const quiz = SS_FINAL_REVIEWS[state.ssfrKey];
+  const item = quiz.short[state.ssfrIndex];
+  userSay(text || '(skipped)');
+  // Auto-score: count keyword hits. Award partial credit.
+  const lower = text.toLowerCase();
+  const hits = (item.keywords || []).filter(k => lower.includes(k.toLowerCase())).length;
+  const total = (item.keywords || []).length || 1;
+  // Threshold: hit at least 2 keywords (or 1 if list is short) to count as correct
+  const threshold = Math.min(2, total);
+  const correct = hits >= threshold;
+  if (correct) {
+    state.ssfrCorrect++;
+    addStars(2);
+    botSay(
+      `<div class='feedback-correct'>✠ <strong>Well written, scholar!</strong> ` +
+      `Thou hast captured the key ideas. <em>+2 Honour</em><br><br>` +
+      `<strong>Sample answer:</strong> ${item.answer}<br>` +
+      `<em>${item.explain || ''}</em></div>`
+    );
+  } else {
+    botSay(
+      `<div class='feedback-wrong'>⚔ <strong>A worthy try — review the sample answer.</strong><br><br>` +
+      `<strong>Sample answer:</strong> ${item.answer}<br>` +
+      `<em>${item.explain || ''}</em></div>`
+    );
+  }
+  if (typeof logAnswer === 'function') {
+    logAnswer(correct, item.q, text || '(skipped)', item.answer, item.explain || '', []);
+  }
+  advanceSSFinalReview();
+}
+
+function advanceSSFinalReview() {
+  const quiz = SS_FINAL_REVIEWS[state.ssfrKey];
+  state.ssfrIndex++;
+  setTimeout(() => {
+    if (state.ssfrSection === 'mix') {
+      if (state.ssfrIndex < state.ssfrPool.length) {
+        askSSFinalReviewQuestion();
+      } else {
+        // Move to short-answer section
+        state.ssfrSection = 'short';
+        state.ssfrIndex = 0;
+        botSay(`<strong>Section ① complete!</strong> Now: <em>② Short-Answer Trial</em> — write thy thoughts in 1–2 sentences.`);
+        setTimeout(askSSFinalReviewQuestion, 600);
+      }
+    } else {
+      // short-answer section
+      if (state.ssfrIndex < quiz.short.length) {
+        askSSFinalReviewQuestion();
+      } else {
+        finishSSFinalReview();
+      }
+    }
+  }, 900);
+}
+
+function finishSSFinalReview() {
+  const quiz = SS_FINAL_REVIEWS[state.ssfrKey];
+  const total = state.ssfrTotal;
+  const got = state.ssfrCorrect;
+  const pct = got / total;
+  const bonus = (got === total) ? 8 : (pct >= 0.9) ? 6 : (pct >= 0.8) ? 4 : (pct >= 0.6) ? 3 : (pct >= 0.5) ? 2 : 0;
+  let msg;
+  if (got === total) {
+    msg = `✠✠✠ <strong>GLORIOUS VICTORY!</strong> All ${total} trials conquered! Bonus +${bonus} Honour!`;
+  } else if (pct >= 0.9) {
+    msg = `⚔ <strong>Magnificent!</strong> ${got} of ${total} trials won. Bonus +${bonus} Honour!`;
+  } else if (pct >= 0.8) {
+    msg = `✠ <strong>Most valiant!</strong> ${got} of ${total}. Bonus +${bonus} Honour.`;
+  } else if (pct >= 0.5) {
+    msg = `✠ <strong>A worthy attempt!</strong> ${got} of ${total}. Bonus +${bonus} Honour.`;
+  } else {
+    msg = `Thou hast claimed ${got} of ${total}. <em>Return to the lessons and try anew!</em>`;
+  }
+  if (bonus) addStars(bonus);
+  botSay(
+    msg,
+    [
+      { label: "🔁 Retake this Review", onClick: () => { userSay("Retake review"); startSSFinalReview(state.ssfrKey); } },
+      { label: "🖨 Print this Review", onClick: () => { userSay("Print review"); openSSFinalReviewPrintable(state.ssfrKey); } },
+      { label: "📜 Try the Other Review", onClick: () => {
+          const other = (state.ssfrKey === 'q1') ? 'q2' : 'q1';
+          userSay("Try the other review");
+          startSSFinalReview(other);
+        } },
+      { label: "✠ Back to SS Lessons", onClick: () => { userSay("Back to SS lessons"); showUnitMenu(); } },
+      { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+    ]
+  );
+}
+
+/* ================================================================
+   SOCIAL STUDIES — FINAL REVIEW PRINTABLE
+   ================================================================ */
+function openSSFinalReviewPrintable(qKey) {
+  if (typeof SS_FINAL_REVIEWS === 'undefined' || !SS_FINAL_REVIEWS[qKey]) {
+    alert("That review isn't available.");
+    return;
+  }
+  const html = buildSSFinalReviewPrintableHTML(qKey);
+  const w = window.open('', '_blank');
+  if (!w) {
+    alert('Please allow pop-ups so the printable can open in a new tab.');
+    return;
+  }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
+
+function buildSSFinalReviewPrintableHTML(qKey) {
+  const quiz = SS_FINAL_REVIEWS[qKey];
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+  // Split the mixed questions by kind so the printable groups them sensibly
+  const mcItems = quiz.questions.filter(it => it._kind === 'mc' && !/^FILL:/.test(stripTags(it.q)));
+  const fillItems = quiz.questions.filter(it => it._kind === 'mc' && /^FILL:/.test(stripTags(it.q)));
+  const tfItems = quiz.questions.filter(it => it._kind === 'tf');
+
+  function stripTags(s) { return String(s || '').replace(/<[^>]+>/g, ''); }
+
+  function renderMCSection(heading, items, startNum) {
+    let html = `<h2>${heading}</h2>`;
+    items.forEach((item, i) => {
+      const n = startNum + i;
+      // Strip the "FILL:" prefix for the printable version
+      const qText = item.q.replace(/^FILL:\s*/i, '');
+      html += `<div class="q"><div class="q-head"><span class="q-num">${n}.</span> ${qText}</div>`;
+      html += `<ol class="opts">`;
+      item.options.forEach((opt, idx) => {
+        html += `<li><span class="opt-letter">${letters[idx]}.</span> ${opt}</li>`;
+      });
+      html += `</ol></div>`;
+    });
+    return html;
+  }
+
+  function renderTFSection(heading, items, startNum) {
+    let html = `<h2>${heading}</h2>`;
+    items.forEach((item, i) => {
+      const n = startNum + i;
+      html += `<div class="q"><div class="q-head"><span class="q-num">${n}.</span> ${item.q}</div>`;
+      html += `<div class="tf-opts">○ True &nbsp;&nbsp; ○ False</div></div>`;
+    });
+    return html;
+  }
+
+  function renderShortSection(heading, items, startNum) {
+    let html = `<h2>${heading}</h2>`;
+    items.forEach((item, i) => {
+      const n = startNum + i;
+      html += `<div class="q"><div class="q-head"><span class="q-num">${n}.</span> ${item.q}</div>`;
+      // Five blank lines for writing
+      html += `<div class="short-lines">` +
+              Array.from({length: 4}).map(() => '<div class="line"></div>').join('') +
+              `</div></div>`;
+    });
+    return html;
+  }
+
+  let body = '';
+  let num = 1;
+  body += renderMCSection(`Part 1 · Multiple Choice (Circle the best answer) — ${mcItems.length} items`, mcItems, num);
+  num += mcItems.length;
+  body += renderTFSection(`Part 2 · True or False (Circle one) — ${tfItems.length} items`, tfItems, num);
+  num += tfItems.length;
+  body += renderMCSection(`Part 3 · Fill in the Blank (Circle the word that best completes each sentence) — ${fillItems.length} items`, fillItems, num);
+  num += fillItems.length;
+  body += renderShortSection(`Part 4 · Short Answer (Write 1–3 sentences) — ${quiz.short.length} items`, quiz.short, num);
+
+  // Answer key
+  let keyHTML = '';
+  let kn = 1;
+
+  function akMC(items) {
+    let h = '';
+    items.forEach(item => {
+      h += `<div class="ak-row"><strong>${kn}.</strong> ${letters[item.answer]} — ${item.options[item.answer]}` +
+           (item.explain ? `<br><span class="ak-explain">${item.explain}</span>` : '') + `</div>`;
+      kn++;
+    });
+    return h;
+  }
+  function akTF(items) {
+    let h = '';
+    items.forEach(item => {
+      h += `<div class="ak-row"><strong>${kn}.</strong> ${item.answer ? 'True' : 'False'}` +
+           (item.explain ? `<br><span class="ak-explain">${item.explain}</span>` : '') + `</div>`;
+      kn++;
+    });
+    return h;
+  }
+  function akShort(items) {
+    let h = '';
+    items.forEach(item => {
+      h += `<div class="ak-row"><strong>${kn}.</strong> <em>Sample answer:</em> ${item.answer}` +
+           (item.explain ? `<br><span class="ak-explain">${item.explain}</span>` : '') +
+           (item.keywords && item.keywords.length ? `<br><span class="ak-explain"><strong>Look for:</strong> ${item.keywords.slice(0,8).join(', ')}${item.keywords.length>8 ? ', …' : ''}</span>` : '') +
+           `</div>`;
+      kn++;
+    });
+    return h;
+  }
+
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 1 — Multiple Choice</h3>' + akMC(mcItems);
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 2 — True or False</h3>' + akTF(tfItems);
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 3 — Fill in the Blank</h3>' + akMC(fillItems);
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 4 — Short Answer</h3>' + akShort(quiz.short);
+
+  return `<!doctype html>
+<html><head>
+<meta charset="UTF-8">
+<title>${quiz.title} — Printable</title>
+<style>
+  @page { size: letter; margin: 0.7in; }
+  body { font-family: 'Georgia', 'Times New Roman', serif; color: #1a1714; line-height: 1.4; max-width: 7.1in; margin: 0 auto; padding: 12px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px 0; color: #6a3a9a; border-bottom: 2px solid #9060c0; padding-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin: 18px 0 8px 0; color: #6a3a9a; border-bottom: 1px solid #e0d8d0; padding-bottom: 3px; }
+  h3 { font-size: 1rem; color: #6a3a9a; }
+  .subtitle { color: #6b6560; font-style: italic; margin-bottom: 14px; }
+  .name-line { margin: 10px 0 16px 0; font-size: 0.95rem; }
+  .name-line span { display: inline-block; min-width: 180px; border-bottom: 1px solid #888; margin-right: 18px; }
+  .q { margin-bottom: 8px; page-break-inside: avoid; }
+  .q-head { font-weight: bold; margin-bottom: 2px; }
+  .q-num { color: #9060c0; margin-right: 4px; }
+  .opts { margin: 2px 0 4px 22px; padding: 0; list-style: none; }
+  .opts li { margin: 1px 0; }
+  .opt-letter { font-weight: bold; color: #6b6560; margin-right: 4px; }
+  .tf-opts { margin: 2px 0 4px 22px; font-size: 0.95rem; }
+  .short-lines { margin: 4px 0 8px 22px; }
+  .short-lines .line { border-bottom: 1px solid #999; height: 1.5em; margin-bottom: 2px; }
+  .answer-key { page-break-before: always; }
+  .ak-row { margin-bottom: 6px; }
+  .ak-explain { color: #555; font-size: 0.9em; font-style: italic; }
+  .footer { margin-top: 28px; text-align: center; color: #888; font-size: 0.8em; }
+  @media print { .no-print { display: none; } }
+  .no-print { text-align: center; margin: 10px 0 20px 0; }
+  .no-print button { background: #9060c0; color: white; border: 0; padding: 8px 16px; font-size: 1rem; cursor: pointer; border-radius: 3px; }
+</style>
+</head><body>
+  <div class="no-print"><button onclick="window.print()">🖨 Print this page</button></div>
+  <h1>${quiz.title}</h1>
+  <div class="subtitle">${quiz.subtitle}</div>
+  <div class="name-line">Name: <span></span> Date: <span></span></div>
+  ${body}
+
+  <div class="answer-key">
+    <h2>✠ Answer Key</h2>
+    ${keyHTML}
+  </div>
+
+  <div class="footer">Adept Buddy · Imperial Scholarum of Grade III</div>
+</body></html>`;
+}
 
 /* === Printable button wiring === */
 document.getElementById('print-btn').addEventListener('click', openPrintPicker);
