@@ -454,18 +454,13 @@ const MATH_UNITS = {
       { q: "If a bar reaches 25 and another reaches 40, the difference is ___.", options: ["15", "25", "40", "65"], answer: 0, explain: "40 − 25 = 15." },
       { q: "The ___ bar on a bar graph shows the greatest value.", options: ["shortest", "tallest", "middle", "first"], answer: 1, explain: "Tallest bar = greatest value." }
     ],
-    quiz_word: [
-      { q: "A bar graph shows the favorite breakfast foods of children: Bun = 30, Pancake = 45, Sandwich = 25, Cereal = 20, Muffin = 10. <strong>How many children chose pancakes for breakfast?</strong>", options: ["20", "30", "45", "50"], answer: 2, explain: "Read the bar for Pancake — it reaches 45." },
-      { q: "A bar graph shows: Bun = 30, Pancake = 45, Sandwich = 25, Cereal = 20, Muffin = 10. <strong>The greatest number of children</strong> had ___ for breakfast.", options: ["bun", "pancake", "sandwich", "muffin"], answer: 1, explain: "Pancake (45) is the greatest." },
-      { q: "A bar graph shows: Bun = 30, Pancake = 45, Sandwich = 25, Cereal = 20, Muffin = 10. <strong>The least number of children</strong> had ___ for breakfast.", options: ["bun", "pancake", "cereal", "muffin"], answer: 3, explain: "Muffin (10) is the smallest." },
-      { q: "Bun = 30 and Pancake = 45. <strong>Twice as many</strong> children had pancakes as which food?", options: ["bun", "sandwich", "cereal", "muffin"], answer: 1, explain: "45 ÷ 2 ≈ 22.5, but in this graph 25 (Sandwich) doubled = 50… closest = sandwich. Look for the bar where 2 × bar ≈ pancake. Twice 22.5 = 45, so sandwich is closest." },
-      { q: "Constance's tally chart: Ant = 9, Bee = 13, Beetle = 8, Butterfly = 15, Dragonfly = 23. <strong>Which insect did she see the greatest number of?</strong>", options: ["bee", "butterfly", "dragonfly", "beetle"], answer: 2, explain: "23 (dragonfly) is the greatest." },
-      { q: "Constance's tally chart: Ant = 9, Bee = 13, Beetle = 8, Butterfly = 15, Dragonfly = 23. <strong>She saw 9 more ___ than butterflies.</strong>", options: ["ants", "bees", "beetles", "dragonflies"], answer: 3, explain: "23 − 15 = 8… closest: dragonflies are 8 more than butterflies (the example used 9 more)." },
-      { q: "Constance's tally chart: Ant = 9, Bee = 13, Beetle = 8, Butterfly = 15, Dragonfly = 23. <strong>She saw the same number of ___ and ___.</strong>", options: ["ant and beetle", "bee and butterfly", "ant and bee", "beetle and butterfly"], answer: 0, explain: "Ant = 9 and Beetle = 8 are closest in number; in the original, two insects had matching counts (e.g., ant ≈ beetle)." },
-      { q: "Rodrigo measured 8 ribbons: 3½, 5, 4, 2¾, 3½, 4¼, 3¾, 4½ in. <strong>How many ribbons are exactly 3½ in. long?</strong>", options: ["1", "2", "3", "4"], answer: 1, explain: "Ribbons A and E are both 3½ in., so 2 ribbons." },
-      { q: "Rodrigo's 8 ribbons: 3½, 5, 4, 2¾, 3½, 4¼, 3¾, 4½ in. <strong>What is the longest ribbon?</strong>", options: ["3½ in.", "4½ in.", "4¾ in.", "5 in."], answer: 3, explain: "5 in. is the longest." },
-      { q: "Rodrigo's 8 ribbons: 3½, 5, 4, 2¾, 3½, 4¼, 3¾, 4½ in. <strong>What is the shortest ribbon?</strong>", options: ["2¾ in.", "3½ in.", "4 in.", "5 in."], answer: 0, explain: "2¾ in. is the smallest measurement." }
-    ],
+    // NOTE: Word problems for Unit 11 are appended at runtime by
+    // math-bargraphs.js — they include full SVG bar-graph, tally-chart,
+    // and line-plot scenarios (A–G) so every question has its data
+    // visible. The legacy text-only "A bar graph shows: Bun=30..."
+    // problems were removed because random shuffling produced orphan
+    // questions referencing data the student couldn't see.
+    quiz_word: [],
     challenge_questions: [
       { q: "A picture graph shows: 🐱 = 4 votes. If 🐱🐱🐱½ is the total for cats, how many votes did cats get?", options: ["10", "12", "14", "16"], answer: 2, explain: "Each full 🐱 = 4. 3 full + half = 3(4) + 2 = 14. Critical key-interpretation reasoning." },
       { q: "Bar graph shows: Soccer 12, Basketball 15, Tennis 9. <strong>How many MORE students chose basketball than the LEAST popular sport?</strong>", options: ["3", "6", "9", "15"], answer: 1, explain: "Least = Tennis (9). 15 – 9 = 6. Critical compare + identify-min reasoning." },
@@ -743,12 +738,33 @@ function buildMathQuizPool(quizType) {
       ...u.quiz_word.map(i => ({ ...i, _kind: 'word' }))
     ];
   }
-  // Shuffle and take up to 10
-  for (let i = pool.length - 1; i > 0; i--) {
+  // Scenario-aware shuffle: questions tagged with the same _scenario stay
+  // together in original order. Then take up to ~10 items, but never cut
+  // a scenario in the middle — finish whichever scenario we're inside.
+  const buckets = [];
+  const byScenario = {};
+  pool.forEach(q => {
+    if (q._scenario) {
+      if (!byScenario[q._scenario]) {
+        byScenario[q._scenario] = [];
+        buckets.push(byScenario[q._scenario]);
+      }
+      byScenario[q._scenario].push(q);
+    } else {
+      buckets.push([q]);
+    }
+  });
+  for (let i = buckets.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
+    [buckets[i], buckets[j]] = [buckets[j], buckets[i]];
   }
-  return pool.slice(0, Math.min(10, pool.length));
+  // Pick buckets until we hit at least 10 items, finishing each bucket
+  const result = [];
+  for (const b of buckets) {
+    if (result.length >= 10) break;
+    result.push(...b);
+  }
+  return result;
 }
 
 function startMathQuiz(quizType) {

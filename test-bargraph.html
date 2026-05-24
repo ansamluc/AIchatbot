@@ -1,0 +1,88 @@
+<!doctype html>
+<html><head><meta charset="UTF-8"><title>Bar Graph Test</title>
+<style>
+body{font-family:Georgia,serif;background:#f5efe6;padding:20px;color:#1a1714;}
+h1{color:#1a4e88;}
+.box{background:#fff;border:1px solid #c0a060;border-radius:8px;padding:14px;margin-bottom:18px;max-width:760px;}
+.box h2{margin-top:0;color:#1a4e88;font-size:1rem;}
+.bg-wrap{display:inline-block;background:#fdfbf6;border:1px solid #d0c4a0;border-radius:6px;padding:8px;margin:8px auto;}
+.bg-wrap svg{display:block;max-width:380px;height:auto;}
+.bg-caption{font-size:0.85rem;color:#1a4e88;text-align:center;margin-top:2px;}
+.bg-clue{background:#f5f0e0;border-left:3px solid #c0a060;padding:6px 10px;margin:6px 0;font-style:italic;color:#3a2a18;border-radius:0 4px 4px 0;}
+pre.note{background:#ffe;border-left:3px solid #c00;padding:8px;font-family:monospace;font-size:12px;white-space:pre-wrap;word-break:break-all;}
+.success{background:#e6f3e6;border-left:3px solid #2a8a2a;padding:8px;color:#1a4e88;font-weight:bold;}
+.fail{background:#fee;border-left:3px solid #c00;padding:8px;color:#a00;font-weight:bold;}
+</style></head><body>
+<h1>🧮 Bar Graph Diagnostic — Math Final Review + Unit 11</h1>
+<p>If you can see the bar graphs below, the files are loading correctly. If you see only error text or blank boxes, something is wrong.</p>
+
+<div id="status" class="note">Loading scripts…</div>
+
+<div class="box">
+  <h2>1. Scenario A — Favorite Sport (full graph)</h2>
+  <div id="renderA"></div>
+</div>
+
+<div class="box">
+  <h2>2. Scenario B — Animals on a Nature Walk (missing-bar)</h2>
+  <div id="renderB"></div>
+</div>
+
+<div class="box">
+  <h2>3. Scenario C — Books Read This Week (missing-bar)</h2>
+  <div id="renderC"></div>
+</div>
+
+<div class="box">
+  <h2>4. A real Unit 11 word problem (as rendered in the quiz)</h2>
+  <div id="qrender"></div>
+</div>
+
+<!-- Same load order as index.html, with cache-busters -->
+<script src="math-data.js?v=5"></script>
+<script src="math-final-review.js?v=5"></script>
+<script src="math-bargraphs.js?v=5"></script>
+
+<script>
+(function() {
+  const status = document.getElementById('status');
+  const lines = [];
+  function check(name, ok) {
+    lines.push((ok ? '✅' : '❌') + ' ' + name);
+  }
+  check('MATH_UNITS loaded', typeof MATH_UNITS !== 'undefined');
+  check('MATH_FINAL_REVIEWS loaded', typeof MATH_FINAL_REVIEWS !== 'undefined');
+  check('mathBarGraphSVG function exists', typeof mathBarGraphSVG === 'function');
+  check('MATH_BG_SCENARIO_A_SVG is a string', typeof MATH_BG_SCENARIO_A_SVG === 'string');
+
+  if (typeof MATH_BG_SCENARIO_A_SVG === 'string') {
+    lines.push('  Scenario A SVG length: ' + MATH_BG_SCENARIO_A_SVG.length + ' chars');
+    document.getElementById('renderA').innerHTML = MATH_BG_SCENARIO_A_SVG;
+  }
+  if (typeof MATH_BG_SCENARIO_B_SVG === 'string') {
+    lines.push('  Scenario B SVG length: ' + MATH_BG_SCENARIO_B_SVG.length + ' chars');
+    document.getElementById('renderB').innerHTML = MATH_BG_SCENARIO_B_SVG;
+  }
+  if (typeof MATH_BG_SCENARIO_C_SVG === 'string') {
+    lines.push('  Scenario C SVG length: ' + MATH_BG_SCENARIO_C_SVG.length + ' chars');
+    document.getElementById('renderC').innerHTML = MATH_BG_SCENARIO_C_SVG;
+  }
+
+  if (typeof MATH_UNITS !== 'undefined' && MATH_UNITS.m11) {
+    const wp = MATH_UNITS.m11.quiz_word;
+    lines.push('  Unit 11 quiz_word count: ' + wp.length);
+    const bgQ = wp.find(q => q.q && q.q.indexOf('<svg') !== -1);
+    if (bgQ) {
+      lines.push('  Found a bar-graph word problem ✅');
+      document.getElementById('qrender').innerHTML = bgQ.q;
+    } else {
+      lines.push('  ❌ No bar-graph found in quiz_word — injection failed!');
+    }
+  }
+
+  const allOk = lines.every(l => !l.startsWith('❌'));
+  status.className = allOk ? 'success' : 'fail';
+  status.textContent = lines.join('\n');
+})();
+</script>
+</body></html>

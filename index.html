@@ -679,6 +679,34 @@
   }
   .math-vocab-card strong { color: #1a4e88; font-family: 'Cinzel', serif; }
 
+  /* === Bar Graph (Unit 11 + final review bar-graph word problems) === */
+  .bg-wrap {
+    display: inline-block;
+    background: #fdfbf6;
+    border: 1px solid #d0c4a0;
+    border-radius: 6px;
+    padding: 8px;
+    margin: 8px auto;
+    max-width: 100%;
+  }
+  .bg-wrap svg { display: block; max-width: 100%; height: auto; }
+  .bg-caption {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    color: #1a4e88;
+    text-align: center;
+    margin-top: 2px;
+  }
+  .bg-clue {
+    background: #f5f0e0;
+    border-left: 3px solid #c0a060;
+    padding: 6px 10px;
+    margin: 6px 0;
+    font-style: italic;
+    color: #3a2a18;
+    border-radius: 0 4px 4px 0;
+  }
+
   /* === Timeline Model (Unit 10 word problems) === */
   .tl-model {
     background: #ffffff;
@@ -1326,7 +1354,9 @@
 <script src="ss-data.js"></script>
 <script src="ss-final-review.js"></script>
 <script src="cn-data.js"></script>
-<script src="math-data.js"></script>
+<script src="math-data.js?v=7"></script>
+<script src="math-final-review.js?v=7"></script>
+<script src="math-bargraphs.js?v=7"></script>
 <script src="sci-data.js"></script>
 
 <script>
@@ -2916,6 +2946,38 @@ function showUnitMenu() {
     });
 
     bubble.appendChild(ssQuizOpts);
+  }
+
+  // Extra Math-only buttons: Final Review 1 and 2 (Units 10 + 11 + 12 mix)
+  if (state.section === 'math' && typeof MATH_FINAL_REVIEWS !== 'undefined') {
+    const mathQuizHeader = document.createElement('div');
+    mathQuizHeader.style.marginTop = '14px';
+    mathQuizHeader.style.fontFamily = "'Cinzel', serif";
+    mathQuizHeader.style.fontSize = '0.85rem';
+    mathQuizHeader.style.color = '#1a4e88';
+    mathQuizHeader.innerHTML = '✦ Math Final Review (Units 10 + 11 + 12) ✦';
+    bubble.appendChild(mathQuizHeader);
+
+    const mathQuizOpts = document.createElement('div');
+    mathQuizOpts.className = 'options';
+    mathQuizOpts.style.marginTop = '6px';
+
+    Object.keys(MATH_FINAL_REVIEWS).forEach(qKey => {
+      const qz = MATH_FINAL_REVIEWS[qKey];
+      const onlineBtn = document.createElement('button');
+      onlineBtn.className = 'option-btn';
+      onlineBtn.innerHTML = `🧮 ${qz.title} — Take Online`;
+      onlineBtn.onclick = () => { userSay(`${qz.title} (online)`); startMathFinalReview(qKey); };
+      mathQuizOpts.appendChild(onlineBtn);
+
+      const printBtn = document.createElement('button');
+      printBtn.className = 'option-btn';
+      printBtn.innerHTML = `🖨 ${qz.title} — Print`;
+      printBtn.onclick = () => { userSay(`${qz.title} (print)`); openMathFinalReviewPrintable(qKey); };
+      mathQuizOpts.appendChild(printBtn);
+    });
+
+    bubble.appendChild(mathQuizOpts);
   }
 
   // Extra Grammar-only buttons: Quiz 1 and Quiz 2 (mix review, online or print)
@@ -5299,6 +5361,355 @@ function buildSSFinalReviewPrintableHTML(qKey) {
   </div>
 
   <div class="footer">Adept Buddy · Imperial Scholarum of Grade III</div>
+</body></html>`;
+}
+
+/* ================================================================
+   MATHEMATICA — Helper: scenario-aware shuffle
+   Groups questions sharing the same _scenario tag into a single bucket
+   that always stays in its original order. Buckets (and ungrouped items)
+   are then shuffled relative to each other so each attempt feels fresh.
+   ================================================================ */
+function scenarioAwareShuffle(questions) {
+  const buckets = [];
+  const byScenario = {};
+  questions.forEach(q => {
+    if (q._scenario) {
+      if (!byScenario[q._scenario]) {
+        byScenario[q._scenario] = [];
+        buckets.push(byScenario[q._scenario]);
+      }
+      byScenario[q._scenario].push(q);
+    } else {
+      buckets.push([q]);  // ungrouped — its own single-item bucket
+    }
+  });
+  // Shuffle buckets (Fisher-Yates)
+  for (let i = buckets.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [buckets[i], buckets[j]] = [buckets[j], buckets[i]];
+  }
+  // Flatten — preserves order within each scenario bucket
+  return [].concat(...buckets);
+}
+
+/* ================================================================
+   MATHEMATICA — FINAL REVIEW (online runner + printable)
+   ================================================================ */
+function startMathFinalReview(qKey) {
+  if (typeof MATH_FINAL_REVIEWS === 'undefined' || !MATH_FINAL_REVIEWS[qKey]) {
+    botSay("⚠ That review is not available.");
+    return;
+  }
+  const quiz = MATH_FINAL_REVIEWS[qKey];
+  state.mode = 'math_final_review';
+  state.section = 'math';
+  state.mathfrKey = qKey;
+  state.mathfrIndex = 0;
+  state.mathfrCorrect = 0;
+
+  // Scenario-aware shuffle: questions tagged with the same _scenario stay
+  // together in their original order (so the missing-bar question always
+  // appears before its follow-ups). Untagged questions are their own groups.
+  state.mathfrPool = scenarioAwareShuffle(quiz.questions);
+  state.mathfrTotal = state.mathfrPool.length;
+
+  botSay(
+    `<strong>🧮 ${quiz.title}</strong> — ${quiz.subtitle}<br>` +
+    `<em>${state.mathfrTotal} mixed problems await thee — a blend of multiple choice, true/false, fill-in-the-blank, and word problems from <strong>Units 10, 11, and 12</strong>.<br>` +
+    `Steel thy mind — the trial begins!</em>`
+  );
+  setTimeout(askMathFinalReviewQuestion, 500);
+}
+
+function askMathFinalReviewQuestion() {
+  const item = state.mathfrPool[state.mathfrIndex];
+  const kindLabel = (item._kind === 'tf') ? 'True/False'
+                  : (item._kind === 'fill') ? 'Fill-in-the-Blank'
+                  : (item._kind === 'word') ? 'Word Problem'
+                  : 'Multiple Choice';
+  // Strip FILL: prefix if present for cleaner display
+  const qText = (item.q || '').replace(/^FILL:\s*/i, '');
+  let qHTML = `<strong>Trial ${state.mathfrIndex + 1} of ${state.mathfrTotal}</strong> · <em>${item.unit || ''} · ${kindLabel}</em><br><br>${qText}`;
+
+  let opts;
+  if (item._kind === 'tf') {
+    opts = [
+      { label: '✓ True',  onClick: (btn) => handleMathFinalReviewAnswer(true, btn) },
+      { label: '✗ False', onClick: (btn) => handleMathFinalReviewAnswer(false, btn) }
+    ];
+  } else {
+    opts = item.options.map((opt, idx) => ({
+      label: opt,
+      onClick: (btn) => handleMathFinalReviewAnswer(idx, btn)
+    }));
+  }
+  botSay(qHTML, opts);
+}
+
+function handleMathFinalReviewAnswer(chosen, btn) {
+  const item = state.mathfrPool[state.mathfrIndex];
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+
+  let correct, chosenLabel, truthLabel;
+  if (item._kind === 'tf') {
+    correct = (chosen === item.answer);
+    chosenLabel = chosen ? 'True' : 'False';
+    truthLabel = item.answer ? 'True' : 'False';
+    if (correct) btn.classList.add('correct');
+    else {
+      btn.classList.add('wrong');
+      const truthIdx = item.answer ? 0 : 1;
+      if (allBtns[truthIdx]) allBtns[truthIdx].classList.add('correct');
+    }
+  } else {
+    correct = (chosen === item.answer);
+    chosenLabel = item.options[chosen];
+    truthLabel = item.options[item.answer];
+    if (correct) btn.classList.add('correct');
+    else {
+      btn.classList.add('wrong');
+      if (allBtns[item.answer]) allBtns[item.answer].classList.add('correct');
+    }
+  }
+  userSay(chosenLabel);
+
+  if (correct) {
+    state.mathfrCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain || ''}<br><em>+1 Honour</em></div>`);
+  } else {
+    botSay(
+      `<div class='feedback-wrong'>⚔ <strong>The truth was &ldquo;${truthLabel}&rdquo;.</strong><br>` +
+      `${item.explain || ''}<br><em>Stand firm, scholar — thou shalt prevail!</em></div>`
+    );
+  }
+  if (typeof logAnswer === 'function') {
+    const optionsForLog = (item._kind === 'tf') ? ['True','False'] : item.options;
+    logAnswer(correct, item.q, chosenLabel, truthLabel, item.explain || '', optionsForLog);
+  }
+
+  state.mathfrIndex++;
+  setTimeout(() => {
+    if (state.mathfrIndex < state.mathfrTotal) {
+      askMathFinalReviewQuestion();
+    } else {
+      finishMathFinalReview();
+    }
+  }, 900);
+}
+
+function finishMathFinalReview() {
+  const total = state.mathfrTotal;
+  const got = state.mathfrCorrect;
+  const pct = got / total;
+  const bonus = (got === total) ? 8 : (pct >= 0.9) ? 6 : (pct >= 0.8) ? 4 : (pct >= 0.6) ? 3 : (pct >= 0.5) ? 2 : 0;
+  let msg;
+  if (got === total) {
+    msg = `✠✠✠ <strong>GLORIOUS VICTORY!</strong> All ${total} problems conquered! <em>The numbers themselves bow to thee!</em> Bonus +${bonus} Honour!`;
+  } else if (pct >= 0.9) {
+    msg = `⚔ <strong>Magnificent!</strong> ${got} of ${total} problems won. Bonus +${bonus} Honour!`;
+  } else if (pct >= 0.8) {
+    msg = `✠ <strong>Most valiant!</strong> ${got} of ${total} problems won. Bonus +${bonus} Honour.`;
+  } else if (pct >= 0.5) {
+    msg = `✠ <strong>A worthy attempt!</strong> ${got} of ${total}. Bonus +${bonus} Honour.`;
+  } else {
+    msg = `Thou hast claimed ${got} of ${total}. <em>Return to the lessons and try anew!</em>`;
+  }
+  if (bonus) addStars(bonus);
+  botSay(
+    msg,
+    [
+      { label: "🔁 Retake this Review", onClick: () => { userSay("Retake review"); startMathFinalReview(state.mathfrKey); } },
+      { label: "🖨 Print this Review", onClick: () => { userSay("Print review"); openMathFinalReviewPrintable(state.mathfrKey); } },
+      { label: "🧮 Try the Other Review", onClick: () => {
+          const other = (state.mathfrKey === 'q1') ? 'q2' : 'q1';
+          userSay("Try the other review");
+          startMathFinalReview(other);
+        } },
+      { label: "✠ Back to Math Units", onClick: () => { userSay("Back to Math units"); showUnitMenu(); } },
+      { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+    ]
+  );
+}
+
+/* ================================================================
+   MATHEMATICA — FINAL REVIEW PRINTABLE
+   ================================================================ */
+function openMathFinalReviewPrintable(qKey) {
+  if (typeof MATH_FINAL_REVIEWS === 'undefined' || !MATH_FINAL_REVIEWS[qKey]) {
+    alert("That review isn't available.");
+    return;
+  }
+  const html = buildMathFinalReviewPrintableHTML(qKey);
+  const w = window.open('', '_blank');
+  if (!w) {
+    alert('Please allow pop-ups so the printable can open in a new tab.');
+    return;
+  }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
+
+function buildMathFinalReviewPrintableHTML(qKey) {
+  const quiz = MATH_FINAL_REVIEWS[qKey];
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+  function stripTags(s) { return String(s || '').replace(/<[^>]+>/g, ''); }
+
+  // Split questions by kind so the printable groups them sensibly
+  const mcItems = quiz.questions.filter(it => it._kind === 'mc' && !/^FILL:/i.test(stripTags(it.q)));
+  const fillItems = quiz.questions.filter(it => it._kind === 'mc' && /^FILL:/i.test(stripTags(it.q)));
+  const tfItems = quiz.questions.filter(it => it._kind === 'tf');
+  const wordItems = quiz.questions.filter(it => it._kind === 'word');
+
+  function renderMCSection(heading, items, startNum) {
+    let html = `<h2>${heading}</h2>`;
+    items.forEach((item, i) => {
+      const n = startNum + i;
+      let qText = item.q.replace(/^FILL:\s*/i, '');
+      // For timeline-drawing problems: strip the chat-only "📝 Draw a timeline..." badge;
+      // the printable shows its own larger drawing area below.
+      if (item._drawTimeline) {
+        qText = qText.replace(/<div class=['"]?tl-instruction['"]?>[\s\S]*?<\/div>/g, '');
+      }
+      const tag = item.unit ? `<span class="unit-tag">[${item.unit}]</span> ` : '';
+      html += `<div class="q"><div class="q-head"><span class="q-num">${n}.</span> ${tag}${qText}</div>`;
+      // Drawing prompts for the printable — each match what the student should do with pencil
+      if (item._missingBar) {
+        html += `<div class="draw-prompt">✏ <strong>Draw the missing bar</strong> directly on the graph above ` +
+                `using a pencil and ruler. Then circle the answer below.</div>`;
+      } else if (item._missingTally) {
+        html += `<div class="draw-prompt">✏ <strong>Draw the missing tally marks</strong> in the empty row above. ` +
+                `Remember: every group of 5 is 4 vertical lines with a slash through them (||||̸). Then circle the answer below.</div>`;
+      } else if (item._missingX) {
+        html += `<div class="draw-prompt">✏ <strong>Draw the missing X</strong> above the correct number on the line plot. ` +
+                `Then circle the answer below.</div>`;
+      } else if (item._drawTimeline) {
+        html += `<div class="draw-prompt">✏ <strong>Draw a timeline</strong> in the blank space below to help you solve. ` +
+                `Mark the start time, end time, and the jumps in between. Then circle the answer.</div>` +
+                `<div class="timeline-draw-area">` +
+                  `<div class="tl-empty-line"></div>` +
+                  `<div class="tl-empty-ticks">` +
+                    Array.from({length:5}).map(() => `<span class="tl-empty-tick"></span>`).join('') +
+                  `</div>` +
+                  `<div class="tl-empty-labels">start ___________ end</div>` +
+                `</div>`;
+      }
+      html += `<ol class="opts">`;
+      item.options.forEach((opt, idx) => {
+        html += `<li><span class="opt-letter">${letters[idx]}.</span> ${opt}</li>`;
+      });
+      html += `</ol></div>`;
+    });
+    return html;
+  }
+
+  function renderTFSection(heading, items, startNum) {
+    let html = `<h2>${heading}</h2>`;
+    items.forEach((item, i) => {
+      const n = startNum + i;
+      const tag = item.unit ? `<span class="unit-tag">[${item.unit}]</span> ` : '';
+      html += `<div class="q"><div class="q-head"><span class="q-num">${n}.</span> ${tag}${item.q}</div>`;
+      html += `<div class="tf-opts">○ True &nbsp;&nbsp; ○ False</div></div>`;
+    });
+    return html;
+  }
+
+  let body = '';
+  let num = 1;
+  body += renderMCSection(`Part 1 · Multiple Choice (Circle the best answer) — ${mcItems.length} items`, mcItems, num);
+  num += mcItems.length;
+  body += renderTFSection(`Part 2 · True or False (Circle one) — ${tfItems.length} items`, tfItems, num);
+  num += tfItems.length;
+  body += renderMCSection(`Part 3 · Fill in the Blank (Circle the word/number that best completes each sentence) — ${fillItems.length} items`, fillItems, num);
+  num += fillItems.length;
+  body += renderMCSection(`Part 4 · Word Problems (Show your work · circle the best answer) — ${wordItems.length} items`, wordItems, num);
+
+  // Answer key
+  let keyHTML = '';
+  let kn = 1;
+  function akMC(items) {
+    let h = '';
+    items.forEach(item => {
+      h += `<div class="ak-row"><strong>${kn}.</strong> ${letters[item.answer]} — ${item.options[item.answer]}` +
+           (item.explain ? `<br><span class="ak-explain">${item.explain}</span>` : '') + `</div>`;
+      kn++;
+    });
+    return h;
+  }
+  function akTF(items) {
+    let h = '';
+    items.forEach(item => {
+      h += `<div class="ak-row"><strong>${kn}.</strong> ${item.answer ? 'True' : 'False'}` +
+           (item.explain ? `<br><span class="ak-explain">${item.explain}</span>` : '') + `</div>`;
+      kn++;
+    });
+    return h;
+  }
+
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 1 — Multiple Choice</h3>' + akMC(mcItems);
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 2 — True or False</h3>' + akTF(tfItems);
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 3 — Fill in the Blank</h3>' + akMC(fillItems);
+  keyHTML += '<h3 style="margin:10px 0 4px 0;">Part 4 — Word Problems</h3>' + akMC(wordItems);
+
+  return `<!doctype html>
+<html><head>
+<meta charset="UTF-8">
+<title>${quiz.title} — Printable</title>
+<style>
+  @page { size: letter; margin: 0.7in; }
+  body { font-family: 'Georgia', 'Times New Roman', serif; color: #1a1714; line-height: 1.4; max-width: 7.1in; margin: 0 auto; padding: 12px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px 0; color: #1a4e88; border-bottom: 2px solid #3a6ea8; padding-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin: 18px 0 8px 0; color: #1a4e88; border-bottom: 1px solid #e0d8d0; padding-bottom: 3px; }
+  h3 { font-size: 1rem; color: #1a4e88; }
+  .subtitle { color: #6b6560; font-style: italic; margin-bottom: 14px; }
+  .name-line { margin: 10px 0 16px 0; font-size: 0.95rem; }
+  .name-line span { display: inline-block; min-width: 180px; border-bottom: 1px solid #888; margin-right: 18px; }
+  .q { margin-bottom: 10px; page-break-inside: avoid; }
+  .q-head { font-weight: bold; margin-bottom: 2px; }
+  .q-num { color: #3a6ea8; margin-right: 4px; }
+  .unit-tag { font-size: 0.78em; color: #888; font-weight: normal; font-style: italic; margin-right: 4px; }
+  .opts { margin: 2px 0 4px 22px; padding: 0; list-style: none; }
+  .opts li { margin: 1px 0; }
+  .opt-letter { font-weight: bold; color: #6b6560; margin-right: 4px; }
+  .tf-opts { margin: 2px 0 4px 22px; font-size: 0.95rem; }
+  /* Bar-graph styling for printables */
+  .bg-wrap { display: inline-block; background: #fdfbf6; border: 1px solid #d0c4a0; border-radius: 6px; padding: 6px; margin: 6px 0; max-width: 100%; }
+  .bg-wrap svg { display: block; max-width: 380px; height: auto; }
+  .bg-caption { font-family: 'Cinzel', serif; font-size: 0.82rem; color: #1a4e88; text-align: center; margin-top: 2px; }
+  .bg-clue { background: #f5f0e0; border-left: 3px solid #c0a060; padding: 5px 9px; margin: 5px 0; font-style: italic; color: #3a2a18; font-size: 0.92rem; }
+  .draw-prompt { background: #fffdf2; border: 1px dashed #888; border-radius: 4px; padding: 5px 9px; margin: 5px 0; font-size: 0.9rem; color: #3a2a18; }
+  .draw-prompt strong { color: #1a4e88; }
+  /* Blank timeline-drawing area shown under timeline word problems */
+  .timeline-draw-area { background: #fdfbf6; border: 1px solid #c0a060; border-radius: 4px; padding: 28px 18px 12px; margin: 6px 0 10px; page-break-inside: avoid; }
+  .tl-empty-line { border-bottom: 2px solid #1a4e88; margin: 0 12px; height: 0; position: relative; }
+  .tl-empty-ticks { display: flex; justify-content: space-between; margin: -6px 12px 0; }
+  .tl-empty-tick { display: block; width: 2px; height: 12px; background: #1a4e88; }
+  .tl-empty-labels { text-align: center; margin-top: 14px; font-style: italic; font-size: 0.85rem; color: #5a5040; letter-spacing: 0.4em; }
+  .answer-key { page-break-before: always; }
+  .ak-row { margin-bottom: 6px; }
+  .ak-explain { color: #555; font-size: 0.9em; font-style: italic; }
+  .footer { margin-top: 28px; text-align: center; color: #888; font-size: 0.8em; }
+  @media print { .no-print { display: none; } }
+  .no-print { text-align: center; margin: 10px 0 20px 0; }
+  .no-print button { background: #3a6ea8; color: white; border: 0; padding: 8px 16px; font-size: 1rem; cursor: pointer; border-radius: 3px; }
+</style>
+</head><body>
+  <div class="no-print"><button onclick="window.print()">🖨 Print this page</button></div>
+  <h1>${quiz.title}</h1>
+  <div class="subtitle">${quiz.subtitle}</div>
+  <div class="name-line">Name: <span></span> Date: <span></span> Score: <span></span></div>
+  ${body}
+
+  <div class="answer-key">
+    <h2>✠ Answer Key</h2>
+    ${keyHTML}
+  </div>
+
+  <div class="footer">Adept Buddy · Imperial Scholarum of Grade III · Tower of Mathematica</div>
 </body></html>`;
 }
 
