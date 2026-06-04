@@ -1353,9 +1353,12 @@
 <script src="reading-data.js"></script>
 <script src="ss-data.js"></script>
 <script src="ss-final-review.js"></script>
+<script src="ss-heroes-review.js?v=1"></script>
 <script src="cn-data.js?v=4"></script>
-<script src="math-data.js?v=7"></script>
-<script src="math-final-review.js?v=7"></script>
+<script src="sci-final-review.js?v=1"></script>
+<script src="math-polygons.js?v=1"></script>
+<script src="math-data.js?v=8"></script>
+<script src="math-final-review.js?v=8"></script>
 <script src="math-bargraphs.js?v=7"></script>
 <script src="sci-data.js"></script>
 
@@ -2799,7 +2802,7 @@ function showSectionMenu() {
     { key: 'reading', emoji: '📖', title: 'Reading', sub: 'Reading Units 16 – 19', cssClass: 'section-reading' },
     { key: 'ss', emoji: '🏛️', title: 'Social Studies', sub: 'Ch. 5 · Lessons 3 – 4', cssClass: 'section-ss' },
     { key: 'math', emoji: '🧮', title: 'Mathematica', sub: 'Units 10 · 11 · 12', cssClass: 'section-math' },
-    { key: 'sci', emoji: '🔬', title: 'Science', sub: 'Topic 7 · Lessons 7.1 – 7.3', cssClass: 'section-sci' },
+    { key: 'sci', emoji: '🔬', title: 'Science', sub: 'Ch 6 Adaptation · Topic 7 · Lessons 7.1 – 7.3', cssClass: 'section-sci' },
     { key: 'cn', emoji: '📜', title: '中文 Chinese', sub: '第七課 – 第十二課', cssClass: 'section-cn' }
   ];
   sections.forEach(s => {
@@ -2830,7 +2833,7 @@ function chooseSection(sectionKey) {
   } else if (sectionKey === 'math') {
     botSay("Most excellent! Thou hast ascended the <strong>Tower of Mathematica</strong> 🧮 — wherein numbers, time, and measure obey thee. <em>Which unit shall we conquer?</em>");
   } else if (sectionKey === 'sci') {
-    botSay("Most excellent! Thou hast entered the <strong>Conservatory of Science</strong> 🔬 — wherein fossils, rocks, and ancient creatures whisper their secrets. <em>Which lesson shall we investigate?</em>");
+    botSay("Most excellent! Thou hast entered the <strong>Conservatory of Science</strong> 🔬 — wherein animal superpowers, fossils, rocks, and ancient creatures whisper their secrets. <em>Which lesson shall we investigate?</em>");
   } else if (sectionKey === 'cn') {
     botSay("歡迎來到 <strong>中文殿堂</strong> 📜 — 一起學習生字、注音和語詞吧! <em>請選擇要學習的課文。</em>");
   } else {
@@ -2948,6 +2951,38 @@ function showUnitMenu() {
     bubble.appendChild(ssQuizOpts);
   }
 
+  // Extra SS-only: Heroes Final Review (all 16 heroes, both directions)
+  if (state.section === 'ss' && typeof SS_HEROES_REVIEWS !== 'undefined') {
+    const heroHeader = document.createElement('div');
+    heroHeader.style.marginTop = '14px';
+    heroHeader.style.fontFamily = "'Cinzel', serif";
+    heroHeader.style.fontSize = '0.85rem';
+    heroHeader.style.color = '#6a3a9a';
+    heroHeader.innerHTML = '✦ Heroes Final Review (All 16 Heroes — L3 & L4) ✦';
+    bubble.appendChild(heroHeader);
+
+    const heroOpts = document.createElement('div');
+    heroOpts.className = 'options';
+    heroOpts.style.marginTop = '6px';
+
+    Object.keys(SS_HEROES_REVIEWS).forEach(qKey => {
+      const qz = SS_HEROES_REVIEWS[qKey];
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.innerHTML = `🦅 ${qz.title} — Take Online`;
+      btn.onclick = () => { userSay(`${qz.title}`); startSSHeroesReview(qKey); };
+      heroOpts.appendChild(btn);
+
+      const printBtn = document.createElement('button');
+      printBtn.className = 'option-btn';
+      printBtn.innerHTML = `🖨 ${qz.title} — Print`;
+      printBtn.onclick = () => { userSay(`${qz.title} (print)`); openSSHeroesReviewPrintable(qKey); };
+      heroOpts.appendChild(printBtn);
+    });
+
+    bubble.appendChild(heroOpts);
+  }
+
   // Extra Math-only buttons: Final Review 1 and 2 (Units 10 + 11 + 12 mix)
   if (state.section === 'math' && typeof MATH_FINAL_REVIEWS !== 'undefined') {
     const mathQuizHeader = document.createElement('div');
@@ -2978,6 +3013,44 @@ function showUnitMenu() {
     });
 
     bubble.appendChild(mathQuizOpts);
+  }
+
+  // Extra Science-only buttons: Final Review 1 and 2 (all units mix)
+  if (state.section === 'sci' && typeof SCI_FINAL_REVIEWS !== 'undefined') {
+    const sciQuizHeader = document.createElement('div');
+    sciQuizHeader.style.marginTop = '14px';
+    sciQuizHeader.style.fontFamily = "'Cinzel', serif";
+    sciQuizHeader.style.fontSize = '0.85rem';
+    sciQuizHeader.style.color = '#2a6a2a';
+    sciQuizHeader.innerHTML = '✦ Science Final Review (All Units) ✦';
+    bubble.appendChild(sciQuizHeader);
+
+    const sciQuizOpts = document.createElement('div');
+    sciQuizOpts.className = 'options';
+    sciQuizOpts.style.marginTop = '6px';
+
+    Object.keys(SCI_FINAL_REVIEWS).forEach(qKey => {
+      const qz = SCI_FINAL_REVIEWS[qKey];
+      const onlineBtn = document.createElement('button');
+      onlineBtn.className = 'option-btn';
+      onlineBtn.innerHTML = `🔬 ${qz.title} — Take Online`;
+      onlineBtn.onclick = () => { userSay(`${qz.title} (online)`); startSciFinalReview(qKey); };
+      sciQuizOpts.appendChild(onlineBtn);
+
+      const printBtn = document.createElement('button');
+      printBtn.className = 'option-btn';
+      printBtn.innerHTML = `🖨 ${qz.title} — Print`;
+      printBtn.onclick = () => { userSay(`${qz.title} (print)`); openSciFinalReviewPrintable(qKey); };
+      sciQuizOpts.appendChild(printBtn);
+
+      const keyBtn = document.createElement('button');
+      keyBtn.className = 'option-btn';
+      keyBtn.innerHTML = `📋 ${qz.title} — Print Answer Key`;
+      keyBtn.onclick = () => { userSay(`${qz.title} answer key`); showSciFinalReviewAnswerKey(qKey); };
+      sciQuizOpts.appendChild(keyBtn);
+    });
+
+    bubble.appendChild(sciQuizOpts);
   }
 
   // Extra Grammar-only buttons: Quiz 1 and Quiz 2 (mix review, online or print)
@@ -4955,6 +5028,594 @@ document.getElementById('log-export').addEventListener('click', exportLogToExcel
 document.getElementById('log-overlay').addEventListener('click', (e) => {
   if (e.target.id === 'log-overlay') closeLog();
 });
+
+/* ================================================================
+   SCIENCE — FINAL REVIEW RUNNER (All Units)
+   ================================================================ */
+function startSciFinalReview(qKey) {
+  if (typeof SCI_FINAL_REVIEWS === 'undefined' || !SCI_FINAL_REVIEWS[qKey]) {
+    botSay("⚠ That review is not available.");
+    return;
+  }
+  const quiz = SCI_FINAL_REVIEWS[qKey];
+  state.mode = 'sci_final_review';
+  state.section = 'sci';
+  state.scifrKey = qKey;
+  state.scifrSection = 'mix';
+  state.scifrIndex = 0;
+  state.scifrCorrect = 0;
+
+  const shuffled = [...quiz.questions];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  state.scifrPool = shuffled.slice(0, Math.min(40, shuffled.length));
+  state.scifrTotal = state.scifrPool.length + quiz.short.length;
+
+  botSay(
+    `<strong>🔬 ${quiz.title}</strong> — ${quiz.subtitle}<br>` +
+    `<em>Two sections await thee:<br>` +
+    `① ${state.scifrPool.length} mixed questions (multiple choice, true/false, fill-in, word problems)<br>` +
+    `② ${quiz.short.length} short-answer questions<br>` +
+    `Steel thy mind, scholar!</em>`
+  );
+  setTimeout(askSciFinalReviewQuestion, 500);
+}
+
+function askSciFinalReviewQuestion() {
+  const quiz = SCI_FINAL_REVIEWS[state.scifrKey];
+  if (state.scifrSection === 'mix') {
+    const item = state.scifrPool[state.scifrIndex];
+    const unitTag = item.unit ? `<span style="font-size:0.78rem;color:#4a8a4a;font-style:italic">[${item.unit}]</span> ` : '';
+    let qHTML = `<strong>① Mixed Trial — ${state.scifrIndex + 1} of ${state.scifrPool.length}</strong> ${unitTag}<br><br>${item.q}`;
+    let opts;
+    if (item._kind === 'tf') {
+      opts = [
+        { label: '✓ True',  onClick: (btn) => handleSciFinalReviewAnswer(true, btn) },
+        { label: '✗ False', onClick: (btn) => handleSciFinalReviewAnswer(false, btn) }
+      ];
+    } else {
+      opts = item.options.map((opt, idx) => ({
+        label: opt,
+        onClick: (btn) => handleSciFinalReviewAnswer(idx, btn)
+      }));
+    }
+    botSay(qHTML, opts);
+  } else {
+    const item = quiz.short[state.scifrIndex];
+    const unitTag = item.unit ? `<span style="font-size:0.78rem;color:#4a8a4a;font-style:italic">[${item.unit}]</span> ` : '';
+    let qHTML = `<strong>② Short-Answer Trial — ${state.scifrIndex + 1} of ${quiz.short.length}</strong> ${unitTag}<br><br>${item.q}` +
+                `<br><em>Type thine answer below (1–3 sentences).</em>`;
+    botSay(qHTML);
+    showSciFinalReviewShortInput();
+  }
+}
+
+function showSciFinalReviewShortInput() {
+  const wrap = document.createElement('div');
+  wrap.className = 'msg bot sci-fr-short-input';
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar-icon bot';
+  avatar.innerHTML = '<span>📝</span>';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.innerHTML =
+    '<textarea id="scifr-short-text" rows="4" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #4a8a4a;border-radius:6px;font-family:inherit;font-size:0.95rem;" placeholder="Write your answer here..."></textarea>' +
+    '<div class="options" style="margin-top:8px;">' +
+      '<button class="option-btn" id="scifr-short-submit">✠ Submit Answer</button>' +
+      '<button class="option-btn" id="scifr-short-skip">↷ Skip</button>' +
+    '</div>';
+  wrap.appendChild(avatar);
+  wrap.appendChild(bubble);
+  chatEl.appendChild(wrap);
+  scrollDown();
+
+  const ta = document.getElementById('scifr-short-text');
+  ta.focus();
+  document.getElementById('scifr-short-submit').onclick = () => {
+    const text = (ta.value || '').trim();
+    if (!text) { ta.focus(); return; }
+    ta.disabled = true;
+    document.getElementById('scifr-short-submit').disabled = true;
+    document.getElementById('scifr-short-skip').disabled = true;
+    handleSciFinalReviewShortAnswer(text);
+  };
+  document.getElementById('scifr-short-skip').onclick = () => {
+    ta.disabled = true;
+    document.getElementById('scifr-short-submit').disabled = true;
+    document.getElementById('scifr-short-skip').disabled = true;
+    handleSciFinalReviewShortAnswer('');
+  };
+}
+
+function handleSciFinalReviewAnswer(chosen, btn) {
+  const item = state.scifrPool[state.scifrIndex];
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+
+  let correct, chosenLabel, truthLabel;
+  if (item._kind === 'tf') {
+    correct = (chosen === item.answer);
+    chosenLabel = chosen ? 'True' : 'False';
+    truthLabel = item.answer ? 'True' : 'False';
+    if (correct) btn.classList.add('correct');
+    else {
+      btn.classList.add('wrong');
+      const truthBtn = Array.from(allBtns).find(b => b.textContent.includes(truthLabel));
+      if (truthBtn) truthBtn.classList.add('correct');
+    }
+  } else {
+    correct = (chosen === item.answer);
+    chosenLabel = item.options[chosen];
+    truthLabel = item.options[item.answer];
+    if (correct) btn.classList.add('correct');
+    else {
+      btn.classList.add('wrong');
+      if (allBtns[item.answer]) allBtns[item.answer].classList.add('correct');
+    }
+  }
+  userSay(chosenLabel);
+
+  if (correct) {
+    state.scifrCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain || ''}<br><em>+1 Honour</em></div>`);
+  } else {
+    botSay(`<div class='feedback-wrong'>⚔ <strong>The truth was &ldquo;${truthLabel}&rdquo;.</strong><br>${item.explain || ''}<br><em>Stand firm, scholar!</em></div>`);
+  }
+  if (typeof logAnswer === 'function') {
+    const optionsForLog = (item._kind === 'tf') ? ['True','False'] : item.options;
+    logAnswer(correct, item.q, chosenLabel, truthLabel, item.explain || '', optionsForLog);
+  }
+  advanceSciFinalReview();
+}
+
+function handleSciFinalReviewShortAnswer(text) {
+  const quiz = SCI_FINAL_REVIEWS[state.scifrKey];
+  const item = quiz.short[state.scifrIndex];
+  userSay(text || '(skipped)');
+  const lower = text.toLowerCase();
+  const hits = (item.keywords || []).filter(k => lower.includes(k.toLowerCase())).length;
+  const total = (item.keywords || []).length || 1;
+  const threshold = Math.min(2, total);
+  const correct = hits >= threshold;
+  if (correct) {
+    state.scifrCorrect++;
+    addStars(2);
+    botSay(`<div class='feedback-correct'>✠ <strong>Well written, scholar!</strong> Thou hast captured the key ideas. <em>+2 Honour</em><br><br><strong>Sample answer:</strong> ${item.answer}<br><em>${item.explain || ''}</em></div>`);
+  } else {
+    botSay(`<div class='feedback-wrong'>⚔ <strong>A worthy try — review the sample answer.</strong><br><br><strong>Sample answer:</strong> ${item.answer}<br><em>${item.explain || ''}</em></div>`);
+  }
+  if (typeof logAnswer === 'function') {
+    logAnswer(correct, item.q, text || '(skipped)', item.answer, item.explain || '', []);
+  }
+  advanceSciFinalReview();
+}
+
+function advanceSciFinalReview() {
+  const quiz = SCI_FINAL_REVIEWS[state.scifrKey];
+  state.scifrIndex++;
+  setTimeout(() => {
+    if (state.scifrSection === 'mix') {
+      if (state.scifrIndex < state.scifrPool.length) {
+        askSciFinalReviewQuestion();
+      } else {
+        state.scifrSection = 'short';
+        state.scifrIndex = 0;
+        botSay(`<strong>Section ① complete!</strong> Now: <em>② Short-Answer Trial</em> — write thy thoughts in 1–3 sentences.`);
+        setTimeout(askSciFinalReviewQuestion, 600);
+      }
+    } else {
+      if (state.scifrIndex < quiz.short.length) {
+        askSciFinalReviewQuestion();
+      } else {
+        finishSciFinalReview();
+      }
+    }
+  }, 900);
+}
+
+function finishSciFinalReview() {
+  const total = state.scifrTotal;
+  const got = state.scifrCorrect;
+  const pct = got / total;
+  const bonus = (got === total) ? 8 : (pct >= 0.9) ? 6 : (pct >= 0.8) ? 4 : (pct >= 0.6) ? 3 : (pct >= 0.5) ? 2 : 0;
+  let msg;
+  if (got === total) msg = `✠✠✠ <strong>GLORIOUS VICTORY!</strong> All ${total} trials conquered! Bonus +${bonus} Honour!`;
+  else if (pct >= 0.9) msg = `⚔ <strong>Magnificent!</strong> ${got} of ${total} trials won. Bonus +${bonus} Honour!`;
+  else if (pct >= 0.8) msg = `✠ <strong>Most valiant!</strong> ${got} of ${total}. Bonus +${bonus} Honour.`;
+  else if (pct >= 0.5) msg = `✠ <strong>A worthy attempt!</strong> ${got} of ${total}. Bonus +${bonus} Honour.`;
+  else msg = `Thou hast claimed ${got} of ${total}. <em>Return to the lessons and try anew!</em>`;
+  if (bonus) addStars(bonus);
+  botSay(msg, [
+    { label: "🔁 Retake this Review", onClick: () => { userSay("Retake review"); startSciFinalReview(state.scifrKey); } },
+    { label: "🖨 Print this Review",  onClick: () => { userSay("Print review");  openSciFinalReviewPrintable(state.scifrKey); } },
+    { label: "📋 Print Answer Key",   onClick: () => { userSay("Print Answer Key"); showSciFinalReviewAnswerKey(state.scifrKey); } },
+    { label: "📜 Try the Other Review", onClick: () => {
+        const other = (state.scifrKey === 'q1') ? 'q2' : 'q1';
+        userSay("Try the other review");
+        startSciFinalReview(other);
+    }},
+    { label: "✠ Back to Science Lessons", onClick: () => { userSay("Back to Science lessons"); showUnitMenu(); } },
+    { label: "🏛 Change Library", onClick: () => { userSay("Change library"); showSectionMenu(); } }
+  ]);
+}
+
+/* ================================================================
+   SCIENCE — PRINTABLE ANSWER KEY
+   ================================================================ */
+function showSciFinalReviewAnswerKey(qKey) {
+  if (typeof SCI_FINAL_REVIEWS === 'undefined' || !SCI_FINAL_REVIEWS[qKey]) return;
+  const quiz = SCI_FINAL_REVIEWS[qKey];
+
+  // Open printable answer key in new tab
+  const w = window.open('', '_blank');
+  if (!w) { alert('Please allow pop-ups so the answer key can open in a new tab.'); return; }
+  w.document.open();
+  w.document.write(buildSciFinalReviewAnswerKeyHTML(qKey));
+  w.document.close();
+
+  botSay(
+    `<strong>📋 ${quiz.title} — Answer Key</strong> has opened in a new tab. Use <em>Ctrl/Cmd+P</em> to print or save as PDF.`,
+    [
+      { label: "📋 Other Review's Key", onClick: () => {
+          const other = (qKey === 'q1') ? 'q2' : 'q1';
+          userSay("Other review answer key");
+          showSciFinalReviewAnswerKey(other);
+      }},
+      { label: "🔁 Retake this Review", onClick: () => { userSay("Retake review"); startSciFinalReview(qKey); } },
+      { label: "✠ Back to Science Lessons", onClick: () => { userSay("Back to Science lessons"); showUnitMenu(); } }
+    ]
+  );
+}
+
+function buildSciFinalReviewAnswerKeyHTML(qKey) {
+  const quiz = SCI_FINAL_REVIEWS[qKey];
+  const LETTERS = ['A','B','C','D','E','F'];
+
+  function strip(s) { return String(s||'').replace(/<[^>]+>/g,''); }
+
+  const mcWord  = quiz.questions.filter(q => q._kind !== 'tf' && !/^FILL:/i.test(strip(q.q)));
+  const tfItems = quiz.questions.filter(q => q._kind === 'tf');
+  const fills   = quiz.questions.filter(q => /^FILL:/i.test(strip(q.q)));
+
+  function renderSection(heading, items, startNum) {
+    let h = `<h2>${heading}</h2><ol>`;
+    items.forEach((it, i) => {
+      const n = startNum + i;
+      const unitTag = it.unit ? `<span class="unit-tag">[${it.unit}]</span> ` : '';
+      const qText = strip(it.q).replace(/^FILL:\s*/i,'');
+
+      let ansStr, ansClass;
+      if (it._kind === 'tf') {
+        ansStr = it.answer ? 'TRUE ✓' : 'FALSE ✗';
+        ansClass = it.answer ? 'ans-true' : 'ans-false';
+      } else {
+        const letter = LETTERS[it.answer] || '?';
+        ansStr = `${letter}. ${strip(it.options[it.answer])}`;
+        ansClass = 'ans-mc';
+      }
+
+      h += `<li value="${n}">` +
+           `<span class="q-text">${unitTag}${qText}</span>` +
+           `<span class="ans-row"><span class="ans-label">Answer:</span> <span class="${ansClass}">${ansStr}</span></span>`;
+      if (it.explain) h += `<span class="explain">${it.explain}</span>`;
+      h += `</li>`;
+    });
+    return h + '</ol>';
+  }
+
+  let n = 1;
+  let body = renderSection('Section A: Multiple Choice &amp; Word Problems', mcWord, n);
+  n += mcWord.length;
+  body += renderSection('Section B: True or False', tfItems, n);
+  n += tfItems.length;
+  body += renderSection('Section C: Fill in the Blank', fills, n);
+  n += fills.length;
+
+  // Section D short answer
+  body += `<h2>Section D: Short Answer (Sample Answers)</h2><ol>`;
+  quiz.short.forEach((it, i) => {
+    const unitTag = it.unit ? `<span class="unit-tag">[${it.unit}]</span> ` : '';
+    body += `<li value="${n+i}">` +
+            `<span class="q-text">${unitTag}${strip(it.q)}</span>` +
+            `<span class="ans-row"><span class="ans-label">Sample answer:</span> <span class="ans-mc">${it.answer}</span></span>` +
+            `<span class="explain">Key ideas: ${it.explain}</span>` +
+            `</li>`;
+  });
+  body += '</ol>';
+
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>${quiz.title} — Answer Key</title>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 12px; margin: 28px 36px; color: #1a1a1a; }
+  h1 { font-size: 17px; text-align: center; color: #2a6a2a; margin-bottom: 2px; }
+  .subtitle { text-align:center; color:#4a8a4a; font-size:12px; margin-bottom:4px; }
+  .meta { text-align:center; font-size:11px; color:#888; margin-bottom:18px; }
+  h2 { font-size:12px; background:#e8f5e8; padding:5px 8px; border-left:4px solid #4a8a4a; margin:18px 0 8px; }
+  ol { padding-left:22px; margin:0 0 6px; }
+  li { margin-bottom:9px; }
+  .unit-tag { color:#4a8a4a; font-size:10px; font-style:italic; }
+  .q-text { display:block; color:#444; margin-bottom:2px; }
+  .ans-row { display:block; margin-left:12px; margin-bottom:2px; }
+  .ans-label { font-weight:700; }
+  .ans-mc   { font-weight:700; color:#1a6a1a; }
+  .ans-true { font-weight:700; color:#1a6a1a; }
+  .ans-false{ font-weight:700; color:#cc2200; }
+  .explain  { display:block; margin-left:12px; font-style:italic; color:#666; font-size:11px; }
+  .footer   { text-align:center; font-size:10px; color:#aaa; margin-top:28px; }
+  @media print { body { margin:14px 24px; } }
+</style></head><body>
+<h1>📋 ${quiz.title} — Answer Key</h1>
+<div class="subtitle">${quiz.subtitle}</div>
+<div class="meta">For teacher use · Conservatory of Science · Imperial Scholarum of Grade III</div>
+${body}
+<div class="footer">Adept Buddy · Science Final Review · Answer Key</div>
+</body></html>`;
+}
+
+/* ================================================================
+   SCIENCE — FINAL REVIEW PRINTABLE
+   ================================================================ */
+function openSciFinalReviewPrintable(qKey) {
+  if (typeof SCI_FINAL_REVIEWS === 'undefined' || !SCI_FINAL_REVIEWS[qKey]) {
+    alert("That review isn't available.");
+    return;
+  }
+  const html = buildSciFinalReviewPrintableHTML(qKey);
+  const w = window.open('', '_blank');
+  if (!w) { alert('Please allow pop-ups so the printable can open in a new tab.'); return; }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
+
+function buildSciFinalReviewPrintableHTML(qKey) {
+  const quiz = SCI_FINAL_REVIEWS[qKey];
+  const letters = ['A','B','C','D'];
+
+  function stripTags(s) { return String(s||'').replace(/<[^>]+>/g,''); }
+
+  function renderSection(heading, items, startNum) {
+    let html = `<h2>${heading}</h2>`;
+    items.forEach((item, i) => {
+      const n = startNum + i;
+      const qText = stripTags(item.q).replace(/^FILL:\s*/i,'');
+      const unit = item.unit ? ` <span class="unit-tag">[${item.unit}]</span>` : '';
+      if (item._kind === 'tf') {
+        html += `<div class="q-block"><p class="q-num">${n}.${unit} ${qText}</p>` +
+                `<p class="tf-line">Circle one:&nbsp;&nbsp;&nbsp; <strong>TRUE</strong> &nbsp;&nbsp;&nbsp;&nbsp; <strong>FALSE</strong></p></div>`;
+      } else if (/^FILL:/i.test(stripTags(item.q))) {
+        html += `<div class="q-block"><p class="q-num">${n}.${unit} ${qText}</p><p class="blank-line">Answer: ___________________________________</p></div>`;
+      } else {
+        html += `<div class="q-block"><p class="q-num">${n}.${unit} ${qText}</p><ol class="opts" type="A">`;
+        (item.options||[]).forEach(opt => { html += `<li>${stripTags(opt)}</li>`; });
+        html += `</ol></div>`;
+      }
+    });
+    return html;
+  }
+
+  const mcItems   = quiz.questions.filter(it => it._kind !== 'tf' && !/^FILL:/i.test(stripTags(it.q)));
+  const fillItems = quiz.questions.filter(it => it._kind !== 'tf' &&  /^FILL:/i.test(stripTags(it.q)));
+  const tfItems   = quiz.questions.filter(it => it._kind === 'tf');
+  let n = 1;
+  let body = renderSection('Section A: Multiple Choice &amp; Word Problems', mcItems, n); n += mcItems.length;
+  body += renderSection('Section B: True or False', tfItems, n); n += tfItems.length;
+  body += renderSection('Section C: Fill in the Blank', fillItems, n); n += fillItems.length;
+
+  // Short answer
+  body += `<h2>Section D: Short Answer</h2>`;
+  quiz.short.forEach((item, i) => {
+    const unit = item.unit ? ` <span class="unit-tag">[${item.unit}]</span>` : '';
+    body += `<div class="q-block short-q">` +
+            `<p class="q-num">${n+i}.${unit} ${stripTags(item.q)}</p>` +
+            `<div class="write-lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div>` +
+            `</div>`;
+  });
+
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+  <title>${quiz.title}</title>
+  <style>
+    body { font-family: Arial, sans-serif; font-size: 13px; margin: 28px 36px; color: #1a1a1a; }
+    h1 { font-size: 18px; text-align: center; margin-bottom: 2px; }
+    .subtitle { text-align: center; color: #4a8a4a; font-size: 13px; margin-bottom: 6px; }
+    .meta { text-align: center; font-size: 12px; color: #555; margin-bottom: 18px; }
+    h2 { font-size: 13px; background: #e8f5e8; padding: 5px 8px; border-left: 4px solid #4a8a4a; margin: 20px 0 10px; }
+    .q-block { margin-bottom: 14px; }
+    .q-num { font-weight: bold; margin: 0 0 4px; }
+    .unit-tag { font-weight: normal; color: #4a8a4a; font-size: 11px; }
+    ol.opts { margin: 3px 0 0 18px; padding: 0; }
+    ol.opts li { margin-bottom: 2px; }
+    .tf-line { margin: 4px 0 0 12px; }
+    .blank-line { margin: 6px 0 0 12px; }
+    .short-q { margin-bottom: 22px; }
+    .write-lines .line { border-bottom: 1px solid #aaa; height: 22px; margin-bottom: 4px; }
+    .footer { text-align: center; font-size: 10px; color: #888; margin-top: 30px; }
+    @media print { body { margin: 14px 24px; } }
+  </style></head><body>
+  <h1>${quiz.title}</h1>
+  <div class="subtitle">${quiz.subtitle}</div>
+  <div class="meta">Name: _________________________ &nbsp;&nbsp; Date: _____________ &nbsp;&nbsp; Score: _______ / ${quiz.questions.length + quiz.short.length}</div>
+  ${body}
+  <div class="footer">Adept Buddy · Imperial Scholarum of Grade III · Conservatory of Science</div>
+  </body></html>`;
+}
+
+/* ================================================================
+   SOCIAL STUDIES — HEROES FINAL REVIEW RUNNER
+   ================================================================ */
+function startSSHeroesReview(qKey) {
+  if (typeof SS_HEROES_REVIEWS === 'undefined' || !SS_HEROES_REVIEWS[qKey]) {
+    botSay("⚠ That review is not available.");
+    return;
+  }
+  const quiz = SS_HEROES_REVIEWS[qKey];
+  state.mode = 'ss_heroes_review';
+  state.section = 'ss';
+  state.sshrKey = qKey;
+  state.sshrIndex = 0;
+  state.sshrCorrect = 0;
+
+  // Shuffle — but keep answer positions as-written (already varied)
+  const shuffled = [...quiz.questions];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  state.sshrPool = shuffled;
+  state.sshrTotal = shuffled.length;
+
+  botSay(
+    `<strong>🦅 ${quiz.title}</strong> — ${quiz.subtitle}<br>` +
+    `<em>${state.sshrTotal} questions — two directions:<br>` +
+    `① Given the accomplishment, name the hero.<br>` +
+    `② Given the hero's name, choose their accomplishment.<br>` +
+    `Test thy knowledge of all 16 American heroes!</em>`
+  );
+  setTimeout(askSSHeroesReviewQuestion, 500);
+}
+
+function askSSHeroesReviewQuestion() {
+  const item = state.sshrPool[state.sshrIndex];
+  const unitTag = item.unit ? `<span style="font-size:0.78rem;color:#6a3a9a;font-style:italic">[${item.unit}]</span> ` : '';
+  const qHTML = `<strong>Trial ${state.sshrIndex + 1} of ${state.sshrTotal}</strong> ${unitTag}<br><br>${item.q}`;
+  const opts = item.options.map((opt, idx) => ({
+    label: opt,
+    onClick: (btn) => handleSSHeroesReviewAnswer(idx, btn)
+  }));
+  botSay(qHTML, opts);
+}
+
+function handleSSHeroesReviewAnswer(chosen, btn) {
+  const item = state.sshrPool[state.sshrIndex];
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+
+  const correct = (chosen === item.answer);
+  const chosenLabel = item.options[chosen];
+  const truthLabel  = item.options[item.answer];
+
+  if (correct) {
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+    if (allBtns[item.answer]) allBtns[item.answer].classList.add('correct');
+  }
+  userSay(chosenLabel);
+
+  if (correct) {
+    state.sshrCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain || ''}<br><em>+1 Honour</em></div>`);
+  } else {
+    botSay(`<div class='feedback-wrong'>⚔ <strong>The answer was &ldquo;${truthLabel}&rdquo;.</strong><br>${item.explain || ''}<br><em>Study the heroes and try again!</em></div>`);
+  }
+  if (typeof logAnswer === 'function') {
+    logAnswer(correct, item.q, chosenLabel, truthLabel, item.explain || '', item.options);
+  }
+
+  state.sshrIndex++;
+  setTimeout(() => {
+    if (state.sshrIndex < state.sshrTotal) {
+      askSSHeroesReviewQuestion();
+    } else {
+      finishSSHeroesReview();
+    }
+  }, 900);
+}
+
+function finishSSHeroesReview() {
+  const total = state.sshrTotal;
+  const got   = state.sshrCorrect;
+  const pct   = got / total;
+  const bonus = (got === total) ? 8 : (pct >= 0.9) ? 6 : (pct >= 0.8) ? 4 : (pct >= 0.6) ? 3 : (pct >= 0.5) ? 2 : 0;
+  let msg;
+  if (got === total)  msg = `✠✠✠ <strong>GLORIOUS VICTORY!</strong> All ${total} hero trials conquered! Thou knowest every hero! Bonus +${bonus} Honour!`;
+  else if (pct >= 0.9) msg = `⚔ <strong>Magnificent!</strong> ${got} of ${total} — thou art nearly a hero thyself! Bonus +${bonus} Honour!`;
+  else if (pct >= 0.8) msg = `✠ <strong>Most valiant!</strong> ${got} of ${total}. Study a few more heroes and return! Bonus +${bonus} Honour.`;
+  else if (pct >= 0.5) msg = `✠ <strong>A worthy attempt!</strong> ${got} of ${total}. Review the hero chart and try again. Bonus +${bonus} Honour.`;
+  else msg = `Thou hast claimed ${got} of ${total}. <em>Return to the hero lessons — each hero's story is worth knowing!</em>`;
+  if (bonus) addStars(bonus);
+  botSay(msg, [
+    { label: "🔁 Retake this Review",  onClick: () => { userSay("Retake review"); startSSHeroesReview(state.sshrKey); } },
+    { label: "🖨 Print this Review",   onClick: () => { userSay("Print review"); openSSHeroesReviewPrintable(state.sshrKey); } },
+    { label: "📜 Try the Other Review", onClick: () => {
+        const other = (state.sshrKey === 'q1') ? 'q2' : 'q1';
+        userSay("Try the other heroes review");
+        startSSHeroesReview(other);
+    }},
+    { label: "✠ Back to SS Lessons",   onClick: () => { userSay("Back to SS lessons"); showUnitMenu(); } },
+    { label: "🏛 Change Library",       onClick: () => { userSay("Change library"); showSectionMenu(); } }
+  ]);
+}
+
+/* ================================================================
+   SOCIAL STUDIES — HEROES REVIEW PRINTABLE
+   ================================================================ */
+function openSSHeroesReviewPrintable(qKey) {
+  if (typeof SS_HEROES_REVIEWS === 'undefined' || !SS_HEROES_REVIEWS[qKey]) {
+    alert("That review isn't available.");
+    return;
+  }
+  const quiz = SS_HEROES_REVIEWS[qKey];
+  const letters = ['A','B','C','D'];
+
+  function strip(s) { return String(s||'').replace(/<[^>]+>/g,''); }
+
+  let body = `<h2>Multiple Choice — Name the Hero / Choose the Accomplishment</h2><ol>`;
+  quiz.questions.forEach((item, i) => {
+    const unitTag = item.unit ? ` <span class="unit-tag">[${item.unit}]</span>` : '';
+    body += `<div class="q-block">` +
+            `<p class="q-num">${i+1}.${unitTag} ${strip(item.q)}</p>` +
+            `<ol class="opts" type="A">`;
+    item.options.forEach(opt => { body += `<li>${strip(opt)}</li>`; });
+    body += `</ol></div>`;
+  });
+  body += `</ol>`;
+
+  // Answer key
+  body += `<div style="page-break-before:always"></div>`;
+  body += `<h2>✠ Answer Key</h2><ol>`;
+  quiz.questions.forEach((item, i) => {
+    const letter = letters[item.answer] || '?';
+    body += `<li value="${i+1}"><strong>${letter}. ${strip(item.options[item.answer])}</strong>` +
+            (item.explain ? `<br><em style="color:#555;font-size:11px">${item.explain}</em>` : '') +
+            `</li>`;
+  });
+  body += `</ol>`;
+
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>${quiz.title}</title>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 12px; margin: 28px 36px; color: #1a1a1a; }
+  h1 { font-size: 17px; text-align: center; color: #6a3a9a; margin-bottom: 2px; }
+  .subtitle { text-align:center; color:#9a6ac0; font-size:12px; margin-bottom:4px; }
+  .meta { text-align:center; font-size:11px; color:#888; margin-bottom:18px; }
+  h2 { font-size:12px; background:#f3eefa; padding:5px 8px; border-left:4px solid #6a3a9a; margin:18px 0 8px; }
+  .q-block { margin-bottom:14px; }
+  .q-num { font-weight:bold; margin:0 0 4px; }
+  .unit-tag { font-weight:normal; color:#9a6ac0; font-size:10px; font-style:italic; }
+  ol.opts { margin:3px 0 0 18px; padding:0; }
+  ol.opts li { margin-bottom:3px; }
+  ol li { margin-bottom:8px; }
+  .footer { text-align:center; font-size:10px; color:#aaa; margin-top:28px; }
+  @media print { body { margin:14px 24px; } }
+</style></head><body>
+<h1>🦅 ${quiz.title}</h1>
+<div class="subtitle">${quiz.subtitle}</div>
+<div class="meta">Name: _________________________ &nbsp;&nbsp; Date: _____________ &nbsp;&nbsp; Score: _______ / ${quiz.questions.length}</div>
+${body}
+<div class="footer">Adept Buddy · Imperial Scholarum of Grade III · Hall of Social Studies</div>
+</body></html>`;
+
+  const w = window.open('', '_blank');
+  if (!w) { alert('Please allow pop-ups so the printable can open in a new tab.'); return; }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
 
 /* ================================================================
    SOCIAL STUDIES — FINAL REVIEW RUNNER (Lessons 3 + 4)

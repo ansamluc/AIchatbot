@@ -586,7 +586,17 @@ const MATH_UNITS = {
       { q: "Which is a <strong>parallelogram with 4 equal sides</strong> (but NOT necessarily right angles)?", options: ["rectangle", "rhombus", "trapezoid", "triangle"], answer: 1, explain: "A rhombus is a parallelogram with 4 equal sides." },
       { q: "I am a polygon with <strong>two pairs of parallel sides, four right angles, and opposite sides of equal length</strong>. What shape am I?", options: ["square", "rhombus", "trapezoid", "rectangle"], answer: 3, explain: "Rectangle: 2 pairs parallel + 4 right angles + opposite sides equal. (A square is also a rectangle but the answer choice 'rectangle' is most general fit.)" },
       { q: "A figure that has at least one <strong>gap</strong> and does not close up is a(n)…", options: ["closed figure", "open figure", "polygon", "quadrilateral"], answer: 1, explain: "An open figure has gaps." },
-      { q: "Which of these is <strong>NOT a polygon</strong>?", options: ["triangle", "rectangle", "circle", "hexagon"], answer: 2, explain: "A circle has a curved side, so it is NOT a polygon." }
+      { q: "Which of these is <strong>NOT a polygon</strong>?", options: ["triangle", "rectangle", "circle", "hexagon"], answer: 2, explain: "A circle has a curved side, so it is NOT a polygon." },
+      { q: "A stop sign has <strong>8 sides</strong>. What shape is it?", options: ["pentagon", "hexagon", "octagon", "quadrilateral"], answer: 2, explain: "8 sides = octagon. Octa = 8." },
+      { q: "The letter <strong>H</strong> has two vertical lines. These lines are…", options: ["perpendicular", "parallel", "intersecting", "curved"], answer: 1, explain: "The two vertical lines of H run in the same direction and never meet — they are parallel." },
+      { q: "The letter <strong>T</strong> has a vertical and a horizontal line. These lines are…", options: ["parallel", "perpendicular", "open", "equal"], answer: 1, explain: "A vertical and horizontal line that cross at a right angle are perpendicular." },
+      { q: "Which polygon has <strong>8 sides</strong>?", options: ["pentagon", "hexagon", "heptagon", "octagon"], answer: 3, explain: "Octa = 8. Octagon has 8 sides." },
+      { q: "A <strong>line segment</strong> is different from a line because it…", options: ["goes on forever", "has two endpoints", "has one endpoint", "is curved"], answer: 1, explain: "A line segment has 2 endpoints — it has a definite start and end." },
+      { q: "In a rectangle, which sides are <strong>perpendicular</strong> to each other?", options: ["opposite sides", "the top and bottom", "next-door (adjacent) sides", "no sides"], answer: 2, explain: "Adjacent (next-door) sides of a rectangle meet at a right angle — they are perpendicular." },
+      { q: "In a rectangle, which sides are <strong>parallel</strong> to each other?", options: ["adjacent sides", "opposite sides", "all sides", "no sides"], answer: 1, explain: "Opposite sides of a rectangle run in the same direction and never meet — they are parallel." },
+      { q: "Which shape below is a <strong>parallelogram</strong> but NOT a rectangle?", options: ["a shape with 4 right angles and equal sides", "a shape with 2 pairs of parallel sides but no right angles", "a shape with exactly 1 pair of parallel sides", "a shape with 3 sides"], answer: 1, explain: "A parallelogram has 2 pairs of parallel sides. Without right angles, it is NOT a rectangle." },
+      { q: "A figure that does <strong>NOT close up</strong> — it has a gap — is called a(n)…", options: ["closed figure", "open figure", "polygon", "parallelogram"], answer: 1, explain: "An open figure has a gap and does not return to the starting point." },
+      { q: "Which figure is <strong>closed</strong>?", options: ["A spiral with an open end", "A line segment", "A triangle", "A curved open arc"], answer: 2, explain: "A triangle is a closed figure — all three sides connect with no gaps." }
     ],
     quiz_tf: [
       { q: "A <strong>line segment</strong> has two endpoints.", answer: true, explain: "True! Line segments have 2 endpoints." },
@@ -600,7 +610,17 @@ const MATH_UNITS = {
       { q: "A <strong>trapezoid</strong> has 2 pairs of parallel sides.", answer: false, explain: "False! A trapezoid has exactly 1 pair of parallel sides. Two pairs = parallelogram." },
       { q: "A <strong>quadrilateral</strong> has 4 sides and 4 angles.", answer: true, explain: "True! Quadri = 4 sides and 4 angles." },
       { q: "An angle bigger than a right angle is <strong>less than</strong> a right angle.", answer: false, explain: "False! Bigger = greater than a right angle." },
-      { q: "A <strong>closed figure</strong> begins and ends at the same point.", answer: true, explain: "True! Closed figures have no gaps." }
+      { q: "A <strong>closed figure</strong> begins and ends at the same point.", answer: true, explain: "True! Closed figures have no gaps." },
+      { q: "The two rails of a train track are <strong>parallel</strong> lines.", answer: true, explain: "True! Train tracks run in the same direction and never meet — they are parallel." },
+      { q: "The sides of the letter <strong>L</strong> are perpendicular.", answer: true, explain: "True! The vertical and horizontal parts of L meet at a right angle." },
+      { q: "An octagon has <strong>6 sides</strong>.", answer: false, explain: "False! An octagon has 8 sides. Hexa = 6 (hexagon)." },
+      { q: "A pentagon has MORE sides than a hexagon.", answer: false, explain: "False! Pentagon = 5 sides; hexagon = 6 sides. Hexagon has more." },
+      { q: "Perpendicular lines form a <strong>right angle</strong> where they meet.", answer: true, explain: "True! Perpendicular lines meet at exactly 90°." },
+      { q: "The outline of a postcard is a <strong>quadrilateral</strong>.", answer: true, explain: "True! A postcard is rectangular — 4 sides = quadrilateral." },
+      { q: "The outline of a star is a <strong>quadrilateral</strong>.", answer: false, explain: "False! A star has more than 4 sides (typically 10 sides), so it is NOT a quadrilateral." },
+      { q: "A <strong>rhombus</strong> has 4 sides of equal length AND 4 right angles.", answer: false, explain: "False! A rhombus has 4 equal sides, but its angles are NOT necessarily right angles. A square has 4 equal sides AND 4 right angles." },
+      { q: "A <strong>trapezoid</strong> has 1 pair of parallel sides and 4 angles.", answer: true, explain: "True! A trapezoid has exactly 1 pair of parallel sides and 4 angles (all quadrilaterals have 4 angles)." },
+      { q: "A <strong>parallelogram</strong> has 2 pairs of parallel sides that are of equal length AND 4 right angles.", answer: false, explain: "False! A parallelogram has 2 pairs of parallel equal sides, but does NOT require right angles. A rectangle does." }
     ],
     quiz_fill: [
       { q: "A polygon with 3 sides is a ___.", options: ["triangle", "square", "pentagon", "hexagon"], answer: 0, explain: "3 sides = triangle." },
@@ -614,7 +634,14 @@ const MATH_UNITS = {
       { q: "An angle the size of a square corner is a ___ angle.", options: ["less than", "right", "greater than", "open"], answer: 1, explain: "Right angle." },
       { q: "A closed figure made of straight line segments is a ___.", options: ["circle", "polygon", "ray", "angle"], answer: 1, explain: "Polygon." },
       { q: "A quadrilateral with exactly 1 pair of parallel sides is a ___.", options: ["square", "rectangle", "trapezoid", "rhombus"], answer: 2, explain: "Trapezoid." },
-      { q: "A parallelogram with 4 equal sides (but not necessarily right angles) is a ___.", options: ["rhombus", "rectangle", "square", "triangle"], answer: 0, explain: "Rhombus." }
+      { q: "A parallelogram with 4 equal sides (but not necessarily right angles) is a ___.", options: ["rhombus", "rectangle", "square", "triangle"], answer: 0, explain: "Rhombus." },
+      { q: "A polygon with 8 sides is a ___.", options: ["hexagon", "octagon", "pentagon", "quadrilateral"], answer: 1, explain: "8 sides = octagon." },
+      { q: "Lines that cross each other and make a right angle are ___ lines.", options: ["parallel", "perpendicular", "open", "curved"], answer: 1, explain: "Perpendicular lines cross at a right angle." },
+      { q: "A straight path between two endpoints is a ___ ___.", options: ["line segment", "ray", "angle", "polygon"], answer: 0, explain: "A line segment is a part of a line with 2 endpoints." },
+      { q: "The opposite sides of a rectangle are ___.", options: ["perpendicular", "parallel", "open", "curved"], answer: 1, explain: "A rectangle has two pairs of parallel sides (top/bottom and left/right)." },
+      { q: "A figure that does NOT close up and has a gap is a(n) ___ figure.", options: ["closed", "open", "polygon", "parallel"], answer: 1, explain: "An open figure has a gap — it does not return to the starting point." },
+      { q: "A shape with 4 sides of equal length but NOT necessarily right angles is a ___.", options: ["rectangle", "rhombus", "trapezoid", "pentagon"], answer: 1, explain: "A rhombus has 4 equal sides but its angles are not required to be right angles." },
+      { q: "The adjacent (next-door) sides of a rectangle are ___ to each other.", options: ["parallel", "perpendicular", "equal", "open"], answer: 1, explain: "Adjacent sides of a rectangle meet at a right angle — perpendicular." }
     ],
     quiz_word: [
       { q: "I am a polygon with <strong>two pairs of parallel sides</strong>, <strong>four right angles</strong>, and <strong>opposite sides of equal length</strong>. What shape am I?", options: ["square", "rhombus", "trapezoid", "rectangle"], answer: 3, explain: "Rectangle — opposite sides equal but not necessarily all 4 sides equal. (A square fits too, but the most general answer based on the clues is rectangle.)" },
@@ -626,7 +653,16 @@ const MATH_UNITS = {
       { q: "Two streets meet to form a <strong>right angle</strong> at the intersection. The streets are…", options: ["parallel", "perpendicular", "open", "curved"], answer: 1, explain: "Right angle = perpendicular." },
       { q: "Two railroad tracks <strong>never meet</strong> — they stay the same distance apart forever. The tracks are…", options: ["perpendicular", "parallel", "intersecting", "right"], answer: 1, explain: "Never meet, same distance apart = parallel." },
       { q: "A flag has the shape of a polygon with <strong>4 sides</strong>, where opposite sides are parallel and equal but the angles are NOT right angles. The flag is shaped like a…", options: ["square", "rectangle", "parallelogram", "trapezoid"], answer: 2, explain: "2 pairs parallel + opposite sides equal but no right angles = parallelogram (not rectangle)." },
-      { q: "A stop-sign window has <strong>6 sides</strong>. The window is shaped like a…", options: ["pentagon", "hexagon", "rectangle", "trapezoid"], answer: 1, explain: "6 sides = hexagon." }
+      { q: "A stop-sign window has <strong>6 sides</strong>. The window is shaped like a…", options: ["pentagon", "hexagon", "rectangle", "trapezoid"], answer: 1, explain: "6 sides = hexagon." },
+      { q: "A honeycomb cell has <strong>6 sides</strong>. Each cell is a…", options: ["pentagon", "hexagon", "octagon", "triangle"], answer: 1, explain: "6 sides = hexagon." },
+      { q: "The sides of a <strong>ladder</strong> run straight up and down, side by side, never meeting. They are…", options: ["perpendicular", "parallel", "intersecting", "curved"], answer: 1, explain: "The two long sides of a ladder run in the same direction and never meet — they are parallel." },
+      { q: "The rungs (steps) of a ladder cross the long sides at a right angle. They are…", options: ["parallel", "perpendicular", "open", "closed"], answer: 1, explain: "The rungs and the long sides meet at a right angle — they are perpendicular." },
+      { q: "A door frame has 4 sides. The top and bottom are parallel. The left and right sides are also parallel. What shape is the door frame?", options: ["trapezoid", "parallelogram", "rectangle", "triangle"], answer: 2, explain: "A door frame has 2 pairs of parallel sides and right angles — it is a rectangle (a type of parallelogram)." },
+      { q: "Look at this figure: it has 4 sides, 2 pairs of parallel sides, but <strong>no right angles</strong>. What is its name?", options: ["rectangle", "rhombus or parallelogram", "trapezoid", "square"], answer: 1, explain: "2 pairs of parallel sides without right angles = parallelogram. If all sides are also equal, it is a rhombus." },
+      { q: "A shape has a gap — one of its sides does not connect. Is it open or closed?", options: ["closed", "polygon", "open", "quadrilateral"], answer: 2, explain: "A gap means the figure does not close up — it is an OPEN figure." },
+      { q: "I am a quadrilateral. I have 4 sides of equal length. My angles are NOT right angles. What am I?", options: ["square", "rectangle", "rhombus", "trapezoid"], answer: 2, explain: "4 equal sides without right angles = rhombus." },
+      { q: "Name the quadrilateral: 4 sides, only 1 pair of parallel sides.", options: ["parallelogram", "rectangle", "trapezoid", "square"], answer: 2, explain: "Exactly 1 pair of parallel sides = trapezoid." },
+      { q: "Which figure shows <strong>perpendicular line segments</strong>?", options: ["Two lines that run side by side and never cross", "Two lines that cross at a right angle", "A curved arc", "An open path with no corners"], answer: 1, explain: "Perpendicular = cross at a right angle (90°)." }
     ],
     challenge_questions: [
       { q: "A square is ALWAYS a rectangle, but a rectangle is NOT always a square. Why?", options: ["No reason.", "Both have 4 right angles. Squares add the rule that ALL sides are equal — rectangles don't require equal sides.", "Random.", "Different shapes."], answer: 1, explain: "Critical thinking about HIERARCHY: square = MORE specific than rectangle. Important geometric reasoning." },
@@ -730,6 +766,9 @@ function buildMathQuizPool(quizType) {
     pool = u.quiz_fill.map(item => ({ ...item, _kind: 'fill' }));
   } else if (quizType === 'word') {
     pool = u.quiz_word.map(item => ({ ...item, _kind: 'word' }));
+    if (state.currentUnit === 'm12' && typeof MATH_POLYGON_QUESTIONS !== 'undefined') {
+      pool = pool.concat(MATH_POLYGON_QUESTIONS);
+    }
   } else if (quizType === 'mix') {
     pool = [
       ...u.quiz_mc.map(i => ({ ...i, _kind: 'mc' })),
@@ -737,6 +776,9 @@ function buildMathQuizPool(quizType) {
       ...u.quiz_fill.map(i => ({ ...i, _kind: 'fill' })),
       ...u.quiz_word.map(i => ({ ...i, _kind: 'word' }))
     ];
+    if (state.currentUnit === 'm12' && typeof MATH_POLYGON_QUESTIONS !== 'undefined') {
+      pool = pool.concat(MATH_POLYGON_QUESTIONS);
+    }
   }
   // Scenario-aware shuffle: questions tagged with the same _scenario stay
   // together in original order. Then take up to ~10 items, but never cut

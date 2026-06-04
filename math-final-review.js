@@ -92,7 +92,38 @@ const MATH_FINAL_REVIEWS = {
       // ---------- Unit 12 — 2-D Figures (Word) ----------
       { _kind: 'word', unit: 'Unit 12', q: "A shape has <strong>4 sides, 4 right angles, and 4 equal sides</strong>. What is its most specific name?", options: ["quadrilateral", "rectangle", "rhombus", "square"], answer: 3, explain: "All four traits → square (the most specific name)." },
       { _kind: 'word', unit: 'Unit 12', q: "Two railroad tracks <strong>never meet</strong> — they stay the same distance apart forever. The tracks are…", options: ["perpendicular", "parallel", "intersecting", "right"], answer: 1, explain: "Never meet, same distance apart = parallel." },
-      { _kind: 'word', unit: 'Unit 12', q: "A stop-sign window has <strong>6 sides</strong>. The window is shaped like a…", options: ["pentagon", "hexagon", "rectangle", "trapezoid"], answer: 1, explain: "6 sides = hexagon." }
+      { _kind: 'word', unit: 'Unit 12', q: "A stop-sign window has <strong>6 sides</strong>. The window is shaped like a…", options: ["pentagon", "hexagon", "rectangle", "trapezoid"], answer: 1, explain: "6 sides = hexagon." },
+      { _kind: 'mc', unit: 'Unit 12', q: "A stop sign has <strong>8 sides</strong>. What shape is it?", options: ["pentagon", "hexagon", "octagon", "quadrilateral"], answer: 2, explain: "8 sides = octagon." },
+      { _kind: 'tf', unit: 'Unit 12', q: "The two rails of a train track are <strong>parallel</strong> lines.", answer: true, explain: "True! Train tracks run the same direction and never meet — they are parallel." },
+      { _kind: 'tf', unit: 'Unit 12', q: "An octagon has <strong>6 sides</strong>.", answer: false, explain: "False! An octagon has 8 sides. 6 sides = hexagon." },
+      { _kind: 'mc', unit: 'Unit 12', q: "The letter <strong>H</strong> has two vertical lines. These lines are…", options: ["perpendicular", "parallel", "intersecting", "curved"], answer: 1, explain: "The two vertical lines of H run in the same direction and never meet — they are parallel." },
+      { _kind: 'word', unit: 'Unit 12', q: "The sides of a <strong>ladder</strong> run side by side and never meet. The rungs (steps) cross them at right angles. The long sides are ___, and the rungs are ___ to the sides.", options: ["parallel … perpendicular", "perpendicular … parallel", "parallel … parallel", "perpendicular … perpendicular"], answer: 0, explain: "The two long sides never meet = parallel. The rungs cross at a right angle = perpendicular." },
+      { _kind: 'mc', unit: 'Unit 12', q: "A honeycomb cell has 6 sides. It is shaped like a…", options: ["pentagon", "hexagon", "octagon", "triangle"], answer: 1, explain: "6 sides = hexagon." },
+      { _kind: 'tf', unit: 'Unit 12', q: "The outline of a postcard is a <strong>quadrilateral</strong>.", answer: true, explain: "True! A postcard is rectangular — 4 sides = quadrilateral." },
+      { _kind: 'tf', unit: 'Unit 12', q: "The outline of a star is a <strong>quadrilateral</strong>.", answer: false, explain: "False! A star has many more than 4 sides — it is NOT a quadrilateral." },
+      { _kind: 'tf', unit: 'Unit 12', q: "A <strong>rhombus</strong> has 4 sides of equal length AND 4 right angles.", answer: false, explain: "False! A rhombus has 4 equal sides but does NOT require right angles. A square does." },
+      { _kind: 'tf', unit: 'Unit 12', q: "A <strong>trapezoid</strong> has 1 pair of parallel sides and 4 angles.", answer: true, explain: "True! Exactly 1 pair of parallel sides, and like all quadrilaterals, 4 angles." },
+      { _kind: 'tf', unit: 'Unit 12', q: "A <strong>parallelogram</strong> has 2 pairs of parallel sides of equal length AND 4 right angles.", answer: false, explain: "False! A parallelogram has 2 pairs of parallel equal sides, but does NOT require right angles. A rectangle does." },
+      { _kind: 'mc', unit: 'Unit 12', q: "A figure with a <strong>gap</strong> — one side does not connect — is a(n)…", options: ["closed figure", "polygon", "open figure", "quadrilateral"], answer: 2, explain: "A gap means it is an OPEN figure, not a polygon." },
+      { _kind: 'word', unit: 'Unit 12', q: "I have <strong>4 sides of equal length</strong> but my angles are NOT right angles. What quadrilateral am I?", options: ["square", "rectangle", "rhombus", "trapezoid"], answer: 2, explain: "4 equal sides without right angles = rhombus." },
+      // --- Polygon Name-It (SVG shape recognition) ---
+      ...(typeof MATH_POLYGON_NAME_IT !== 'undefined' ? [
+        MATH_POLYGON_NAME_IT[0],  // triangle
+        MATH_POLYGON_NAME_IT[2],  // square
+        MATH_POLYGON_NAME_IT[4],  // trapezoid
+        MATH_POLYGON_NAME_IT[6],  // pentagon
+        MATH_POLYGON_NAME_IT[7],  // hexagon
+        MATH_POLYGON_NAME_IT[8],  // octagon
+      ] : []),
+      // --- Polygon Draw-It (property questions) ---
+      ...(typeof MATH_POLYGON_DRAW_IT !== 'undefined' ? [
+        MATH_POLYGON_DRAW_IT[0],  // triangle sides
+        MATH_POLYGON_DRAW_IT[3],  // rectangle properties
+        MATH_POLYGON_DRAW_IT[4],  // square vs rectangle
+        MATH_POLYGON_DRAW_IT[7],  // trapezoid
+        MATH_POLYGON_DRAW_IT[8],  // rhombus
+        MATH_POLYGON_DRAW_IT[9],  // octagon sides
+      ] : [])
     ]
   },
 
@@ -171,7 +202,39 @@ const MATH_FINAL_REVIEWS = {
       // ---------- Unit 12 — 2-D Figures (Word) ----------
       { _kind: 'word', unit: 'Unit 12', q: "I am a polygon with <strong>two pairs of parallel sides</strong>, <strong>four right angles</strong>, and <strong>opposite sides of equal length</strong>. What shape am I?", options: ["square", "rhombus", "trapezoid", "rectangle"], answer: 3, explain: "Rectangle — opposite sides equal but not necessarily all 4 sides equal." },
       { _kind: 'word', unit: 'Unit 12', q: "Two streets meet to form a <strong>right angle</strong> at the intersection. The streets are…", options: ["parallel", "perpendicular", "open", "curved"], answer: 1, explain: "Right angle = perpendicular." },
-      { _kind: 'word', unit: 'Unit 12', q: "A shape has <strong>exactly 1 pair of parallel sides</strong>. What is its name?", options: ["parallelogram", "trapezoid", "rectangle", "rhombus"], answer: 1, explain: "Exactly 1 pair of parallel sides = trapezoid." }
+      { _kind: 'word', unit: 'Unit 12', q: "A shape has <strong>exactly 1 pair of parallel sides</strong>. What is its name?", options: ["parallelogram", "trapezoid", "rectangle", "rhombus"], answer: 1, explain: "Exactly 1 pair of parallel sides = trapezoid." },
+      { _kind: 'mc', unit: 'Unit 12', q: "Which polygon has <strong>8 sides</strong>?", options: ["pentagon", "hexagon", "heptagon", "octagon"], answer: 3, explain: "Octa = 8. Octagon has 8 sides." },
+      { _kind: 'tf', unit: 'Unit 12', q: "A pentagon has MORE sides than a hexagon.", answer: false, explain: "False! Pentagon = 5 sides; hexagon = 6 sides." },
+      { _kind: 'tf', unit: 'Unit 12', q: "Perpendicular lines form a <strong>right angle</strong> where they meet.", answer: true, explain: "True! Perpendicular lines meet at exactly 90°." },
+      { _kind: 'mc', unit: 'Unit 12', q: "The letter <strong>T</strong> — the vertical and horizontal parts are…", options: ["parallel", "perpendicular", "open", "curved"], answer: 1, explain: "A vertical and horizontal line crossing at a right angle = perpendicular." },
+      { _kind: 'mc', unit: 'Unit 12', q: "A <strong>line segment</strong> is different from a line because it…", options: ["goes on forever", "has two endpoints", "has one endpoint", "is curved"], answer: 1, explain: "A line segment has 2 endpoints — a definite start and end." },
+      { _kind: 'word', unit: 'Unit 12', q: "A door frame has 4 sides: top, bottom, left, right. Top and bottom are parallel. Left and right are parallel. All corners are right angles. What shape is the door frame?", options: ["trapezoid", "rhombus", "rectangle", "triangle"], answer: 2, explain: "2 pairs of parallel sides + 4 right angles = rectangle." },
+      { _kind: 'word', unit: 'Unit 12', q: "A honeycomb is made of cells that each have 6 sides. Each cell is a…", options: ["pentagon", "hexagon", "octagon", "triangle"], answer: 1, explain: "6 sides = hexagon." },
+      { _kind: 'tf', unit: 'Unit 12', q: "The outline of a postcard is a <strong>quadrilateral</strong>.", answer: true, explain: "True! A postcard is rectangular — 4 sides = quadrilateral." },
+      { _kind: 'tf', unit: 'Unit 12', q: "A <strong>rhombus</strong> has 4 sides of equal length AND 4 right angles.", answer: false, explain: "False! A rhombus has 4 equal sides but NOT necessarily right angles. A square has both." },
+      { _kind: 'tf', unit: 'Unit 12', q: "A <strong>parallelogram</strong> has 2 pairs of parallel sides of equal length AND 4 right angles.", answer: false, explain: "False! A parallelogram does NOT require right angles. A rectangle does." },
+      { _kind: 'mc', unit: 'Unit 12', q: "A figure that does NOT close up and has a gap is a(n)…", options: ["closed figure", "polygon", "open figure", "quadrilateral"], answer: 2, explain: "An open figure has a gap." },
+      { _kind: 'word', unit: 'Unit 12', q: "Look at this shape: 4 sides, 2 pairs of parallel sides, <strong>no right angles</strong>. What is its name?", options: ["rectangle", "trapezoid", "parallelogram", "square"], answer: 2, explain: "2 pairs of parallel sides without right angles = parallelogram." },
+      { _kind: 'word', unit: 'Unit 12', q: "Which line segments in a <strong>square</strong> are perpendicular to each other?", options: ["The opposite sides", "The adjacent (next-door) sides", "The diagonals only", "No sides are perpendicular"], answer: 1, explain: "Adjacent sides of a square meet at a right angle — they are perpendicular." },
+      { _kind: 'tf', unit: 'Unit 12', q: "A <strong>trapezoid</strong> has exactly 1 pair of parallel sides and 4 angles.", answer: true, explain: "True! Exactly 1 pair of parallel sides, and like all quadrilaterals, 4 angles." },
+      // --- Polygon Name-It (SVG shape recognition) ---
+      ...(typeof MATH_POLYGON_NAME_IT !== 'undefined' ? [
+        MATH_POLYGON_NAME_IT[1],  // rectangle
+        MATH_POLYGON_NAME_IT[3],  // rhombus
+        MATH_POLYGON_NAME_IT[5],  // parallelogram
+        MATH_POLYGON_NAME_IT[6],  // pentagon
+        MATH_POLYGON_NAME_IT[7],  // hexagon
+        MATH_POLYGON_NAME_IT[8],  // octagon
+      ] : []),
+      // --- Polygon Draw-It (property questions) ---
+      ...(typeof MATH_POLYGON_DRAW_IT !== 'undefined' ? [
+        MATH_POLYGON_DRAW_IT[1],  // triangle corners
+        MATH_POLYGON_DRAW_IT[2],  // quadrilateral sides
+        MATH_POLYGON_DRAW_IT[5],  // pentagon sides
+        MATH_POLYGON_DRAW_IT[6],  // hexagon sides
+        MATH_POLYGON_DRAW_IT[9],  // octagon sides
+        MATH_POLYGON_DRAW_IT[10], // complete the table
+      ] : [])
     ]
   }
 };
