@@ -1351,6 +1351,7 @@
 <script src="vw-data.js"></script>
 <script src="vw-final-review.js"></script>
 <script src="reading-data.js"></script>
+<script src="reading-final-review.js"></script>
 <script src="ss-data.js"></script>
 <script src="ss-final-review.js"></script>
 <script src="ss-heroes-review.js?v=1"></script>
@@ -3051,6 +3052,45 @@ function showUnitMenu() {
     });
 
     bubble.appendChild(sciQuizOpts);
+  }
+
+  // Extra Reading-only buttons: Final Review
+  if (state.section === 'reading' && window.READING_FINAL_REVIEWS && Object.keys(READING_FINAL_REVIEWS).length > 0) {
+    const rdQuizHeader = document.createElement('div');
+    rdQuizHeader.style.marginTop = '14px';
+    rdQuizHeader.style.fontFamily = "'Cinzel', serif";
+    rdQuizHeader.style.fontSize = '0.85rem';
+    rdQuizHeader.style.color = '#2a7a6a';
+    rdQuizHeader.innerHTML = '✦ Reading Final Review ✦';
+    bubble.appendChild(rdQuizHeader);
+
+    const rdQuizOpts = document.createElement('div');
+    rdQuizOpts.className = 'options';
+    rdQuizOpts.style.marginTop = '6px';
+
+    Object.keys(READING_FINAL_REVIEWS).forEach(qKey => {
+      const qz = READING_FINAL_REVIEWS[qKey];
+
+      const onlineBtn = document.createElement('button');
+      onlineBtn.className = 'option-btn';
+      onlineBtn.innerHTML = `📖 ${qz.title} — Take Online`;
+      onlineBtn.onclick = () => { userSay(`${qz.title} (online)`); startReadingFinalReview(qKey); };
+      rdQuizOpts.appendChild(onlineBtn);
+
+      const printBtn = document.createElement('button');
+      printBtn.className = 'option-btn';
+      printBtn.innerHTML = `🖨 ${qz.title} — Print`;
+      printBtn.onclick = () => { userSay(`${qz.title} (print)`); openReadingFinalReviewPrintable(qKey); };
+      rdQuizOpts.appendChild(printBtn);
+
+      const keyBtn = document.createElement('button');
+      keyBtn.className = 'option-btn';
+      keyBtn.innerHTML = `📋 ${qz.title} — Answer Key`;
+      keyBtn.onclick = () => { userSay(`${qz.title} answer key`); showReadingFinalReviewAnswerKey(qKey); };
+      rdQuizOpts.appendChild(keyBtn);
+    });
+
+    bubble.appendChild(rdQuizOpts);
   }
 
   // Extra Grammar-only buttons: Quiz 1 and Quiz 2 (mix review, online or print)
@@ -5615,6 +5655,365 @@ ${body}
   w.document.open();
   w.document.write(html);
   w.document.close();
+}
+
+/* ================================================================
+   READING — FINAL REVIEW RUNNER
+   Section A: 9 labelling items (display + MC)
+   Section B: 5 multiple choice questions
+   ================================================================ */
+function startReadingFinalReview(qKey) {
+  if (typeof READING_FINAL_REVIEWS === 'undefined' || !READING_FINAL_REVIEWS[qKey]) {
+    botSay('⚠ That review is not available.'); return;
+  }
+  const quiz = READING_FINAL_REVIEWS[qKey];
+  state.mode = 'rd_final_review';
+  state.rdfrKey = qKey;
+  state.rdfrAIndex = 0;
+  state.rdfrBIndex = 0;
+  state.rdfrPhase = 'A';
+  state.rdfrCorrect = 0;
+  const aCount = (quiz.sectionA || []).length;
+  const bCount = (quiz.questions || []).length;
+  state.rdfrTotal = aCount + bCount;
+
+  let introHTML = `<strong>📖 ${quiz.title}</strong><br><em>${quiz.subtitle}</em><br><br>`;
+  if (aCount) introHTML += `Section A — Name the text or graphic feature (${aCount} items)<br>`;
+  if (aCount) introHTML += `Section B — Text &amp; Graphic Features MC (5 questions)<br>`;
+  introHTML += `Reading 2 — The Mystery Project (12 questions)<br>`;
+  introHTML += `Reading 3 — The School Garden (6 questions + Inference Map)<br>`;
+  introHTML += `Reading 4 — The Rainforest Rescue (13 questions)<br><br>`;
+  introHTML += `<em>Steel thy reading mind! ${state.rdfrTotal} questions await.</em>`;
+  botSay(introHTML);
+
+  if (aCount) {
+    setTimeout(askRdSectionA, 700);
+  } else {
+    // Show passage first if present, then go straight to questions
+    if (quiz.passage) {
+      setTimeout(() => {
+        botSay(`<div class='reading-passage' style='padding:12px;background:#f4f8f4;border-left:3px solid #2a7a6a;line-height:1.75;font-size:0.9rem;'>${quiz.passage}</div>`);
+        setTimeout(askRdSectionB, 600);
+      }, 700);
+    } else {
+      setTimeout(askRdSectionB, 700);
+    }
+  }
+}
+
+/* ── Section A: Name the Feature ─────────────────────────────── */
+function askRdSectionA() {
+  const quiz = READING_FINAL_REVIEWS[state.rdfrKey];
+  const items = quiz.sectionA || [];
+  if (state.rdfrAIndex >= items.length) {
+    botSay(`<strong>✦ Section A complete!</strong><br>Now: Section B — Multiple Choice.`);
+    state.rdfrPhase = 'B';
+    setTimeout(askRdSectionB, 700);
+    return;
+  }
+  const item = items[state.rdfrAIndex];
+
+  // Layout: arrow left (◄) means feature box is on LEFT, blank on RIGHT
+  //         arrow right (►) means feature box is on RIGHT of blank
+  const arrowIsLeft = item.arrow === '◄';
+  const layout = arrowIsLeft
+    ? `<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+         ${item.display}
+         <div style="font-size:1.5rem;">◄</div>
+         <div><strong>Item ${item.num}.</strong> _______________________</div>
+       </div>`
+    : `<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+         <div><strong>Item ${item.num}.</strong> _______________________ <span style="font-size:1.5rem;">►</span></div>
+         ${item.display}
+       </div>`;
+
+  const qHTML = `<strong>Section A — Item ${item.num} of ${items.length}</strong><br>
+<em>What is the name of this text or graphic feature?</em><br><br>
+<div style="background:#f5f8f5;border:1px solid #b0c8b0;border-radius:6px;padding:12px;margin:8px 0;">
+  ${layout}
+</div>`;
+
+  // 4 choices: correct + 3 deterministic distractors
+  const all = ['Title','Table of Contents','Heading','Keywords / Key Words','Label','Caption','Glossary','Sidebar','Fact Box'];
+  const correct = item.answer;
+  const dist = all.filter(a => a !== correct);
+  const chosen3 = [dist[(item.num * 3) % dist.length], dist[(item.num * 3 + 2) % dist.length], dist[(item.num * 3 + 5) % dist.length]];
+  const pool = [correct, ...chosen3];
+  // deterministic shuffle
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = (item.num * 13 + i) % (i + 1);
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  const correctIdx = pool.indexOf(correct);
+  const opts = pool.map((label, idx) => ({
+    label,
+    onClick: (btn) => handleRdSectionA(idx, correctIdx, correct, btn)
+  }));
+  botSay(qHTML, opts);
+}
+
+function handleRdSectionA(chosen, correctIdx, correctLabel, btn) {
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+  const isCorrect = chosen === correctIdx;
+  if (isCorrect) btn.classList.add('correct');
+  else { btn.classList.add('wrong'); if (allBtns[correctIdx]) allBtns[correctIdx].classList.add('correct'); }
+  userSay(btn.textContent);
+  if (isCorrect) {
+    state.rdfrCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Correct — ${correctLabel}!</strong><br><em>+1 Honour</em></div>`);
+  } else {
+    botSay(`<div class='feedback-wrong'>⚔ <strong>The answer was "${correctLabel}".</strong><br><em>Stand firm, scholar!</em></div>`);
+  }
+  state.rdfrAIndex++;
+  setTimeout(askRdSectionA, 600);
+}
+
+/* ── Section B: Multiple Choice ───────────────────────────────── */
+function askRdSectionB() {
+  const quiz = READING_FINAL_REVIEWS[state.rdfrKey];
+  const qs = quiz.questions || [];
+  if (state.rdfrBIndex >= qs.length) { finishRdFinalReview(); return; }
+  const item = qs[state.rdfrBIndex];
+  const showQ = () => {
+    const opts = item.options.map((opt, idx) => ({
+      label: opt,
+      onClick: (btn) => handleRdSectionB(idx, btn)
+    }));
+    botSay(item.q, opts);
+  };
+  // Show passage when a new section starts
+  const passageHTML = item.showPassage
+    ? (item.passageKey ? quiz[item.passageKey] : quiz.passage)
+    : null;
+  if (passageHTML) {
+    botSay(`<div class='reading-passage' style='padding:12px;background:#f4f8f4;border-left:3px solid #2a7a6a;line-height:1.75;font-size:0.9rem;'>${passageHTML}</div>`);
+    setTimeout(showQ, 500);
+  } else {
+    showQ();
+  }
+}
+
+function handleRdSectionB(chosen, btn) {
+  const quiz = READING_FINAL_REVIEWS[state.rdfrKey];
+  const item = quiz.questions[state.rdfrBIndex];
+  const allBtns = btn.parentElement.querySelectorAll('button');
+  allBtns.forEach(b => b.disabled = true);
+  const isCorrect = chosen === item.answer;
+  const chosenLabel = item.options[chosen];
+  const truthLabel = item.options[item.answer];
+  if (isCorrect) btn.classList.add('correct');
+  else { btn.classList.add('wrong'); if (allBtns[item.answer]) allBtns[item.answer].classList.add('correct'); }
+  userSay(chosenLabel);
+  if (isCorrect) {
+    state.rdfrCorrect++;
+    addStars(1);
+    botSay(`<div class='feedback-correct'>✠ <strong>Victory!</strong> ${item.explain || ''}<br><em>+1 Honour</em></div>`);
+  } else {
+    botSay(`<div class='feedback-wrong'>⚔ <strong>The answer was "${truthLabel}".</strong><br>${item.explain || ''}<br><em>Stand firm, scholar!</em></div>`);
+  }
+  if (typeof logAnswer === 'function') logAnswer(isCorrect, item.q, chosenLabel, truthLabel, item.explain || '', item.options);
+  state.rdfrBIndex++;
+  setTimeout(askRdSectionB, 600);
+}
+
+function finishRdFinalReview() {
+  const quiz = READING_FINAL_REVIEWS[state.rdfrKey];
+  // Show inference map if present
+  if (quiz.inferenceMap) {
+    const im = quiz.inferenceMap;
+    const fieldsHTML = im.fields.map(f => `<div style="margin:10px 0;font-size:0.9rem;">${f}</div>`).join('');
+    botSay(
+      `<strong>✦ ${im.title}</strong><br><em>${im.instruction}</em><br><br>` +
+      `<div style="background:#f4f8f4;border:1px solid #b0c8b0;border-radius:6px;padding:12px 16px;">${fieldsHTML}</div>` +
+      `<br><em style="font-size:0.82rem;color:#555;">Fill this in on your worksheet — sample answers shown in the Answer Key.</em>`
+    );
+  }
+  const pct = Math.round(state.rdfrCorrect / state.rdfrTotal * 100);
+  const medal = pct >= 90 ? '🏅 Exemplary Scholar!' : pct >= 70 ? '⭐ Worthy Performance!' : '📖 Keep Reading, Scholar!';
+  botSay(
+    `<strong>📖 ${quiz.title} — Complete!</strong><br>` +
+    `Score: <strong>${state.rdfrCorrect} / ${state.rdfrTotal}</strong> (${pct}%)<br>${medal}`,
+    [
+      { label: '🔁 Retake this Review', onClick: () => { userSay('Retake review'); startReadingFinalReview(state.rdfrKey); } },
+      { label: '🖨 Print this Review',  onClick: () => { userSay('Print review'); openReadingFinalReviewPrintable(state.rdfrKey); } },
+      { label: '📋 View Answer Key',    onClick: () => { userSay('View Answer Key'); showReadingFinalReviewAnswerKey(state.rdfrKey); } }
+    ]
+  );
+  state.mode = 'idle';
+}
+
+function openReadingFinalReviewPrintable(qKey) {
+  if (typeof READING_FINAL_REVIEWS === 'undefined' || !READING_FINAL_REVIEWS[qKey]) return;
+  const quiz = READING_FINAL_REVIEWS[qKey];
+  const stripHTML = s => s.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+
+  let body = '';
+
+  // Passage (for passage-based quizzes with no Section A)
+  if (quiz.passage && !(quiz.sectionA && quiz.sectionA.length)) {
+    const passageText = quiz.passage
+      .replace(/<p>/gi, '\n').replace(/<\/p>/gi, '\n')
+      .replace(/<[^>]+>/g, '').replace(/\n{3,}/g, '\n\n').trim();
+    body += `<div style="background:#f4f9f4;border-left:3px solid #2a7a6a;padding:10px 14px;margin:0 0 20px;font-size:12px;line-height:1.85;white-space:pre-wrap;">${passageText}</div>`;
+  }
+
+  // Section A: display each feature visually + write-on blank
+  if (quiz.sectionA && quiz.sectionA.length) {
+    body += `<h2 style="margin:20px 0 4px;color:#1a4a2a;font-size:1.05rem;">Section A — Text and Graphic Features (${quiz.sectionA.length} marks)</h2>`;
+    body += `<p style="font-size:12px;margin:0 0 12px;">Write the name of the text or graphic feature on each line.</p>`;
+    quiz.sectionA.forEach(tf => {
+      const arrowIsLeft = tf.arrow === '◄';
+      body += `<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;">`;
+      if (!arrowIsLeft) {
+        body += `<div style="font-size:12px;white-space:nowrap;"><strong>${tf.num}.</strong> _________________________ ${tf.arrow}</div>`;
+        body += tf.display;
+      } else {
+        body += tf.display;
+        body += `<div style="font-size:12px;white-space:nowrap;">${tf.arrow} <strong>${tf.num}.</strong> _________________________</div>`;
+      }
+      body += `</div>`;
+    });
+  }
+
+  // MC questions grouped by section
+  if (quiz.questions && quiz.questions.length) {
+    let lastSection = null;
+    let listOpen = false;
+    quiz.questions.forEach((item, i) => {
+      if (item.section !== lastSection) {
+        if (listOpen) { body += `</ol>`; listOpen = false; }
+        body += `<h2 style="margin:28px 0 4px;color:#1a4a2a;font-size:1.05rem;">${item.section}</h2>`;
+        body += `<p style="font-size:12px;margin:0 0 12px;">Circle or write the letter of the best answer.</p>`;
+        // Show passage before questions that need it
+        if (item.showPassage) {
+          const pSrc = item.passageKey ? quiz[item.passageKey] : quiz.passage;
+          if (pSrc) {
+            const passageText = pSrc
+              .replace(/<p>/gi, '\n').replace(/<\/p>/gi, '\n')
+              .replace(/<[^>]+>/g, '').replace(/\n{3,}/g, '\n\n').trim();
+            body += `<div style="background:#f4f9f4;border-left:3px solid #2a7a6a;padding:10px 14px;margin:0 0 16px;font-size:12px;line-height:1.85;white-space:pre-wrap;">${passageText}</div>`;
+          }
+        }
+        body += `<ol style="margin-left:18px;line-height:2.1;">`;
+        listOpen = true;
+        lastSection = item.section;
+      }
+      const qPlain = stripHTML(item.q);
+      body += `<li style="margin-bottom:12px;">${qPlain}<br>`;
+      item.options.forEach(opt => { body += `&nbsp;&nbsp;&nbsp;&nbsp;${opt}<br>`; });
+      body += `My answer: ___________</li>`;
+    });
+    if (listOpen) body += `</ol>`;
+  }
+
+  // Inference Map
+  if (quiz.inferenceMap) {
+    const im = quiz.inferenceMap;
+    body += `<h2 style="margin:28px 0 4px;color:#1a4a2a;font-size:1.05rem;">${im.title}</h2>`;
+    body += `<p style="font-size:12px;margin:0 0 12px;">${im.instruction}</p>`;
+    body += `<div style="border:1px solid #b0c8b0;border-radius:6px;padding:12px 16px;font-size:13px;line-height:2.8;">`;
+    im.fields.forEach(f => { body += `<div>${f}</div>`; });
+    body += `</div>`;
+  }
+
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>${quiz.title}</title>
+<style>
+  body { font-family: 'Times New Roman', serif; padding: 32px; max-width: 740px; margin: 0 auto; background: #fff; color: #1a1a1a; font-size: 13px; }
+  h1 { text-align: center; font-size: 1.4rem; margin-bottom: 4px; }
+  .subtitle { text-align: center; font-size: 1rem; color: #555; margin-bottom: 6px; }
+  .name-line { margin: 16px 0 24px; font-size: 13px; }
+  ol li { margin-bottom: 4px; }
+  .footer { text-align: center; margin-top: 32px; font-size: 11px; color: #999; }
+  @media print { body { padding: 16px; } .no-print { display: none; } }
+</style></head><body>
+<h1>${quiz.title}</h1>
+<div class="subtitle">${quiz.subtitle}</div>
+<div class="name-line">Name: ____________________________&nbsp;&nbsp;&nbsp;&nbsp; Date: ________________</div>
+${body}
+<div class="footer">Adept Buddy · Reading Final Review</div>
+<div class="no-print" style="text-align:center;margin-top:16px;">
+  <button onclick="window.print()" style="padding:8px 20px;font-size:13px;cursor:pointer;">🖨 Print</button>
+</div>
+</body></html>`;
+
+  const w = window.open('', '_blank');
+  if (!w) { alert('Please allow pop-ups to print.'); return; }
+  w.document.open(); w.document.write(html); w.document.close();
+}
+
+function showReadingFinalReviewAnswerKey(qKey) {
+  if (typeof READING_FINAL_REVIEWS === 'undefined' || !READING_FINAL_REVIEWS[qKey]) return;
+  const quiz = READING_FINAL_REVIEWS[qKey];
+  const letters = ['A', 'B', 'C', 'D'];
+
+  let body = '';
+
+  // Section A answers
+  if (quiz.sectionA && quiz.sectionA.length) {
+    body += `<h2 style="margin:16px 0 8px;color:#1a4a2a;">Section A — Text and Graphic Features (${quiz.sectionA.length} marks)</h2>`;
+    body += `<ol style="margin-left:18px;line-height:2.1;">`;
+    quiz.sectionA.forEach(tf => {
+      body += `<li value="${tf.num}"><strong>${tf.answer}</strong></li>`;
+    });
+    body += `</ol>`;
+  }
+
+  // MC answers grouped by section
+  if (quiz.questions && quiz.questions.length) {
+    let lastSection = null;
+    let listOpen = false;
+    quiz.questions.forEach((item, i) => {
+      if (item.section !== lastSection) {
+        if (listOpen) { body += `</ol>`; listOpen = false; }
+        body += `<h2 style="margin:24px 0 8px;color:#1a4a2a;border-bottom:1px solid #ccc;padding-bottom:4px;">${item.section}</h2>`;
+        body += `<ol style="margin-left:18px;line-height:2.1;">`;
+        listOpen = true;
+        lastSection = item.section;
+      }
+      const letter = letters[item.answer] || '?';
+      const optText = item.options[item.answer].replace(/^[A-D]\)\s*/, '');
+      body += `<li value="${i+1}"><strong>${letter}) ${optText}</strong>` +
+              (item.explain ? `<br><span style="color:#555;font-size:11px">${item.explain}</span>` : '') +
+              `</li>`;
+    });
+    if (listOpen) body += `</ol>`;
+  }
+
+  // Inference Map sample answers
+  if (quiz.inferenceMap) {
+    const im = quiz.inferenceMap;
+    body += `<h2 style="margin:24px 0 8px;color:#1a4a2a;border-bottom:1px solid #ccc;padding-bottom:4px;">${im.title} — Sample Answers</h2>`;
+    body += `<ul style="margin-left:18px;line-height:2;">`;
+    im.sampleAnswers.forEach(a => { body += `<li>${a}</li>`; });
+    body += `</ul>`;
+  }
+
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>${quiz.title} — Answer Key</title>
+<style>
+  body { font-family: 'Times New Roman', serif; padding: 32px; max-width: 700px; margin: 0 auto; background: #fafaf8; color: #1a1a1a; font-size: 13px; }
+  h1 { text-align: center; font-size: 1.4rem; margin-bottom: 4px; }
+  .subtitle { text-align: center; font-size: 1rem; color: #555; margin-bottom: 24px; }
+  h2 { border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+  ol li { margin-bottom: 6px; }
+  .footer { text-align: center; margin-top: 32px; font-size: 11px; color: #999; }
+  @media print { body { padding: 16px; } .no-print { display: none; } }
+</style></head><body>
+<h1>📋 ${quiz.title} — Answer Key</h1>
+<div class="subtitle">${quiz.subtitle}</div>
+${body}
+<div class="footer">Adept Buddy · Reading Final Review · Answer Key</div>
+<div class="no-print" style="text-align:center;margin-top:16px;">
+  <button onclick="window.print()" style="padding:8px 20px;font-size:13px;cursor:pointer;">🖨 Print</button>
+</div>
+</body></html>`;
+
+  const w = window.open('', '_blank');
+  if (!w) { alert('Please allow pop-ups to view the answer key.'); return; }
+  w.document.open(); w.document.write(html); w.document.close();
 }
 
 /* ================================================================
