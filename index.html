@@ -5679,11 +5679,11 @@ function startReadingFinalReview(qKey) {
 
   let introHTML = `<strong>📖 ${quiz.title}</strong><br><em>${quiz.subtitle}</em><br><br>`;
   if (aCount) introHTML += `Section A — Name the text or graphic feature (${aCount} items)<br>`;
-  if (aCount) introHTML += `Section B — Text &amp; Graphic Features MC (5 questions)<br>`;
-  introHTML += `Reading 2 — The Mystery Project (12 questions)<br>`;
-  introHTML += `Reading 3 — The School Garden (6 questions + Inference Map)<br>`;
-  introHTML += `Reading 4 — The Rainforest Rescue (13 questions)<br><br>`;
-  introHTML += `<em>Steel thy reading mind! ${state.rdfrTotal} questions await.</em>`;
+  if (aCount) introHTML += `Section B — Multiple choice (5 questions)<br>`;
+  // Show section names from questions
+  const secNames = [...new Set((quiz.questions||[]).map(q => q.section))];
+  secNames.forEach(s => { introHTML += `${s}<br>`; });
+  introHTML += `<br><em>Steel thy reading mind! ${state.rdfrTotal} questions await.</em>`;
   botSay(introHTML);
 
   if (aCount) {

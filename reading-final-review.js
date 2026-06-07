@@ -465,5 +465,497 @@ var READING_FINAL_REVIEWS = {
         'Conclusion: Lily is helping care for the school garden and protecting the environment.'
       ]
     }
+  },
+
+  /* ================================================================
+     READING FINAL REVIEW 2
+     Vocabulary: recycle, project, complicated, pollution, hardly,
+       fossils, clues, prove, evident, fierce, pollen, clumps,
+       passages, throughout, spines, scolding, hesitation, burden,
+       console, drowsy
+     Section A : same 9 text-feature labelling items
+     Section B : 5 MC (vocab / text features)
+     Reading 2 : The Science Fair Project  (4 blanks + 12 Q)
+     Reading 3 : The Cactus Garden         (6 Q + Inference Map)
+     Reading 4 : The Old Library           (8 blanks + 13 Q)
+     Answer spread: A×9  B×9  C×9  D×9  (36 MC total)
+     ================================================================ */
+  rd_final_2: {
+    title: 'Reading Final Review 2',
+    subtitle: 'Vocabulary · The Science Fair Project · The Cactus Garden · The Old Library',
+
+    /* ── Section A: 9 labelling items — Desert Animals theme ─────────
+       New order:  1=Fact Box  2=Heading  3=Caption  4=Glossary
+                   5=Title  6=Sidebar  7=Label  8=Table of Contents
+                   9=Keywords / Key Words
+       Arrows also re-mixed vs Review 1.                              */
+    sectionA: [
+      {
+        /* 1 — Fact Box (◄ arrow, box on LEFT) */
+        num: 1,
+        arrow: '◄',
+        display: `<div style="display:inline-block;border:2px solid #c07000;background:#fff8e1;padding:8px 14px;font-family:serif;font-size:0.82rem;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.95rem;color:#8a4800;">Amazing Desert Facts!</div>
+  <div style="margin-top:5px;">• The Sahara Desert is the largest hot desert on Earth.</div>
+  <div>• Some deserts receive less than 25 mm of rain per year.</div>
+  <div>• A camel can go up to 7 days without drinking water.</div>
+</div>`,
+        answer: 'Fact Box'
+      },
+      {
+        /* 2 — Heading (► arrow, box on RIGHT) */
+        num: 2,
+        arrow: '►',
+        display: `<div style="display:inline-block;border:1px solid #8b5e3c;background:#fdf5ec;padding:8px 14px;font-family:serif;font-size:0.85rem;min-width:220px;">
+  <div style="color:#8b3a00;font-weight:bold;font-size:1.05rem;border-bottom:1px solid #c09060;padding-bottom:4px;margin-bottom:6px;">How Desert Animals Survive</div>
+  <div style="font-size:0.8rem;">Desert animals have special features that help them live in extreme heat. Many are active only at night, when temperatures drop significantly.</div>
+</div>`,
+        answer: 'Heading'
+      },
+      {
+        /* 3 — Caption (◄ arrow, box on LEFT) */
+        num: 3,
+        arrow: '◄',
+        display: `<div style="display:inline-block;border:1px solid #999;background:#f5f5f5;padding:8px 14px;font-family:serif;font-size:0.82rem;min-width:220px;text-align:center;">
+  <div style="background:#ffe0b2;border:1px solid #bbb;width:130px;height:75px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:#555;">[Photo: scorpion<br>raising its tail]</div>
+  <div style="margin-top:6px;font-style:italic;font-size:0.78rem;text-align:left;">A scorpion raises its curved tail as a warning to predators in the desert sand.</div>
+</div>`,
+        answer: 'Caption'
+      },
+      {
+        /* 4 — Glossary (► arrow, box on RIGHT) */
+        num: 4,
+        arrow: '►',
+        display: `<div style="display:inline-block;border:1px solid #777;background:#f0ede4;padding:8px 14px;font-family:serif;font-size:0.8rem;min-width:240px;">
+  <div style="font-style:italic;color:#666;margin-bottom:4px;">Desert Animals &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 52</div>
+  <div style="font-weight:bold;margin-bottom:4px;">A – D – N – P – S</div>
+  <div><strong>arid</strong> &nbsp; very dry, with little or no rain</div>
+  <div><strong>dormant</strong> &nbsp; in a deep sleep-like state to survive harsh conditions</div>
+  <div><strong>nocturnal</strong> &nbsp; active at night rather than during the day</div>
+  <div><strong>predator</strong> &nbsp; an animal that hunts other animals for food</div>
+  <div><strong>savanna</strong> &nbsp; a flat grassland found in hot, dry regions</div>
+</div>`,
+        answer: 'Glossary'
+      },
+      {
+        /* 5 — Title (◄ arrow, box on LEFT) */
+        num: 5,
+        arrow: '◄',
+        display: `<div style="display:inline-block;border:2px solid #8b3a00;background:#fdebd0;padding:10px 16px;font-family:serif;text-align:center;min-width:170px;">
+  <div style="color:#8b3a00;font-weight:bold;font-size:0.9rem;letter-spacing:1px;">DK EYEWITNESS</div>
+  <div style="color:#5a2400;font-weight:bold;font-size:1.3rem;letter-spacing:2px;margin:4px 0;">DESERT<br>ANIMALS</div>
+  <div style="font-size:0.8rem;color:#444;">By Dr. Anna Fields</div>
+</div>`,
+        answer: 'Title'
+      },
+      {
+        /* 6 — Sidebar (► arrow, box on RIGHT) */
+        num: 6,
+        arrow: '►',
+        display: `<div style="display:inline-block;border:2px solid #888;background:#fffde8;padding:8px 14px;font-family:serif;font-size:0.82rem;min-width:220px;">
+  <div style="font-weight:bold;border-bottom:1px solid #bbb;padding-bottom:3px;margin-bottom:6px;">The Fennec Fox</div>
+  <div>The fennec fox has enormous ears that help it release body heat and hear underground prey. It is the smallest wild dog in the world.</div>
+  <div style="margin-top:6px;font-weight:bold;">Fennec Fox Facts</div>
+  <div>• Weight: 0.8 – 1.9 kg</div>
+  <div>• Lives in: Sahara Desert</div>
+  <div>• Diet: insects, small rodents, eggs</div>
+</div>`,
+        answer: 'Sidebar'
+      },
+      {
+        /* 7 — Label (◄ arrow, box on LEFT) */
+        num: 7,
+        arrow: '◄',
+        display: `<div style="display:inline-block;border:1px solid #777;background:#fafaf5;padding:8px 14px;font-family:'Courier New',monospace;font-size:0.75rem;min-width:220px;line-height:1.6;">
+  <div style="font-weight:bold;margin-bottom:4px;font-family:serif;">Parts of a Scorpion</div>
+  <div>  ┌─────────────────────────┐</div>
+  <div>  │  pincer ◄── pincer      │</div>
+  <div>  │  ~~~~~~~~~~~~~~~~~~~~~~ │</div>
+  <div>  │     body ◄── body       │</div>
+  <div>  │  ~~~~~~~~~~~~~~~~~~~~~~ │</div>
+  <div>  │     legs ◄── legs       │</div>
+  <div>  │        ╲               │</div>
+  <div>  │   tail ◄── tail         │</div>
+  <div>  │          ●              │</div>
+  <div>  │  stinger ◄── stinger    │</div>
+  <div>  └─────────────────────────┘</div>
+</div>`,
+        answer: 'Label'
+      },
+      {
+        /* 8 — Table of Contents (► arrow, box on RIGHT) */
+        num: 8,
+        arrow: '►',
+        display: `<div style="display:inline-block;border:1px solid #8b3a00;background:#fdebd0;padding:8px 14px;font-family:serif;font-size:0.82rem;min-width:210px;">
+  <div>What Is a Desert? ............ 4</div>
+  <div>Desert Plants ............ 8</div>
+  <div>Desert Animals ............ 14</div>
+  <div>Surviving the Heat ............ 20</div>
+  <div>People and Deserts ............ 26</div>
+  <div>Glossary ............ 30</div>
+</div>`,
+        answer: 'Table of Contents'
+      },
+      {
+        /* 9 — Keywords / Key Words (◄ arrow, box on LEFT) */
+        num: 9,
+        arrow: '◄',
+        display: `<div style="display:inline-block;border:1px solid #777;background:#f8f6ee;padding:8px 14px;font-family:serif;font-size:0.82rem;min-width:230px;">
+  <div>Deserts are <u><strong>arid</strong></u> regions that receive very little rain. Animals that are <u><strong>nocturnal</strong></u> sleep during the day and hunt at night. The <u><strong>predators</strong></u> of the desert include hawks, snakes, and foxes. Many small animals become <u><strong>dormant</strong></u> during the hottest months to survive.</div>
+</div>`,
+        answer: 'Keywords / Key Words'
+      }
+    ],
+
+    /* ── Reading 2 passage: The Science Fair Project ─────────────── */
+    /* blanks: __1__=project  __2__=complicated  __3__=clues  __4__=evident */
+    passage:
+      `<div style="font-style:italic;font-size:0.82rem;color:#555;margin-bottom:6px;">Reading 2: The Science Fair Project — By Leo Park</div>` +
+      `<p>Last spring, Mrs. Rivera asked her class to complete a science <strong>__1__</strong> about how pollution affects plants. The task seemed <strong>__2__</strong> at first, but the students decided to work as a team. They gathered <strong>__3__</strong> from the school garden, counting how many leaves had turned yellow near the road.</p>` +
+      `<p>After a week of careful observations, it became <strong>__4__</strong> that plants near heavy traffic were struggling to survive. The students presented their findings and earned first place at the science fair. Their teacher said their hard work proved that even young scientists can make a difference.</p>`,
+
+    questions: [
+      /* ── Section B: Text & Graphic Features MC (Q1–5) ─────────── */
+      /* Answers: C, A, D, B, C  → spread across all 4 options */
+      {
+        num: 1,
+        section: 'Section B — Text & Graphic Features',
+        q: '<strong>Section B — Q1</strong><br><br>What text feature gives the meaning of bold words found within the main text?',
+        options: ['A) Caption', 'B) Table of Contents', 'C) Keywords / Key Words', 'D) Sidebar'],
+        answer: 2,
+        explain: 'Keywords / Key Words are bold vocabulary words with meanings shown in or near the text.'
+      },
+      {
+        num: 2,
+        section: 'Section B — Text & Graphic Features',
+        q: '<strong>Section B — Q2</strong><br><br>A reader wants to know on which page "Rain Forest Animals" begins. Which feature helps most?',
+        options: ['A) Table of Contents', 'B) Heading', 'C) Glossary', 'D) Fact Box'],
+        answer: 0,
+        explain: 'A Table of Contents lists sections and their page numbers.'
+      },
+      {
+        num: 3,
+        section: 'Section B — Text & Graphic Features',
+        q: '<strong>Section B — Q3</strong><br><br>A small box beside the main text contains extra interesting facts. What is this feature called?',
+        options: ['A) Caption', 'B) Glossary', 'C) Label', 'D) Sidebar'],
+        answer: 3,
+        explain: 'A Sidebar is a small box beside the main text containing related extra information.'
+      },
+      {
+        num: 4,
+        section: 'Section B — Text & Graphic Features',
+        q: '<strong>Section B — Q4</strong><br><br>Words printed next to parts of a diagram that name each part are called ___.',
+        options: ['A) Captions', 'B) Labels', 'C) Headings', 'D) Keywords'],
+        answer: 1,
+        explain: 'Labels are words placed beside parts of a diagram to name them.'
+      },
+      {
+        num: 5,
+        section: 'Section B — Text & Graphic Features',
+        q: '<strong>Section B — Q5</strong><br><br>A sentence printed below a photograph that explains what the photo shows is called a ___.',
+        options: ['A) Heading', 'B) Label', 'C) Caption', 'D) Fact Box'],
+        answer: 2,
+        explain: 'A Caption is a sentence below or beside a photo that explains what it shows.'
+      },
+
+      /* ── Reading 2: The Science Fair Project (Q6–17) ────────────── */
+      /* vocab used: project, complicated, clues, evident + pollution, recycle, prove, hardly */
+      /* Answers: D, A, C, B, D, A, C, B, A, D, C, B */
+      {
+        num: 6,
+        section: 'Reading 2 — The Science Fair Project',
+        showPassage: true,
+        q: '<strong>Reading 2 — Q1</strong><br><br>What is the correct spelling of blank <strong>__1__</strong>?<br><em>...complete a science __1__ about how pollution affects plants.</em>',
+        options: ['A) proyect', 'B) projict', 'C) proget', 'D) project'],
+        answer: 3,
+        explain: '"Project" is the correct spelling.'
+      },
+      {
+        num: 7,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q2</strong><br><br>What is the definition of blank <strong>__2__</strong>?<br><em>The task seemed __2__ at first...</em>',
+        options: ['A) Difficult and not simple', 'B) Very exciting', 'C) Easy to finish', 'D) Completely new'],
+        answer: 0,
+        explain: '"Complicated" means difficult and not simple.'
+      },
+      {
+        num: 8,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q3</strong><br><br>What is a synonym for blank <strong>__3__</strong>?<br><em>They gathered __3__ from the school garden...</em>',
+        options: ['A) questions', 'B) answers', 'C) hints', 'D) tools'],
+        answer: 2,
+        explain: '"Clues" — a synonym is hints.'
+      },
+      {
+        num: 9,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q4</strong><br><br>What is the definition of blank <strong>__4__</strong>?<br><em>...it became __4__ that plants near heavy traffic were struggling.</em>',
+        options: ['A) surprising', 'B) clear and obvious', 'C) confusing', 'D) hidden'],
+        answer: 1,
+        explain: '"Evident" means clear and obvious.'
+      },
+      {
+        num: 10,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q5</strong><br><br>What is the definition of the word <em>pollution</em>?',
+        options: ['A) A type of plant', 'B) A helpful weather event', 'C) Clean drinking water', 'D) Harmful substances that damage the environment'],
+        answer: 3,
+        explain: 'Pollution means harmful substances that damage the environment.'
+      },
+      {
+        num: 11,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q6</strong><br><br>What is a synonym for the word <em>recycle</em>?',
+        options: ['A) reuse', 'B) destroy', 'C) ignore', 'D) bury'],
+        answer: 0,
+        explain: '"Recycle" — a synonym is reuse.'
+      },
+      {
+        num: 12,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q7</strong><br><br>What does it mean to <em>prove</em> something?',
+        options: ['A) To guess', 'B) To forget', 'C) To show that something is true with evidence', 'D) To copy'],
+        answer: 2,
+        explain: 'To prove means to show that something is true using evidence.'
+      },
+      {
+        num: 13,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q8</strong><br><br>What is an antonym for the word <em>hardly</em>?',
+        options: ['A) never', 'B) easily', 'C) quietly', 'D) slowly'],
+        answer: 1,
+        explain: '"Hardly" means almost not at all — its antonym is easily.'
+      },
+      {
+        num: 14,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q9</strong><br><br>Why did the students count yellow leaves near the road?',
+        options: ['A) To gather clues about how pollution affects plants', 'B) To decorate their classroom', 'C) To find the oldest tree', 'D) Because their teacher told them to pick up rubbish'],
+        answer: 0,
+        explain: 'They counted yellow leaves as clues about how pollution affects plants.'
+      },
+      {
+        num: 15,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q10</strong><br><br>Which best describes the structure of the passage?',
+        options: ['A) Compare and Contrast', 'B) Description', 'C) Cause and Effect', 'D) Problem and Solution'],
+        answer: 3,
+        explain: 'The passage shows a problem (pollution harming plants) and a solution (the students\'s research).'
+      },
+      {
+        num: 16,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q11</strong><br><br>What was the main problem in the story?',
+        options: ['A) The students forgot their homework', 'B) The teacher was absent', 'C) Pollution was harming plants near the road', 'D) The science fair was cancelled'],
+        answer: 2,
+        explain: 'The main problem was that pollution from traffic was harming nearby plants.'
+      },
+      {
+        num: 17,
+        section: 'Reading 2 — The Science Fair Project',
+        q: '<strong>Reading 2 — Q12</strong><br><br>What is the theme of "The Science Fair Project"?',
+        options: ['A) Science fairs are only for older students', 'B) Even young scientists can make a difference through hard work', 'C) Pollution is impossible to stop', 'D) Plants do not need sunlight to grow'],
+        answer: 1,
+        explain: 'The theme is that even young scientists can make a difference through hard work.'
+      },
+
+      /* ── Reading 3: The Cactus Garden (Q18–23) ──────────────────── */
+      /* vocab: pollen, spines, clumps, throughout, fierce, fossils */
+      /* Answers: D, A, C, B, D, A */
+      {
+        num: 18,
+        section: 'Reading 3 — The Cactus Garden',
+        showPassage: true,
+        passageKey: 'passage2',
+        q: '<strong>Reading 3 — Q1</strong><br><br>What is the definition of the word <em>pollen</em>?',
+        options: ['A) A type of rock', 'B) A sharp thorn on a plant', 'C) A small insect', 'D) A fine powder made by flowers that helps plants reproduce'],
+        answer: 3,
+        explain: 'Pollen is a fine powder made by flowers that helps plants reproduce.'
+      },
+      {
+        num: 19,
+        section: 'Reading 3 — The Cactus Garden',
+        q: '<strong>Reading 3 — Q2</strong><br><br>What is a synonym for <em>spines</em>?',
+        options: ['A) thorns', 'B) leaves', 'C) roots', 'D) flowers'],
+        answer: 0,
+        explain: '"Spines" are sharp pointed growths — a synonym is thorns.'
+      },
+      {
+        num: 20,
+        section: 'Reading 3 — The Cactus Garden',
+        q: '<strong>Reading 3 — Q3</strong><br><br>What is the definition of <em>clumps</em>?',
+        options: ['A) individual scattered items', 'B) smooth flat surfaces', 'C) groups of things growing close together', 'D) underground tunnels'],
+        answer: 2,
+        explain: '"Clumps" means groups of things growing or gathered closely together.'
+      },
+      {
+        num: 21,
+        section: 'Reading 3 — The Cactus Garden',
+        q: '<strong>Reading 3 — Q4</strong><br><br>What does <em>throughout</em> mean?',
+        options: ['A) Only at the beginning', 'B) In every part or from start to finish', 'C) At the very end', 'D) Once in a while'],
+        answer: 1,
+        explain: '"Throughout" means in every part, or from start to finish.'
+      },
+      {
+        num: 22,
+        section: 'Reading 3 — The Cactus Garden',
+        q: '<strong>Reading 3 — Q5</strong><br><br>What is an antonym for the word <em>fierce</em>?',
+        options: ['A) wild', 'B) violent', 'C) angry', 'D) gentle'],
+        answer: 3,
+        explain: '"Fierce" means very strong or violent — its antonym is gentle.'
+      },
+      {
+        num: 23,
+        section: 'Reading 3 — The Cactus Garden',
+        q: '<strong>Reading 3 — Q6</strong><br><br>What are <em>fossils</em>?',
+        options: ['A) Remains of ancient plants or animals preserved in rock', 'B) Types of desert flowers', 'C) Underground water sources', 'D) Sharp rocks found in gardens'],
+        answer: 0,
+        explain: 'Fossils are the preserved remains of ancient plants or animals found in rock.'
+      },
+
+      /* ── Reading 4: The Old Library (Q24–36) ───────────────────── */
+      /* blanks: (1)=passages (2)=burden (3)=hesitation (4)=scolding
+                 (5)=drowsy  (6)=console (7)=passages [diff context - reuse not ideal]
+         Use: passages, burden, hesitation, scolding, drowsy, console, throughout, hardly */
+      /* Answers: C, D, A, B, C, D, A, C, B, D, A, C, B */
+      {
+        num: 24,
+        section: 'Reading 4 — The Old Library',
+        showPassage: true,
+        passageKey: 'passage3',
+        q: '<strong>Reading 4 — Q1</strong><br><br>What is the correct spelling of blank <strong>(1)</strong>?<br><em>...she read long (1) __________ aloud to the younger children.</em>',
+        options: ['A) passiges', 'B) passajes', 'C) passages', 'D) passaiges'],
+        answer: 2,
+        explain: '"Passages" is the correct spelling.'
+      },
+      {
+        num: 25,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q2</strong><br><br>What is the definition of blank <strong>(2)</strong>?<br><em>Carrying so many books felt like a (2) __________ on her tired arms.</em>',
+        options: ['A) gift', 'B) reward', 'C) hobby', 'D) heavy load or responsibility'],
+        answer: 3,
+        explain: '"Burden" means a heavy load or responsibility.'
+      },
+      {
+        num: 26,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q3</strong><br><br>What is an antonym for blank <strong>(3)</strong>?<br><em>Without (3) __________, she stepped forward to help.</em>',
+        options: ['A) confidence', 'B) fear', 'C) doubt', 'D) silence'],
+        answer: 0,
+        explain: '"Hesitation" means pause or uncertainty — its antonym is confidence.'
+      },
+      {
+        num: 27,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q4</strong><br><br>What is a synonym for blank <strong>(4)</strong>?<br><em>The librarian\'s (4) __________ made the boy feel ashamed.</em>',
+        options: ['A) praise', 'B) scolding', 'C) greeting', 'D) question'],
+        answer: 1,
+        explain: '"Scolding" — a synonym is telling off or reprimanding.'
+      },
+      {
+        num: 28,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q5</strong><br><br>What is the definition of blank <strong>(5)</strong>?<br><em>After reading for hours, she felt (5) __________ and could hardly keep her eyes open.</em>',
+        options: ['A) energetic', 'B) angry', 'C) sleepy and tired', 'D) excited'],
+        answer: 2,
+        explain: '"Drowsy" means feeling sleepy and tired.'
+      },
+      {
+        num: 29,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q6</strong><br><br>What is the definition of blank <strong>(6)</strong>?<br><em>She sat beside her friend to (6) __________ him after he dropped all his books.</em>',
+        options: ['A) tease', 'B) ignore', 'C) leave', 'D) comfort and make feel better'],
+        answer: 3,
+        explain: '"Console" means to comfort someone who is upset.'
+      },
+      {
+        num: 30,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q7</strong><br><br>What is the definition of blank <strong>(7)</strong>?<br><em>The smell of old books filled every corner (7) __________ the library.</em>',
+        options: ['A) in every part of', 'B) only at the entrance of', 'C) outside of', 'D) hidden beneath'],
+        answer: 0,
+        explain: '"Throughout" means in every part of.'
+      },
+      {
+        num: 31,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q8</strong><br><br>What is a synonym for blank <strong>(8)</strong>?<br><em>She could (8) __________ hear the whispered conversation across the quiet room.</em>',
+        options: ['A) loudly', 'B) barely', 'C) easily', 'D) quickly'],
+        answer: 1,
+        explain: '"Hardly" means almost not at all — a synonym is barely.'
+      },
+      {
+        num: 32,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q9</strong><br><br>Why did the girl sit next to her friend after he dropped his books?',
+        options: ['A) To take his books away', 'B) To console him and make him feel better', 'C) To laugh at him', 'D) To ask the librarian for help'],
+        answer: 1,
+        explain: 'She wanted to console her friend — to comfort him after he was embarrassed.'
+      },
+      {
+        num: 33,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q10</strong><br><br>Which best describes the structure of the passage?',
+        options: ['A) Compare and Contrast', 'B) Cause and Effect', 'C) Description', 'D) Problem and Solution'],
+        answer: 3,
+        explain: 'The story follows a Problem and Solution structure — the problem is the boy\'s embarrassment, solved by the girl\'s kindness.'
+      },
+      {
+        num: 34,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q11</strong><br><br>What was the main problem in the story?',
+        options: ['A) The boy dropped his books and felt ashamed', 'B) The library was closing early', 'C) The girl forgot her library card', 'D) There were no books left to borrow'],
+        answer: 0,
+        explain: 'The main problem was that the boy dropped his books and felt ashamed after being scolded.'
+      },
+      {
+        num: 35,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q12</strong><br><br>How was the problem solved?',
+        options: ['A) The librarian apologised', 'B) The boy left the library', 'C) The girl sat beside him and consoled him', 'D) Another student returned the books'],
+        answer: 2,
+        explain: 'The girl consoled her friend by sitting beside him and making him feel better.'
+      },
+      {
+        num: 36,
+        section: 'Reading 4 — The Old Library',
+        q: '<strong>Reading 4 — Q13</strong><br><br>What is the theme of "The Old Library"?',
+        options: ['A) Libraries are boring places', 'B) A small act of kindness can comfort someone who is upset', 'C) Reading too many books makes you tired', 'D) Friends should always share their books'],
+        answer: 1,
+        explain: 'The theme is that a small act of kindness can comfort someone who is upset.'
+      }
+    ],
+
+    /* ── The Cactus Garden passage (Reading 3) ───────────────────── */
+    passage2:
+      `<div style="font-style:italic;font-size:0.82rem;color:#555;margin-bottom:6px;">Reading 3: The Cactus Garden</div>` +
+      `<p>At the edge of the school yard stood a small cactus garden. The plants grew in <strong>clumps</strong> near the sunny wall, their long <strong>spines</strong> pointing outward like tiny needles. Throughout the spring, bees visited the garden every morning, collecting <strong>pollen</strong> from the bright yellow flowers.</p>` +
+      `<p>One afternoon, a <strong>fierce</strong> wind rattled the windows and knocked several pots off the wall. The science teacher, Mr. Yuen, showed the children some ancient <strong>fossils</strong> he had found near the garden — the stony remains of plants that had lived millions of years ago. The children were amazed that living things could be preserved for so long.</p>`,
+
+    /* ── The Old Library passage (Reading 4) ─────────────────────── */
+    passage3:
+      `<div style="font-style:italic;font-size:0.82rem;color:#555;margin-bottom:6px;">Reading 4: The Old Library</div>` +
+      `<p><em>Directions: Read the passage and answer the questions below.</em></p>` +
+      `<p>Every Saturday, Mei visited the old library at the end of her street. She loved the way the smell of old books filled every corner <strong>(7) __________</strong> the building. Her favourite thing was to find a quiet corner and read long <strong>(1) __________</strong> aloud to the younger children who gathered around her.</p>` +
+      `<p>One afternoon, carrying so many books felt like a <strong>(2) __________</strong> on her tired arms. Without <strong>(3) __________</strong>, she set them down gently and smiled at a boy named Tom who sat nearby. Tom had just received a <strong>(4) __________</strong> from the librarian for running inside, and his cheeks were red with shame.</p>` +
+      `<p>After reading for an hour, Mei felt <strong>(5) __________</strong> and could <strong>(8) __________</strong> keep her eyes open. But when she saw how upset Tom still was, she moved closer to <strong>(6) __________</strong> him. She told him quietly that everyone makes mistakes. By the time they left the library, Tom was smiling again.</p>`,
+
+    /* ── Inference Map (Reading 3 – The Cactus Garden) ──────────── */
+    inferenceMap: {
+      title: 'Inference Map',
+      instruction: 'Use evidence from "The Cactus Garden" to fill in the inference map.',
+      fields: [
+        'Detail 1: ________________________________________________________________',
+        'Detail 2: ________________________________________________________________',
+        'Detail 3: ________________________________________________________________',
+        'Conclusion: What does the cactus garden teach the children about? ________________________________________________________________'
+      ],
+      sampleAnswers: [
+        'Detail 1: Bees collected pollen from the cactus flowers throughout spring.',
+        'Detail 2: A fierce wind knocked several pots off the wall.',
+        'Detail 3: Mr. Yuen showed the children fossils of ancient plants.',
+        'Conclusion: The cactus garden teaches the children about nature, survival, and how living things can be preserved for millions of years.'
+      ]
+    }
   }
 };
